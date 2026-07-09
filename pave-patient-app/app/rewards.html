@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rewards · PAVE</title>
+  <meta name="theme-color" content="#FBFAF6">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-tab="rewards">
+  <div class="app">
+
+    <header class="topbar">
+      <span class="topbar__title">Your rewards</span>
+    </header>
+
+    <main class="content">
+
+      <!-- 1) Points total (progress-only, no store) -->
+      <section class="pointshero rise rise-1" aria-label="Progress points">
+        <span class="pointshero__num">480</span>
+        <span class="pointshero__label">progress points</span>
+      </section>
+
+      <!-- 2) Badge gallery -->
+      <section class="rise rise-2" aria-label="Badges">
+        <h2 class="t-h2" style="margin-bottom:var(--sp-4);">Your badges</h2>
+        <div class="badgegrid">
+          <div class="badge">
+            <span class="badge__medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5 9.5 17.5 19.5 6.5"/></svg></span>
+            <span class="badge__name">First check-in</span>
+            <span class="badge__meta">Earned Jun 27</span>
+          </div>
+          <div class="badge">
+            <span class="badge__medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5 7.5 21l4.5-2.5L16.5 21 15 13.5"/></svg></span>
+            <span class="badge__name">One-week streak</span>
+            <span class="badge__meta">Earned Jul 3</span>
+          </div>
+          <div class="badge">
+            <span class="badge__medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 10c0-4 3-6 7-6M19 14c0 4-3 6-7 6"/></svg></span>
+            <span class="badge__name">Consistency: 13&nbsp;Days</span>
+            <span class="badge__meta">Earned today</span>
+          </div>
+          <div class="badge is-locked">
+            <span class="badge__medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="9" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></span>
+            <span class="badge__name">One month</span>
+            <span class="badge__meta">Check in 30 days</span>
+          </div>
+          <div class="badge is-locked">
+            <span class="badge__medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="9" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></span>
+            <span class="badge__name">Pain down 20%</span>
+            <span class="badge__meta">Keep tracking pain</span>
+          </div>
+          <div class="badge is-locked">
+            <span class="badge__medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="9" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></span>
+            <span class="badge__name">Full plan day</span>
+            <span class="badge__meta">Finish every exercise</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) Milestone journey path -->
+      <section class="card rise rise-3" aria-label="Milestones">
+        <h2 class="card__title">Your journey</h2>
+        <ol class="journey">
+          <li class="milestone is-done">
+            <span class="milestone__rail"><span class="milestone__marker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span></span>
+            <span class="milestone__body">
+              <span class="milestone__title">First week</span>
+              <span class="milestone__meta">Completed Jul 3</span>
+            </span>
+          </li>
+          <li class="milestone is-next">
+            <span class="milestone__rail"><span class="milestone__marker">14</span></span>
+            <span class="milestone__body">
+              <span class="milestone__title">Two weeks</span>
+              <span class="milestone__meta">2 days to your 14-day badge!</span>
+            </span>
+          </li>
+          <li class="milestone is-locked">
+            <span class="milestone__rail"><span class="milestone__marker">30</span></span>
+            <span class="milestone__body">
+              <span class="milestone__title">First month</span>
+              <span class="milestone__meta">Keep checking in each day</span>
+            </span>
+          </li>
+          <li class="milestone is-locked">
+            <span class="milestone__rail"><span class="milestone__marker">%</span></span>
+            <span class="milestone__body">
+              <span class="milestone__title">Pain down 20%</span>
+              <span class="milestone__meta">Tracked from your check-ins</span>
+            </span>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 4) Phase-2: share progress -->
+      <section class="card rise rise-4" aria-label="Share your progress">
+        <h2 class="card__title">Share your progress</h2>
+        <p class="t-body t-muted" style="margin-bottom:var(--sp-4);">Let family or your doctor cheer you on.</p>
+        <button type="button" class="btn btn--ghost">Share my progress</button>
+      </section>
+
+    </main>
+
+    <!-- Bottom tab bar -->
+    <nav class="tabbar" aria-label="Main navigation">
+      <div class="tabbar__inner">
+        <a class="tab" data-tab="today" href="today.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M9.5 21v-6h5v6"/></svg>Today</a>
+        <a class="tab" data-tab="exercises" href="exercises.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11"/><path d="M17.5 6.5v11"/><path d="M4 9.5v5"/><path d="M20 9.5v5"/><path d="M6.5 12h11"/></svg>Exercises</a>
+        <a class="tab" data-tab="progress" href="progress.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-4"/><path d="M12 16V8"/><path d="M16 16v-6"/></svg>Progress</a>
+        <a class="tab" data-tab="rewards" href="rewards.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5 7.5 21l4.5-2.5L16.5 21 15 13.5"/></svg>Rewards</a>
+      </div>
+    </nav>
+
+  </div>
+  <script src="../js/app.js"></script>
+</body>
+</html>

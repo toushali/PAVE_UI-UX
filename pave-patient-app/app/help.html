@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Help · PAVE</title>
+  <meta name="theme-color" content="#FBFAF6">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="iconbtn" href="today.html" aria-label="Back to Today">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
+      </a>
+      <span class="topbar__title">Help</span>
+    </header>
+
+    <main class="content">
+
+      <!-- Call the office — top (replaces chat) -->
+      <a class="calloffice rise rise-1" href="tel:+15551234567">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a12 12 0 0 0 5 5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C11.5 19.5 4.5 12.5 4.5 5.5a2 2 0 0 1 2-2Z"/></svg>
+        Call the office
+      </a>
+      <p class="calloffice-line rise rise-1">Open weekdays, 8am–5pm. We're happy to help.</p>
+
+      <!-- FAQ -->
+      <section class="faq rise rise-2" aria-label="Frequently asked questions">
+        <div class="faq__item">
+          <button type="button" class="faq__q" data-toggle="faq1" aria-expanded="false" aria-controls="faq1">
+            How do I check in?
+            <span class="faq__chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq__a collapse" id="faq1">On the Today screen, tap the big green <strong>“Do today's check-in”</strong> button. Tell us your pain level, tick the exercises you did, and tap Submit. It takes about a minute.</div>
+        </div>
+        <div class="faq__item">
+          <button type="button" class="faq__q" data-toggle="faq2" aria-expanded="false" aria-controls="faq2">
+            I forgot to check in yesterday
+            <span class="faq__chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq__a collapse" id="faq2">That's okay — it happens. Just check in today to keep going. Your doctor still sees every update you send.</div>
+        </div>
+        <div class="faq__item">
+          <button type="button" class="faq__q" data-toggle="faq3" aria-expanded="false" aria-controls="faq3">
+            How do I install the app?
+            <span class="faq__chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq__a collapse" id="faq3">On an iPhone, tap the <strong>Share</strong> button, then <strong>Add to Home Screen</strong>. On Android, tap the <strong>⋮ menu</strong>, then <strong>Install app</strong>. PAVE then opens right from your home screen.</div>
+        </div>
+        <div class="faq__item">
+          <button type="button" class="faq__q" data-toggle="faq4" aria-expanded="false" aria-controls="faq4">
+            How do I make the text bigger?
+            <span class="faq__chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="faq__a collapse" id="faq4">Go to <strong>Settings</strong> (the gear on the Today screen) and turn on <strong>Larger text</strong> or <strong>High contrast</strong>.</div>
+        </div>
+      </section>
+
+      <!-- Call the office — bottom -->
+      <a class="calloffice rise rise-3" href="tel:+15551234567" style="margin-top:var(--sp-5);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a12 12 0 0 0 5 5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C11.5 19.5 4.5 12.5 4.5 5.5a2 2 0 0 1 2-2Z"/></svg>
+        Call the office
+      </a>
+
+    </main>
+  </div>
+  <script src="../js/app.js"></script>
+</body>
+</html>

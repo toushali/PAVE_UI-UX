@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings · PAVE</title>
+  <meta name="theme-color" content="#FBFAF6">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="iconbtn" href="today.html" aria-label="Back to Today">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
+      </a>
+      <span class="topbar__title">Settings</span>
+    </header>
+
+    <main class="content">
+
+      <!-- Daily reminder time -->
+      <section class="card rise rise-1" aria-label="Reminder time">
+        <h2 class="card__title">Daily reminder</h2>
+        <input class="timepick" type="time" value="09:00" aria-label="Daily reminder time">
+      </section>
+
+      <!-- Toggles -->
+      <section class="card rise rise-2">
+        <!-- channel -->
+        <div class="setrow">
+          <span class="setrow__label">How to remind me
+            <span class="setrow__sub" style="display:block;">Where your daily nudge is sent.</span>
+          </span>
+          <div class="segmented" data-segmented role="group" aria-label="Reminder channel">
+            <button type="button" class="seg is-active" data-seg aria-pressed="true">Text</button>
+            <button type="button" class="seg" data-seg aria-pressed="false">Email</button>
+          </div>
+        </div>
+
+        <!-- streak nudge -->
+        <div class="setrow">
+          <span class="setrow__label">Streak reminders
+            <span class="setrow__sub" style="display:block;">A gentle nudge if you haven't checked in.</span>
+          </span>
+          <button type="button" class="switch" data-switch role="switch" aria-checked="true" aria-label="Streak reminders"></button>
+        </div>
+
+        <!-- large text -->
+        <div class="setrow">
+          <span class="setrow__label">Larger text
+            <span class="setrow__sub" style="display:block;">Makes everything easier to read.</span>
+          </span>
+          <button type="button" class="switch" data-textsize-toggle role="switch" aria-checked="false" aria-label="Larger text"></button>
+        </div>
+
+        <!-- high contrast -->
+        <div class="setrow">
+          <span class="setrow__label">High contrast
+            <span class="setrow__sub" style="display:block;">Stronger colors and borders.</span>
+          </span>
+          <button type="button" class="switch" data-contrast-toggle role="switch" aria-checked="false" aria-label="High contrast"></button>
+        </div>
+      </section>
+
+      <!-- Help affordance -->
+      <a class="calloffice rise rise-3" href="help.html" style="border-color:var(--c-line); color:var(--c-primary);">
+        Need help? Visit Help &amp; FAQ
+      </a>
+
+    </main>
+  </div>
+  <script src="../js/app.js"></script>
+</body>
+</html>

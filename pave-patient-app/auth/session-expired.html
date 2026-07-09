@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in again · PAVE</title>
+  <meta name="theme-color" content="#FBFAF6">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<!-- Friendly re-auth (Section 6.14). Never a scary error tone. -->
+<body>
+  <div class="app">
+    <main class="content">
+      <div class="authwrap">
+
+        <span class="logo rise rise-1">
+          <svg viewBox="0 0 88 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M44 90V44" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+            <path d="M44 52c0-9-6-15-15-16 1 9 6 15 15 16Z" fill="#fff"/>
+            <path d="M44 40c0-10 7-17 17-18-1 10-7 17-17 18Z" fill="#E4F2ED"/>
+            <path d="M44 60c0-8 5-13 13-14-1 8-5 13-13 14Z" fill="#E4F2ED"/>
+          </svg>
+        </span>
+
+        <div class="rise rise-2">
+          <h1 class="t-h1">Let's get you back in</h1>
+          <p class="tagline" style="margin-top:var(--sp-2);">For your privacy, we signed you out. Enter your email or phone and we'll send a fresh link.</p>
+        </div>
+
+        <div class="rise rise-2" style="display:flex; flex-direction:column; gap:var(--sp-4);">
+          <input class="bigfield" type="text" inputmode="email" placeholder="Email or phone number" aria-label="Email or phone number">
+          <a class="btn btn--primary" href="verify.html">Send my link</a>
+        </div>
+
+        <p class="t-body t-muted rise rise-3">🔒 No password to remember, ever.</p>
+
+      </div>
+    </main>
+  </div>
+  <script src="../js/app.js"></script>
+</body>
+</html>

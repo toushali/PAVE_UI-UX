@@ -1,0 +1,113 @@
+/* ============================================================
+   PAVE — Design Tokens (Section 4)
+   All screens inherit these. Never hardcode a value that
+   belongs here — add a token instead.
+   ============================================================ */
+
+:root {
+  /* ---- Color: brand / primary (calm recovery green-teal) ---- */
+  --c-primary:        #147D64;  /* buttons, active states, plant */
+  --c-primary-dark:   #0C5C49;  /* pressed */
+  --c-primary-soft:   #E4F2ED;  /* soft fills, done states */
+
+  /* ---- Accents ---- */
+  --c-accent-amber:   #C77700;  /* gentle "attention", NOT red */
+  --c-success:        #147D64;
+  --c-celebrate:      #F2B705;  /* badge gold, confetti */
+
+  /* Secondary accent — soft terracotta/peach. Use SPARINGLY as a warm
+     counterpoint to the green (a modality dot, a small motif). */
+  --c-accent:         #D98E73;
+  --c-accent-dark:    #B96B50;  /* accessible text/border on light */
+  --c-accent-soft:    #F7E5DC;
+
+  /* Selected-state soft fills for the Better/Same/Worse pills */
+  --c-amber-soft:     #FBEBD4;  /* Worse (amber, never red) */
+  --c-neutral-soft:   #E8ECE7;  /* Same (neutral) */
+
+  /* Modality dot colors (color-coded, always paired with a text label) */
+  --c-mod-pilates:    #147D64;  /* green */
+  --c-mod-mobility:   #3E8FA3;  /* teal */
+  --c-mod-strength:   #C36A4C;  /* terracotta */
+  --c-mod-breathing:  #B07E22;  /* warm gold */
+
+  /* ---- Neutrals (warm, not cold gray) ---- */
+  --c-ink:            #1F2421;  /* primary text, ~15:1 on bg */
+  --c-ink-2:          #4A544E;  /* secondary text */
+  --c-line:           #DDE4DE;  /* hairlines / borders */
+  --c-bg:             #EDF3EE;  /* cool green-tinted off-white app bg */
+  --c-surface:        #FFFFFF;  /* cards — pure white to lift off the bg */
+
+  /* ---- Pain scale ramp (calm -> alert) ---- */
+  --c-pain-0:         #4FA88B;
+  --c-pain-5:         #E0A93B;
+  --c-pain-10:        #C05A4A;
+
+  /* ---- Typography ---- */
+  --font-sans:  "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-serif: "Fraunces", "Iowan Old Style", Georgia, "Times New Roman", serif;
+
+  --fs-display: 44px;  /* hero question, streak number, pain number */
+  --fs-h1:      30px;  /* screen titles, greeting */
+  --fs-h2:      22px;  /* section headers */
+  --fs-body-lg: 20px;  /* primary body, button labels */
+  --fs-body:    18px;  /* minimum body */
+  --fs-caption: 16px;  /* secondary/meta — do not go smaller */
+
+  --lh-tight: 1.25;
+  --lh-body:  1.5;
+
+  --fw-regular: 400;
+  --fw-medium:  600;
+  --fw-bold:    700;
+
+  /* ---- Spacing (8px base) ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --page-pad:    20px;   /* left/right screen padding */
+  --content-max: 440px;  /* center content, cap width */
+
+  /* ---- Radius ---- */
+  --radius-card: 20px;
+  --radius-btn:  16px;
+  --radius-pill: 999px;
+
+  /* ---- Shadow ---- */
+  --shadow-card: 0 4px 16px rgba(20,60,45,0.09), 0 1px 3px rgba(20,60,45,0.05);
+  --shadow-lift: 0 10px 30px rgba(20,60,45,0.15);
+  --shadow-bar:  0 -8px 24px rgba(20,60,45,0.10);  /* sticky action bar top shadow */
+
+  /* ---- Tap targets ---- */
+  --tap-min:  48px;   /* absolute minimum */
+  --tap-btn:  60px;   /* primary button height */
+  --tap-hero: 72px;   /* the check-in Go button ring */
+
+  /* ---- Motion ---- */
+  --motion-fast: 160ms;
+  --motion-base: 260ms;
+  --motion-slow: 420ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);  /* soft */
+}
+
+/* ---- Large-text mode: +~15% on the type ramp ----
+   Toggle by adding class "text-lg" to <html>. Surfaced in
+   Onboarding and Settings. */
+html.text-lg {
+  --fs-display: 46px;
+  --fs-h1:      32px;
+  --fs-h2:      25px;
+  --fs-body-lg: 23px;
+  --fs-body:    21px;
+  --fs-caption: 18px;
+}
+
+/* ---- High-contrast mode ----
+   Toggle by adding class "high-contrast" to <html>. Surfaced in
+   Settings. Darkens ink, strengthens borders, whitens background. */
+html.high-contrast {
+  --c-ink:     #0A0F0C;
+  --c-ink-2:   #2C332F;
+  --c-line:    #5E6862;
+  --c-bg:      #FFFFFF;
+  --c-primary: #0C5C49;
+}

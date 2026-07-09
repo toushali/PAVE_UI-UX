@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome · PAVE</title>
+  <meta name="theme-color" content="#FBFAF6">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="iconbtn" href="splash.html" aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
+      </a>
+    </header>
+
+    <main class="content">
+      <div class="authwrap">
+
+        <!-- Default: request a link -->
+        <div id="requestView">
+          <h1 class="t-h1 rise rise-1">Welcome to PAVE</h1>
+          <p class="tagline rise rise-1" style="margin-top:var(--sp-2);">Enter your email or phone and we'll send you a link to sign in.</p>
+
+          <div class="rise rise-2" style="margin-top:var(--sp-5); display:flex; flex-direction:column; gap:var(--sp-4);">
+            <input class="bigfield" type="text" inputmode="email" placeholder="Email or phone number" aria-label="Email or phone number">
+            <button type="button" class="btn btn--primary" id="sendBtn">Send my link</button>
+          </div>
+
+          <p class="t-body t-muted rise rise-3" style="margin-top:var(--sp-4);">🔒 No password to remember, ever.</p>
+        </div>
+
+        <!-- Sent confirmation -->
+        <div id="sentView" hidden>
+          <span class="celebrate__check pop" style="margin:0 auto;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>
+          </span>
+          <h1 class="t-h1" style="margin-top:var(--sp-5);">Check your phone</h1>
+          <p class="tagline" style="margin-top:var(--sp-2);">We sent a sign-in link to you. Tap it to continue.</p>
+          <div style="margin-top:var(--sp-5); display:flex; flex-direction:column; gap:var(--sp-3);">
+            <a class="btn btn--primary" href="verify.html">I got the link</a>
+            <button type="button" class="btn btn--ghost" id="resendBtn">Resend the link</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script>
+    (function () {
+      var req = document.getElementById("requestView");
+      var sent = document.getElementById("sentView");
+      document.getElementById("sendBtn").addEventListener("click", function () {
+        req.hidden = true; sent.hidden = false; window.scrollTo(0, 0);
+      });
+      document.getElementById("resendBtn").addEventListener("click", function () {
+        /* prototype: just re-confirm */
+        sent.querySelector(".tagline").textContent = "Sent again — check your phone or email.";
+      });
+    })();
+  </script>
+</body>
+</html>

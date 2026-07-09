@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAVE</title>
+  <meta name="theme-color" content="#FBFAF6">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <div class="app">
+    <main class="content">
+      <div class="authwrap">
+
+        <!-- Logo + tagline -->
+        <div class="rise rise-1">
+          <span class="logo">
+            <svg viewBox="0 0 88 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M44 90V44" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+              <path d="M44 52c0-9-6-15-15-16 1 9 6 15 15 16Z" fill="#fff"/>
+              <path d="M44 40c0-10 7-17 17-18-1 10-7 17-17 18Z" fill="#E4F2ED"/>
+              <path d="M44 60c0-8 5-13 13-14-1 8-5 13-13 14Z" fill="#E4F2ED"/>
+            </svg>
+          </span>
+          <h1 class="wordmark" style="margin-top:var(--sp-4);">PAVE</h1>
+          <p class="tagline">Healthcare. Simplified.</p>
+        </div>
+
+        <!-- Add-to-Home-Screen coaching -->
+        <section class="card rise rise-2" aria-label="Install PAVE">
+          <h2 class="card__title">Add PAVE to your home screen</h2>
+
+          <!-- platform toggle -->
+          <div class="segmented" data-segmented role="group" aria-label="Choose your phone" style="margin-bottom:var(--sp-4);">
+            <button type="button" class="seg is-active" data-seg data-seg-target="ios" aria-pressed="true">iPhone</button>
+            <button type="button" class="seg" data-seg data-seg-target="android" aria-pressed="false">Android</button>
+          </div>
+
+          <div class="installsteps" data-seg-panel="ios">
+            <div class="installstep"><span class="installstep__n">1</span><span>Tap the <strong>Share</strong> button in your browser.</span></div>
+            <div class="installstep"><span class="installstep__n">2</span><span>Choose <strong>Add to Home Screen</strong>.</span></div>
+            <div class="installstep"><span class="installstep__n">3</span><span>Tap <strong>Add</strong> — PAVE lives on your home screen.</span></div>
+          </div>
+          <div class="installsteps" data-seg-panel="android" hidden>
+            <div class="installstep"><span class="installstep__n">1</span><span>Tap the <strong>⋮ menu</strong> in your browser.</span></div>
+            <div class="installstep"><span class="installstep__n">2</span><span>Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</span></div>
+            <div class="installstep"><span class="installstep__n">3</span><span>Tap <strong>Install</strong> — PAVE lives on your home screen.</span></div>
+          </div>
+        </section>
+
+        <a class="btn btn--primary rise rise-3" href="login.html">Continue</a>
+
+      </div>
+    </main>
+  </div>
+  <script src="../js/app.js"></script>
+</body>
+</html>

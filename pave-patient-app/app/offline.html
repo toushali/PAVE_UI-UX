@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Offline · PAVE</title>
+  <meta name="theme-color" content="#FBFAF6">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<!-- Offline state (Section 6.15). Banner appears on any screen when
+     offline; the full-screen fallback shows only when nothing is cached.
+     Both are reassuring — never alarming, never red. -->
+<body>
+  <div class="app">
+
+    <!-- Offline banner (this is the reusable component; drop it as the
+         first child of any .app to show the offline state on that screen) -->
+    <div class="offlinebar" role="status">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M5 12.5a10 10 0 0 1 4-2.4"/><path d="M15 10.1a10 10 0 0 1 4 2.4"/><path d="M2 8.8a15 15 0 0 1 5-2.9"/><path d="M12 20h.01"/></svg>
+      You're offline. We'll save your check-in and send it when you're back.
+    </div>
+
+    <main class="content">
+      <div class="offlinefull">
+        <span class="offlinefull__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M5 12.5a10 10 0 0 1 4-2.4"/><path d="M15 10.1a10 10 0 0 1 4 2.4"/><path d="M2 8.8a15 15 0 0 1 5-2.9"/><path d="M12 20h.01"/></svg>
+        </span>
+        <div>
+          <h1 class="t-h1">No connection right now</h1>
+          <p class="tagline" style="margin-top:var(--sp-2);">Don't worry — nothing is lost. Anything you enter is saved and sent automatically once you're back online.</p>
+        </div>
+        <a class="btn btn--primary" href="today.html" style="max-width:320px;">Try again</a>
+      </div>
+    </main>
+
+  </div>
+  <script src="../js/app.js"></script>
+</body>
+</html>

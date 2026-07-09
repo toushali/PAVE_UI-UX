@@ -1,0 +1,1258 @@
+/* ============================================================
+   PAVE — Shared components (Section 5)
+   Build once, reuse everywhere. Depends on tokens.css + base.css.
+
+   In this file so far:
+   - Bottom tab bar          (Session 1)
+   - Buttons (primary/ghost) (Session 2)
+   - Card                    (Session 2)
+   - Stat block              (Session 2)
+   - Plant / streak block    (Session 2)
+   Later sessions append: pain scale, pill group, checklist row,
+   badge tile, toast, milestone path, call-the-office, offline banner.
+   ============================================================ */
+
+/* ============================================================
+   Bottom tab bar — 4 items, icon + text label, active state.
+   Always visible. No hamburger, no hidden nav.
+   ============================================================ */
+.tabbar {
+  flex: 0 0 auto;              /* pinned to the bottom of the frame */
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-1);
+  padding: var(--sp-2) var(--sp-2) max(var(--sp-2), env(safe-area-inset-bottom));
+  background: var(--c-surface);
+  border-top: 1px solid var(--c-line);
+}
+
+.tabbar__inner {
+  display: flex;
+  width: 100%;
+  max-width: var(--content-max);
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: var(--tap-min);
+  padding: var(--sp-2) var(--sp-1);
+  border-radius: var(--radius-btn);
+  color: var(--c-ink-2);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+}
+.tab svg { width: 26px; height: 26px; }
+.tab:active { background: var(--c-primary-soft); }
+
+.tab.is-active {
+  color: var(--c-primary);
+  font-weight: var(--fw-bold);
+}
+.tab.is-active svg { stroke-width: 2.4; }
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: 0 var(--sp-5);
+  border-radius: var(--radius-btn);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+  transition: transform var(--motion-fast) var(--ease),
+              background var(--motion-fast) var(--ease);
+}
+.btn:active { transform: scale(0.98); }
+.btn svg { width: 24px; height: 24px; }
+
+.btn--primary {
+  background: var(--c-primary);
+  color: #fff;
+}
+.btn--primary:active { background: var(--c-primary-dark); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--c-primary);
+  border: 2px solid var(--c-line);
+}
+.btn--ghost:active { background: var(--c-primary-soft); }
+
+/* Sticky form-submit variant — sticks to the bottom of the scroll
+   area (.content). The tab bar sits outside .content, so no offset. */
+.btn--sticky {
+  position: sticky;
+  bottom: var(--sp-3);
+  box-shadow: var(--shadow-lift);
+}
+
+/* ============================================================
+   Card
+   ============================================================ */
+.card {
+  background: var(--c-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-5);
+}
+.card__title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-3);
+}
+
+/* ============================================================
+   Stat block — big number + label (streak, adherence %, points)
+   ============================================================ */
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  text-align: center;
+}
+.stat__num {
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  color: var(--c-primary);
+}
+.stat__label {
+  font-size: var(--fs-caption);
+  color: var(--c-ink-2);
+}
+
+/* ============================================================
+   Plant / streak block — growing SVG + streak count.
+   Growth stage is controlled by data-stage on .plant (1..5);
+   stages are drawn in the inline SVG, toggled via CSS below.
+   ============================================================ */
+.streakcard {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  background: var(--c-primary-soft);
+  border-radius: var(--radius-card);
+  padding: var(--sp-5);
+}
+.streakcard__plant { flex: 0 0 auto; width: 88px; height: 96px; }
+.streakcard__body { display: flex; flex-direction: column; gap: 2px; }
+.streakcard__num {
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  color: var(--c-primary-dark);
+}
+.streakcard__label { font-size: var(--fs-body); color: var(--c-ink-2); }
+
+/* Plant growth stages: show only the layers up to data-stage.
+   Each growth layer has class .g1..(.g5). Default hides all
+   beyond stage; stages are additive (sprout -> flowering). */
+.plant [data-grow] { opacity: 0; transition: opacity var(--motion-slow) var(--ease); }
+.plant[data-stage="1"] [data-grow="1"],
+.plant[data-stage="2"] [data-grow="1"],
+.plant[data-stage="2"] [data-grow="2"],
+.plant[data-stage="3"] [data-grow="1"],
+.plant[data-stage="3"] [data-grow="2"],
+.plant[data-stage="3"] [data-grow="3"],
+.plant[data-stage="4"] [data-grow="1"],
+.plant[data-stage="4"] [data-grow="2"],
+.plant[data-stage="4"] [data-grow="3"],
+.plant[data-stage="4"] [data-grow="4"],
+.plant[data-stage="5"] [data-grow="1"],
+.plant[data-stage="5"] [data-grow="2"],
+.plant[data-stage="5"] [data-grow="3"],
+.plant[data-stage="5"] [data-grow="4"],
+.plant[data-stage="5"] [data-grow="5"] { opacity: 1; }
+
+/* ============================================================
+   Hero check-in "Go" button (Today) — big circular affordance
+   ============================================================ */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  text-align: center;
+}
+.hero__ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  color: #fff;
+  box-shadow: var(--shadow-lift);
+}
+.hero__ring:active { background: var(--c-primary-dark); transform: scale(0.98); }
+.hero__ring-label { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.hero__ring-sub { font-size: var(--fs-caption); opacity: 0.9; }
+
+/* gentle pulse when the check-in is undone */
+@keyframes soft-pulse {
+  0%, 100% { box-shadow: var(--shadow-lift); }
+  50%      { box-shadow: 0 8px 34px rgba(20,125,100,0.45); }
+}
+.hero__ring.is-undone { animation: soft-pulse 2.4s var(--ease) infinite; }
+
+/* done state: green check on soft fill */
+.hero__ring.is-done {
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  animation: none;
+}
+.hero__ring.is-done svg { width: 64px; height: 64px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__ring.is-undone { animation: none; }
+}
+
+/* ============================================================
+   Mini checklist preview (Today "Your plan today")
+   ============================================================ */
+.miniplan { display: flex; flex-direction: column; gap: var(--sp-3); }
+.miniplan__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: var(--tap-min);
+  font-size: var(--fs-body);
+}
+.miniplan__tick {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c-line);
+  color: var(--c-primary);
+}
+.miniplan__row.is-done .miniplan__tick {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+}
+.miniplan__row.is-done .miniplan__label { color: var(--c-ink-2); }
+.miniplan__tick svg { width: 18px; height: 18px; }
+.miniplan__label { flex: 1; }
+.miniplan__meta { color: var(--c-ink-2); font-size: var(--fs-caption); }
+
+/* accountability line */
+.accountability {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  justify-content: center;
+  color: var(--c-ink-2);
+  font-size: var(--fs-caption);
+  text-align: center;
+}
+.accountability svg { width: 20px; height: 20px; }
+
+/* ============================================================
+   Pain scale (Check-In) — 0..10, large tappable segments with a
+   calm->alert color ramp, selected value shown big.
+   Colors are set inline per segment (interpolated pain-0..10) so
+   the ramp reads left-to-right. Selection handled in app.js.
+   ============================================================ */
+.painscale { display: flex; flex-direction: column; gap: var(--sp-4); }
+.painscale__value {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.painscale__num {
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink);
+}
+.painscale__word { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+.painscale__segments {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: var(--sp-1);
+}
+.pain {
+  min-height: 52px;
+  border-radius: var(--radius-btn);
+  border: 2px solid transparent;
+  color: #fff;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  opacity: 0.55;
+  transition: opacity var(--motion-fast) var(--ease),
+              transform var(--motion-fast) var(--ease);
+}
+.pain:active { transform: scale(0.96); }
+.pain.is-selected {
+  opacity: 1;
+  border-color: var(--c-ink);
+  transform: scale(1.06);
+}
+
+/* ============================================================
+   Pill toggle group (Better / Same / Worse) — big pills, single
+   select. Selection handled in app.js (role=radiogroup).
+   ============================================================ */
+.pillgroup { display: flex; gap: var(--sp-2); }
+.pill {
+  flex: 1;
+  min-height: var(--tap-btn);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-medium);
+  transition: transform var(--motion-fast) var(--ease);
+}
+.pill:active { transform: scale(0.97); }
+.pill.is-selected {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+  font-weight: var(--fw-bold);
+}
+
+/* ============================================================
+   Checklist row — full-row tap target, big checkbox, label,
+   optional meta. .is-done -> soft green fill + check, scale-pulse.
+   ============================================================ */
+.checkrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: var(--sp-4);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  text-align: left;
+  transition: background var(--motion-fast) var(--ease),
+              border-color var(--motion-fast) var(--ease);
+}
+.checkrow__box {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c-line);
+  color: #fff;
+}
+.checkrow__box svg { width: 20px; height: 20px; opacity: 0; }
+.checkrow__body { flex: 1; min-width: 0; }
+.checkrow__label { font-size: var(--fs-body-lg); font-weight: var(--fw-medium); }
+.checkrow__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+.checkrow.is-done {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary);
+}
+.checkrow.is-done .checkrow__box {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+}
+.checkrow.is-done .checkrow__box svg { opacity: 1; }
+
+@keyframes done-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+.checkrow.just-done { animation: done-pulse var(--motion-base) var(--ease); }
+@media (prefers-reduced-motion: reduce) {
+  .checkrow.just-done { animation: none; }
+}
+
+/* ============================================================
+   Collapsible section (doctor note) — expands to textarea + mic.
+   Toggled via [data-toggle] in app.js (.is-open on the target).
+   ============================================================ */
+.collapse { display: none; }
+.collapse.is-open { display: block; margin-top: var(--sp-4); }
+
+.notefield {
+  position: relative;
+  display: block;
+}
+.notefield textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--sp-4) var(--sp-4) var(--sp-4) var(--sp-4);
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-card);
+  background: var(--c-surface);
+  font-size: var(--fs-body);
+  resize: vertical;
+}
+.micbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--tap-min);
+  margin-top: var(--sp-3);
+  padding: 0 var(--sp-4);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c-line);
+  color: var(--c-primary);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+}
+.micbtn svg { width: 22px; height: 22px; }
+.micbtn.is-recording {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary);
+}
+
+/* label above a form section */
+.field-label {
+  display: block;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-3);
+}
+.field-optional { font-size: var(--fs-caption); color: var(--c-ink-2); font-weight: var(--fw-regular); }
+
+/* ============================================================
+   Already-submitted done panel (friendly, not an error)
+   ============================================================ */
+.donepanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-4);
+  padding: var(--sp-6) var(--sp-4);
+}
+.donepanel__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.donepanel__badge svg { width: 52px; height: 52px; }
+
+/* ============================================================
+   Confirmation / celebration overlay (Section 6.7)
+   Full-screen within the phone frame (.app is position:relative).
+   Big check -> plant grows a leaf -> points tick -> badge reveal.
+   ============================================================ */
+.celebrate {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+  padding: var(--sp-6) var(--page-pad);
+  text-align: center;
+  background: var(--c-bg);
+  overflow-y: auto;
+}
+.celebrate__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 108px;
+  height: 108px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  color: #fff;
+  box-shadow: var(--shadow-lift);
+}
+.celebrate__check svg { width: 60px; height: 60px; }
+
+@keyframes pop-in {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.pop { animation: pop-in var(--motion-slow) var(--ease) both; }
+
+/* points tick-up chip */
+.points {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-5);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  font-weight: var(--fw-bold);
+}
+.points__num { font-size: var(--fs-h1); }
+.points__plus { font-size: var(--fs-body-lg); color: var(--c-celebrate); }
+
+/* the growing plant in the celebration is bigger */
+.celebrate .plant { width: 120px; height: 132px; }
+
+/* ============================================================
+   Badge tile (Rewards + celebration reveal)
+   earned = full color + date; locked = grayscale + "how to earn".
+   ============================================================ */
+.badgegrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-4);
+}
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-5) var(--sp-3);
+  border-radius: var(--radius-card);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+.badge__medal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-pill);
+  background: var(--c-celebrate);
+  color: #fff;
+}
+.badge__medal svg { width: 40px; height: 40px; }
+.badge__name { font-size: var(--fs-body); font-weight: var(--fw-bold); }
+.badge__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+.badge.is-locked { opacity: 1; }
+.badge.is-locked .badge__medal {
+  background: var(--c-line);
+  color: var(--c-ink-2);
+  filter: grayscale(1);
+}
+.badge.is-locked .badge__name { color: var(--c-ink-2); }
+
+/* inline badge reveal inside the celebration */
+.badge--reveal {
+  flex-direction: row;
+  text-align: left;
+  gap: var(--sp-4);
+  width: 100%;
+  max-width: 320px;
+}
+
+/* ============================================================
+   Toast / confirmation banner — slides from top, auto-dismiss.
+   ============================================================ */
+.toast {
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--page-pad);
+  right: var(--page-pad);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-radius: var(--radius-btn);
+  background: var(--c-primary);
+  color: #fff;
+  font-weight: var(--fw-medium);
+  box-shadow: var(--shadow-lift);
+  animation: toast-in var(--motion-base) var(--ease) both;
+}
+.toast svg { width: 24px; height: 24px; flex: 0 0 auto; }
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.toast.is-hiding { animation: toast-out var(--motion-base) var(--ease) both; }
+@keyframes toast-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-16px); }
+}
+
+/* ============================================================
+   Confetti — a few celebrate-colored pieces, gentle fall.
+   Sound OFF, motion respected (dropped under reduced-motion).
+   ============================================================ */
+.confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 45; }
+.confetti i {
+  position: absolute;
+  top: -12px;
+  width: 10px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.9;
+  animation: fall 2.6s var(--ease) forwards;
+}
+@keyframes fall {
+  to { transform: translateY(120%) rotate(360deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pop, .toast, .celebrate .plant [data-grow] { animation: none !important; }
+  .confetti { display: none; }
+}
+
+/* ============================================================
+   Call-the-office button (Section 5) — appears wherever a patient
+   might expect chat. There is NO in-app messaging.
+   ============================================================ */
+.calloffice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: 0 var(--sp-5);
+  border-radius: var(--radius-btn);
+  border: 2px solid var(--c-primary);
+  background: var(--c-surface);
+  color: var(--c-primary);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+}
+.calloffice:active { background: var(--c-primary-soft); }
+.calloffice svg { width: 24px; height: 24px; }
+
+.calloffice-line {
+  text-align: center;
+  color: var(--c-ink-2);
+  font-size: var(--fs-body);
+}
+.calloffice-line a { font-weight: var(--fw-bold); }
+
+/* ============================================================
+   Modality section header (Exercise Plan)
+   ============================================================ */
+.modality { margin-top: var(--sp-6); }
+.modality:first-of-type { margin-top: 0; }
+.modality__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.modality__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-btn);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.modality__icon svg { width: 26px; height: 26px; }
+.modality__title { font-size: var(--fs-h2); font-weight: var(--fw-bold); }
+
+/* ============================================================
+   Exercise card (Exercise Plan) — big tappable card, read-only.
+   Static line-illustration, name, plain line, frequency, tick.
+   ============================================================ */
+.exlist { display: flex; flex-direction: column; gap: var(--sp-4); }
+.excard {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  width: 100%;
+  padding: var(--sp-4);
+  border-radius: var(--radius-card);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-card);
+  text-align: left;
+  transition: transform var(--motion-fast) var(--ease);
+}
+.excard:active { transform: scale(0.99); }
+/* main tappable area (opens detail); the tick is a separate button */
+.excard__link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+}
+.excard__art {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-btn);
+  background: var(--c-bg);
+  color: var(--c-primary);
+}
+.excard__art svg { width: 36px; height: 36px; }
+.excard__body { flex: 1; min-width: 0; }
+.excard__name { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.excard__line { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.excard__freq {
+  display: inline-block;
+  margin-top: var(--sp-1);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary);
+}
+.excard__tick {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c-line);
+  color: #fff;
+}
+.excard__tick svg { width: 20px; height: 20px; opacity: 0; }
+.excard.is-done { background: var(--c-primary-soft); }
+.excard.is-done .excard__tick { background: var(--c-primary); border-color: var(--c-primary); }
+.excard.is-done .excard__tick svg { opacity: 1; }
+
+/* chevron hint that a card opens detail */
+.excard__chev { flex: 0 0 auto; color: var(--c-ink-2); }
+.excard__chev svg { width: 22px; height: 22px; }
+
+/* ============================================================
+   Slide-up sheet (Exercise Detail) — full-height panel that
+   slides from the bottom of the phone frame.
+   ============================================================ */
+.sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-surface);
+  animation: sheet-up var(--motion-base) var(--ease) both;
+}
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet { animation: none; }
+}
+.sheet__grip {
+  width: 44px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--c-line);
+  margin: var(--sp-3) auto var(--sp-1);
+}
+
+/* numbered steps (Exercise Detail) */
+.steps { display: flex; flex-direction: column; gap: var(--sp-4); }
+.step {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+}
+.step__n {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  color: #fff;
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+}
+.step__text { font-size: var(--fs-body-lg); padding-top: var(--sp-1); }
+
+/* exercise detail hero illustration */
+.exhero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 160px;
+  border-radius: var(--radius-card);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.exhero svg { width: 96px; height: 96px; }
+
+/* ============================================================
+   Timer ring (Exercise Detail) — big countdown for holds/reps.
+   The ring is an SVG; JS updates stroke-dashoffset + the number.
+   ============================================================ */
+.timer { display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); }
+.timer__ring { position: relative; width: 200px; height: 200px; }
+.timer__ring svg { width: 200px; height: 200px; transform: rotate(-90deg); }
+.timer__track { stroke: var(--c-line); }
+.timer__prog {
+  stroke: var(--c-primary);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+.timer__num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.timer__count { font-size: var(--fs-display); font-weight: var(--fw-bold); line-height: 1; }
+.timer__unit { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.timer__controls { display: flex; gap: var(--sp-3); width: 100%; }
+
+/* ============================================================
+   Streak calendar (Progress) — month grid, big cells. Checked
+   days filled; today ringed; missed days neutral (never red).
+   ============================================================ */
+.calendar__dow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+}
+.calendar__dow span {
+  text-align: center;
+  font-size: var(--fs-caption);
+  color: var(--c-ink-2);
+  font-weight: var(--fw-medium);
+}
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--sp-2);
+}
+.cal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  min-height: 40px;
+  border-radius: var(--radius-btn);
+  font-size: var(--fs-body);
+  color: var(--c-ink-2);
+}
+.cal.is-empty { visibility: hidden; }
+.cal.is-checked {
+  background: var(--c-primary);
+  color: #fff;
+  font-weight: var(--fw-bold);
+}
+.cal.is-checked svg { width: 20px; height: 20px; }
+.cal.is-today {
+  border: 3px solid var(--c-primary);
+  color: var(--c-primary);
+  font-weight: var(--fw-bold);
+}
+.cal.is-checked.is-today { color: #fff; }
+/* missed days: plain, neutral — no red, no shame */
+.cal.is-missed { color: var(--c-ink-2); background: var(--c-bg); }
+
+/* ============================================================
+   Adherence ring (Progress) — big % in a friendly ring.
+   Set the filled fraction with --pct (0..100) on .aring.
+   ============================================================ */
+.aring {
+  --pct: 80;
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  border-radius: var(--radius-pill);
+  background:
+    conic-gradient(var(--c-primary) calc(var(--pct) * 1%), var(--c-primary-soft) 0);
+}
+.aring::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: var(--radius-pill);
+  background: var(--c-surface);
+}
+.aring__label {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.aring__pct { font-size: var(--fs-display); font-weight: var(--fw-bold); color: var(--c-primary); line-height: 1; }
+.aring__sub { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+/* ============================================================
+   Pain trend (Progress) — directional sentence + simple
+   this-week-vs-last-week bars. Reassuring, not clinical.
+   ============================================================ */
+.trend__headline {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary);
+}
+.trend__headline svg { width: 28px; height: 28px; }
+.trend__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-5);
+  height: 140px;
+  margin-top: var(--sp-4);
+  padding: 0 var(--sp-3);
+}
+.tbar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); height: 100%; justify-content: flex-end; }
+.tbar__fill {
+  width: 100%;
+  max-width: 72px;
+  border-radius: var(--radius-btn) var(--radius-btn) 0 0;
+  background: var(--c-primary-soft);
+}
+.tbar__fill--now { background: var(--c-primary); }
+.tbar__val { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.tbar__lbl { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+/* ============================================================
+   Points hero (Rewards) — big total, framed as progress points.
+   ============================================================ */
+.pointshero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  text-align: center;
+  background: var(--c-primary-soft);
+  border-radius: var(--radius-card);
+  padding: var(--sp-6) var(--sp-4);
+}
+.pointshero__num { font-size: 56px; font-weight: var(--fw-bold); line-height: 1; color: var(--c-primary-dark); }
+.pointshero__label { font-size: var(--fs-body-lg); color: var(--c-ink-2); }
+
+/* ============================================================
+   Milestone journey path (Rewards) — vertical stepper, next
+   milestone highlighted. States: is-done / is-next / is-locked.
+   ============================================================ */
+.journey { position: relative; }
+.milestone {
+  display: flex;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-5);
+}
+.milestone:last-child { padding-bottom: 0; }
+/* connector line drawn behind the markers */
+.milestone__rail { position: relative; flex: 0 0 auto; width: 40px; display: flex; justify-content: center; }
+.milestone:not(:last-child) .milestone__rail::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  bottom: -4px;
+  width: 3px;
+  background: var(--c-line);
+}
+.milestone.is-done .milestone__rail::after { background: var(--c-primary); }
+.milestone__marker {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  border: 3px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink-2);
+  font-weight: var(--fw-bold);
+}
+.milestone__marker svg { width: 22px; height: 22px; }
+.milestone.is-done .milestone__marker { background: var(--c-primary); border-color: var(--c-primary); color: #fff; }
+.milestone.is-next .milestone__marker { border-color: var(--c-primary); color: var(--c-primary); }
+.milestone__body { flex: 1; padding-top: var(--sp-1); }
+.milestone__title { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.milestone__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.milestone.is-next .milestone__meta { color: var(--c-primary); font-weight: var(--fw-bold); }
+
+/* ============================================================
+   Auth / onboarding layout helpers
+   ============================================================ */
+/* vertically-centered auth content (splash, login, verify) */
+.authwrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  gap: var(--sp-5);
+  text-align: center;
+}
+
+/* Logo mark + wordmark */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+  border-radius: 28px;
+  background: var(--c-primary);
+  color: #fff;
+  box-shadow: var(--shadow-lift);
+}
+.logo svg { width: 56px; height: 56px; }
+.wordmark { font-size: var(--fs-display); font-weight: var(--fw-bold); letter-spacing: 0.02em; }
+.tagline { font-size: var(--fs-body-lg); color: var(--c-ink-2); }
+
+/* Big single input field (email/phone) */
+.bigfield {
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: 0 var(--sp-5);
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-btn);
+  background: var(--c-surface);
+  font-size: var(--fs-body-lg);
+  text-align: center;
+}
+.bigfield:focus-visible { border-color: var(--c-primary); }
+
+/* Install-steps card (splash) */
+.installsteps { display: flex; flex-direction: column; gap: var(--sp-4); text-align: left; }
+.installstep { display: flex; align-items: center; gap: var(--sp-3); }
+.installstep__n {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft); color: var(--c-primary-dark);
+  font-weight: var(--fw-bold);
+}
+
+/* Segmented toggle (iOS / Android; SMS / Email) */
+.segmented {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+}
+.seg {
+  min-height: var(--tap-min);
+  padding: 0 var(--sp-4);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink-2);
+}
+.seg.is-active { background: var(--c-primary); color: #fff; }
+
+/* OTP boxes (verify) */
+.otp { display: flex; gap: var(--sp-2); justify-content: center; }
+.otp input {
+  width: 48px;
+  height: 60px;
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-btn);
+  background: var(--c-surface);
+  text-align: center;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+}
+.otp input:focus-visible { border-color: var(--c-primary); outline: none; }
+
+/* ============================================================
+   Onboarding — trust card, welcome carousel, confirm details
+   ============================================================ */
+.trustcard {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  background: var(--c-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-5);
+}
+.trustcard__photo {
+  flex: 0 0 auto;
+  width: 72px; height: 72px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.trustcard__photo svg { width: 100%; height: 100%; }
+
+/* welcome carousel: horizontal scroll-snap of cards + dots */
+.welcome {
+  display: flex;
+  gap: var(--sp-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--sp-2);
+}
+.welcome__card {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  text-align: center;
+  background: var(--c-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-6) var(--sp-5);
+}
+.welcome__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 72px; height: 72px; border-radius: var(--radius-pill);
+  background: var(--c-primary-soft); color: var(--c-primary);
+}
+.welcome__icon svg { width: 40px; height: 40px; }
+.dots { display: flex; gap: var(--sp-2); justify-content: center; }
+.dots span { width: 10px; height: 10px; border-radius: var(--radius-pill); background: var(--c-line); }
+.dots span.is-active { background: var(--c-primary); width: 26px; }
+
+/* ============================================================
+   Settings — rows + toggle switch + big time control
+   ============================================================ */
+.setrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: var(--tap-btn);
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--c-line);
+}
+.setrow:last-child { border-bottom: none; }
+.setrow__label { flex: 1; font-size: var(--fs-body-lg); font-weight: var(--fw-medium); }
+.setrow__sub { font-size: var(--fs-caption); color: var(--c-ink-2); font-weight: var(--fw-regular); }
+
+/* big time control */
+.timepick {
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: 0 var(--sp-5);
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-btn);
+  background: var(--c-surface);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  text-align: center;
+}
+
+/* toggle switch (accessible button) */
+.switch {
+  flex: 0 0 auto;
+  position: relative;
+  width: 64px; height: 36px;
+  border-radius: var(--radius-pill);
+  background: var(--c-line);
+  transition: background var(--motion-fast) var(--ease);
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 4px; left: 4px;
+  width: 28px; height: 28px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  transition: transform var(--motion-fast) var(--ease);
+}
+.switch[aria-checked="true"] { background: var(--c-primary); }
+.switch[aria-checked="true"]::after { transform: translateX(28px); }
+
+/* ============================================================
+   Offline banner (Section 5 / 6.15) — full-width, non-alarming.
+   Sits at the top of the frame; reassuring, never red.
+   ============================================================ */
+.offlinebar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--page-pad);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  border-bottom: 1px solid var(--c-line);
+}
+.offlinebar svg { width: 22px; height: 22px; flex: 0 0 auto; }
+
+/* Full-screen offline fallback */
+.offlinefull {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+  min-height: 100%;
+  text-align: center;
+}
+.offlinefull__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 104px; height: 104px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft); color: var(--c-primary);
+}
+.offlinefull__icon svg { width: 56px; height: 56px; }
+
+/* ============================================================
+   FAQ accordion (Help) — big expandable rows.
+   [data-toggle] flips .is-open on the answer; the row shows a
+   rotating chevron via [aria-expanded].
+   ============================================================ */
+.faq { display: flex; flex-direction: column; }
+.faq__item { border-bottom: 1px solid var(--c-line); }
+.faq__q {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: var(--sp-4) 0;
+  text-align: left;
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink);
+}
+.faq__q .faq__chev {
+  margin-left: auto;
+  flex: 0 0 auto;
+  transition: transform var(--motion-fast) var(--ease);
+}
+.faq__q .faq__chev svg { width: 24px; height: 24px; }
+.faq__q[aria-expanded="true"] .faq__chev { transform: rotate(180deg); }
+.faq__a { padding: 0 0 var(--sp-4); font-size: var(--fs-body); color: var(--c-ink-2); }

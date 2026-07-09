@@ -1,0 +1,169 @@
+/* ============================================================
+   PAVE — Base: reset, typography, app-shell layout, motion
+   Depends on tokens.css.
+   ============================================================ */
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--c-ink);
+  background: var(--c-bg);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* Center the phone frame; on a real phone the frame fills the screen
+     so this centering is invisible. */
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; background: none; border: none; }
+
+a { color: var(--c-primary); text-decoration: none; }
+
+ul, ol { list-style: none; padding: 0; }
+
+:focus-visible {
+  outline: 3px solid var(--c-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- Typography helpers ---------- */
+.t-display { font-size: var(--fs-display); font-weight: var(--fw-bold); line-height: var(--lh-tight); }
+.t-h1      { font-size: var(--fs-h1); font-weight: var(--fw-bold); line-height: var(--lh-tight); }
+.t-h2      { font-size: var(--fs-h2); font-weight: var(--fw-bold); line-height: var(--lh-tight); }
+.t-body-lg { font-size: var(--fs-body-lg); }
+.t-body    { font-size: var(--fs-body); }
+.t-caption { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.t-muted   { color: var(--c-ink-2); }
+.t-center  { text-align: center; }
+
+/* ============================================================
+   App shell — mobile-app framed.
+   The .app IS the phone: a flex column that owns its own height and
+   scrolls internally. Top bar + tab bar are flex children (not
+   viewport-fixed) so they anchor to the phone frame, letting the app
+   render as a centered ~390px device on desktop and fill the screen
+   on a real phone.
+   ============================================================ */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--c-bg);
+  overflow: hidden;              /* only .content scrolls */
+  position: relative;           /* anchor for overlays (confirmation) */
+}
+
+/* ---------- Top bar (fixed to top of the frame) ---------- */
+.topbar {
+  flex: 0 0 auto;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 56px;
+  padding: var(--sp-3) var(--page-pad);
+  background: var(--c-bg);
+  border-bottom: 1px solid transparent;
+}
+
+.topbar__title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+}
+
+/* icon button in the top bar (gear / back) */
+.iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border-radius: var(--radius-pill);
+  color: var(--c-ink);
+}
+.iconbtn:active { background: var(--c-primary-soft); }
+.iconbtn svg { width: 26px; height: 26px; }
+
+/* ---------- Scrollable content (the only scroll area) ---------- */
+.content {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--sp-5) var(--page-pad) var(--sp-7);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.content > * + * { margin-top: var(--sp-5); }
+
+/* ============================================================
+   Desktop framing — render the app as a centered phone device.
+   On a real phone (< 480px) the frame fills the screen; on wider
+   viewports it becomes a 390px device with rounded corners.
+   ============================================================ */
+@media (min-width: 480px) {
+  body {
+    align-items: center;
+    padding: var(--sp-5) 0;
+    background: #E6EAE6;          /* neutral backdrop behind the device */
+  }
+  .app {
+    width: 390px;
+    height: min(844px, calc(100dvh - var(--sp-6)));
+    border-radius: 40px;
+    border: 1px solid var(--c-line);
+    box-shadow: var(--shadow-lift), 0 30px 70px rgba(20,60,45,0.22);
+    overflow: hidden;
+  }
+}
+
+/* ============================================================
+   Motion — fade-and-rise on mount, plus reduced-motion guard
+   ============================================================ */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.rise { animation: rise-in var(--motion-base) var(--ease) both; }
+
+/* stagger helper for lists of cards */
+.rise-1 { animation-delay: 40ms; }
+.rise-2 { animation-delay: 80ms; }
+.rise-3 { animation-delay: 120ms; }
+.rise-4 { animation-delay: 160ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  @keyframes rise-in { from { opacity: 0; } to { opacity: 1; } }
+}
