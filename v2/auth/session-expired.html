@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in again · PAVE</title>
+  <meta name="theme-color" content="#FBFAF6">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<!-- Friendly re-auth (Section 6.14). Never a scary error tone. -->
+<body>
+  <div class="app">
+    <main class="content">
+      <div class="authwrap">
+
+        <div class="plantscene rise rise-1" aria-hidden="true">
+          <img src="../assets/art/plant-2-seedling.svg" alt="" width="104" height="104">
+        </div>
+
+        <div class="rise rise-2">
+          <h1 class="t-h1">Let's get you back in</h1>
+          <p class="tagline" style="margin-top:var(--sp-2);">For your privacy, we signed you out. Your plant is right where you left it — enter your email or phone and we'll send a fresh link.</p>
+        </div>
+
+        <div class="rise rise-2" style="display:flex; flex-direction:column; gap:var(--sp-4);">
+          <input class="bigfield" type="text" inputmode="email" placeholder="Email or phone number" aria-label="Email or phone number">
+          <a class="btn btn--primary" href="verify.html">Send my link</a>
+        </div>
+
+        <p class="rise rise-3" style="margin:0;">
+          <span class="reassure">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            No password to remember, ever.
+          </span>
+        </p>
+
+      </div>
+    </main>
+  </div>
+  <script src="../js/app.js"></script>
+</body>
+</html>

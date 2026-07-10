@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"><defs>
+      <linearGradient id="met" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#EFC08F"/><stop offset="0.5" stop-color="#C6884E"/><stop offset="1" stop-color="#8E5A2C"/>
+      </linearGradient>
+      <linearGradient id="rib" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#B5703F"/><stop offset="1" stop-color="#7E4626"/>
+      </linearGradient>
+      <linearGradient id="fld" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2FA680"/><stop offset="1" stop-color="#12795C"/>
+      </linearGradient>
+      <filter id="sf" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="2.5" stdDeviation="2.5" flood-color="#0C3B2C" flood-opacity="0.20"/>
+      </filter>
+    </defs><g filter="url(#sf)"><path d="M44 66 L36 96 L48 89 L54 100 L60 74 Z" fill="url(#rib)"/><path d="M76 66 L84 96 L72 89 L66 100 L60 74 Z" fill="url(#rib)"/></g><g filter="url(#sf)"><polygon points="60.0,12.0 96.4,33.0 96.4,75.0 60.0,96.0 23.6,75.0 23.6,33.0" fill="url(#met)" stroke="#7A4A22" stroke-width="2" stroke-linejoin="round"/></g><polygon points="60.0,22.0 87.7,38.0 87.7,70.0 60.0,86.0 32.3,70.0 32.3,38.0" fill="url(#fld)" stroke="#0E6E53" stroke-width="1.5" stroke-linejoin="round"/><polyline points="60.0,17.0 92.0,35.5 92.0,72.5 60.0,91.0 28.0,72.5 28.0,35.5" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.55" stroke-linejoin="round" stroke-dasharray="30 120"/><g transform="translate(60,65) scale(1.4)" filter="url(#sf)"><path d="M0 0 C -7 -7 -7 -20 0 -27 C 7 -20 7 -7 0 0 Z" fill="#F4FBF7"/><path d="M0 -3 L0 -22" stroke="#BFE6D6" stroke-width="1.6" stroke-linecap="round"/></g></svg>

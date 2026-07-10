@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome · PAVE</title>
+  <meta name="theme-color" content="#FBFAF6">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <span class="topbar__title">Welcome</span>
+    </header>
+
+    <main class="content">
+
+      <!-- 1) Trust card -->
+      <section class="trustcard rise rise-1" aria-label="Your physician">
+        <span class="trustcard__avatar">
+          <span class="trustcard__photo">
+            <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="72" height="72" fill="#E4F2ED"/><circle cx="36" cy="28" r="13" fill="#147D64"/><path d="M12 68c0-13 11-21 24-21s24 8 24 21" fill="#147D64"/><path d="M30 41v6c0 3 2.7 5 6 5s6-2 6-5v-6" stroke="#0C5C49" stroke-width="2"/></svg>
+          </span>
+          <span class="trustcard__verified" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17.5 19 7.5"/></svg>
+          </span>
+        </span>
+        <div>
+          <div class="t-body-lg" style="font-weight:var(--fw-bold);">Your recovery plan from</div>
+          <div class="t-h2">Dr. Stillman</div>
+        </div>
+      </section>
+
+      <!-- 2) Welcome carousel -->
+      <section class="rise rise-2" aria-label="How PAVE works">
+        <div class="welcome" id="welcome">
+          <div class="welcome__card">
+            <span class="welcome__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11"/><path d="M17.5 6.5v11"/><path d="M4 9.5v5"/><path d="M20 9.5v5"/><path d="M6.5 12h11"/></svg></span>
+            <h2 class="t-h2">Your plan</h2>
+            <p class="t-body t-muted">See the exercises Dr. Stillman set for you, with simple steps.</p>
+          </div>
+          <div class="welcome__card">
+            <span class="welcome__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
+            <h2 class="t-h2">Check in each day</h2>
+            <p class="t-body t-muted">A quick daily check-in keeps your doctor in the loop.</p>
+          </div>
+          <div class="welcome__card">
+            <span class="welcome__icon"><img src="../assets/art/plant-1-sprout.svg" alt="" width="52" height="52"></span>
+            <h2 class="t-h2">Watch your progress grow</h2>
+            <p class="t-body t-muted">Your streak grows like a plant as you keep going.</p>
+          </div>
+        </div>
+        <div class="dots" id="dots" style="margin-top:var(--sp-3);">
+          <span class="is-active"></span><span></span><span></span>
+        </div>
+      </section>
+
+      <!-- 3) Confirm details -->
+      <section class="card rise rise-3" aria-label="Confirm your details">
+        <h2 class="card__title">Is this you?</h2>
+        <p class="t-body-lg" style="margin-bottom:var(--sp-1);"><strong>John Carter</strong></p>
+        <p class="t-body t-muted" style="margin-bottom:var(--sp-4);">john.carter@email.com · (555) 123-4567</p>
+        <button type="button" class="btn btn--primary">Yes, that's me</button>
+      </section>
+
+      <!-- 4) Text size: three steps -->
+      <section class="card rise rise-3" aria-label="Text size">
+        <h2 class="card__title">Text size</h2>
+        <p class="setrow__sub" style="margin-bottom:var(--sp-4);">Choose what's comfortable to read.</p>
+        <div class="sizeseg" data-textsize role="group" aria-label="Text size">
+          <button type="button" class="sizeseg__opt" data-size="sm" aria-pressed="false" aria-label="Small text">Small</button>
+          <button type="button" class="sizeseg__opt is-active" data-size="md" aria-pressed="true" aria-label="Default text size">Default</button>
+          <button type="button" class="sizeseg__opt" data-size="lg" aria-pressed="false" aria-label="Large text">Large</button>
+        </div>
+      </section>
+
+      <!-- 5) Pick daily reminder time -->
+      <section class="card rise rise-4" aria-label="Daily reminder">
+        <h2 class="card__title">When should we remind you?</h2>
+        <p class="t-body t-muted" style="margin-bottom:var(--sp-4);">A daily nudge helps you keep your streak.</p>
+        <input class="timepick" type="time" value="09:00" aria-label="Daily reminder time">
+      </section>
+
+      <a class="btn btn--primary btn--sticky rise rise-4" href="../app/today.html">Start using PAVE</a>
+
+    </main>
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script>
+    /* Update carousel dots as the welcome cards scroll. */
+    (function () {
+      var track = document.getElementById("welcome");
+      var dots = document.getElementById("dots").children;
+      track.addEventListener("scroll", function () {
+        var idx = Math.round(track.scrollLeft / track.clientWidth);
+        for (var i = 0; i < dots.length; i++) {
+          dots[i].classList.toggle("is-active", i === idx);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

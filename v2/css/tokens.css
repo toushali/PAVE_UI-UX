@@ -1,0 +1,89 @@
+/* ============================================================
+   PAVE v2 — Design tokens (gamified, accessible for 60–85)
+   Light mode only. Dark-on-light, high contrast, large type.
+   ============================================================ */
+:root {
+  /* ---- Core palette ---- */
+  --c-primary:      #5B5BF5;
+  --c-primary-dark: #4642DD;
+  --c-primary-soft: #E9ECFF;
+  --c-purple:       #A05BF5;
+  --c-coral:        #FF6B5A;
+  --c-yellow:       #FFC53D;   /* XP / points */
+  --c-green:        #21B866;   /* success (darkened from #2FCB6E for contrast on white) */
+  --c-green-bright: #2FCB6E;
+  --c-orange:       #FF8A3D;   /* streak / flame */
+
+  /* ---- Category tints (card backgrounds) ---- */
+  --t-blue:   #E9ECFF;
+  --t-coral:  #FFE9E6;
+  --t-yellow: #FFF4D6;
+  --t-green:  #DDF7E8;
+  --t-purple: #F1E7FF;
+
+  /* ---- Neutrals ---- */
+  --c-bg:       #F4F5FB;
+  --c-surface:  #FFFFFF;
+  --c-ink:      #22223A;   /* 13.4:1 on white */
+  --c-ink-2:    #5A5A72;   /* 6.4:1 on white  — passes AA for body */
+  --c-ink-3:    #8A8AA0;   /* only for large/decorative text */
+  --c-line:     #E4E5F0;
+
+  /* ---- Type ---- */
+  --font-display: 'Nunito', system-ui, sans-serif;   /* rounded, gamified, legible */
+  --font-body:    'Inter', system-ui, sans-serif;    /* long-form legibility */
+
+  /* Readability-first scale (default = comfortable). ~1.25 ratio. */
+  --fs-display:  40px;
+  --fs-h1:       30px;
+  --fs-h2:       23px;
+  --fs-body-lg:  20px;
+  --fs-body:     18px;   /* never below this by default */
+  --fs-caption:  16px;
+  --fs-micro:    14px;   /* labels only, never body */
+
+  --fw-regular: 400;
+  --fw-medium:  600;
+  --fw-bold:    800;
+  --fw-black:   900;
+
+  --lh-tight: 1.15;
+  --lh-body:  1.55;
+
+  /* ---- Shape & depth (chunky, playful) ---- */
+  --radius-card: 24px;
+  --radius-btn:  16px;
+  --radius-chip: 14px;
+  --radius-pill: 999px;
+
+  --shadow-card:  0 10px 26px rgba(40, 40, 90, 0.10);
+  --shadow-pop:   0 14px 34px rgba(40, 40, 90, 0.16);
+  --shadow-inset: inset 0 -4px 0 rgba(0,0,0,0.06);   /* chunky button base */
+
+  /* ---- Spacing ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px;
+
+  /* ---- Tap targets (accessibility) ---- */
+  --tap-min: 48px;
+  --tap-btn: 60px;   /* generous primary actions for 60–85 */
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-fast: 160ms;
+  --motion-slow: 420ms;
+}
+
+/* ---- Accessibility text-size modes (Settings) ---- */
+html.text-sm {
+  --fs-display: 34px; --fs-h1: 26px; --fs-h2: 21px;
+  --fs-body-lg: 18px; --fs-body: 16px; --fs-caption: 15px; --fs-micro: 13px;
+}
+html.text-lg {
+  --fs-display: 46px; --fs-h1: 35px; --fs-h2: 27px;
+  --fs-body-lg: 23px; --fs-body: 21px; --fs-caption: 18px; --fs-micro: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

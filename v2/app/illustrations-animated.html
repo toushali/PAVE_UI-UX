@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAVE — Animated Illustrations</title>
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+<style>
+  body { background: var(--c-bg); padding: 24px 16px 64px; }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { font-family: var(--font-serif); font-size: 34px; color: var(--c-primary-dark); margin: 0 0 4px; }
+  .sub { color: var(--c-ink-2); margin: 0 0 28px; }
+  h2 { font-family: var(--font-serif); font-size: 22px; color: var(--c-ink); margin: 32px 0 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .cell {
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-card);
+    padding: 18px 12px 14px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+  }
+  .cell img { display: block; margin: 0 auto 10px; }
+  .cell .lbl { font-size: 14px; font-weight: 700; color: var(--c-ink); }
+  .cell .meta { font-size: 12px; color: var(--c-ink-2); }
+  .note { background: var(--c-primary-soft); border-radius: var(--radius-card); padding: 14px 16px; color: var(--c-primary-dark); font-size: 14px; margin-top: 28px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Animated illustrations</h1>
+  <p class="sub">Original PAVE artwork. Each SVG animates on its own (internal CSS), so it stays alive wherever it is used. All motion is gentle and respects reduced-motion.</p>
+
+  <h2>Pain faces — the check-in scale</h2>
+  <div class="grid">
+    <div class="cell"><img src="../assets/art/pain-face-0.svg" width="80" height="80" alt="No pain"><div class="lbl">No pain</div><div class="meta">bob + blink</div></div>
+    <div class="cell"><img src="../assets/art/pain-face-1.svg" width="80" height="80" alt="Mild"><div class="lbl">Mild</div><div class="meta">bob + blink</div></div>
+    <div class="cell"><img src="../assets/art/pain-face-2.svg" width="80" height="80" alt="Moderate"><div class="lbl">Moderate</div><div class="meta">bob + blink</div></div>
+    <div class="cell"><img src="../assets/art/pain-face-3.svg" width="80" height="80" alt="Strong"><div class="lbl">Strong</div><div class="meta">bob + blink</div></div>
+    <div class="cell"><img src="../assets/art/pain-face-4.svg" width="80" height="80" alt="Severe"><div class="lbl">Severe</div><div class="meta">wince + squint</div></div>
+  </div>
+
+  <h2>Exercise illustrations — section headers</h2>
+  <div class="grid">
+    <div class="cell"><img src="../assets/art/ex-mobility.svg" width="80" height="80" alt="Mobility"><div class="lbl">Mobility</div><div class="meta">rotating arc</div></div>
+    <div class="cell"><img src="../assets/art/ex-breathing.svg" width="80" height="80" alt="Breathing"><div class="lbl">Breathing</div><div class="meta">rings breathe</div></div>
+    <div class="cell"><img src="../assets/art/ex-strength.svg" width="80" height="80" alt="Strength"><div class="lbl">Strength</div><div class="meta">gentle lift</div></div>
+    <div class="cell"><img src="../assets/art/ex-balance.svg" width="80" height="80" alt="Balance"><div class="lbl">Balance / Pilates</div><div class="meta">soft tilt</div></div>
+    <div class="cell"><img src="../assets/art/ex-walking.svg" width="80" height="80" alt="Walking"><div class="lbl">Walking</div><div class="meta">alternating steps</div></div>
+  </div>
+
+  <h2>Plants — the growth motif</h2>
+  <div class="grid">
+    <div class="cell"><img src="../assets/art/plant-1-sprout.svg" width="88" height="88" alt="Sprout"><div class="lbl">Sprout</div><div class="meta">gentle breathe</div></div>
+    <div class="cell"><img src="../assets/art/plant-2-seedling.svg" width="88" height="88" alt="Seedling"><div class="lbl">Seedling</div><div class="meta">gentle breathe</div></div>
+    <div class="cell"><img src="../assets/art/plant-3-young.svg" width="88" height="88" alt="Young plant"><div class="lbl">Young</div><div class="meta">gentle breathe</div></div>
+    <div class="cell"><img src="../assets/art/plant-4-mature.svg" width="88" height="88" alt="Mature plant"><div class="lbl">Mature</div><div class="meta">gentle breathe</div></div>
+    <div class="cell"><img src="../assets/art/plant-5-flowering.svg" width="88" height="88" alt="Flowering plant"><div class="lbl">Flowering</div><div class="meta">gentle breathe</div></div>
+  </div>
+
+  <h2>Medallions — the reward tiers</h2>
+  <div class="grid">
+    <div class="cell"><img src="../assets/art/badge-bronze.svg" width="88" height="88" alt="Bronze"><div class="lbl">Bronze</div></div>
+    <div class="cell"><img src="../assets/art/badge-silver.svg" width="88" height="88" alt="Silver"><div class="lbl">Silver</div></div>
+    <div class="cell"><img src="../assets/art/badge-gold.svg" width="88" height="88" alt="Gold"><div class="lbl">Gold</div></div>
+    <div class="cell"><img src="../assets/art/badge-platinum.svg" width="88" height="88" alt="Platinum"><div class="lbl">Platinum</div></div>
+    <div class="cell"><img src="../assets/art/badge-locked.svg" width="88" height="88" alt="Locked"><div class="lbl">Locked</div></div>
+  </div>
+
+  <p class="note">Medallions shimmer and float via the page they sit on (Rewards), so they look static in this plain gallery. Faces, exercises and plants animate on their own here.</p>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

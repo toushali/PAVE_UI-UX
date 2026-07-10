@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PAVE — Daily check-in</title><link rel="stylesheet" href="../css/tokens.css"><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/components.css"></head><body><div class="app"><div class="content scroll">
+  <div class="topbar rise rise-1"><span class="topbar__title">Daily check-in</span><span class="streakchip"><img src="../assets/art/flame.svg" alt="Streak">12</span></div>
+  <p class="t-caption rise rise-1" style="margin:0">Takes about a minute · earns <b style="color:var(--c-primary-dark)">+25 XP</b></p>
+
+  <section class="card rise rise-2">
+    <div class="painscale">
+      <div class="painscale__value">
+        <img class="painscale__face" src="../assets/art/pain-face-2.svg" width="84" height="84" alt="">
+        <div class="painscale__prompt">How is your pain today?</div>
+        <div class="painscale__readout" aria-live="polite">—</div>
+      </div>
+      <div class="painscale__segments" role="group" aria-label="Pain level from 0 to 10"><button class="pain" data-value="0" aria-pressed="false" style="background:#2FCB6E">0</button><button class="pain" data-value="1" aria-pressed="false" style="background:#5AC95C">1</button><button class="pain" data-value="2" aria-pressed="false" style="background:#86C74E">2</button><button class="pain" data-value="3" aria-pressed="false" style="background:#B0C23E">3</button><button class="pain" data-value="4" aria-pressed="false" style="background:#FFC53D">4</button><button class="pain" data-value="5" aria-pressed="false" style="background:#FFB12E">5</button><button class="pain" data-value="6" aria-pressed="false" style="background:#FF9D36">6</button><button class="pain" data-value="7" aria-pressed="false" style="background:#FF8640">7</button><button class="pain" data-value="8" aria-pressed="false" style="background:#FF6E48">8</button><button class="pain" data-value="9" aria-pressed="false" style="background:#FF5548">9</button><button class="pain" data-value="10" aria-pressed="false" style="background:#FF3B3B">10</button></div>
+      <div class="painscale__anchors">
+        <span><img class="painscale__anchorface" src="../assets/art/pain-face-0.svg" alt=""> 0 · No pain</span>
+        <span>10 · Worst <img class="painscale__anchorface" src="../assets/art/pain-face-4.svg" alt=""></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="card rise rise-3">
+    <div class="card__title">Did you do today's exercises?</div>
+    <div class="choicegrid">
+      <button class="choice" aria-pressed="false">✅ Yes</button>
+      <button class="choice" aria-pressed="false">Not yet</button>
+    </div>
+  </section>
+
+  <button class="btn btn--primary btn--block btn--sticky rise rise-4" data-submit disabled>Submit check-in · +25 XP</button>
+</div><nav class="tabbar"><a class="tab" aria-current="page" href="today.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Today</a><a class="tab" href="exercises.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M4 9.5v5M20 9.5v5M6.5 12h11"/></svg>Exercises</a><a class="tab" href="progress.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-6M12 20V8M19 20v-9"/><path d="M3 20h18"/></svg>Progress</a><a class="tab" href="rewards.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 14l-2 7 5-3 5 3-2-7"/></svg>Rewards</a></nav></div><script src="../js/app.js"></script></body></html>

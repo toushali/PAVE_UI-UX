@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your garden · PAVE</title>
+  <meta name="theme-color" content="#EDF3EE">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-tab="rewards">
+  <div class="app">
+
+    <header class="topbar">
+      <span class="topbar__title">Your garden</span>
+    </header>
+
+    <main class="content">
+
+      <!-- 1) Garden hero — current plant stage by streak length.
+           12-day streak -> seedling (plant-2). -->
+      <section class="garden rise rise-1" id="heroGrowing" aria-label="Your streak">
+        <div class="garden__stage" style="--stage-prog:71;">
+          <span class="garden__ring" aria-hidden="true"></span>
+          <img class="garden__plant" src="../assets/art/plant-2-seedling.svg" alt="Your plant, a young seedling" width="152" height="152">
+        </div>
+        <div class="garden__count">
+          <span class="garden__num">12</span>
+          <span class="garden__unit">day streak</span>
+        </div>
+        <span class="garden__grow-note">2 days until your plant grows taller 🌱</span>
+        <p class="garden__line">Your plant is growing. A little care each day and it keeps getting stronger.</p>
+      </section>
+
+      <!-- Broken-streak: graceful fresh start (prototype toggle). No red,
+           no "you lost it", just a new seed to plant. -->
+      <section class="garden rise rise-1" id="heroFresh" aria-label="A fresh start" hidden>
+        <div class="garden__stage" style="--stage-prog:0;">
+          <span class="garden__ring" aria-hidden="true"></span>
+          <img class="garden__plant" src="../assets/art/plant-1-sprout.svg" alt="A fresh sprout" width="152" height="152">
+        </div>
+        <div class="garden__count">
+          <span class="garden__num">0</span>
+          <span class="garden__unit">day streak</span>
+        </div>
+        <p class="garden__line">A fresh start. Check in today to plant a new seed. Every gardener starts here.</p>
+      </section>
+
+      <!-- 2) Progress points — counts up on load -->
+      <section class="card rise rise-2" aria-label="Progress points">
+        <div class="gardenpoints">
+          <span class="gardenpoints__num" data-count-to="480">0</span>
+          <span class="gardenpoints__label">progress points</span>
+        </div>
+      </section>
+
+      <!-- 3) Medallion collection -->
+      <section class="rise rise-3" aria-label="Your medallions">
+        <div class="medalhead">
+          <h2 class="t-h2" style="margin:0;">Your medallions</h2>
+          <span class="medalhead__count">3 of 6 earned</span>
+        </div>
+        <div class="collectbar" aria-hidden="true"><span class="collectbar__fill" data-fill="50" style="width:0;"></span></div>
+        <div class="medalgrid">
+          <div class="medal">
+            <img class="medal__art" src="../assets/art/badge-bronze.svg" alt="Bronze medallion" width="80" height="80">
+            <span class="medal__name">First Step</span>
+            <span class="medal__tier medal__tier--bronze">Bronze</span>
+            <span class="medal__meta">Earned Jun 27</span>
+          </div>
+          <div class="medal">
+            <img class="medal__art" src="../assets/art/badge-bronze.svg" alt="Bronze medallion" width="80" height="80">
+            <span class="medal__name">Morning Ritual</span>
+            <span class="medal__tier medal__tier--bronze">Bronze</span>
+            <span class="medal__meta">Earned Jul 3</span>
+          </div>
+          <div class="medal">
+            <img class="medal__art" src="../assets/art/badge-silver.svg" alt="Silver medallion" width="80" height="80">
+            <span class="medal__name">Turning the Corner</span>
+            <span class="medal__tier medal__tier--silver">Silver</span>
+            <span class="medal__meta">Earned Jul 6</span>
+          </div>
+          <div class="medal is-locked is-next" style="--medal-prog:86;">
+            <img class="medal__art" src="../assets/art/badge-locked.svg" alt="Locked medallion" width="80" height="80">
+            <span class="medal__name">Two Weeks Strong</span>
+            <span class="medal__tier medal__tier--silver">Silver</span>
+            <span class="medal__meta">2 days to go</span>
+          </div>
+          <div class="medal is-locked">
+            <img class="medal__art" src="../assets/art/badge-locked.svg" alt="Locked medallion" width="80" height="80">
+            <span class="medal__name">Steady Hand · 30 Days</span>
+            <span class="medal__tier medal__tier--gold">Gold</span>
+            <span class="medal__meta">Check in for 30 days</span>
+          </div>
+          <div class="medal is-locked">
+            <img class="medal__art" src="../assets/art/badge-locked.svg" alt="Locked medallion" width="80" height="80">
+            <span class="medal__name">In Full Bloom · 60 Days</span>
+            <span class="medal__tier medal__tier--platinum">Platinum</span>
+            <span class="medal__meta">Reach a 60-day streak</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) Milestone journey — NEXT reward highlighted -->
+      <section class="card rise rise-4" aria-label="Your journey">
+        <h2 class="card__title">Your journey</h2>
+        <ol class="gpath">
+          <li class="gstep is-done">
+            <span class="gstep__rail"><span class="gstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span></span>
+            <span class="gstep__body">
+              <span class="gstep__title">First check-in</span>
+              <span class="gstep__meta">Your seed was planted · Jun 27</span>
+            </span>
+          </li>
+          <li class="gstep is-done">
+            <span class="gstep__rail"><span class="gstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span></span>
+            <span class="gstep__body">
+              <span class="gstep__title">One week</span>
+              <span class="gstep__meta">Completed · Jul 3</span>
+            </span>
+          </li>
+          <li class="gstep is-next">
+            <span class="gstep__rail"><span class="gstep__dot">14</span></span>
+            <span class="gstep__body">
+              <span class="gstep__title">Two weeks</span>
+              <span class="gstep__meta">Your seedling becomes a young plant.</span>
+              <span class="gstep__soon">Just 2 days away. Your plant grows taller 🌱</span>
+            </span>
+          </li>
+          <li class="gstep">
+            <span class="gstep__rail"><span class="gstep__dot">30</span></span>
+            <span class="gstep__body">
+              <span class="gstep__title">One month</span>
+              <span class="gstep__meta">Steady Hand. Your plant begins to bud.</span>
+            </span>
+          </li>
+          <li class="gstep">
+            <span class="gstep__rail"><span class="gstep__dot">60</span></span>
+            <span class="gstep__body">
+              <span class="gstep__title">Sixty days in full bloom</span>
+              <span class="gstep__meta">Your plant flowers.</span>
+            </span>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Prototype helper: preview the graceful broken-streak state -->
+      <p class="t-center">
+        <button type="button" class="btn btn--ghost" id="previewFresh" style="max-width:300px; margin:0 auto; min-height:var(--tap-min);">Preview a fresh start</button>
+      </p>
+
+    </main>
+
+    <!-- Bottom tab bar -->
+    <nav class="tabbar" aria-label="Main navigation">
+      <div class="tabbar__inner">
+        <a class="tab" data-tab="today" href="today.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M9.5 21v-6h5v6"/></svg>Today</a>
+        <a class="tab" data-tab="exercises" href="exercises.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11"/><path d="M17.5 6.5v11"/><path d="M4 9.5v5"/><path d="M20 9.5v5"/><path d="M6.5 12h11"/></svg>Exercises</a>
+        <a class="tab" data-tab="progress" href="progress.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-4"/><path d="M12 16V8"/><path d="M16 16v-6"/></svg>Progress</a>
+        <a class="tab is-active" data-tab="rewards" href="rewards.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5 7.5 21l4.5-2.5L16.5 21 15 13.5"/></svg>Rewards</a>
+      </div>
+    </nav>
+
+  </div>
+
+  <script src="../js/app.js"></script>
+  <script>
+    (function () {
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* Points count up with easeOutCubic on load. */
+      var el = document.querySelector("[data-count-to]");
+      if (el) {
+        var target = parseInt(el.getAttribute("data-count-to"), 10);
+        if (reduce) {
+          el.textContent = target.toLocaleString();
+        } else {
+          var dur = 1100, start = null;
+          var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
+          var step = function (ts) {
+            if (start === null) start = ts;
+            var p = Math.min((ts - start) / dur, 1);
+            el.textContent = Math.round(ease(p) * target).toLocaleString();
+            if (p < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }
+      }
+
+      /* Prototype: toggle the graceful broken-streak (fresh start) state. */
+      var growing = document.getElementById("heroGrowing");
+      var fresh = document.getElementById("heroFresh");
+      var btn = document.getElementById("previewFresh");
+      btn.addEventListener("click", function () {
+        var showFresh = growing.hidden === false;
+        growing.hidden = showFresh;
+        fresh.hidden = !showFresh;
+        btn.textContent = showFresh ? "Back to my garden" : "Preview a fresh start";
+        window.scrollTo(0, 0);
+      });
+    })();
+  </script>
+</body>
+</html>

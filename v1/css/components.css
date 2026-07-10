@@ -1,0 +1,2268 @@
+/* ============================================================
+   PAVE — Shared components (Section 5)
+   Build once, reuse everywhere. Depends on tokens.css + base.css.
+
+   In this file so far:
+   - Bottom tab bar          (Session 1)
+   - Buttons (primary/ghost) (Session 2)
+   - Card                    (Session 2)
+   - Stat block              (Session 2)
+   - Plant / streak block    (Session 2)
+   Later sessions append: pain scale, pill group, checklist row,
+   badge tile, toast, milestone path, call-the-office, offline banner.
+   ============================================================ */
+
+/* ============================================================
+   Bottom tab bar — 4 items, icon + text label, active state.
+   Always visible. No hamburger, no hidden nav.
+   ============================================================ */
+.tabbar {
+  flex: 0 0 auto;              /* pinned to the bottom of the frame */
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-1);
+  padding: var(--sp-2) var(--sp-2) max(var(--sp-2), env(safe-area-inset-bottom));
+  background: var(--c-surface);
+  border-top: 1px solid var(--c-line);
+}
+
+.tabbar__inner {
+  display: flex;
+  width: 100%;
+  max-width: var(--content-max);
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: var(--tap-min);
+  padding: var(--sp-2) var(--sp-1);
+  border-radius: var(--radius-btn);
+  color: var(--c-ink-2);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+}
+.tab svg { width: 26px; height: 26px; }
+.tab:active { background: var(--c-primary-soft); }
+
+.tab.is-active {
+  color: var(--c-primary);
+  font-weight: var(--fw-bold);
+}
+.tab.is-active svg { stroke-width: 2.4; }
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: 0 var(--sp-5);
+  border-radius: var(--radius-btn);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+  transition: transform var(--motion-fast) var(--ease),
+              background var(--motion-fast) var(--ease);
+}
+.btn:active { transform: scale(0.98); }
+.btn svg { width: 24px; height: 24px; }
+
+.btn--primary {
+  background: var(--c-primary);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--c-primary-dark), var(--shadow-card);
+}
+/* soft press depth — the button sinks onto its own shadow */
+.btn--primary:active {
+  background: var(--c-primary-dark);
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--c-primary-dark);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--c-primary);
+  border: 2px solid var(--c-line);
+}
+.btn--ghost:active { background: var(--c-primary-soft); }
+
+/* Sticky form-submit variant — sticks to the bottom of the scroll
+   area (.content). The tab bar sits outside .content, so no offset.
+   NOTE: on Check-In the submit now lives in .actionbar (below). */
+.btn--sticky {
+  position: sticky;
+  bottom: var(--sp-3);
+  box-shadow: var(--shadow-lift);
+}
+
+/* ============================================================
+   Sticky bottom action bar — pins a primary action to the bottom
+   of the phone frame, full-bleed, with a soft top shadow. Used on
+   Check-In for the "Submit" button so it never overlaps content.
+   It is a flex child of .app (sibling of .content), so the scroll
+   area sits cleanly above it — no content hides behind it.
+   ============================================================ */
+.actionbar {
+  flex: 0 0 auto;
+  z-index: 25;
+  padding: var(--sp-4) var(--page-pad) calc(var(--sp-4) + env(safe-area-inset-bottom));
+  background: var(--c-bg);
+  border-top: 1px solid var(--c-line);
+  box-shadow: var(--shadow-bar);
+}
+.actionbar .btn {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+/* ============================================================
+   Brand header band — warm green top bar with a leaf sprig motif.
+   Reusable modifier on .topbar; applied on Check-In.
+   ============================================================ */
+.topbar--brand {
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--sp-4);
+  padding-bottom: var(--sp-4);
+  background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-dark) 100%);
+  border-bottom: none;
+}
+.topbar--brand .topbar__title,
+.topbar--brand .iconbtn { color: #fff; }
+.topbar--brand .topbar__title { font-size: var(--fs-h1); }
+.topbar--brand .iconbtn:active { background: rgba(255,255,255,0.18); }
+/* decorative sprig, top-right, subtle */
+.topbar__motif {
+  position: absolute;
+  top: -10px;
+  right: -6px;
+  width: 96px;
+  height: 96px;
+  color: #fff;
+  opacity: 0.16;
+  pointer-events: none;
+}
+.topbar__motif svg { width: 100%; height: 100%; }
+
+/* ============================================================
+   Card
+   ============================================================ */
+.card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);       /* hairline so white cards read on the green bg */
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-5);
+}
+.card__title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-3);
+}
+
+/* ============================================================
+   Stat block — big number + label (streak, adherence %, points)
+   ============================================================ */
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  text-align: center;
+}
+.stat__num {
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  color: var(--c-primary);
+}
+.stat__label {
+  font-size: var(--fs-caption);
+  color: var(--c-ink-2);
+}
+
+/* ============================================================
+   Plant / streak block — growing SVG + streak count.
+   Growth stage is controlled by data-stage on .plant (1..5);
+   stages are drawn in the inline SVG, toggled via CSS below.
+   ============================================================ */
+.streakcard {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  background: var(--c-primary-soft);
+  border-radius: var(--radius-card);
+  padding: var(--sp-5);
+}
+.streakcard__plant { flex: 0 0 auto; width: 88px; height: 96px; }
+.streakcard__body { display: flex; flex-direction: column; gap: 2px; }
+.streakcard__num {
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  color: var(--c-primary-dark);
+}
+.streakcard__label { font-size: var(--fs-body); color: var(--c-ink-2); }
+
+/* Plant growth stages: show only the layers up to data-stage.
+   Each growth layer has class .g1..(.g5). Default hides all
+   beyond stage; stages are additive (sprout -> flowering). */
+.plant [data-grow] { opacity: 0; transition: opacity var(--motion-slow) var(--ease); }
+.plant[data-stage="1"] [data-grow="1"],
+.plant[data-stage="2"] [data-grow="1"],
+.plant[data-stage="2"] [data-grow="2"],
+.plant[data-stage="3"] [data-grow="1"],
+.plant[data-stage="3"] [data-grow="2"],
+.plant[data-stage="3"] [data-grow="3"],
+.plant[data-stage="4"] [data-grow="1"],
+.plant[data-stage="4"] [data-grow="2"],
+.plant[data-stage="4"] [data-grow="3"],
+.plant[data-stage="4"] [data-grow="4"],
+.plant[data-stage="5"] [data-grow="1"],
+.plant[data-stage="5"] [data-grow="2"],
+.plant[data-stage="5"] [data-grow="3"],
+.plant[data-stage="5"] [data-grow="4"],
+.plant[data-stage="5"] [data-grow="5"] { opacity: 1; }
+
+/* ============================================================
+   Hero check-in "Go" button (Today) — big circular affordance
+   ============================================================ */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  text-align: center;
+}
+.hero__ring {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius-pill);
+  /* dimensional: light from top, deepening to the base — reads as a
+     soft dome, not a flat disc */
+  background:
+    radial-gradient(circle at 50% 32%, #2FA588 0%, var(--c-primary) 54%, var(--c-primary-dark) 100%);
+  color: #fff;
+  box-shadow:
+    0 14px 32px rgba(20,125,100,0.30),
+    inset 0 3px 8px rgba(255,255,255,0.28),
+    inset 0 -12px 26px rgba(9,64,50,0.34);
+}
+/* soft concentric halo so the button sits in a gentle glow */
+.hero__ring::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(20,125,100,0.16);
+  pointer-events: none;
+}
+.hero__ring-label,
+.hero__ring-sub { text-shadow: 0 1px 2px rgba(9,64,50,0.28); }
+.hero__ring:active { transform: scale(0.97); filter: brightness(0.97); }
+.hero__ring-label { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.hero__ring-sub { font-size: var(--fs-caption); opacity: 0.92; }
+
+/* gentle breathing pulse when the check-in is undone — a soft scale +
+   glow, slow enough to feel calm rather than blinking */
+@keyframes soft-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 14px 32px rgba(20,125,100,0.30),
+                inset 0 3px 8px rgba(255,255,255,0.28),
+                inset 0 -12px 26px rgba(9,64,50,0.34);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 18px 44px rgba(20,125,100,0.42),
+                inset 0 3px 8px rgba(255,255,255,0.28),
+                inset 0 -12px 26px rgba(9,64,50,0.34);
+  }
+}
+.hero__ring.is-undone { animation: soft-pulse 3.2s var(--ease) infinite; }
+
+/* done state: green check on soft fill */
+.hero__ring.is-done {
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  animation: none;
+}
+.hero__ring.is-done::before { border-color: rgba(20,125,100,0.12); }
+.hero__ring.is-done svg { width: 64px; height: 64px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__ring.is-undone { animation: none; }
+}
+
+/* ============================================================
+   Mini checklist preview (Today "Your plan today")
+   ============================================================ */
+.miniplan { display: flex; flex-direction: column; gap: var(--sp-3); }
+.miniplan__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: var(--tap-min);
+  font-size: var(--fs-body);
+}
+.miniplan__tick {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c-line);
+  color: var(--c-primary);
+}
+.miniplan__row.is-done .miniplan__tick {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+}
+.miniplan__row.is-done .miniplan__label { color: var(--c-ink-2); }
+.miniplan__tick svg { width: 18px; height: 18px; }
+.miniplan__label { flex: 1; }
+.miniplan__meta { color: var(--c-ink-2); font-size: var(--fs-caption); }
+
+/* accountability line */
+.accountability {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  justify-content: center;
+  color: var(--c-ink-2);
+  font-size: var(--fs-caption);
+  text-align: center;
+}
+.accountability svg { width: 20px; height: 20px; }
+
+/* ============================================================
+   Pain scale (Check-In) — 0..10, large tappable segments with a
+   calm->alert color ramp, selected value shown big.
+   Colors are set inline per segment (interpolated pain-0..10) so
+   the ramp reads left-to-right. Selection handled in app.js.
+   ============================================================ */
+.painscale { display: flex; flex-direction: column; gap: var(--sp-4); }
+
+/* Big selected-value readout: "6 — Moderate". Before any selection a
+   friendly prompt shows instead. The swap is pure CSS (:has) — no JS
+   change: app.js still just fills the number + word spans. */
+.painscale__value {
+  align-self: center;
+  text-align: center;
+  min-height: calc(var(--fs-display) + var(--sp-1));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+}
+.painscale__prompt {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  color: var(--c-ink-2);
+}
+.painscale__readout { display: none; align-items: baseline; gap: var(--sp-2); }
+.painscale__num {
+  font-family: var(--font-serif);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  color: var(--c-ink);
+}
+.painscale__dash { font-size: var(--fs-h1); color: var(--c-line); }
+.painscale__word { font-size: var(--fs-h2); font-weight: var(--fw-medium); color: var(--c-ink-2); }
+
+/* once a segment is chosen, swap prompt -> "N — Word" */
+[data-painscale]:has(.pain.is-selected) .painscale__prompt { display: none; }
+[data-painscale]:has(.pain.is-selected) .painscale__readout { display: inline-flex; }
+
+/* Segments: wrap-friendly grid — each >= 44px wide, wraps to two rows
+   on a narrow phone. The 0->10 color ramp still reads across the rows. */
+.painscale__segments {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
+  gap: var(--sp-1);              /* tight enough that 0–10 wraps 6 + 5 */
+}
+.pain {
+  min-height: 56px;
+  border-radius: var(--radius-btn);
+  border: 3px solid transparent;
+  color: #fff;
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+  opacity: 0.82;
+  transition: opacity var(--motion-fast) var(--ease),
+              transform var(--motion-fast) var(--ease),
+              box-shadow var(--motion-fast) var(--ease);
+}
+.pain:active { transform: scale(0.95); }
+.pain.is-selected {
+  opacity: 1;
+  border-color: var(--c-ink);
+  box-shadow: 0 0 0 3px rgba(31,36,33,0.14), var(--shadow-card);
+  transform: scale(1.08);
+  animation: pain-pulse var(--motion-base) var(--ease);
+}
+@keyframes pain-pulse {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.15); }
+  100% { transform: scale(1.08); }
+}
+
+/* End anchors + face cues at 0 / 5 / 10 (FSD requires clear anchors) */
+.painscale__anchors {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-caption);
+  color: var(--c-ink-2);
+  font-weight: var(--fw-medium);
+}
+.painscale__anchors span { display: inline-flex; align-items: center; gap: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pain.is-selected { animation: none; }
+}
+
+/* ============================================================
+   Pill toggle group (Better / Same / Worse) — big pills, single
+   select. Selection handled in app.js (role=radiogroup).
+   ============================================================ */
+.pillgroup { display: flex; gap: var(--sp-2); }
+.pill {
+  flex: 1;                       /* equal width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+  min-height: 72px;
+  padding: var(--sp-2);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink-2);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  transition: transform var(--motion-fast) var(--ease),
+              background var(--motion-fast) var(--ease),
+              border-color var(--motion-fast) var(--ease),
+              color var(--motion-fast) var(--ease);
+}
+.pill svg { width: 26px; height: 26px; }
+.pill:active { transform: scale(0.97); }
+
+/* Selected states: Better = soft green, Same = neutral, Worse = amber.
+   Never red — a "worse" day is met with calm attention, not alarm. */
+.pill--better.is-selected {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary);
+  color: var(--c-primary-dark);
+}
+.pill--same.is-selected {
+  background: var(--c-neutral-soft);
+  border-color: var(--c-ink-2);
+  color: var(--c-ink);
+}
+.pill--worse.is-selected {
+  background: var(--c-amber-soft);
+  border-color: var(--c-accent-amber);
+  color: #8A5300;
+}
+
+/* ============================================================
+   Checklist row — full-row tap target, big checkbox, label,
+   optional meta. .is-done -> soft green fill + check, scale-pulse.
+   ============================================================ */
+.checkrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: var(--sp-4);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  text-align: left;
+  transition: background var(--motion-fast) var(--ease),
+              border-color var(--motion-fast) var(--ease);
+}
+.checkrow__box {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  color: #fff;
+  transition: transform var(--motion-fast) var(--ease);
+}
+.checkrow__box svg { width: 24px; height: 24px; opacity: 0; transition: opacity var(--motion-fast) var(--ease); }
+.checkrow__body { flex: 1; min-width: 0; }
+.checkrow__label { font-size: var(--fs-body-lg); font-weight: var(--fw-medium); }
+.checkrow__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-caption);
+  color: var(--c-ink-2);
+}
+/* color-coded modality dot (always paired with the text label, so it
+   is never the sole indicator — set color via inline --dot) */
+.checkrow__dot {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--dot, var(--c-ink-2));
+}
+
+.checkrow.is-done {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary);
+}
+.checkrow.is-done .checkrow__box {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  transform: scale(1.06);
+}
+.checkrow.is-done .checkrow__box svg { opacity: 1; }
+
+@keyframes done-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+.checkrow.just-done { animation: done-pulse var(--motion-base) var(--ease); }
+@media (prefers-reduced-motion: reduce) {
+  .checkrow.just-done { animation: none; }
+}
+
+/* ============================================================
+   Collapsible section (doctor note) — expands to textarea + mic.
+   Toggled via [data-toggle] in app.js (.is-open on the target).
+   ============================================================ */
+.collapse { display: none; }
+.collapse.is-open { display: block; margin-top: var(--sp-4); }
+
+.notefield {
+  position: relative;
+  display: block;
+}
+.notefield textarea {
+  width: 100%;
+  min-height: 144px;
+  padding: var(--sp-4);
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-card);
+  background: var(--c-surface);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body);
+  resize: vertical;
+}
+.notefield textarea:focus-visible { border-color: var(--c-primary); outline: none; }
+
+.micbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: var(--tap-btn);
+  margin-top: var(--sp-3);
+  padding: 0 var(--sp-4);
+  border-radius: var(--radius-btn);
+  border: 2px solid var(--c-primary);
+  background: var(--c-surface);
+  color: var(--c-primary);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+}
+.micbtn svg { width: 28px; height: 28px; }
+.micbtn.is-recording {
+  background: var(--c-primary-soft);
+  border-color: var(--c-primary);
+  color: var(--c-primary-dark);
+}
+
+/* label above a form section */
+.field-label {
+  display: block;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-3);
+}
+.field-optional { font-size: var(--fs-caption); color: var(--c-ink-2); font-weight: var(--fw-regular); }
+
+/* ============================================================
+   Already-submitted done panel (friendly, not an error)
+   ============================================================ */
+.donepanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-4);
+  padding: var(--sp-6) var(--sp-4);
+}
+.donepanel__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.donepanel__badge svg { width: 52px; height: 52px; }
+
+/* ============================================================
+   Confirmation / celebration overlay (Section 6.7)
+   Full-screen within the phone frame (.app is position:relative).
+   Big check -> plant grows a leaf -> points tick -> badge reveal.
+   ============================================================ */
+.celebrate {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+  padding: var(--sp-6) var(--page-pad);
+  text-align: center;
+  background: var(--c-bg);
+  overflow-y: auto;
+}
+.celebrate__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 108px;
+  height: 108px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  color: #fff;
+  box-shadow: var(--shadow-lift);
+}
+.celebrate__check svg { width: 60px; height: 60px; }
+
+@keyframes pop-in {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.pop { animation: pop-in var(--motion-slow) var(--ease) both; }
+
+/* points tick-up chip */
+.points {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-5);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  font-weight: var(--fw-bold);
+}
+.points__num { font-size: var(--fs-h1); }
+.points__plus { font-size: var(--fs-body-lg); color: var(--c-celebrate); }
+
+/* the growing plant in the celebration is bigger */
+.celebrate .plant { width: 120px; height: 132px; }
+
+/* ============================================================
+   Badge tile (Rewards + celebration reveal)
+   earned = full color + date; locked = grayscale + "how to earn".
+   ============================================================ */
+.badgegrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-4);
+}
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-5) var(--sp-3);
+  border-radius: var(--radius-card);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+.badge__medal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-pill);
+  background: var(--c-celebrate);
+  color: #fff;
+}
+.badge__medal svg { width: 40px; height: 40px; }
+.badge__name { font-size: var(--fs-body); font-weight: var(--fw-bold); }
+.badge__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+.badge.is-locked { opacity: 1; }
+.badge.is-locked .badge__medal {
+  background: var(--c-line);
+  color: var(--c-ink-2);
+  filter: grayscale(1);
+}
+.badge.is-locked .badge__name { color: var(--c-ink-2); }
+
+/* inline badge reveal inside the celebration */
+.badge--reveal {
+  flex-direction: row;
+  text-align: left;
+  gap: var(--sp-4);
+  width: 100%;
+  max-width: 320px;
+}
+
+/* ============================================================
+   Toast / confirmation banner — slides from top, auto-dismiss.
+   ============================================================ */
+.toast {
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--page-pad);
+  right: var(--page-pad);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-radius: var(--radius-btn);
+  background: var(--c-primary);
+  color: #fff;
+  font-weight: var(--fw-medium);
+  box-shadow: var(--shadow-lift);
+  animation: toast-in var(--motion-base) var(--ease) both;
+}
+.toast svg { width: 24px; height: 24px; flex: 0 0 auto; }
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.toast.is-hiding { animation: toast-out var(--motion-base) var(--ease) both; }
+@keyframes toast-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-16px); }
+}
+
+/* ============================================================
+   Confetti — a few celebrate-colored pieces, gentle fall.
+   Sound OFF, motion respected (dropped under reduced-motion).
+   ============================================================ */
+.confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 45; }
+.confetti i {
+  position: absolute;
+  top: -12px;
+  width: 10px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.9;
+  animation: fall 2.6s var(--ease) forwards;
+}
+@keyframes fall {
+  to { transform: translateY(120%) rotate(360deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pop, .toast, .celebrate .plant [data-grow] { animation: none !important; }
+  .confetti { display: none; }
+}
+
+/* ============================================================
+   Call-the-office button (Section 5) — appears wherever a patient
+   might expect chat. There is NO in-app messaging.
+   ============================================================ */
+.calloffice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: 0 var(--sp-5);
+  border-radius: var(--radius-btn);
+  border: 2px solid var(--c-primary);
+  background: var(--c-surface);
+  color: var(--c-primary);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+}
+.calloffice:active { background: var(--c-primary-soft); }
+.calloffice svg { width: 24px; height: 24px; }
+
+.calloffice-line {
+  text-align: center;
+  color: var(--c-ink-2);
+  font-size: var(--fs-body);
+}
+.calloffice-line a { font-weight: var(--fw-bold); }
+
+/* ============================================================
+   Modality section header (Exercise Plan)
+   ============================================================ */
+.modality { margin-top: var(--sp-6); }
+.modality:first-of-type { margin-top: 0; }
+.modality__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.modality__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-btn);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.modality__icon svg { width: 26px; height: 26px; }
+.modality__title { font-size: var(--fs-h2); font-weight: var(--fw-bold); }
+
+/* ============================================================
+   Exercise card (Exercise Plan) — big tappable card, read-only.
+   Static line-illustration, name, plain line, frequency, tick.
+   ============================================================ */
+.exlist { display: flex; flex-direction: column; gap: var(--sp-4); }
+.excard {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  width: 100%;
+  padding: var(--sp-4);
+  border-radius: var(--radius-card);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-card);
+  text-align: left;
+  transition: transform var(--motion-fast) var(--ease);
+}
+.excard:active { transform: scale(0.99); }
+/* main tappable area (opens detail); the tick is a separate button */
+.excard__link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+}
+.excard__art {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-btn);
+  background: var(--c-bg);
+  color: var(--c-primary);
+}
+.excard__art svg { width: 36px; height: 36px; }
+.excard__body { flex: 1; min-width: 0; }
+.excard__name { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.excard__line { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.excard__freq {
+  display: inline-block;
+  margin-top: var(--sp-1);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary);
+}
+.excard__tick {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--c-line);
+  color: #fff;
+}
+.excard__tick svg { width: 20px; height: 20px; opacity: 0; }
+.excard.is-done { background: var(--c-primary-soft); }
+.excard.is-done .excard__tick { background: var(--c-primary); border-color: var(--c-primary); }
+.excard.is-done .excard__tick svg { opacity: 1; }
+
+/* chevron hint that a card opens detail */
+.excard__chev { flex: 0 0 auto; color: var(--c-ink-2); }
+.excard__chev svg { width: 22px; height: 22px; }
+
+/* ============================================================
+   Slide-up sheet (Exercise Detail) — full-height panel that
+   slides from the bottom of the phone frame.
+   ============================================================ */
+.sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-surface);
+  animation: sheet-up var(--motion-base) var(--ease) both;
+}
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet { animation: none; }
+}
+.sheet__grip {
+  width: 44px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--c-line);
+  margin: var(--sp-3) auto var(--sp-1);
+}
+
+/* numbered steps (Exercise Detail) */
+.steps { display: flex; flex-direction: column; gap: var(--sp-4); }
+.step {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+}
+.step__n {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  color: #fff;
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+}
+.step__text { font-size: var(--fs-body-lg); padding-top: var(--sp-1); }
+
+/* exercise detail hero illustration */
+.exhero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 160px;
+  border-radius: var(--radius-card);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.exhero svg { width: 96px; height: 96px; }
+
+/* ============================================================
+   Timer ring (Exercise Detail) — big countdown for holds/reps.
+   The ring is an SVG; JS updates stroke-dashoffset + the number.
+   ============================================================ */
+.timer { display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); }
+.timer__ring { position: relative; width: 200px; height: 200px; }
+.timer__ring svg { width: 200px; height: 200px; transform: rotate(-90deg); }
+.timer__track { stroke: var(--c-line); }
+.timer__prog {
+  stroke: var(--c-primary);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+.timer__num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.timer__count { font-size: var(--fs-display); font-weight: var(--fw-bold); line-height: 1; }
+.timer__unit { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.timer__controls { display: flex; gap: var(--sp-3); width: 100%; }
+
+/* ============================================================
+   Streak calendar (Progress) — month grid, big cells. Checked
+   days filled; today ringed; missed days neutral (never red).
+   ============================================================ */
+.calendar__dow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+}
+.calendar__dow span {
+  text-align: center;
+  font-size: var(--fs-caption);
+  color: var(--c-ink-2);
+  font-weight: var(--fw-medium);
+}
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--sp-2);
+}
+.cal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  min-height: 40px;
+  border-radius: var(--radius-btn);
+  font-size: var(--fs-body);
+  color: var(--c-ink-2);
+}
+.cal.is-empty { visibility: hidden; }
+.cal.is-checked {
+  background: var(--c-primary);
+  color: #fff;
+  font-weight: var(--fw-bold);
+}
+.cal.is-checked svg { width: 20px; height: 20px; }
+.cal.is-today {
+  border: 3px solid var(--c-primary);
+  color: var(--c-primary);
+  font-weight: var(--fw-bold);
+}
+.cal.is-checked.is-today { color: #fff; }
+/* missed days: plain, neutral — no red, no shame */
+.cal.is-missed { color: var(--c-ink-2); background: var(--c-bg); }
+
+/* ============================================================
+   Adherence ring (Progress) — big % in a friendly ring.
+   Set the filled fraction with --pct (0..100) on .aring.
+   ============================================================ */
+.aring {
+  --pct: 80;
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  border-radius: var(--radius-pill);
+  background:
+    conic-gradient(var(--c-primary) calc(var(--pct) * 1%), var(--c-primary-soft) 0);
+}
+.aring::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: var(--radius-pill);
+  background: var(--c-surface);
+}
+.aring__label {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.aring__pct { font-size: var(--fs-display); font-weight: var(--fw-bold); color: var(--c-primary); line-height: 1; }
+.aring__sub { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+/* ============================================================
+   Pain trend (Progress) — directional sentence + simple
+   this-week-vs-last-week bars. Reassuring, not clinical.
+   ============================================================ */
+.trend__headline {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary);
+}
+.trend__headline svg { width: 28px; height: 28px; }
+.trend__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-5);
+  height: 140px;
+  margin-top: var(--sp-4);
+  padding: 0 var(--sp-3);
+}
+.tbar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); height: 100%; justify-content: flex-end; }
+.tbar__fill {
+  width: 100%;
+  max-width: 72px;
+  border-radius: var(--radius-btn) var(--radius-btn) 0 0;
+  background: var(--c-primary-soft);
+}
+.tbar__fill--now { background: var(--c-primary); }
+.tbar__val { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.tbar__lbl { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+/* ============================================================
+   Points hero (Rewards) — big total, framed as progress points.
+   ============================================================ */
+.pointshero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  text-align: center;
+  background: var(--c-primary-soft);
+  border-radius: var(--radius-card);
+  padding: var(--sp-6) var(--sp-4);
+}
+.pointshero__num { font-size: 56px; font-weight: var(--fw-bold); line-height: 1; color: var(--c-primary-dark); }
+.pointshero__label { font-size: var(--fs-body-lg); color: var(--c-ink-2); }
+
+/* ============================================================
+   Milestone journey path (Rewards) — vertical stepper, next
+   milestone highlighted. States: is-done / is-next / is-locked.
+   ============================================================ */
+.journey { position: relative; }
+.milestone {
+  display: flex;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-5);
+}
+.milestone:last-child { padding-bottom: 0; }
+/* connector line drawn behind the markers */
+.milestone__rail { position: relative; flex: 0 0 auto; width: 40px; display: flex; justify-content: center; }
+.milestone:not(:last-child) .milestone__rail::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  bottom: -4px;
+  width: 3px;
+  background: var(--c-line);
+}
+.milestone.is-done .milestone__rail::after { background: var(--c-primary); }
+.milestone__marker {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  border: 3px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink-2);
+  font-weight: var(--fw-bold);
+}
+.milestone__marker svg { width: 22px; height: 22px; }
+.milestone.is-done .milestone__marker { background: var(--c-primary); border-color: var(--c-primary); color: #fff; }
+.milestone.is-next .milestone__marker { border-color: var(--c-primary); color: var(--c-primary); }
+.milestone__body { flex: 1; padding-top: var(--sp-1); }
+.milestone__title { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.milestone__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.milestone.is-next .milestone__meta { color: var(--c-primary); font-weight: var(--fw-bold); }
+
+/* ============================================================
+   Auth / onboarding layout helpers
+   ============================================================ */
+/* vertically-centered auth content (splash, login, verify) */
+.authwrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  gap: var(--sp-5);
+  text-align: center;
+}
+
+/* Logo mark + wordmark */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+  border-radius: 28px;
+  background: var(--c-primary);
+  color: #fff;
+  box-shadow: var(--shadow-lift);
+}
+.logo svg { width: 56px; height: 56px; }
+.wordmark { font-size: var(--fs-display); font-weight: var(--fw-bold); letter-spacing: 0.02em; }
+.tagline { font-size: var(--fs-body-lg); color: var(--c-ink-2); }
+
+/* Big single input field (email/phone) */
+.bigfield {
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: 0 var(--sp-5);
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-btn);
+  background: var(--c-surface);
+  font-size: var(--fs-body-lg);
+  text-align: center;
+}
+.bigfield:focus-visible { border-color: var(--c-primary); }
+
+/* Install-steps card (splash) */
+.installsteps { display: flex; flex-direction: column; gap: var(--sp-4); text-align: left; }
+.installstep { display: flex; align-items: center; gap: var(--sp-3); }
+.installstep__n {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft); color: var(--c-primary-dark);
+  font-weight: var(--fw-bold);
+}
+
+/* Segmented toggle (iOS / Android; SMS / Email) */
+.segmented {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+}
+.seg {
+  min-height: var(--tap-min);
+  padding: 0 var(--sp-4);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink-2);
+}
+.seg.is-active { background: var(--c-primary); color: #fff; }
+
+/* OTP boxes (verify) */
+.otp { display: flex; gap: var(--sp-2); justify-content: center; }
+.otp input {
+  width: 48px;
+  height: 60px;
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-btn);
+  background: var(--c-surface);
+  text-align: center;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+}
+.otp input:focus-visible { border-color: var(--c-primary); outline: none; }
+
+/* ============================================================
+   Onboarding — trust card, welcome carousel, confirm details
+   ============================================================ */
+.trustcard {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  background: var(--c-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-5);
+}
+.trustcard__photo {
+  display: block;
+  flex: 0 0 auto;
+  width: 72px; height: 72px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.trustcard__photo svg { display: block; width: 72px; height: 72px; }
+
+/* welcome carousel: horizontal scroll-snap of cards + dots */
+.welcome {
+  display: flex;
+  gap: var(--sp-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--sp-2);
+}
+.welcome__card {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  text-align: center;
+  background: var(--c-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-6) var(--sp-5);
+}
+.welcome__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 72px; height: 72px; border-radius: var(--radius-pill);
+  background: var(--c-primary-soft); color: var(--c-primary);
+}
+.welcome__icon svg { width: 40px; height: 40px; }
+.dots { display: flex; gap: var(--sp-2); justify-content: center; }
+.dots span { width: 10px; height: 10px; border-radius: var(--radius-pill); background: var(--c-line); }
+.dots span.is-active { background: var(--c-primary); width: 26px; }
+
+/* ============================================================
+   Settings — rows + toggle switch + big time control
+   ============================================================ */
+.setrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: var(--tap-btn);
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--c-line);
+}
+.setrow:last-child { border-bottom: none; }
+.setrow__label { flex: 1; font-size: var(--fs-body-lg); font-weight: var(--fw-medium); }
+.setrow__sub { font-size: var(--fs-caption); color: var(--c-ink-2); font-weight: var(--fw-regular); }
+
+/* big time control */
+.timepick {
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: 0 var(--sp-5);
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-btn);
+  background: var(--c-surface);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  text-align: center;
+}
+
+/* toggle switch (accessible button) */
+.switch {
+  flex: 0 0 auto;
+  position: relative;
+  width: 64px; height: 36px;
+  border-radius: var(--radius-pill);
+  background: var(--c-line);
+  transition: background var(--motion-fast) var(--ease);
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 4px; left: 4px;
+  width: 28px; height: 28px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  transition: transform var(--motion-fast) var(--ease);
+}
+.switch[aria-checked="true"] { background: var(--c-primary); }
+.switch[aria-checked="true"]::after { transform: translateX(28px); }
+
+/* ============================================================
+   Offline banner (Section 5 / 6.15) — full-width, non-alarming.
+   Sits at the top of the frame; reassuring, never red.
+   ============================================================ */
+.offlinebar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--page-pad);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  border-bottom: 1px solid var(--c-line);
+}
+.offlinebar svg { width: 22px; height: 22px; flex: 0 0 auto; }
+
+/* Full-screen offline fallback */
+.offlinefull {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+  min-height: 100%;
+  text-align: center;
+}
+.offlinefull__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 104px; height: 104px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft); color: var(--c-primary);
+}
+.offlinefull__icon svg { width: 56px; height: 56px; }
+
+/* ============================================================
+   FAQ accordion (Help) — big expandable rows.
+   [data-toggle] flips .is-open on the answer; the row shows a
+   rotating chevron via [aria-expanded].
+   ============================================================ */
+.faq { display: flex; flex-direction: column; }
+.faq__item { border-bottom: 1px solid var(--c-line); }
+.faq__q {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: var(--tap-btn);
+  padding: var(--sp-4) 0;
+  text-align: left;
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink);
+}
+.faq__q .faq__chev {
+  margin-left: auto;
+  flex: 0 0 auto;
+  transition: transform var(--motion-fast) var(--ease);
+}
+.faq__q .faq__chev svg { width: 24px; height: 24px; }
+.faq__q[aria-expanded="true"] .faq__chev { transform: rotate(180deg); }
+.faq__a { padding: 0 0 var(--sp-4); font-size: var(--fs-body); color: var(--c-ink-2); }
+
+/* ============================================================
+   GARDEN — Rewards screen ("Your garden")
+   Uses the hand-authored plant + medallion art (assets/art/).
+   The 5-stage plant is the shared metaphor across Today,
+   Rewards, and the celebration overlay.
+   ============================================================ */
+
+/* Hero: the current plant stage + streak */
+.garden {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-2);
+  padding: var(--sp-7) var(--sp-5) var(--sp-6);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  /* gentle sky: light at the top, settling to white — the plant's scene */
+  background:
+    radial-gradient(120% 80% at 50% 0%, #DCEFE7 0%, rgba(220,239,231,0) 60%),
+    linear-gradient(180deg, var(--c-primary-soft) 0%, var(--c-surface) 70%);
+}
+.garden__plant { width: 152px; height: 152px; }
+.garden__count { display: flex; align-items: baseline; gap: var(--sp-2); }
+.garden__num {
+  font-family: var(--font-serif);
+  font-size: 56px;
+  line-height: 1;
+  font-weight: var(--fw-bold);
+  color: var(--c-primary-dark);
+}
+.garden__unit { font-size: var(--fs-body-lg); color: var(--c-ink-2); font-weight: var(--fw-medium); }
+.garden__line { font-size: var(--fs-body-lg); color: var(--c-ink); max-width: 22ch; }
+
+/* Points — quietly well-typeset, counts up on load */
+.gardenpoints {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--sp-2);
+}
+.gardenpoints__num {
+  font-family: var(--font-serif);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.gardenpoints__label { font-size: var(--fs-body); color: var(--c-ink-2); }
+
+/* Medallion collection — hexagon badges (earned = color, locked = grey) */
+.medalgrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-4);
+}
+.medal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-2);
+  padding: var(--sp-5) var(--sp-3) var(--sp-4);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  background: var(--c-surface);
+}
+.medal__art { width: 80px; height: 80px; }
+.medal__name { font-family: var(--font-serif); font-size: var(--fs-body); font-weight: var(--fw-bold); }
+.medal__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.medal.is-locked { background: var(--c-bg); }
+.medal.is-locked .medal__name { color: var(--c-ink-2); }
+
+/* Milestone journey — vertical path, NEXT reward highlighted */
+.gpath { display: flex; flex-direction: column; }
+.gstep { display: flex; gap: var(--sp-4); padding-bottom: var(--sp-5); }
+.gstep:last-child { padding-bottom: 0; }
+.gstep__rail { position: relative; flex: 0 0 auto; width: 40px; display: flex; justify-content: center; }
+.gstep:not(:last-child) .gstep__rail::after {
+  content: "";
+  position: absolute;
+  top: 40px; bottom: -4px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--c-line);
+}
+.gstep.is-done .gstep__rail::after { background: var(--c-primary); }
+.gstep__dot {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: var(--radius-pill);
+  border: 3px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink-2);
+  font-weight: var(--fw-bold);
+}
+.gstep__dot svg { width: 22px; height: 22px; }
+.gstep.is-done .gstep__dot { background: var(--c-primary); border-color: var(--c-primary); color: #fff; }
+.gstep.is-next .gstep__dot {
+  border-color: var(--c-accent);
+  color: var(--c-accent-dark);
+  box-shadow: 0 0 0 5px var(--c-accent-soft);
+}
+.gstep__body { flex: 1; padding-top: var(--sp-1); }
+.gstep__title { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.gstep__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
+/* anticipation pill — sell the NEXT reward */
+.gstep__soon {
+  display: inline-block;
+  margin-top: var(--sp-2);
+  padding: 6px var(--sp-3);
+  border-radius: var(--radius-pill);
+  background: var(--c-accent-soft);
+  color: var(--c-accent-dark);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+}
+
+/* ============================================================
+   CELEBRATION overlay — calm daily vs. milestone.
+   Builds on the existing .celebrate full-screen container.
+   ============================================================ */
+
+/* plant that grows one stage: two stacked images crossfade */
+.grow {
+  position: relative;
+  width: 168px;
+  height: 168px;
+}
+.grow__img {
+  position: absolute;
+  inset: 0;
+  width: 168px;
+  height: 168px;
+  transition: opacity var(--motion-slow) var(--ease),
+              transform var(--motion-slow) var(--ease);
+}
+.grow__img--to { opacity: 0; transform: scale(0.88); }
+.grow.is-grown .grow__img--from { opacity: 0; transform: scale(0.96); }
+.grow.is-grown .grow__img--to { opacity: 1; transform: scale(1); }
+
+/* medallion reveal with a gentle gold glow */
+.medalreveal {
+  position: relative;
+  display: inline-flex;
+  width: 128px; height: 128px;
+}
+.medalreveal::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: var(--radius-pill);
+  background: radial-gradient(closest-side, rgba(242,183,5,0.38), rgba(242,183,5,0));
+  animation: glow-breathe 2.8s var(--ease) infinite;
+}
+.medalreveal img { position: relative; width: 128px; height: 128px; }
+.medalreveal { animation: medal-in var(--motion-slow) var(--ease) both; }
+@keyframes medal-in {
+  0%   { opacity: 0; transform: scale(0.72) translateY(10px); }
+  62%  { transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(0.98); }
+  50%      { opacity: 1;    transform: scale(1.04); }
+}
+
+/* points count-up chip (celebration) */
+.tickpoints {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-5);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  font-weight: var(--fw-bold);
+}
+.tickpoints__plus { color: var(--c-accent-dark); font-size: var(--fs-body-lg); }
+.tickpoints__num { font-family: var(--font-serif); font-size: var(--fs-h1); font-variant-numeric: tabular-nums; }
+
+/* milestone name ribbon */
+.milestone-name {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  color: var(--c-accent-dark);
+}
+
+/* soft bloom of petals drifting UP (terracotta + gold, never neon) */
+.bloom { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 6; }
+.petal {
+  position: absolute;
+  bottom: -28px;
+  width: 16px;
+  height: 16px;
+  border-radius: 62% 62% 62% 0;   /* soft teardrop */
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: drift-up 3.4s var(--ease) forwards;
+}
+@keyframes drift-up {
+  0%   { opacity: 0;    transform: translateY(0)      rotate(0deg); }
+  14%  { opacity: 0.92; }
+  100% { opacity: 0;    transform: translateY(-108vh) rotate(var(--spin, 140deg)); }
+}
+
+/* calm daily confirmation — small, quiet */
+.calmcheck {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px; height: 96px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.calmcheck svg { width: 48px; height: 48px; }
+.celebrate__smallplant { width: 96px; height: 96px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom { display: none; }
+  .medalreveal::before { animation: none; }
+  .grow__img { transition: opacity 0.01ms; }
+}
+
+/* Ensure the hidden attribute always wins over component display rules
+   (e.g. .garden / .celebrate set display:flex, which would otherwise
+   override the UA [hidden] { display:none } and leak both states). */
+[hidden] { display: none !important; }
+
+/* ============================================================
+   Session 3 — Elevation pass
+   Living plant scenes, growth-progress ring, medallion glow,
+   cross-tab garden chip. Everything here is calm + reduced-motion safe.
+   ============================================================ */
+
+/* ---- Gentle sway: the plant is alive, breathing slowly ---- */
+@keyframes plant-sway {
+  0%, 100% { transform: rotate(-1.4deg); }
+  50%      { transform: rotate(1.4deg); }
+}
+@keyframes plant-breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-2px) scale(1.015); }
+}
+
+/* ---- Garden hero stage: sky glow + ground + growth-progress ring ----
+   Set --stage-prog (0..100) on .garden__stage = progress to next stage. */
+.garden__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto var(--sp-3);
+}
+/* soft ground shadow the plant sits on */
+.garden__stage::after {
+  content: "";
+  position: absolute;
+  bottom: 26px;
+  width: 118px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(12,74,58,0.18), rgba(12,74,58,0));
+}
+/* thin conic progress ring — how close to the next growth stage */
+.garden__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+      var(--c-primary) calc(var(--stage-prog, 0) * 1%),
+      rgba(20,125,100,0.14) 0);
+  -webkit-mask: radial-gradient(closest-side, transparent 79%, #000 80%);
+          mask: radial-gradient(closest-side, transparent 79%, #000 80%);
+}
+.garden__stage .garden__plant {
+  position: relative;
+  z-index: 1;
+  transform-origin: 50% 88%;
+  animation: plant-sway 6s ease-in-out infinite;
+}
+/* small "days to grow" helper under the streak */
+.garden__grow-note {
+  display: inline-block;
+  margin-top: var(--sp-1);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  color: var(--c-accent-dark);
+}
+
+/* ---- Streak card (Today): soft glow behind the plant + sway ---- */
+.streakcard__plant {
+  position: relative;
+  transform-origin: 50% 90%;
+  animation: plant-sway 6s ease-in-out infinite;
+}
+.streakcard__plant::before {
+  content: "";
+  position: absolute;
+  inset: -8px -6px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255,255,255,0.7), rgba(255,255,255,0));
+  z-index: -1;
+}
+
+/* ---- Earned medallions feel prized: a soft gold aura ---- */
+.medal { position: relative; overflow: hidden; }
+.medal:not(.is-locked) .medal__art {
+  position: relative;
+  filter: drop-shadow(0 3px 6px rgba(202,140,26,0.28));
+}
+.medal:not(.is-locked)::before {
+  content: "";
+  position: absolute;
+  top: var(--sp-5);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(242,183,5,0.22), rgba(242,183,5,0));
+  pointer-events: none;
+}
+.medal:active { transform: scale(0.99); }
+
+/* ---- Cross-tab garden chip (Progress top) — carries the metaphor ---- */
+.gardenchip {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--radius-card);
+  background:
+    radial-gradient(120% 100% at 0% 0%, #DCEFE7 0%, rgba(220,239,231,0) 62%),
+    var(--c-primary-soft);
+}
+.gardenchip__plant {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  transform-origin: 50% 90%;
+  animation: plant-sway 6s ease-in-out infinite;
+}
+.gardenchip__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.gardenchip__num {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  color: var(--c-primary-dark);
+}
+.gardenchip__label { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+/* ---- Calm daily confirmation: seat the plant in a soft scene ---- */
+.plantscene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 120px;
+  margin: 0 auto;
+}
+.plantscene::before {
+  content: "";
+  position: absolute;
+  width: 132px; height: 132px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(20,125,100,0.10), rgba(20,125,100,0));
+}
+.plantscene::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  width: 84px; height: 15px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(12,74,58,0.16), rgba(12,74,58,0));
+}
+.plantscene > img {
+  position: relative;
+  z-index: 1;
+  transform-origin: 50% 90%;
+  animation: plant-breathe 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden__stage .garden__plant,
+  .streakcard__plant,
+  .gardenchip__plant,
+  .plantscene > img { animation: none; }
+}
+
+/* ============================================================
+   Today — unified "garden home" hero (Session 3)
+   Plant scene + growth ring + streak + the day's check-in action,
+   composed as ONE moment instead of a green circle competing with a
+   separate streak card. The plant is the emotional anchor; the button
+   is the crisp, accessible action.
+   ============================================================ */
+.gardenhome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-3);
+  padding: var(--sp-6) var(--sp-5);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  /* same sky scene as the Rewards garden, so Today and Rewards feel like
+     one continuous world */
+  background:
+    radial-gradient(120% 78% at 50% 0%, #DCEFE7 0%, rgba(220,239,231,0) 58%),
+    linear-gradient(180deg, var(--c-primary-soft) 0%, var(--c-surface) 72%);
+}
+.gardenhome .garden__stage { margin-bottom: 0; }
+.gardenhome__streak { display: flex; align-items: baseline; gap: var(--sp-2); }
+.gardenhome__num {
+  font-family: var(--font-serif);
+  font-size: 52px;
+  line-height: 1;
+  font-weight: var(--fw-bold);
+  color: var(--c-primary-dark);
+}
+.gardenhome__unit {
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-medium);
+  color: var(--c-ink-2);
+}
+.gardenhome__cta {
+  width: 100%;
+  max-width: 320px;
+  margin-top: var(--sp-3);
+}
+.gardenhome__sub { font-size: var(--fs-caption); color: var(--c-ink-2); }
+
+/* checked-in state: the action rests (soft outlined check), the garden
+   stays warm and present. No red, no scolding — just "done for today". */
+.gardenhome.is-done .gardenhome__cta {
+  background: var(--c-surface);
+  color: var(--c-primary-dark);
+  border: 1.5px solid var(--c-primary);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Reassurance chip (login "no password", etc.) — soft, quiet
+   ============================================================ */
+.reassure {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0 auto;
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+}
+.reassure svg { width: 18px; height: 18px; flex: 0 0 auto; }
+
+/* ============================================================
+   Session 3 — entry-flow polish (splash / verify / onboarding)
+   ============================================================ */
+
+/* Splash brand mark: dimensional dome + soft halo + gentle life */
+.logo {
+  position: relative;
+  background: radial-gradient(circle at 50% 32%, #2FA588 0%, var(--c-primary) 58%, var(--c-primary-dark) 100%);
+  animation: plant-breathe 5s ease-in-out infinite;
+}
+.logo::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 36px;
+  background: radial-gradient(closest-side, rgba(20,125,100,0.22), rgba(20,125,100,0));
+  z-index: -1;
+}
+
+/* OTP: a filled box feels satisfying and shows progress (verify.html) */
+.otp input.is-filled {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+}
+
+/* Onboarding trust card: verified badge on the physician avatar */
+.trustcard__avatar { position: relative; flex: 0 0 auto; width: 72px; height: 72px; }
+.trustcard__avatar .trustcard__photo { display: block; width: 72px; height: 72px; }
+.trustcard__verified {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  color: #fff;
+  border: 2.5px solid var(--c-surface);
+}
+.trustcard__verified svg { width: 15px; height: 15px; }
+/* plant preview inside a welcome card icon */
+.welcome__icon img { width: 52px; height: 52px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .logo { animation: none; }
+}
+
+/* ============================================================
+   Splash — living brand mark: a translucent "garden bubble" with the
+   plant cycling seedling -> young -> mature -> flowering, softly swaying.
+   ============================================================ */
+.brandplant {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 168px;
+  height: 168px;
+  margin: 0 auto;
+}
+/* translucent frosted garden bubble behind the plant — alive with a
+   slow light sweep and drifting sunlit motes */
+.brandplant__bubble {
+  position: absolute;
+  width: 156px;
+  height: 156px;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(255,255,255,0.65), rgba(255,255,255,0) 46%),
+    radial-gradient(circle at 50% 62%, rgba(20,125,100,0.16), rgba(220,239,231,0.34) 72%);
+  border: 1px solid rgba(255,255,255,0.55);
+  box-shadow:
+    inset 0 3px 14px rgba(255,255,255,0.6),
+    inset 0 -14px 28px rgba(20,125,100,0.10),
+    0 12px 30px rgba(20,125,100,0.16);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  animation: bubble-breathe 5s ease-in-out infinite;
+}
+/* slow rotating light sweep across the glass */
+.brandplant__bubble::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  background: conic-gradient(from 0deg,
+    rgba(255,255,255,0) 0deg,
+    rgba(255,255,255,0.38) 55deg,
+    rgba(255,255,255,0) 130deg,
+    rgba(255,255,255,0) 360deg);
+  animation: bubble-sheen 8s linear infinite;
+}
+/* a soft moving glint highlight */
+.brandplant__bubble::after {
+  content: "";
+  position: absolute;
+  top: 16%;
+  left: 22%;
+  width: 34%;
+  height: 26%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.85), rgba(255,255,255,0) 70%);
+  animation: glint-drift 5s ease-in-out infinite;
+}
+@keyframes bubble-breathe {
+  0%, 100% { transform: scale(1);    }
+  50%      { transform: scale(1.045); }
+}
+@keyframes bubble-sheen {
+  to { transform: rotate(360deg); }
+}
+@keyframes glint-drift {
+  0%, 100% { transform: translate(0, 0);      opacity: 0.85; }
+  50%      { transform: translate(6px, 4px);  opacity: 0.55; }
+}
+/* drifting sunlit motes inside the bubble */
+.mote {
+  position: absolute;
+  bottom: 14%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.95), rgba(255,255,255,0) 70%);
+  opacity: 0;
+  animation: mote-float 6s ease-in-out infinite;
+}
+.mote:nth-child(1) { left: 30%; animation-delay: 0s;   }
+.mote:nth-child(2) { left: 54%; width: 5px; height: 5px; animation-delay: 1.5s; }
+.mote:nth-child(3) { left: 68%; animation-delay: 3s;   }
+.mote:nth-child(4) { left: 42%; width: 6px; height: 6px; animation-delay: 4.4s; }
+@keyframes mote-float {
+  0%   { opacity: 0;    transform: translate(0, 0)        scale(0.8); }
+  20%  { opacity: 0.9;  }
+  80%  { opacity: 0.6;  }
+  100% { opacity: 0;    transform: translate(6px, -74px)  scale(1.1); }
+}
+/* the plant sways as a group — a gentle, clearly visible breeze */
+.brandplant__stack {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  transform-origin: 50% 88%;
+  animation: brand-sway 4.2s ease-in-out infinite;
+}
+@keyframes brand-sway {
+  0%, 100% { transform: rotate(-3.6deg) translateX(-1px); }
+  50%      { transform: rotate(3.6deg)  translateX(1px);  }
+}
+/* four growth stages crossfade in sequence, looping */
+.brandplant__img {
+  position: absolute;
+  inset: 0;
+  width: 132px;
+  height: 132px;
+  opacity: 0;
+  animation: plant-cycle 12s ease-in-out infinite both;
+}
+.brandplant__img:nth-child(1) { animation-delay: 0s; }
+.brandplant__img:nth-child(2) { animation-delay: 3s; }
+.brandplant__img:nth-child(3) { animation-delay: 6s; }
+.brandplant__img:nth-child(4) { animation-delay: 9s; }
+@keyframes plant-cycle {
+  0%   { opacity: 0; transform: scale(0.96); }
+  5%   { opacity: 1; transform: scale(1); }
+  22%  { opacity: 1; transform: scale(1); }
+  27%  { opacity: 0; transform: scale(1.02); }
+  100% { opacity: 0; transform: scale(1.02); }
+}
+
+/* Refined brand typography: the wordmark is Fraunces at its display
+   extreme — black weight, maximum optical size for dramatic thick/thin
+   contrast, tight tracking. Paired with a tracked uppercase label. */
+.wordmark {
+  font-family: var(--font-serif);
+  font-size: 64px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 0, "wght" 900;
+  color: var(--c-primary-dark);
+}
+.brandtag {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-primary-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brandplant__bubble,
+  .brandplant__bubble::before,
+  .brandplant__bubble::after,
+  .mote,
+  .brandplant__stack { animation: none; }
+  .mote { opacity: 0; }
+  .brandplant__img { animation: none; opacity: 0; }
+  .brandplant__img:nth-child(4) { opacity: 1; }  /* rest on flowering */
+}
+
+/* ============================================================
+   Text-size picker — three steps: Small · Default · Large.
+   Each option's own label is set at its size, so it previews its effect.
+   [data-textsize] group + [data-size="sm|md|lg"] buttons (see app.js).
+   ============================================================ */
+.setrow--stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sp-3);
+}
+.sizeseg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-2);
+  width: 100%;
+}
+.sizeseg__opt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-min);
+  padding: var(--sp-2) var(--sp-3);
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-btn);
+  background: var(--c-surface);
+  color: var(--c-ink-2);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  transition: border-color var(--motion-fast) var(--ease),
+              background var(--motion-fast) var(--ease),
+              color var(--motion-fast) var(--ease);
+}
+/* self-demonstrating: the labels are sized small / medium / large */
+.sizeseg__opt:nth-child(1) { font-size: 15px; }
+.sizeseg__opt:nth-child(2) { font-size: 18px; }
+.sizeseg__opt:nth-child(3) { font-size: 23px; }
+.sizeseg__opt:active { transform: scale(0.98); }
+.sizeseg__opt.is-active {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+}
+
+/* ============================================================
+   Rewards — tiered, collectible medallions
+   (research: R6 Siege tiers, Trophy UI progress rings, Finch anticipation)
+   Earned medals get a foil shine + gentle float; the NEXT one shows a
+   progress ring so "almost there" pulls the patient forward.
+   ============================================================ */
+
+/* tier label under the name */
+.medal__tier {
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.medal__tier--bronze   { color: #A76A3A; }
+.medal__tier--silver   { color: #7E8893; }
+.medal__tier--gold     { color: #C08F1D; }
+.medal__tier--platinum { color: #7F91A4; }
+.medal.is-locked .medal__tier { color: var(--c-ink-2); opacity: 0.65; }
+
+/* earned: gentle float */
+.medal:not(.is-locked) .medal__art { animation: medal-float 4.5s ease-in-out infinite; }
+@keyframes medal-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+/* earned: foil shine sweeping across the tile (staggered per medal) */
+.medal:not(.is-locked)::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -70%;
+  width: 55%; height: 100%;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
+  transform: skewX(-16deg);
+  pointer-events: none;
+  animation: medal-shine 6s ease-in-out infinite;
+}
+@keyframes medal-shine {
+  0%, 55%  { left: -70%; }
+  80%,100% { left: 170%; }
+}
+.medalgrid .medal:nth-child(2)::after { animation-delay: 1.4s; }
+.medalgrid .medal:nth-child(3)::after { animation-delay: 2.8s; }
+
+/* next-to-earn: primary outline + conic progress ring around the art */
+.medal.is-next { border-color: var(--c-primary); }
+.medal.is-next .medal__meta { color: var(--c-primary-dark); font-weight: var(--fw-bold); }
+.medal.is-next .medal__art { position: relative; z-index: 1; }
+.medal.is-next::after {
+  content: "";
+  position: absolute;
+  top: 12px; left: 50%;
+  transform: translateX(-50%);
+  width: 104px; height: 104px;
+  border-radius: 50%;
+  background: conic-gradient(var(--c-primary) calc(var(--medal-prog,0) * 1%), rgba(20,125,100,0.15) 0);
+  -webkit-mask: radial-gradient(closest-side, transparent 78%, #000 79%);
+          mask: radial-gradient(closest-side, transparent 78%, #000 79%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* one-time foil sweep on the celebration medal reveal */
+.medalreveal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.7) 50%, transparent 65%);
+  transform: translateX(-120%) skewX(-14deg);
+  animation: reveal-shine 1.4s var(--ease) 0.5s 2;
+  pointer-events: none;
+}
+@keyframes reveal-shine {
+  to { transform: translateX(120%) skewX(-14deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medal:not(.is-locked) .medal__art { animation: none; }
+  .medal:not(.is-locked)::after { animation: none; left: -70%; opacity: 0; }
+  .medalreveal::after { animation: none; opacity: 0; }
+}
+
+/* collection-completion header — visible progress drives "collect them all" */
+.medalhead { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
+.medalhead__count { font-size: var(--fs-caption); font-weight: var(--fw-bold); color: var(--c-primary-dark); white-space: nowrap; }
+.collectbar {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  overflow: hidden;
+  margin: var(--sp-3) 0 var(--sp-4);
+}
+.collectbar__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--c-primary), var(--c-primary-dark));
+  transition: width var(--motion-slow) var(--ease);
+}
+
+/* animated pain faces in the check-in scale */
+.painscale__face {
+  display: block;
+  width: 72px; height: 72px;
+  margin: 0 auto var(--sp-2);
+}
+.painscale__anchorface {
+  width: 26px; height: 26px;
+  vertical-align: middle;
+  margin: 0 2px;
+}
