@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work Queue · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="work-queue" data-title="Work Queue">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">Work queue</div>
+              <div class="pagehead__sub">Patients needing action to qualify for billing this period. One action panel open at a time.</div>
+            </div>
+            <span class="spacer"></span>
+            <a class="btn btn--ghost" href="patients.html">All patients</a>
+          </div>
+        </div>
+
+        <!-- ===== Urgent ===== -->
+        <section class="card rise rise-2">
+          <div class="card__head">
+            <span class="badge badge--attention" style="height:20px">Urgent</span>
+            <span class="card__title">At risk of missing billing window</span>
+            <span class="spacer"></span>
+            <span class="t-meta"><span class="num">3</span> patients</span>
+          </div>
+          <table class="qtable" data-panel-group>
+            <thead>
+              <tr>
+                <th>Patient</th><th>Diagnosis</th>
+                <th class="center">Check-ins</th><th class="center">Review</th><th class="center">Contact</th><th class="center">Days left</th>
+                <th>Status</th><th class="right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a class="qlink" href="patient.html">Maria Alvarez</a></td>
+                <td class="t-muted">M17.11 · Knee OA</td>
+                <td class="center"><span class="num under">12/16</span></td>
+                <td class="center"><span class="num under">12/20</span></td>
+                <td class="center"><span class="contact-no">✗</span></td>
+                <td class="center"><span class="num">3</span></td>
+                <td><span class="badge badge--attention">Needs attention</span></td>
+                <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="wq-maria">Actions</button></td>
+              </tr>
+              <tr class="wqpanel" id="wq-maria" data-row>
+                <td colspan="8">
+                  <div class="wqpanel__inner">
+                    <div class="wqfield"><span class="wqfield__label">Review time (min)</span>
+                      <span class="stepper" data-stepper data-min="1"><button data-dir="down">−</button><span class="stepper__val">5</span><button data-dir="up">+</button></span></div>
+                    <button class="btn btn--primary btn--sm" data-confirm="Review time logged for Maria Alvarez.">Log time</button>
+                    <div class="wqfield"><span class="wqfield__label">Contact call date</span><input class="field num" type="date" value="2026-07-08"></div>
+                    <button class="btn btn--primary btn--sm" data-confirm="Contact call logged for Maria Alvarez.">Log contact</button>
+                    <span class="spacer"></span>
+                    <a class="btn btn--ghost btn--sm" href="patient.html">View patient</a>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td><a class="qlink" href="patient.html">David Nguyen</a></td>
+                <td class="t-muted">M25.561 · Knee pain</td>
+                <td class="center"><span class="num">14/16</span></td>
+                <td class="center"><span class="num under">12/20</span></td>
+                <td class="center"><span class="contact-yes">✓</span></td>
+                <td class="center"><span class="num">2</span></td>
+                <td><span class="badge badge--attention">Needs attention</span></td>
+                <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="wq-david">Actions</button></td>
+              </tr>
+              <tr class="wqpanel" id="wq-david" data-row>
+                <td colspan="8">
+                  <div class="wqpanel__inner">
+                    <div class="wqfield"><span class="wqfield__label">Review time (min)</span>
+                      <span class="stepper" data-stepper data-min="1"><button data-dir="down">−</button><span class="stepper__val">8</span><button data-dir="up">+</button></span></div>
+                    <button class="btn btn--primary btn--sm" data-confirm="Review time logged for David Nguyen — now Ready to bill." data-status="ready" data-status-label="Ready to bill">Log time</button>
+                    <span class="spacer"></span>
+                    <a class="btn btn--ghost btn--sm" href="patient.html">View patient</a>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td><a class="qlink" href="patient.html">Sofia Reyes</a></td>
+                <td class="t-muted">M54.5 · Low back pain</td>
+                <td class="center"><span class="num under">10/16</span></td>
+                <td class="center"><span class="num under">8/20</span></td>
+                <td class="center"><span class="contact-no">✗</span></td>
+                <td class="center"><span class="num">4</span></td>
+                <td><span class="badge badge--attention">Needs attention</span></td>
+                <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="wq-sofia">Actions</button></td>
+              </tr>
+              <tr class="wqpanel" id="wq-sofia" data-row>
+                <td colspan="8">
+                  <div class="wqpanel__inner">
+                    <div class="wqfield"><span class="wqfield__label">Review time (min)</span>
+                      <span class="stepper" data-stepper data-min="1"><button data-dir="down">−</button><span class="stepper__val">10</span><button data-dir="up">+</button></span></div>
+                    <button class="btn btn--primary btn--sm" data-confirm="Review time logged for Sofia Reyes.">Log time</button>
+                    <div class="wqfield"><span class="wqfield__label">Contact call date</span><input class="field num" type="date" value="2026-07-08"></div>
+                    <button class="btn btn--primary btn--sm" data-confirm="Contact call logged for Sofia Reyes.">Log contact</button>
+                    <span class="spacer"></span>
+                    <a class="btn btn--ghost btn--sm" href="patient.html">View patient</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- ===== Optimization ===== -->
+        <section class="card rise rise-3" style="margin-top:var(--sp-4)">
+          <div class="card__head">
+            <span class="badge badge--ready" style="height:20px">Optimize</span>
+            <span class="card__title">One action unlocks billing</span>
+            <span class="spacer"></span>
+            <span class="t-meta"><span class="num">3</span> patients</span>
+          </div>
+          <table class="qtable" data-panel-group>
+            <thead>
+              <tr>
+                <th>Patient</th><th>Diagnosis</th>
+                <th class="center">Check-ins</th><th class="center">Review</th><th class="center">Contact</th><th class="center">Days left</th>
+                <th>Status</th><th class="right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a class="qlink" href="patient.html">John Carter</a></td>
+                <td class="t-muted">M54.5 · Low back pain</td>
+                <td class="center"><span class="num">16/16</span></td>
+                <td class="center"><span class="num">22/20</span></td>
+                <td class="center"><span class="contact-yes">✓</span></td>
+                <td class="center"><span class="num">2</span></td>
+                <td><span class="badge badge--ready">Ready to bill</span></td>
+                <td class="right"><button class="btn btn--primary btn--sm" data-panel-toggle="wq-john">Approve</button></td>
+              </tr>
+              <tr class="wqpanel" id="wq-john" data-row>
+                <td colspan="8">
+                  <div class="panelclaim">
+                    <div class="panelclaim__sum">Period Jun 8 – Jul 8 · CPT <strong>98980</strong>, <strong>98981</strong> · Est. <strong>$395.00</strong> · <span class="t-meta">all qualifying events server-timestamped &amp; immutable</span></div>
+                    <button class="btn btn--primary btn--sm" data-confirm="Claim approved for John Carter — locked &amp; moved to Reports." data-status="approved" data-status-label="Claim approved">Approve &amp; lock claim</button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td><a class="qlink" href="patient.html">Robert Kim</a></td>
+                <td class="t-muted">M75.100 · Rotator cuff</td>
+                <td class="center"><span class="num">16/16</span></td>
+                <td class="center"><span class="num">20/20</span></td>
+                <td class="center"><span class="contact-no">✗</span></td>
+                <td class="center"><span class="num">5</span></td>
+                <td><span class="badge badge--ontrack">On track</span></td>
+                <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="wq-robert">Actions</button></td>
+              </tr>
+              <tr class="wqpanel" id="wq-robert" data-row>
+                <td colspan="8">
+                  <div class="wqpanel__inner">
+                    <div class="wqfield"><span class="wqfield__label">Contact call date (unlocks billing)</span><input class="field num" type="date" value="2026-07-08"></div>
+                    <button class="btn btn--primary btn--sm" data-confirm="Contact call logged for Robert Kim — now Ready to bill." data-status="ready" data-status-label="Ready to bill">Log contact</button>
+                    <span class="spacer"></span>
+                    <a class="btn btn--ghost btn--sm" href="patient.html">View patient</a>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td><a class="qlink" href="patient.html">Patricia Hughes</a></td>
+                <td class="t-muted">M48.06 · Spinal stenosis</td>
+                <td class="center"><span class="num under">15/16</span></td>
+                <td class="center"><span class="num">21/20</span></td>
+                <td class="center"><span class="contact-yes">✓</span></td>
+                <td class="center"><span class="num">6</span></td>
+                <td><span class="badge badge--ontrack">On track</span></td>
+                <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="wq-pat">Actions</button></td>
+              </tr>
+              <tr class="wqpanel" id="wq-pat" data-row>
+                <td colspan="8">
+                  <div class="wqpanel__inner">
+                    <span class="t-sm t-muted">1 more patient check-in unlocks this claim — no provider action required yet.</span>
+                    <span class="spacer"></span>
+                    <a class="btn btn--ghost btn--sm" href="patient.html">View patient</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

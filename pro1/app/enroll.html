@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enroll patient · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="patients" data-title="Enroll patient">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="pagehead__title">Enroll a patient</div>
+          <div class="pagehead__sub">Create the record, then Dr. Brain drafts a plan for your review &amp; approval.</div>
+        </div>
+
+        <section class="card rise rise-2" data-wizard>
+          <div class="card__body">
+
+            <div class="wizsteps">
+              <span class="wizstep is-active" data-wizhead="1"><span class="wizstep__n">1</span>Demographics</span>
+              <span class="wizline"></span>
+              <span class="wizstep" data-wizhead="2"><span class="wizstep__n">2</span>Clinical</span>
+              <span class="wizline"></span>
+              <span class="wizstep" data-wizhead="3"><span class="wizstep__n">3</span>Provider</span>
+              <span class="wizline"></span>
+              <span class="wizstep" data-wizhead="4"><span class="wizstep__n">4</span>Review</span>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="wizpanel is-active form" data-wizpanel="1">
+              <div class="form2">
+                <div class="formgroup"><label>First name</label><input class="input" value="Evelyn"></div>
+                <div class="formgroup"><label>Last name</label><input class="input" value="Ross"></div>
+              </div>
+              <div class="form2">
+                <div class="formgroup"><label>Date of birth</label><input class="input num" type="date" value="1949-03-14"></div>
+                <div class="formgroup"><label>Phone</label><input class="input num" value="(415) 555-0148"></div>
+              </div>
+              <div class="formgroup"><label>Email</label><input class="input" type="email" value="e.ross@email.com"></div>
+              <div class="formgroup">
+                <label>Preferred notification channel</label>
+                <div class="chips" data-single>
+                  <button type="button" class="chipopt is-on">SMS</button>
+                  <button type="button" class="chipopt">Email</button>
+                  <button type="button" class="chipopt">Both</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="wizpanel form" data-wizpanel="2">
+              <div class="formgroup"><label>Diagnosis (ICD-10)</label>
+                <input class="input" value="M54.16 · Radiculopathy, lumbar region" list="icd">
+                <datalist id="icd">
+                  <option value="M54.5 · Low back pain">
+                  <option value="M54.16 · Radiculopathy, lumbar region">
+                  <option value="M17.11 · Unilateral osteoarthritis, right knee">
+                  <option value="M75.100 · Rotator cuff tear, unspecified">
+                  <option value="M48.06 · Spinal stenosis, lumbar region">
+                </datalist>
+                <div class="hint">Type to search the ICD-10 code list.</div>
+              </div>
+              <div class="formgroup"><label>Medical history flags</label>
+                <div class="chips">
+                  <button type="button" class="chipopt is-on">Prior PT</button>
+                  <button type="button" class="chipopt">Post-surgical</button>
+                  <button type="button" class="chipopt is-on">Chronic (&gt;3 mo)</button>
+                  <button type="button" class="chipopt">Fall risk</button>
+                </div>
+              </div>
+              <div class="formgroup"><label>Treatment goals</label>
+                <textarea class="input">Reduce lumbar pain, restore safe mobility for daily activities, avoid recurrence.</textarea>
+              </div>
+              <div class="formgroup"><label>Modalities</label>
+                <div class="chips">
+                  <button type="button" class="chipopt is-on">Pilates</button>
+                  <button type="button" class="chipopt is-on">Physical therapy</button>
+                  <button type="button" class="chipopt">Occupational therapy</button>
+                  <button type="button" class="chipopt">Osteopathy</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="wizpanel form" data-wizpanel="3">
+              <div class="formgroup"><label>Assigned provider</label>
+                <select class="select">
+                  <option>Dr. Brandon Stillman, MD (you)</option>
+                  <option>Dr. Alan Petrov, DO</option>
+                  <option>Dr. Nadia Haddad, MD</option>
+                </select>
+                <div class="hint">Org Admins can reassign patients later from Org Admin.</div>
+              </div>
+              <div class="formgroup"><label>Billing start</label>
+                <input class="input num" type="date" value="2026-07-08">
+                <div class="hint">The rolling 30-day RTM window begins on the enrollment date.</div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="wizpanel form" data-wizpanel="4">
+              <h3 class="t-h2" style="margin-bottom:var(--sp-3)">Review before submission</h3>
+              <dl style="margin:0">
+                <div class="sumrow"><dt>Patient</dt><dd>Evelyn Ross · DOB <span class="num">1949-03-14</span></dd></div>
+                <div class="sumrow"><dt>Contact</dt><dd class="num">(415) 555-0148 · e.ross@email.com · SMS</dd></div>
+                <div class="sumrow"><dt>Diagnosis</dt><dd>M54.16 · Radiculopathy, lumbar region</dd></div>
+                <div class="sumrow"><dt>Modalities</dt><dd>Pilates · Physical therapy</dd></div>
+                <div class="sumrow"><dt>Provider</dt><dd>Dr. Brandon Stillman, MD</dd></div>
+                <div class="sumrow"><dt>Billing window</dt><dd class="num">Jul 8 – Aug 7, 2026</dd></div>
+              </dl>
+              <div class="authnote" style="margin-top:var(--sp-4)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>
+                <span>On submit, Dr. Brain generates a plan + medical rationale. The patient is invited only after you approve the plan.</span>
+              </div>
+              <!-- generating state (mock) -->
+              <div id="genState" hidden style="margin-top:var(--sp-4);display:flex;align-items:center;gap:12px;color:var(--c-primary);font-weight:var(--fw-semi)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a3.5 3.5 0 0 0-3.5 3.5A3 3 0 0 0 6 13a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0-2.5-5.5A3.5 3.5 0 0 0 12 4z"/></svg>
+                Dr. Brain is generating the plan…
+              </div>
+            </div>
+
+            <div class="wizfoot">
+              <button type="button" class="btn btn--ghost" data-wizback hidden>Back</button>
+              <span class="spacer"></span>
+              <span class="t-meta" data-wizcount>Step 1 of 4</span>
+              <button type="button" class="btn btn--primary" data-wiznext>Continue</button>
+              <a class="btn btn--primary" id="wizSubmit" href="patient.html" hidden>Create patient &amp; generate plan</a>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+<script>
+  /* 4-step wizard (prototype). */
+  (function () {
+    var wiz = document.querySelector("[data-wizard]");
+    var total = 4, cur = 1;
+    var heads = wiz.querySelectorAll("[data-wizhead]");
+    var panels = wiz.querySelectorAll("[data-wizpanel]");
+    var back = wiz.querySelector("[data-wizback]"), next = wiz.querySelector("[data-wiznext]");
+    var submit = document.getElementById("wizSubmit"), count = wiz.querySelector("[data-wizcount]");
+    function show(n) {
+      cur = n;
+      panels.forEach(function (p) { p.classList.toggle("is-active", +p.getAttribute("data-wizpanel") === n); });
+      heads.forEach(function (h) { var k = +h.getAttribute("data-wizhead"); h.classList.toggle("is-active", k === n); h.classList.toggle("is-done", k < n); });
+      back.hidden = n === 1;
+      next.hidden = n === total;
+      submit.hidden = n !== total;
+      count.textContent = "Step " + n + " of " + total;
+      wiz.scrollIntoView({ block: "start", behavior: "smooth" });
+    }
+    next.addEventListener("click", function () { if (cur < total) show(cur + 1); });
+    back.addEventListener("click", function () { if (cur > 1) show(cur - 1); });
+    submit.addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("genState").hidden = false;
+      submit.textContent = "Generating…";
+      setTimeout(function () { location.href = "patient.html"; }, 1400);
+    });
+    /* single-select chip groups */
+    wiz.querySelectorAll("[data-single]").forEach(function (g) {
+      var opts = g.querySelectorAll(".chipopt");
+      opts.forEach(function (o) { o.addEventListener("click", function () { opts.forEach(function (x) { x.classList.remove("is-on"); }); o.classList.add("is-on"); }); });
+    });
+    /* multi-select chips */
+    wiz.querySelectorAll(".chips:not([data-single]) .chipopt").forEach(function (o) {
+      o.addEventListener("click", function () { o.classList.toggle("is-on"); });
+    });
+  })();
+</script>
+</body>
+</html>

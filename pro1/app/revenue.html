@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revenue calculator · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="revenue" data-title="Revenue calculator">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="pagehead__title">Revenue calculator</div>
+          <div class="pagehead__sub">Project recurring RTM revenue for your panel. Read-only — nothing is saved.</div>
+        </div>
+
+        <section class="card rise rise-2"><div class="card__body">
+          <div class="revgrid">
+
+            <!-- Inputs -->
+            <div>
+              <div class="formgroup">
+                <label>RTM-enrolled patients <span class="hint" style="display:inline">(panel size)</span></label>
+                <div class="rangewrap"><input id="panel" type="range" min="10" max="300" step="1" value="48"><output id="panelOut" class="num">48</output></div>
+              </div>
+              <div class="formgroup">
+                <label>Monthly qualification rate <span class="hint" style="display:inline">(patients hitting thresholds)</span></label>
+                <div class="rangewrap"><input id="rate" type="range" min="40" max="95" step="1" value="78"><output id="rateOut" class="num">78%</output></div>
+              </div>
+              <div class="formgroup">
+                <label>Billing intensity</label>
+                <select class="select" id="tier">
+                  <option value="118">Standard mix — ~$118 / qualified patient / mo</option>
+                  <option value="152">High mix (98980 + 98981) — ~$152 / mo</option>
+                  <option value="86">Light mix (98980 only) — ~$86 / mo</option>
+                </select>
+              </div>
+              <div class="formgroup">
+                <label>PAVE subscription</label>
+                <select class="select" id="sub">
+                  <option value="299">Individual provider — $299 / mo</option>
+                  <option value="249">Group tier — $249 / mo per provider</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Outputs -->
+            <div class="revout">
+              <div class="revbig">
+                <div class="revbig__l">Estimated monthly RTM revenue</div>
+                <div class="revbig__n" id="outMonthly">$0</div>
+                <div class="revbig__l" style="margin-top:6px"><span class="num" id="outQual">0</span> qualified patients · <span class="num" id="outAnnual">$0</span> / year</div>
+              </div>
+              <div class="kpi"><div class="kpi__label">Net after PAVE</div><div class="kpi__num" id="outNet">$0</div><div class="kpi__delta">per month</div></div>
+              <div class="kpi kpi--ready"><div class="kpi__label">ROI vs subscription</div><div class="kpi__num" id="outRoi">0×</div><div class="kpi__delta">revenue ÷ cost</div></div>
+              <div class="kpi" style="grid-column:1 / -1">
+                <div class="kpi__label">Estimated CPT breakdown / month</div>
+                <div style="margin-top:var(--sp-3)">
+                  <div class="threshrow" style="grid-template-columns:120px 1fr auto"><span class="num t-sm">98980</span><span class="pbar"><i id="bar80" style="width:100%"></i></span><span class="num t-sm" id="cpt80">$0</span></div>
+                  <div class="threshrow" style="grid-template-columns:120px 1fr auto"><span class="num t-sm">98981</span><span class="pbar"><i id="bar81" style="width:60%"></i></span><span class="num t-sm" id="cpt81">$0</span></div>
+                  <div class="threshrow" style="grid-template-columns:120px 1fr auto"><span class="num t-sm">98977</span><span class="pbar"><i id="bar77" style="width:40%"></i></span><span class="num t-sm" id="cpt77">$0</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <p class="t-meta" style="margin-top:var(--sp-5)">Illustrative projection for onboarding &amp; sales demos. Actual reimbursement depends on payer contracts and the confidential CPT qualification logic.</p>
+        </div></section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+<script>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var money = function (n) { return "$" + Math.round(n).toLocaleString(); };
+    function compute() {
+      var panel = +$("panel").value, rate = +$("rate").value, per = +$("tier").value, sub = +$("sub").value;
+      $("panelOut").textContent = panel;
+      $("rateOut").textContent = rate + "%";
+      var qual = Math.round(panel * rate / 100);
+      var monthly = qual * per;
+      $("outQual").textContent = qual;
+      $("outMonthly").textContent = money(monthly);
+      $("outAnnual").textContent = money(monthly * 12);
+      $("outNet").textContent = money(monthly - sub);
+      $("outRoi").textContent = (monthly / sub).toFixed(1) + "×";
+      /* rough CPT split */
+      $("cpt80").textContent = money(monthly * 0.52);
+      $("cpt81").textContent = money(monthly * 0.30);
+      $("cpt77").textContent = money(monthly * 0.18);
+    }
+    ["panel", "rate", "tier", "sub"].forEach(function (id) { $(id).addEventListener("input", compute); });
+    compute();
+  })();
+</script>
+</body>
+</html>

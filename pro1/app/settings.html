@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="settings" data-title="Settings">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="pagehead__title">Settings</div>
+          <div class="pagehead__sub">Your profile, security, notifications, and organization.</div>
+        </div>
+
+        <div class="grid-2 rise rise-2">
+          <!-- Profile -->
+          <section class="card"><div class="card__head"><span class="card__title">Profile</span></div><div class="card__body">
+            <div class="form">
+              <div class="form2">
+                <div class="formgroup"><label>Full name</label><input class="input" value="Brandon Stillman"></div>
+                <div class="formgroup"><label>Credentials / title</label><input class="input" value="MD, Physician"></div>
+              </div>
+              <div class="formgroup"><label>Contact email</label><input class="input" type="email" value="b.stillman@stillmanrehab.com"></div>
+              <div class="setrow" style="border-top:1px solid var(--c-line-2);border-bottom:none;padding-bottom:0">
+                <span class="setrow__label"><strong>Connected account</strong><span>Sign-in via OAuth 2.0</span></span>
+                <span class="conn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>Google Workspace</span>
+              </div>
+            </div>
+          </div></section>
+
+          <!-- Security / MFA -->
+          <section class="card"><div class="card__head"><span class="card__title">Security &amp; MFA</span></div><div class="card__body">
+            <div class="setrow"><span class="setrow__label"><strong>Two-factor authentication</strong><span>Required · cannot be disabled</span></span><span class="conn">Enabled</span></div>
+            <div class="setrow"><span class="setrow__label"><strong>Authenticator app</strong><span>TOTP · added Jun 1, 2026</span></span><button class="btn btn--ghost btn--sm" data-confirm="Authenticator reset · scan the new QR on your next login.">Reset</button></div>
+            <div class="setrow"><span class="setrow__label"><strong>Session timeout</strong><span>Auto sign-out after inactivity</span></span><span class="num t-sm">15 min</span></div>
+            <div class="setrow"><span class="setrow__label"><strong>Login history</strong><span>All logins logged with IP &amp; device</span></span><a href="#" class="t-sm" style="font-weight:var(--fw-semi)">View log</a></div>
+          </div></section>
+        </div>
+
+        <!-- Notifications -->
+        <section class="card rise rise-3" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Notifications</span></div><div class="card__body">
+          <div class="setrow"><span class="setrow__label"><strong>Billing-deadline alerts</strong><span>When a patient is approaching their billing window</span></span>
+            <span class="row"><span class="t-sm t-muted">Email</span><button class="switch" data-switch role="switch" aria-checked="true"></button><span class="t-sm t-muted">SMS</span><button class="switch" data-switch role="switch" aria-checked="true"></button></span></div>
+          <div class="setrow"><span class="setrow__label"><strong>Patient activity</strong><span>Broken streak or lapsed engagement</span></span>
+            <span class="row"><span class="t-sm t-muted">Email</span><button class="switch" data-switch role="switch" aria-checked="true"></button><span class="t-sm t-muted">SMS</span><button class="switch" data-switch role="switch" aria-checked="false"></button></span></div>
+          <div class="setrow"><span class="setrow__label"><strong>Alert me when</strong><span>Days before the billing window closes</span></span>
+            <select class="select select--sm" style="width:auto"><option>3 days before</option><option>5 days before</option><option>7 days before</option></select></div>
+          <div class="setrow"><span class="setrow__label"><strong>Weekly revenue summary</strong><span>Monday morning digest</span></span><button class="switch" data-switch role="switch" aria-checked="true"></button></div>
+        </div></section>
+
+        <!-- Organization (Org Admin) -->
+        <section class="card rise rise-4" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Organization</span><span class="modeltag">Org admin</span></div><div class="card__body">
+          <div class="form">
+            <div class="formgroup"><label>Practice name</label><input class="input" value="Stillman Rehabilitation Group"></div>
+            <div class="setrow"><span class="setrow__label"><strong>Subscription</strong><span>Group tier · <span class="num">4</span> providers · billed monthly</span></span><span class="num t-sm">$996 / mo</span></div>
+            <div class="setrow"><span class="setrow__label"><strong>Invoices</strong><span>Managed by Stripe</span></span><a href="#" class="t-sm" style="font-weight:var(--fw-semi)">View invoices</a></div>
+          </div>
+          <div style="margin-top:var(--sp-5)"><button class="btn btn--primary" data-confirm="Settings saved.">Save changes</button></div>
+        </div></section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

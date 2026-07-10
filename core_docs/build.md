@@ -448,7 +448,20 @@ Patient · v1     Patient · v2     Provider · Pro1     Provider · Pro2
 
 # PART 3 — Provider Portal (Pro2) — second design style (Sessions 21–24)
 
-> **Relationship to Pro1:** exactly like patient `v1`→`v2`. Pro2 reuses **Pro1's pages, structure, copy, and mock data unchanged** — only the **design system (tokens/base/components) and illustrations** differ. Build Pro1 first (Sessions 11–20); Pro2 is a re-skin track.
+> **✅ IMPLEMENTED (revised approach) — done in one pass, not Sessions 21–24.**
+> Per client direction, Pro2 is a **colour-scheme swap only**, not a separate
+> restyle/copy. The provider portal stays **one codebase** (`pro1/`); toggling
+> swaps just the theme tokens (`html[data-ptheme]`):
+> - **Pro1 = white-green** (matches Patient v1) — the default (`:root` in `pro1/css/tokens.css`).
+> - **Pro2 = clinical blue** (the original Session 11 palette) — `html[data-ptheme="pro2"]`.
+>
+> A head bootstrap on each page reads `?ptheme=pro1|pro2` (set by the toggle) and
+> persists it in `localStorage`. The toggle is now **4-way** across `v1`, `v2`,
+> `pro1`, and its accent follows the live theme. No `pro2/` folder exists — nothing
+> is duplicated. The Sessions 21–24 plan below (full separate re-skin) is
+> **superseded** and kept only for historical reference.
+>
+> **Original plan (superseded) — Relationship to Pro1:** exactly like patient `v1`→`v2`. Pro2 reuses **Pro1's pages, structure, copy, and mock data unchanged** — only the **design system (tokens/base/components) and illustrations** differ. Build Pro1 first (Sessions 11–20); Pro2 is a re-skin track.
 > **Deliverable:** `pro2/` — a full, self-contained copy of `pro1/` with a **visibly distinct** clinical design system. Same 10 screens + login + Dr. Brain. Same desktop/1100px, light-mode-only, **monospace-metrics** rules (those are product constraints, not style choices — they hold in both).
 > **The two styles must be clearly different** (as v1 is calm/editorial and v2 is gamified/vibrant). Suggested split — adjust to taste: **Pro1 = clean, airy, editorial-clinical** (serif or humanist headings, generous whitespace, hairline tables); **Pro2 = dense, modern dashboard** (bold sans, tinted status cards, stronger accent color, chunkier data viz). Keep both professional and trustworthy — this is a physician billing tool.
 

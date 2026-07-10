@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+<div class="authpage">
+
+  <!-- ===== Brand panel ===== -->
+  <aside class="authpage__brand">
+    <span class="brandmark">
+      <span class="brandmark__logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/></svg></span>
+      <span class="brandmark__word">PAVE<span>Provider Portal</span></span>
+    </span>
+    <div>
+      <h1 class="authbrand__head">Recurring RTM revenue from patients you already treat.</h1>
+      <p class="authbrand__sub">Monitor therapeutic compliance, stay audit-ready, and approve claims in minutes — not hours.</p>
+    </div>
+    <div class="authbrand__trust">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>HIPAA compliant</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>Immutable audit trail</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>CMS audit-ready</span>
+    </div>
+  </aside>
+
+  <!-- ===== Form panel ===== -->
+  <main class="authpage__form">
+
+    <!-- View 1: OAuth -->
+    <div class="authcard rise rise-1" id="oauthView">
+      <h2 class="t-display" style="font-size:26px">Sign in to PAVE</h2>
+      <p class="t-muted" style="margin-top:6px;font-size:var(--fs-body)">Use your clinic's work account. No passwords to manage.</p>
+
+      <div style="margin-top:var(--sp-6)">
+        <button type="button" class="oauth" data-signin>
+          <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.7-.06-1.4-.18-2H12v3.85h5.9a5 5 0 0 1-2.19 3.3v2.74h3.54c2.07-1.9 3.25-4.71 3.25-7.89z"/><path fill="#34A853" d="M12 23c2.94 0 5.42-.98 7.22-2.65l-3.54-2.74c-.98.66-2.24 1.05-3.68 1.05-2.83 0-5.23-1.91-6.09-4.48H2.27v2.82A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.91 14.18a6.6 6.6 0 0 1 0-4.36V7H2.27a11 11 0 0 0 0 9.99l3.64-2.81z"/><path fill="#EA4335" d="M12 5.16c1.6 0 3.03.55 4.16 1.63l3.12-3.12A11 11 0 0 0 2.27 7l3.64 2.82C6.77 7.25 9.17 5.16 12 5.16z"/></svg>
+          Sign in with Google
+        </button>
+        <button type="button" class="oauth" data-signin>
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="8.6" height="8.6" fill="#F25022"/><rect x="12.4" y="3" width="8.6" height="8.6" fill="#7FBA00"/><rect x="3" y="12.4" width="8.6" height="8.6" fill="#00A4EF"/><rect x="12.4" y="12.4" width="8.6" height="8.6" fill="#FFB900"/></svg>
+          Sign in with Microsoft
+        </button>
+      </div>
+
+      <div class="authnote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        <span>Enterprise sign-in via OAuth 2.0 (Google Workspace or Microsoft 365). Two-factor authentication is required on every account.</span>
+      </div>
+
+      <div class="authfoot">
+        <span>Sessions expire after 15 min idle</span><span>·</span>
+        <span>All logins logged</span><span>·</span>
+        <span>AES-256 encrypted</span>
+      </div>
+    </div>
+
+    <!-- View 2: MFA -->
+    <div class="authcard rise rise-1" id="mfaView" hidden>
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:var(--c-primary-soft);color:var(--c-primary)">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 8.3-7 9.5-4-1.2-7-5.1-7-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      </span>
+      <h2 class="t-display" style="font-size:24px;margin-top:var(--sp-4)">Two-factor authentication</h2>
+      <p class="t-muted" style="margin-top:6px;font-size:var(--fs-body)">Enter the 6-digit code from your authenticator app for <strong>b.stillman@stillmanrehab.com</strong>.</p>
+
+      <div class="otp" data-otp style="margin-top:var(--sp-5)" aria-label="6-digit code">
+        <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 1" autocomplete="one-time-code">
+        <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 2">
+        <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 3">
+        <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+        <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 5">
+        <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 6">
+      </div>
+
+      <a class="btn btn--primary" href="dashboard.html" style="width:100%;margin-top:var(--sp-5)">Verify &amp; continue</a>
+
+      <div class="row" style="margin-top:var(--sp-4);gap:var(--sp-4)">
+        <a href="#" style="font-size:var(--fs-sm);font-weight:var(--fw-semi)">Resend code</a>
+        <a href="#" style="font-size:var(--fs-sm);font-weight:var(--fw-semi)">Lost your device?</a>
+      </div>
+
+      <div class="authnote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+        <span>MFA is required on all provider accounts and cannot be disabled. Accounts lock after 5 failed attempts (self-service unlock by email).</span>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../js/app.js"></script>
+<script>
+  /* OAuth buttons → MFA step (mock; no real auth). */
+  (function () {
+    var oauth = document.getElementById("oauthView"), mfa = document.getElementById("mfaView");
+    Array.prototype.forEach.call(document.querySelectorAll("[data-signin]"), function (b) {
+      b.addEventListener("click", function () {
+        oauth.hidden = true; mfa.hidden = false;
+        var first = mfa.querySelector(".otpbox"); if (first) first.focus();
+      });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Org Admin · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="org-admin" data-title="Org Admin">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">Organization</div>
+              <div class="pagehead__sub">Stillman Rehabilitation Group · <span class="num">4</span> providers · <span class="num">154</span> patients</div>
+            </div>
+            <span class="spacer"></span>
+            <button class="btn btn--ghost" data-confirm="Consolidated org billing CSV exported · logged to audit trail."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export org CSV</button>
+          </div>
+        </div>
+
+        <!-- Org KPIs -->
+        <section class="kpigrid rise rise-2">
+          <div class="kpi"><div class="kpi__label">Total patients</div><div class="kpi__num">154</div><div class="kpi__delta">across all providers</div></div>
+          <div class="kpi"><div class="kpi__label">Active providers</div><div class="kpi__num">4</div><div class="kpi__delta">1 org admin</div></div>
+          <div class="kpi kpi--accent"><div class="kpi__label">Revenue pipeline</div><div class="kpi__num">$12,150</div><div class="kpi__delta">this period</div></div>
+          <div class="kpi kpi--attention"><div class="kpi__label">Claims pending</div><div class="kpi__num">9</div><div class="kpi__delta">org-wide</div></div>
+        </section>
+
+        <!-- Provider list -->
+        <section class="card rise rise-3" style="margin-top:var(--sp-4)">
+          <div class="card__head"><span class="card__title">Providers</span><span class="spacer"></span>
+            <button class="btn btn--primary btn--sm" data-confirm="Invitation sent · provider must complete OAuth + MFA setup."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Invite provider</button>
+          </div>
+          <table class="qtable">
+            <thead><tr><th>Provider</th><th>Role</th><th class="center">Patients</th><th class="center">Claims approved</th><th class="right">Revenue (MTD)</th><th class="right">Manage</th></tr></thead>
+            <tbody>
+              <tr><td><span class="row"><span class="avatar avatar--sm">BS</span>Dr. Brandon Stillman, MD</span></td><td>Physician · <span style="color:var(--c-primary);font-weight:var(--fw-semi)">Org admin</span></td><td class="center num">48</td><td class="center num">12</td><td class="right num">$3,840</td><td class="right"><button class="btn btn--ghost btn--sm">Manage</button></td></tr>
+              <tr><td><span class="row"><span class="avatar avatar--sm">AP</span>Dr. Alan Petrov, DO</span></td><td>Physician</td><td class="center num">36</td><td class="center num">9</td><td class="right num">$2,910</td><td class="right"><button class="btn btn--ghost btn--sm">Manage</button></td></tr>
+              <tr><td><span class="row"><span class="avatar avatar--sm">NH</span>Dr. Nadia Haddad, MD</span></td><td>Physician</td><td class="center num">41</td><td class="center num">11</td><td class="right num">$3,420</td><td class="right"><button class="btn btn--ghost btn--sm">Manage</button></td></tr>
+              <tr><td><span class="row"><span class="avatar avatar--sm">PR</span>Dr. Priya Raman, MD</span></td><td>Physician</td><td class="center num">29</td><td class="center num">6</td><td class="right num">$1,980</td><td class="right"><button class="btn btn--ghost btn--sm">Manage</button></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Patient assignment -->
+        <section class="card rise rise-4" style="margin-top:var(--sp-4)">
+          <div class="card__head"><span class="card__title">Reassign a patient</span></div>
+          <div class="card__body">
+            <p class="t-sm t-muted" style="margin-bottom:var(--sp-4)">Move a patient between providers. Clinical records stay with the patient; billing follows the new provider from the reassignment date.</p>
+            <div class="toolbar" style="margin-bottom:0">
+              <select class="select" style="width:auto"><option>Evelyn Ross · M54.16</option><option>Leon Park · M17.9</option><option>Ana Duarte · M54.5</option></select>
+              <span class="t-meta">from Dr. Stillman</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--c-ink-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <select class="select" style="width:auto"><option>Dr. Alan Petrov, DO</option><option>Dr. Nadia Haddad, MD</option><option>Dr. Priya Raman, MD</option></select>
+              <button class="btn btn--primary" data-confirm="Patient reassigned · billing follows the new provider from today.">Reassign</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

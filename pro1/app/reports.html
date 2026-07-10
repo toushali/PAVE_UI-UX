@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reports · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="reports" data-title="Reports">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="pagehead__title">Reports</div>
+          <div class="pagehead__sub">Approved claim analytics and the exportable billing record.</div>
+        </div>
+
+        <!-- Analytics — KPIs with sparkline trends -->
+        <section class="kpigrid rise rise-2">
+          <div class="kpi"><div class="kpi__label">Approved this period</div><div class="kpi__num">12</div><div class="kpi__delta">claims · <span class="num" style="color:var(--st-ready)">+2</span> vs last</div>
+            <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none"><path class="area" d="M0,22 20,16 40,19 60,12 80,7 100,3 L100,30 L0,30 Z"/><path class="line" d="M0,22 20,16 40,19 60,12 80,7 100,3"/></svg></div>
+          <div class="kpi kpi--accent"><div class="kpi__label">Revenue this period</div><div class="kpi__num">$3,840</div><div class="kpi__delta">Jun 8 – Jul 8</div>
+            <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none"><path class="area" d="M0,24 20,20 40,22 60,15 80,11 100,4 L100,30 L0,30 Z"/><path class="line" d="M0,24 20,20 40,22 60,15 80,11 100,4"/></svg></div>
+          <div class="kpi"><div class="kpi__label">Avg per claim</div><div class="kpi__num">$320</div><div class="kpi__delta">across CPT mix</div>
+            <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none"><path class="area" d="M0,16 20,14 40,17 60,13 80,15 100,12 L100,30 L0,30 Z"/><path class="line" d="M0,16 20,14 40,17 60,13 80,15 100,12"/></svg></div>
+          <div class="kpi kpi--ready"><div class="kpi__label">Year to date</div><div class="kpi__num">$28,540</div><div class="kpi__delta">92 claims</div>
+            <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none"><path class="area" d="M0,26 20,22 40,18 60,14 80,9 100,3 L100,30 L0,30 Z"/><path class="line" d="M0,26 20,22 40,18 60,14 80,9 100,3"/></svg></div>
+        </section>
+
+        <!-- Trends — simple line graphs (6-month) -->
+        <div class="grid-2 rise rise-3" style="margin-top:var(--sp-4)">
+          <section class="card"><div class="card__body">
+            <div class="charthead"><div><div class="charthead__l">Revenue by month</div><div class="charthead__n">$3,840</div></div><span class="charthead__d">▲ 27% vs Feb</span></div>
+            <div class="linechart">
+              <svg viewBox="0 0 320 132">
+                <line class="lc-grid" x1="6" y1="14" x2="314" y2="14"/><line class="lc-grid" x1="6" y1="52" x2="314" y2="52"/><line class="lc-grid" x1="6" y1="90" x2="314" y2="90"/>
+                <path class="lc-area" d="M6,90 67.6,74.7 129.2,81.3 190.8,64.7 252.4,50.3 314,14 L314,90 L6,90 Z"/>
+                <path class="lc-line" d="M6,90 67.6,74.7 129.2,81.3 190.8,64.7 252.4,50.3 314,14"/>
+                <circle class="lc-dot" cx="314" cy="14" r="3.5"/>
+                <text class="lc-axis" x="6" y="112">Feb</text><text class="lc-axis" x="60" y="112">Mar</text><text class="lc-axis" x="120" y="112">Apr</text><text class="lc-axis" x="182" y="112">May</text><text class="lc-axis" x="244" y="112">Jun</text><text class="lc-axis" x="300" y="112">Jul</text>
+              </svg>
+            </div>
+          </div></section>
+
+          <section class="card"><div class="card__body">
+            <div class="charthead"><div><div class="charthead__l">Claims approved by month</div><div class="charthead__n">12</div></div><span class="charthead__d">▲ 5 vs Feb</span></div>
+            <div class="linechart linechart--ready">
+              <svg viewBox="0 0 320 132">
+                <line class="lc-grid" x1="6" y1="14" x2="314" y2="14"/><line class="lc-grid" x1="6" y1="52" x2="314" y2="52"/><line class="lc-grid" x1="6" y1="90" x2="314" y2="90"/>
+                <path class="lc-area" d="M6,90 67.6,59.6 129.2,74.8 190.8,44.4 252.4,29.2 314,14 L314,90 L6,90 Z"/>
+                <path class="lc-line" d="M6,90 67.6,59.6 129.2,74.8 190.8,44.4 252.4,29.2 314,14"/>
+                <circle class="lc-dot" cx="314" cy="14" r="3.5"/>
+                <text class="lc-axis" x="6" y="112">Feb</text><text class="lc-axis" x="60" y="112">Mar</text><text class="lc-axis" x="120" y="112">Apr</text><text class="lc-axis" x="182" y="112">May</text><text class="lc-axis" x="244" y="112">Jun</text><text class="lc-axis" x="300" y="112">Jul</text>
+              </svg>
+            </div>
+          </div></section>
+        </div>
+
+        <div class="grid-2 rise rise-4" style="margin-top:var(--sp-4)">
+          <!-- CPT distribution -->
+          <section class="card">
+            <div class="card__head"><span class="card__title">CPT distribution</span></div>
+            <table class="qtable">
+              <thead><tr><th>CPT</th><th>Description</th><th class="right">Claims</th><th class="right">Revenue</th></tr></thead>
+              <tbody>
+                <tr><td class="num">98975</td><td class="t-muted">Initial set-up &amp; education</td><td class="right num">6</td><td class="right num">$114</td></tr>
+                <tr><td class="num">98977</td><td class="t-muted">Device supply, MSK</td><td class="right num">9</td><td class="right num">$477</td></tr>
+                <tr><td class="num">98980</td><td class="t-muted">Treatment mgmt, first 20 min</td><td class="right num">18</td><td class="right num">$1,152</td></tr>
+                <tr><td class="num">98981</td><td class="t-muted">Treatment mgmt, add'l 20 min</td><td class="right num">12</td><td class="right num">$588</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Active queue: approved, awaiting export -->
+          <section class="card">
+            <div class="card__head"><span class="card__title">Ready to export</span><span class="spacer"></span>
+              <button class="btn btn--primary btn--sm" data-confirm="CSV exported (5 claims) · export event logged to audit trail."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export CSV</button>
+            </div>
+            <table class="qtable">
+              <thead><tr><th>Patient</th><th>Period</th><th class="right">Amount</th></tr></thead>
+              <tbody>
+                <tr><td>John Carter</td><td class="num t-sm">Jun 8 – Jul 8</td><td class="right num">$395.00</td></tr>
+                <tr><td>Sofia Reyes</td><td class="num t-sm">Jun 5 – Jul 5</td><td class="right num">$198.00</td></tr>
+                <tr><td>Marcus Bell</td><td class="num t-sm">Jun 2 – Jul 2</td><td class="right num">$395.00</td></tr>
+                <tr><td>Ana Duarte</td><td class="num t-sm">May 30 – Jun 29</td><td class="right num">$320.00</td></tr>
+                <tr><td>Leon Park</td><td class="num t-sm">May 28 – Jun 27</td><td class="right num">$198.00</td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <!-- Historical records -->
+        <section class="card rise rise-4" style="margin-top:var(--sp-4)" data-filtergroup>
+          <div class="card__head"><span class="card__title">Historical records</span><span class="spacer"></span><span class="t-meta"><span class="num" data-filtercount>6</span> shown</span></div>
+          <div class="card__body" style="padding-bottom:0">
+            <div class="toolbar">
+              <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input data-filter placeholder="Search patient or CPT…"></span>
+              <select class="select select--sm" data-filter style="width:auto">
+                <option value="">All CPT codes</option>
+                <option value="98975">98975</option><option value="98977">98977</option><option value="98980">98980</option><option value="98981">98981</option>
+              </select>
+              <select class="select select--sm" data-filter style="width:auto">
+                <option value="">All statuses</option>
+                <option value="exported">Exported</option><option value="approved">Approved</option><option value="expired">Expired</option>
+              </select>
+            </div>
+          </div>
+          <table class="qtable">
+            <thead><tr><th>Date</th><th>Patient</th><th>CPT</th><th class="right">Amount</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr data-filterrow><td class="num t-sm">2026-07-06</td><td>John Carter</td><td class="num">98980, 98981</td><td class="right num">$395.00</td><td><span class="badge badge--approved">Approved</span></td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-06-08</td><td>Ana Duarte</td><td class="num">98980</td><td class="right num">$320.00</td><td><span class="badge badge--approved">Exported</span></td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-06-05</td><td>Leon Park</td><td class="num">98977</td><td class="right num">$198.00</td><td><span class="badge badge--approved">Exported</span></td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-05-30</td><td>Priya Nair</td><td class="num">98980, 98981</td><td class="right num">$395.00</td><td><span class="badge badge--approved">Exported</span></td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-05-12</td><td>Tomás Vega</td><td class="num">98975</td><td class="right num">$0.00</td><td><span class="badge badge--enrolled">Expired</span></td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-05-02</td><td>Grace Lin</td><td class="num">98980</td><td class="right num">$198.00</td><td><span class="badge badge--approved">Exported</span></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

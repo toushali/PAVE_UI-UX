@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patients · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="patients" data-title="Patients">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">Patients</div>
+              <div class="pagehead__sub">Your full RTM panel. Sort any column, search, or filter by status.</div>
+            </div>
+            <span class="spacer"></span>
+            <a class="btn btn--primary" href="enroll.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Enroll patient</a>
+          </div>
+        </div>
+
+        <section class="card rise rise-2" data-filtergroup>
+          <div class="card__body" style="padding-bottom:0">
+            <div class="toolbar">
+              <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input data-filter placeholder="Search patient or diagnosis…"></span>
+              <select class="select select--sm" data-filter style="width:auto">
+                <option value="">All statuses</option>
+                <option value="ready to bill">Ready to bill</option>
+                <option value="needs attention">Needs attention</option>
+                <option value="on track">On track</option>
+                <option value="enrolled">Enrolled</option>
+                <option value="claim approved">Claim approved</option>
+              </select>
+              <span class="spacer"></span>
+              <span class="t-meta"><span class="num" data-filtercount>10</span> of <span class="num">10</span> patients</span>
+            </div>
+          </div>
+          <table class="qtable" data-sort>
+            <thead><tr>
+              <th data-col>Patient</th><th data-col>Diagnosis</th><th data-col>Status</th>
+              <th data-col class="center">Check-ins</th><th data-col class="center">Review</th><th data-col class="center">Days left</th><th data-col>Enrolled</th>
+              <th class="right">Action</th>
+            </tr></thead>
+            <tbody>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">John Carter</a></td><td class="t-muted">M54.5 · Low back pain</td><td><span class="badge badge--ready">Ready to bill</span></td><td class="center num">16/16</td><td class="center num">22</td><td class="center num">2</td><td class="num t-sm">2026-06-08</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for John Carter.">Log review</button></td></tr>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">Maria Alvarez</a></td><td class="t-muted">M17.11 · Knee OA</td><td><span class="badge badge--attention">Needs attention</span></td><td class="center num">12/16</td><td class="center num">12</td><td class="center num">3</td><td class="num t-sm">2026-06-10</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for Maria Alvarez.">Log review</button></td></tr>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">Robert Kim</a></td><td class="t-muted">M75.100 · Rotator cuff</td><td><span class="badge badge--ontrack">On track</span></td><td class="center num">16/16</td><td class="center num">20</td><td class="center num">5</td><td class="num t-sm">2026-06-12</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for Robert Kim.">Log review</button></td></tr>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">Evelyn Ross</a></td><td class="t-muted">M54.16 · Radiculopathy</td><td><span class="badge badge--enrolled">Enrolled</span></td><td class="center num">2/16</td><td class="center num">0</td><td class="center num">27</td><td class="num t-sm">2026-07-08</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for Evelyn Ross.">Log review</button></td></tr>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">David Nguyen</a></td><td class="t-muted">M25.561 · Knee pain</td><td><span class="badge badge--attention">Needs attention</span></td><td class="center num">14/16</td><td class="center num">12</td><td class="center num">2</td><td class="num t-sm">2026-06-09</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for David Nguyen.">Log review</button></td></tr>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">Sofia Reyes</a></td><td class="t-muted">M54.5 · Low back pain</td><td><span class="badge badge--ready">Ready to bill</span></td><td class="center num">15/16</td><td class="center num">20</td><td class="center num">4</td><td class="num t-sm">2026-06-05</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for Sofia Reyes.">Log review</button></td></tr>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">Patricia Hughes</a></td><td class="t-muted">M48.06 · Spinal stenosis</td><td><span class="badge badge--ontrack">On track</span></td><td class="center num">15/16</td><td class="center num">21</td><td class="center num">6</td><td class="num t-sm">2026-06-14</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for Patricia Hughes.">Log review</button></td></tr>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">Marcus Bell</a></td><td class="t-muted">M75.100 · Rotator cuff</td><td><span class="badge badge--approved">Claim approved</span></td><td class="center num">16/16</td><td class="center num">25</td><td class="center num">—</td><td class="num t-sm">2026-06-02</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for Marcus Bell.">Log review</button></td></tr>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">Ana Duarte</a></td><td class="t-muted">M54.5 · Low back pain</td><td><span class="badge badge--ontrack">On track</span></td><td class="center num">13/16</td><td class="center num">18</td><td class="center num">8</td><td class="num t-sm">2026-06-15</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for Ana Duarte.">Log review</button></td></tr>
+              <tr data-filterrow><td><a class="qlink" href="patient.html">Leon Park</a></td><td class="t-muted">M17.9 · Osteoarthritis</td><td><span class="badge badge--enrolled">Enrolled</span></td><td class="center num">5/16</td><td class="center num">4</td><td class="center num">21</td><td class="num t-sm">2026-06-28</td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Review time logged for Leon Park.">Log review</button></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

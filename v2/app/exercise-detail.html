@@ -1,94 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Glute bridge · PAVE</title>
-  <meta name="theme-color" content="#FFFFFF">
-  <link rel="stylesheet" href="../css/tokens.css">
-  <link rel="stylesheet" href="../css/base.css">
-  <link rel="stylesheet" href="../css/components.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAVE — Exercise</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
 </head>
-<!-- Slides up from the Exercise Plan (Section 6.9). Text + static
-     illustration + timer is the deliberate replacement for video. -->
+<!-- Opened from the exercise plan. Text + illustration + timer is the
+     deliberate replacement for video (FSD §7.3 / §17.2). -->
 <body>
-  <div class="app">
-    <section class="sheet">
-      <div class="sheet__grip" aria-hidden="true"></div>
+<div class="app"><div class="content scroll">
 
-      <header class="topbar">
-        <a class="iconbtn" href="exercises.html" aria-label="Close">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
-        </a>
-        <span class="topbar__title">Glute bridge</span>
-      </header>
-
-      <main class="content">
-
-        <!-- Static illustration (no video) -->
-        <div class="exhero rise rise-1">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18v12"/><path d="M12 14v20"/><path d="M36 14v20"/><path d="M40 18v12"/><path d="M12 24h24"/></svg>
-        </div>
-
-        <p class="t-body-lg rise rise-1"><strong>What this helps:</strong> strengthens the muscles that support your lower back and hips.</p>
-
-        <!-- Large numbered steps -->
-        <section class="rise rise-2" aria-label="Steps">
-          <h2 class="t-h2" style="margin-bottom:var(--sp-4);">Steps</h2>
-          <ol class="steps">
-            <li class="step"><span class="step__n">1</span><span class="step__text">Lie on your back with your knees bent and feet flat on the floor.</span></li>
-            <li class="step"><span class="step__n">2</span><span class="step__text">Gently tighten your stomach muscles.</span></li>
-            <li class="step"><span class="step__n">3</span><span class="step__text">Slowly lift your hips until your body makes a straight line.</span></li>
-            <li class="step"><span class="step__n">4</span><span class="step__text">Hold, then lower back down slowly.</span></li>
-          </ol>
-        </section>
-
-        <!-- Built-in timer: countdown ring for the hold -->
-        <section class="card rise rise-3" aria-label="Hold timer">
-          <h2 class="t-h2 t-center" style="margin-bottom:var(--sp-4);">Hold for 15 seconds</h2>
-          <div class="timer" data-timer data-duration="15">
-            <div class="timer__ring">
-              <svg viewBox="0 0 200 200" aria-hidden="true">
-                <circle class="timer__track" cx="100" cy="100" r="88" fill="none" stroke-width="12"/>
-                <circle class="timer__prog" data-timer-prog cx="100" cy="100" r="88" fill="none" stroke-width="12"/>
-              </svg>
-              <div class="timer__num">
-                <span class="timer__count" data-timer-count>15</span>
-                <span class="timer__unit">seconds</span>
-              </div>
-            </div>
-            <div class="timer__controls">
-              <button type="button" class="btn btn--primary" data-timer-start>Start</button>
-              <button type="button" class="btn btn--ghost" data-timer-reset style="max-width:130px;">Reset</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Mark as done — syncs to today's check-in -->
-        <button type="button" class="btn btn--primary rise rise-4" id="markDone">Mark as done</button>
-
-      </main>
-
-      <!-- toast target -->
-      <div id="toastHost"></div>
-
-    </section>
+  <div class="topbar rise rise-1" style="position:relative; justify-content:center">
+    <a class="iconbtn" href="exercises.html" aria-label="Back to plan" style="position:absolute; left:0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
+    </a>
+    <span class="topbar__title" data-ex-name style="text-align:center">Exercise</span>
   </div>
 
-  <script src="../js/app.js"></script>
-  <script>
-    /* "Mark as done" -> gentle toast, then back to the plan.
-       In the real app this syncs to today's check-in. */
-    (function () {
-      document.getElementById("markDone").addEventListener("click", function () {
-        var host = document.getElementById("toastHost");
-        host.innerHTML =
-          '<div class="toast" role="status">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>' +
-          '<span>Marked done — added to today’s check-in.</span></div>';
-        setTimeout(function () { window.location.href = "exercises.html"; }, 1400);
-      });
-    })();
-  </script>
+  <!-- illustration + modality (static vector, centered) -->
+  <section class="card card--blue rise rise-1" style="text-align:center">
+    <span class="exbadge"><img data-ex-art src="../assets/art/ex-mobility-static.svg" width="60" height="60" alt=""></span>
+    <span class="chip" data-ex-mod>Mobility</span>
+    <p class="t-body-lg" style="margin:var(--sp-3) 0 0"><strong>What this helps:</strong> <span data-ex-helps>—</span></p>
+    <p class="t-caption" data-ex-freq style="margin:var(--sp-1) 0 0">—</p>
+  </section>
+
+  <!-- numbered steps -->
+  <section class="rise rise-2" aria-label="Steps">
+    <h2 class="t-h2" style="margin:0 0 var(--sp-3)">Steps</h2>
+    <ol class="steps" data-ex-steps></ol>
+  </section>
+
+  <!-- built-in timer (no video) -->
+  <section class="card rise rise-3" aria-label="Timer">
+    <h2 class="t-h2 t-center" data-ex-timer-title style="margin:0 0 var(--sp-4)">Take your time</h2>
+    <div class="timer" data-timer data-duration="30">
+      <div class="timer__ring">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="timer__track" cx="100" cy="100" r="88" fill="none" stroke-width="12"/>
+          <circle class="timer__prog" data-timer-prog cx="100" cy="100" r="88" fill="none" stroke-width="12"/>
+        </svg>
+        <div class="timer__num">
+          <span class="timer__count" data-timer-count>30</span>
+          <span class="timer__unit">seconds</span>
+        </div>
+      </div>
+      <div class="timer__controls">
+        <button type="button" class="btn btn--primary btn--block" data-timer-start>Start</button>
+        <button type="button" class="btn btn--ghost" data-timer-reset style="max-width:130px">Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <button type="button" class="btn btn--primary btn--block rise rise-4" id="markDone">Mark as done · +5 XP</button>
+  <div id="toastHost"></div>
+</div></div>
+
+<script src="../js/app.js"></script>
+<script>
+(function () {
+  var EX = {
+    "cat-cow": { name: "Seated Cat–Cow", mod: "Mobility", art: "ex-mobility", helps: "Keeps your spine mobile and eases stiffness.", freq: "2 sets · 8 reps", timer: 30, timerTitle: "Flow slowly for 30 seconds", steps: [
+      "Sit tall on a sturdy chair, hands resting on your knees.",
+      "Breathe in — arch your back gently and lift your chest.",
+      "Breathe out — round your back and tuck your chin.",
+      "Move slowly, following your breath." ] },
+    "shoulder-rolls": { name: "Shoulder Rolls", mod: "Mobility", art: "ex-mobility", helps: "Loosens tight shoulders and your upper back.", freq: "2 sets · 10 reps", timer: 30, timerTitle: "Roll steadily for 30 seconds", steps: [
+      "Sit or stand tall with your arms relaxed.",
+      "Slowly roll both shoulders up toward your ears.",
+      "Roll them back and down in a smooth circle.",
+      "After 10, reverse the direction." ] },
+    "sit-to-stand": { name: "Sit-to-Stand", mod: "Strength", art: "ex-strength", helps: "Builds leg strength for standing and walking.", freq: "3 sets · 8 reps", timer: 30, timerTitle: "Take your time — no rush", steps: [
+      "Sit at the front edge of a sturdy chair, feet flat.",
+      "Lean slightly forward from your hips.",
+      "Push through your heels to stand up tall.",
+      "Lower yourself back down slowly with control." ] },
+    "wall-pushups": { name: "Wall Push-ups", mod: "Strength", art: "ex-strength", helps: "Strengthens your arms and chest, safely.", freq: "2 sets · 10 reps", timer: 30, timerTitle: "Steady, controlled reps", steps: [
+      "Stand an arm's length from a wall, hands at shoulder height.",
+      "Keep your body straight and your feet planted.",
+      "Bend your elbows to lean in toward the wall.",
+      "Push back to the start, slow and steady." ] },
+    "heel-toe": { name: "Heel-to-Toe Stand", mod: "Balance", art: "ex-balance", helps: "Improves your balance and steadiness.", freq: "3 sets · 30 sec", timer: 30, timerTitle: "Hold each side · 30 seconds", steps: [
+      "Stand next to a counter or wall you can touch for support.",
+      "Place one foot directly in front of the other, heel to toe.",
+      "Hold steady, looking straight ahead.",
+      "Switch feet and repeat." ] }
+  };
+  var slug = (location.search.match(/[?&]ex=([a-z-]+)/) || [])[1] || "cat-cow";
+  var ex = EX[slug] || EX["cat-cow"];
+
+  document.title = "PAVE — " + ex.name;
+  document.querySelector("[data-ex-name]").textContent = ex.name;
+  document.querySelector("[data-ex-mod]").textContent = ex.mod;
+  document.querySelector("[data-ex-helps]").textContent = ex.helps;
+  document.querySelector("[data-ex-freq]").textContent = ex.freq;
+  document.querySelector("[data-ex-art]").src = "../assets/art/" + ex.art + "-static.svg";
+  document.querySelector("[data-ex-timer-title]").textContent = ex.timerTitle;
+
+  var timer = document.querySelector("[data-timer]");
+  timer.setAttribute("data-duration", ex.timer);
+  document.querySelector("[data-timer-count]").textContent = ex.timer;
+
+  var ol = document.querySelector("[data-ex-steps]");
+  ex.steps.forEach(function (s, i) {
+    var li = document.createElement("li");
+    li.className = "step";
+    li.innerHTML = '<span class="step__n">' + (i + 1) + '</span><span class="step__text"></span>';
+    li.querySelector(".step__text").textContent = s;
+    ol.appendChild(li);
+  });
+
+  document.getElementById("markDone").addEventListener("click", function () {
+    document.getElementById("toastHost").innerHTML =
+      '<div class="toast" role="status">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>' +
+      '<span>Nice! Added to today’s plan.</span></div>';
+    setTimeout(function () { location.href = "exercises.html"; }, 1300);
+  });
+})();
+</script>
 </body>
 </html>

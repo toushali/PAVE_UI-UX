@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PAVE — Daily check-in</title><link rel="stylesheet" href="../css/tokens.css"><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/components.css"></head><body><div class="app"><div class="content scroll">
-  <div class="topbar rise rise-1"><span class="topbar__title">Daily check-in</span><span class="streakchip"><img src="../assets/art/flame.svg" alt="Streak">12</span></div>
+  <div class="topbar rise rise-1"><span style="display:flex;align-items:center;gap:var(--sp-2)"><a class="iconbtn" href="today.html" aria-label="Back to Today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg></a><span class="topbar__title">Daily check-in</span></span><span class="streakchip"><img src="../assets/art/flame.svg" alt="Streak">12</span></div>
   <p class="t-caption rise rise-1" style="margin:0">Takes about a minute · earns <b style="color:var(--c-primary-dark)">+25 XP</b></p>
 
   <section class="card rise rise-2">
@@ -22,6 +22,25 @@
     <div class="choicegrid">
       <button class="choice" aria-pressed="false">✅ Yes</button>
       <button class="choice" aria-pressed="false">Not yet</button>
+    </div>
+  </section>
+
+  <section class="card rise rise-3">
+    <div class="card__title">Compared to yesterday</div>
+    <div class="choicegrid">
+      <button class="choice" aria-pressed="false">Better</button>
+      <button class="choice" aria-pressed="false">Same</button>
+      <button class="choice" aria-pressed="false">Worse</button>
+    </div>
+  </section>
+
+  <section class="rise rise-4">
+    <button type="button" class="btn btn--ghost btn--block" data-toggle="noteBox" aria-expanded="false" aria-controls="noteBox" style="justify-content:space-between">
+      <span>Add a note for your doctor <span class="t-caption">(optional)</span></span>
+      <span aria-hidden="true" style="font-size:22px;line-height:1">＋</span>
+    </button>
+    <div class="collapse" id="noteBox" style="margin-top:var(--sp-3)">
+      <textarea rows="3" placeholder="Anything you’d like Dr. Stillman to know? This is optional." style="width:100%;padding:var(--sp-3);border:2px solid var(--c-line);border-radius:var(--radius-btn);background:var(--c-surface);font:inherit;font-size:var(--fs-body);resize:vertical"></textarea>
     </div>
   </section>
 

@@ -1,0 +1,112 @@
+/* ============================================================
+   PAVE Provider Portal — Pro1 design tokens
+   Desktop, light mode, data-dense clinical aesthetic (FSD §16.1).
+   Monospace for every number/metric/financial value/timestamp.
+   ============================================================ */
+:root {
+  /* ============================================================
+     THEME — the ONLY difference between the two provider styles.
+     Pro1 (default, below)  = white-green, matches Patient v1.
+     Pro2 (html[data-ptheme="pro2"], end of file) = clinical blue.
+     Toggling swaps just these colour variables — one codebase,
+     every screen/layout/component identical.
+     ============================================================ */
+
+  /* ---- Brand: calm green (Pro1) ---- */
+  --c-primary:      #147D64;   /* actions, active nav, links */
+  --c-primary-dark: #0C5C49;   /* hover / pressed */
+  --c-primary-soft: #E4F2ED;   /* active-nav fill, soft chips */
+
+  /* ---- Neutrals: warm slate-green ---- */
+  --c-ink:     #1C2622;   /* headings, primary text */
+  --c-ink-2:   #51605A;   /* secondary text */
+  --c-ink-3:   #87938C;   /* meta, muted, timestamps label */
+  --c-line:    #DEE7E1;   /* card & table hairlines */
+  --c-line-2:  #EAF0EB;   /* subtle inner dividers */
+  --c-bg:      #F1F6F1;   /* app background */
+  --c-surface: #FFFFFF;   /* cards, panels, sidebar */
+
+  /* ---- 5-tier patient status (FSD §15.3) — amber, never red ----
+     On-track is teal so it stays distinct from the green brand
+     and the green "Ready to bill" tier. */
+  --st-enrolled:     #87938C;  --st-enrolled-bg:  #EFF2F0;
+  --st-ontrack:      #2C7A9C;  --st-ontrack-bg:   #E5F0F5;
+  --st-attention:    #B4770F;  --st-attention-bg: #FBF1DC;
+  --st-ready:        #1C8F62;  --st-ready-bg:     #E1F3EA;
+  --st-approved:     #6B7686;  --st-approved-bg:  #EEF0F3;
+
+  /* ---- Typography ---- */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --fs-display: 30px;  /* KPI numbers */
+  --fs-h1:      22px;  /* page titles */
+  --fs-h2:      17px;  /* section headers */
+  --fs-body:    14px;  /* base UI text (dense) */
+  --fs-sm:      13px;  /* secondary */
+  --fs-xs:      12px;  /* labels, meta */
+
+  --lh-tight: 1.25;
+  --lh-body:  1.5;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semi:    600;
+  --fw-bold:    700;
+
+  /* ---- Spacing (dense 4px base) ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 28px; --sp-7: 40px;
+
+  /* ---- Shape (small, clean) ---- */
+  --radius:      8px;   /* cards, panels */
+  --radius-sm:   6px;   /* buttons, inputs, badges */
+  --radius-pill: 999px;
+
+  /* ---- Shadow (subtle) ---- */
+  --shadow-card: 0 1px 2px rgba(25,50,40,0.05), 0 1px 3px rgba(25,50,40,0.04);
+  --shadow-pop:  0 8px 28px rgba(25,50,40,0.14);
+  --shadow-bar:  0 2px 8px rgba(25,50,40,0.06);
+
+  /* ---- Layout ---- */
+  --sidebar-w:   236px;
+  --topbar-h:    60px;
+  --content-max: 1100px;
+
+  /* ---- Motion ---- */
+  --motion-fast: 140ms;
+  --motion-base: 220ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ============================================================
+   Pro2 — clinical blue. Same portal, colour scheme only.
+   The head bootstrap sets data-ptheme; the 4-way toggle switches
+   between ?ptheme=pro1 (green) and ?ptheme=pro2 (blue).
+   ============================================================ */
+html[data-ptheme="pro2"] {
+  /* Brand: clinical blue */
+  --c-primary:      #1E6FB8;
+  --c-primary-dark: #175A96;
+  --c-primary-soft: #E9F1FA;
+
+  /* Neutrals: cool slate */
+  --c-ink:     #1A2230;
+  --c-ink-2:   #566173;
+  --c-ink-3:   #8993A2;
+  --c-line:    #E4E8EE;
+  --c-line-2:  #EDEFF3;
+  --c-bg:      #F5F7FA;
+  --c-surface: #FFFFFF;
+
+  /* Status — on-track returns to brand blue */
+  --st-enrolled:  #8993A2;  --st-enrolled-bg:  #F0F2F5;
+  --st-ontrack:   #1E6FB8;  --st-ontrack-bg:   #E9F1FA;
+  --st-attention: #B4770F;  --st-attention-bg: #FBF1DC;
+  --st-ready:     #1C8F62;  --st-ready-bg:     #E3F4EC;
+  --st-approved:  #6B7686;  --st-approved-bg:  #EEF0F3;
+
+  --shadow-card: 0 1px 2px rgba(20,40,70,0.05), 0 1px 3px rgba(20,40,70,0.04);
+  --shadow-pop:  0 8px 28px rgba(20,40,70,0.14);
+  --shadow-bar:  0 2px 8px rgba(20,40,70,0.06);
+}

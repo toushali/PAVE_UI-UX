@@ -948,3 +948,64 @@
 
 /* hidden attribute must always win, even over inline display */
 [hidden] { display: none !important; }
+
+/* exercise card: tappable body (opens detail) + separate done tick */
+.excard__link { display: flex; align-items: center; gap: var(--sp-3); flex: 1; min-width: 0; color: inherit; text-decoration: none; }
+.excard__chev { flex: 0 0 auto; color: var(--c-ink-3); font-size: 24px; font-weight: 900; line-height: 1; }
+.excard:active { transform: translateY(1px); }
+
+/* icon button (back / close) — was missing in v2 (v1 defined it in base.css) */
+.iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  color: var(--c-ink);
+  background: none;
+  border: none;
+  text-decoration: none;
+}
+.iconbtn:active { background: var(--c-line); }
+.iconbtn svg { width: 26px; height: 26px; }
+
+/* exercise-detail illustration badge (static vector, centered) */
+.exbadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto var(--sp-3);
+  border-radius: 50%;
+  background: var(--c-surface);
+  box-shadow: var(--shadow-card);
+}
+.exbadge img { width: 60px; height: 60px; display: block; }
+
+/* Milestone journey (Rewards) — gamified vertical stepper */
+.gpath { display: flex; flex-direction: column; }
+.gstep { display: flex; gap: var(--sp-4); padding-bottom: var(--sp-5); }
+.gstep:last-child { padding-bottom: 0; }
+.gstep__rail { position: relative; flex: 0 0 auto; width: 44px; display: flex; justify-content: center; }
+.gstep:not(:last-child) .gstep__rail::after {
+  content: ""; position: absolute; top: 44px; bottom: -4px; width: 4px; border-radius: 2px; background: var(--c-line);
+}
+.gstep.is-done .gstep__rail::after { background: var(--c-primary); }
+.gstep__dot {
+  position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--c-line); background: var(--c-surface);
+  color: var(--c-ink-3); font-family: var(--font-display); font-weight: 900; font-size: var(--fs-body);
+}
+.gstep__dot svg { width: 24px; height: 24px; }
+.gstep.is-done .gstep__dot { background: var(--c-primary); border-color: var(--c-primary); color: #fff; }
+.gstep.is-next .gstep__dot { border-color: var(--c-coral); color: var(--c-coral); box-shadow: 0 0 0 5px var(--t-coral); }
+.gstep__body { flex: 1; padding-top: var(--sp-1); }
+.gstep__title { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-body-lg); }
+.gstep__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.gstep__soon {
+  display: inline-block; margin-top: var(--sp-2); padding: 6px var(--sp-3); border-radius: var(--radius-pill);
+  background: var(--t-coral); color: #B23A2C; font-family: var(--font-display); font-weight: 800; font-size: var(--fs-caption);
+}

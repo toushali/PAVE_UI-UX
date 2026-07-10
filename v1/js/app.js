@@ -419,52 +419,85 @@
   }
 
   /* ------------------------------------------------------------
-     Design versioning (v1 / v2)
-     v1 and v2 are completely separate, self-contained copies of the
-     app (their own pages, css, assets, js). The toggle just navigates
-     to the SAME page in the other version by swapping the /v1/ or /v2/
-     segment in the URL. Nothing is shared or swapped at runtime.
+     Design-version toggle — jump between prototypes (client demo).
+     Patient v1 · Patient v2 · Provider Pro1  (Pro2 added in S21).
+     Self-styled inline so it looks identical in every app.
      ------------------------------------------------------------ */
-  function currentVersion() {
-    var m = location.pathname.match(/\/(v1|v2)\//);
-    return m ? m[1] : "v1";
-  }
-
-  /* Floating "tweaks" toggle — jump to the mirror page in the other
-     version. Self-styled inline so it looks the same in both designs. */
   function initDesignToggle() {
     if (document.getElementById("paveDesignToggle")) return;
-    var v = currentVersion(), other = v === "v1" ? "v2" : "v1";
-    var btn = document.createElement("button");
-    btn.id = "paveDesignToggle";
-    btn.type = "button";
-    btn.title = "Design " + v.toUpperCase() + " — tap to view " + other.toUpperCase();
-    btn.setAttribute("aria-label", btn.title);
-    btn.innerHTML =
-      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#147D64" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2.4" fill="#147D64" stroke="none"/><circle cx="15" cy="12" r="2.4" fill="#147D64" stroke="none"/><circle cx="8" cy="17" r="2.4" fill="#147D64" stroke="none"/></svg>' +
-      '<span style="font-weight:700;letter-spacing:.03em">' + v.toUpperCase() + '</span>';
-    var s = btn.style;
-    /* bottom-left, out of the way of the top-bar gear/back and the tab bar */
-    s.position = "fixed"; s.left = "14px"; s.bottom = "14px"; s.zIndex = "2147483000";
-    s.display = "inline-flex"; s.alignItems = "center"; s.gap = "6px";
-    s.minHeight = "38px"; s.padding = "0 13px";
-    s.borderRadius = "999px"; s.border = "1px solid rgba(20,50,38,0.12)";
-    s.background = "#FFFFFF"; s.color = "#1F2421";
-    s.font = "600 13px/1 Inter, system-ui, sans-serif";
-    s.boxShadow = "0 4px 14px rgba(20,60,45,0.16)"; s.cursor = "pointer";
-    s.opacity = "0.96";
-    btn.addEventListener("click", function () {
-      /* swap the version segment in the current path; if none present
-         (opened outside a version folder), default into the other one. */
-      var path = location.pathname, next;
-      if (path.indexOf("/" + v + "/") > -1) {
-        next = path.replace("/" + v + "/", "/" + other + "/");
-      } else {
-        next = "/" + other + path.replace(/^\//, "/");
-      }
-      location.href = next + location.search + location.hash;
+    var path = location.pathname;
+    var isProvider = path.indexOf("/pro1/") > -1;
+    /* base = everything before the design-folder segment (v1 / v2 / pro1) */
+    var seg = null, base = "";
+    ["v1", "v2", "pro1"].forEach(function (sg) {
+      var i = path.indexOf("/" + sg + "/"); if (i > -1) { seg = sg; base = path.slice(0, i); }
     });
-    document.body.appendChild(btn);
+    /* Provider Pro1/Pro2 are ONE codebase — colour scheme only, set via ?ptheme. */
+    var ptheme = document.documentElement.getAttribute("data-ptheme") || "pro1";
+    var provTarget = isProvider ? path : base + "/pro1/app/dashboard.html";
+
+    var ITEMS = [
+      { label: "Patient · v1",    href: base + "/v1/app/today.html",  cur: seg === "v1" },
+      { label: "Patient · v2",    href: base + "/v2/app/today.html",  cur: seg === "v2" },
+      { label: "Provider · Pro1", href: provTarget + "?ptheme=pro1",  cur: isProvider && ptheme === "pro1" },
+      { label: "Provider · Pro2", href: provTarget + "?ptheme=pro2",  cur: isProvider && ptheme === "pro2" }
+    ];
+    var curItem = ITEMS.filter(function (i) { return i.cur; })[0] || ITEMS[0];
+    var curLabel = curItem.label;
+
+    /* accent follows the live theme so the control matches the page */
+    var cs = getComputedStyle(document.documentElement);
+    var accent = (cs.getPropertyValue("--c-primary") || "").trim() || "#147D64";
+    var accentSoft = (cs.getPropertyValue("--c-primary-soft") || "").trim() || "#E4F2ED";
+
+    var wrap = document.createElement("div");
+    wrap.id = "paveDesignToggle";
+    var s = wrap.style;
+    s.position = "fixed"; s.left = "14px"; s.bottom = "14px"; s.zIndex = "2147483000";
+    s.font = "600 13px/1 Inter, system-ui, sans-serif";
+
+    var menu = document.createElement("div");
+    var ms = menu.style;
+    ms.position = "absolute"; ms.left = "0"; ms.bottom = "46px"; ms.minWidth = "188px";
+    ms.background = "#fff"; ms.border = "1px solid rgba(20,40,70,.12)"; ms.borderRadius = "10px";
+    ms.boxShadow = "0 10px 30px rgba(20,40,70,.18)"; ms.padding = "6px"; ms.display = "none";
+    ITEMS.forEach(function (it) {
+      var a = document.createElement("a");
+      a.href = it.href;
+      a.textContent = it.label;
+      var as = a.style;
+      as.display = "block"; as.padding = "9px 12px"; as.borderRadius = "7px";
+      as.color = it.cur ? accent : "#1A2230";
+      as.background = it.cur ? accentSoft : "transparent";
+      as.textDecoration = "none"; as.fontWeight = it.cur ? "700" : "600";
+      a.addEventListener("mouseenter", function () { if (!it.cur) a.style.background = "#F3F5F4"; });
+      a.addEventListener("mouseleave", function () { if (!it.cur) a.style.background = "transparent"; });
+      menu.appendChild(a);
+    });
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Switch prototype — viewing " + curLabel);
+    btn.innerHTML =
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="' + accent + '" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2.4" fill="' + accent + '" stroke="none"/><circle cx="15" cy="12" r="2.4" fill="' + accent + '" stroke="none"/><circle cx="8" cy="17" r="2.4" fill="' + accent + '" stroke="none"/></svg>' +
+      '<span style="white-space:nowrap">' + curLabel + '</span>' +
+      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8993A2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+    var bs = btn.style;
+    bs.display = "inline-flex"; bs.alignItems = "center"; bs.gap = "8px";
+    bs.minHeight = "38px"; bs.padding = "0 12px";
+    bs.borderRadius = "999px"; bs.border = "1px solid rgba(20,40,70,.12)";
+    bs.background = "#fff"; bs.color = "#1A2230";
+    bs.boxShadow = "0 4px 14px rgba(20,40,70,.16)"; bs.cursor = "pointer";
+
+    var open = false;
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      open = !open; menu.style.display = open ? "block" : "none";
+    });
+    document.addEventListener("click", function () { if (open) { open = false; menu.style.display = "none"; } });
+
+    wrap.appendChild(menu); wrap.appendChild(btn);
+    document.body.appendChild(wrap);
   }
 
   document.addEventListener("DOMContentLoaded", function () {

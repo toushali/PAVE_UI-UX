@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dr. Brain · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="dr-brain" data-title="Dr. Brain">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">Dr. Brain — training</div>
+              <div class="pagehead__sub">Guide, correct, and expand the AI. Every change is staged in a sandbox and requires your sign-off before production.</div>
+            </div>
+            <span class="spacer"></span>
+            <span class="modeltag">Production v2.3</span>
+            <span class="modeltag" style="background:var(--st-attention-bg);color:var(--st-attention)">Sandbox v2.4-draft</span>
+          </div>
+        </div>
+
+        <!-- Chat -->
+        <section class="card rise rise-2">
+          <div class="card__head"><span class="card__title">Conversational training</span><span class="t-meta">provider ↔ AI · logged</span></div>
+          <div class="chatwrap">
+            <div class="chatlog" id="chatlog">
+              <div class="msg msg--ai"><div class="msg__who">Dr. Brain</div>I draft rehab plans from a curated clinical knowledge base. Ask about my reasoning, or tell me how to adjust a protocol.</div>
+              <div class="msg msg--me"><div class="msg__who">Dr. Stillman</div>For M54.5 with a radicular history, avoid end-range loading in week 1.</div>
+              <div class="msg msg--ai"><div class="msg__who">Dr. Brain</div>Understood. I'll stage flexion-biased loading and defer end-range extension until week 2 for lumbar pain with radicular history. This change is staged to <strong>sandbox v2.4-draft</strong> — review a test enrollment below before promoting.</div>
+            </div>
+            <div class="chatbar">
+              <input id="chatinput" placeholder="Discuss reasoning or correct a protocol…">
+              <button class="btn btn--primary" id="chatsend">Send</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid-2 rise rise-3" style="margin-top:var(--sp-4)">
+          <!-- Upload -->
+          <section class="card"><div class="card__head"><span class="card__title">Add to knowledge base</span></div><div class="card__body">
+            <label class="dropzone" style="display:block;cursor:pointer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+              <strong style="color:var(--c-ink)">Drop a clinical study or protocol</strong><br>
+              <span class="t-sm">PDF or DOCX · indexed into Dr. Brain's corpus</span>
+              <input type="file" hidden onchange="paveBanner('Document uploaded &amp; indexed to sandbox · logged.')">
+            </label>
+          </div></section>
+
+          <!-- KB management -->
+          <section class="card"><div class="card__head"><span class="card__title">Knowledge base</span><span class="t-meta"><span class="num">4</span> sources</span></div>
+            <table class="qtable">
+              <thead><tr><th>Source</th><th>Type</th><th>Status</th><th class="right"></th></tr></thead>
+              <tbody>
+                <tr><td class="t-sm">McKenzie MDT protocols.pdf</td><td class="t-sm t-muted">Protocol</td><td><span class="badge badge--ready">Active</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Source flagged for review.">Flag</button></td></tr>
+                <tr><td class="t-sm">Lumbar RCT — Pilates vs activity (2024).pdf</td><td class="t-sm t-muted">Study</td><td><span class="badge badge--ready">Active</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Source flagged for review.">Flag</button></td></tr>
+                <tr><td class="t-sm">Rotator cuff conservative care.docx</td><td class="t-sm t-muted">Protocol</td><td><span class="badge badge--ready">Active</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Source flagged for review.">Flag</button></td></tr>
+                <tr><td class="t-sm">Cervical guideline (2016).pdf</td><td class="t-sm t-muted">Study</td><td><span class="badge badge--attention">Flagged</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Source removed from corpus · logged.">Remove</button></td></tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <!-- Sandbox -->
+        <section class="card rise rise-4" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Sandbox &amp; deployment</span><span class="spacer"></span><span class="t-meta">Existing patient plans are never altered by updates</span></div><div class="card__body">
+          <div class="sandbox">
+            <div style="flex:1">
+              <strong>Test enrollment in sandbox v2.4-draft</strong>
+              <div class="t-sm t-muted">Run a mock enrollment to see what the updated model would generate before it reaches any patient.</div>
+            </div>
+            <button class="btn btn--ghost" data-panel-toggle="sbout">Run test enrollment</button>
+          </div>
+
+          <div class="qrow__panel" id="sbout" style="margin-top:var(--sp-4)">
+            <h4>Sandbox output — test patient (M54.5, radicular history)</h4>
+            <div class="claimsum" style="margin-bottom:var(--sp-2)"><span>Week 1: <b>flexion-biased, no end-range</b></span><span>Week 2: <b>staged extension</b></span><span>Modalities: <b>Pilates · PT</b></span></div>
+            <p class="t-sm t-muted">Matches the correction from chat. Medical rationale generated and citable. Ready to promote.</p>
+          </div>
+
+          <div class="row" style="margin-top:var(--sp-5);gap:var(--sp-3)">
+            <button class="btn btn--primary" data-confirm="Promoted sandbox v2.4 → production · Dr. Stillman signed off · logged.">Promote to production</button>
+            <button class="btn btn--ghost" data-confirm="Rolled back to production v2.2 · authorized by Dr. Stillman.">Roll back</button>
+            <span class="spacer"></span>
+            <span class="t-meta">The version that generated each patient's plan is recorded on their chart.</span>
+          </div>
+        </div></section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+<script>
+  (function () {
+    var log = document.getElementById("chatlog"), input = document.getElementById("chatinput");
+    function add(who, cls, text) {
+      var d = document.createElement("div");
+      d.className = "msg " + cls;
+      d.innerHTML = '<div class="msg__who"></div>';
+      d.querySelector(".msg__who").textContent = who;
+      d.appendChild(document.createTextNode(text));
+      log.appendChild(d); log.scrollTop = log.scrollHeight;
+    }
+    function send() {
+      var t = input.value.trim(); if (!t) return;
+      add("Dr. Stillman", "msg--me", t); input.value = "";
+      setTimeout(function () {
+        add("Dr. Brain", "msg--ai", "Noted — I've staged that to sandbox v2.4-draft. Run a test enrollment below to review before promoting to production.");
+      }, 500);
+    }
+    document.getElementById("chatsend").addEventListener("click", send);
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") send(); });
+  })();
+</script>
+</body>
+</html>
