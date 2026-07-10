@@ -567,26 +567,3 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 .charthead__n { font-family: var(--font-mono); font-size: var(--fs-h1); font-weight: var(--fw-semi); letter-spacing: -0.02em; }
 .charthead__l { font-size: var(--fs-xs); font-weight: var(--fw-semi); letter-spacing: 0.05em; text-transform: uppercase; color: var(--c-ink-3); }
 .charthead__d { margin-left: auto; font-size: var(--fs-xs); color: var(--st-ready); font-weight: var(--fw-semi); }
-
-/* ============================================================
-   Style-guide layout helpers (components.html only)
-   ============================================================ */
-.sg-sec { margin-top: var(--sp-6); }
-.sg-h { font-size: var(--fs-h2); font-weight: var(--fw-bold); margin-bottom: 2px; }
-.sg-sub { font-size: var(--fs-sm); color: var(--c-ink-2); margin-bottom: var(--sp-4); }
-.sg-gallery { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4); }
-.sg-stack { display: flex; flex-direction: column; gap: var(--sp-3); align-items: flex-start; }
-.sg-label { font-size: var(--fs-xs); font-weight: var(--fw-semi); letter-spacing: 0.04em; text-transform: uppercase; color: var(--c-ink-3); margin-bottom: 7px; }
-.sg-cell { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.sg-cell > .sg-tag { font-size: var(--fs-xs); color: var(--c-ink-3); }
-.swatch { display: flex; flex-direction: column; gap: 7px; }
-.swatch__chip { width: 100%; height: 52px; border-radius: var(--radius-sm); border: 1px solid rgba(0,0,0,0.06); }
-.swatch__name { font-size: var(--fs-xs); font-weight: var(--fw-semi); }
-.swatch__hex { font-family: var(--font-mono); font-size: 11px; color: var(--c-ink-3); }
-.swgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--sp-4); }
-.typerow { display: flex; align-items: baseline; gap: var(--sp-4); padding: var(--sp-3) 0; border-bottom: 1px solid var(--c-line-2); }
-.typerow:last-child { border-bottom: none; }
-.typerow__spec { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--c-ink-3); width: 132px; flex: 0 0 auto; }
-.spacerow { display: flex; align-items: center; gap: var(--sp-4); padding: 7px 0; }
-.spacerow__spec { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--c-ink-3); width: 132px; flex: 0 0 auto; }
-.spacerow__bar { height: 16px; background: var(--c-primary-soft); border-radius: 3px; }

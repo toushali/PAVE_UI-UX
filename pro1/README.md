@@ -30,16 +30,13 @@ prototypes — **Patient v1 · Patient v2 · Provider Pro1 (green) · Provider P
 
 ## Component library
 
-A live **Design system** screen (`app/components.html`, in the sidebar) documents
-the full library and re-themes with Pro1/Pro2:
+The CSS provides a full component set — buttons, inputs/selects/textarea,
+checkboxes, radios, toggle switches, sliders, badges (5-tier status), cards,
+KPIs, tabs, dropdown menus, modals/dialogs, line charts + sparklines,
+spinners/skeletons — each with default · hover · active · disabled · error ·
+loading states, plus the colour/status, typography, and spacing foundations.
 
-- **Components:** buttons, inputs/selects/textarea, checkboxes, radios, toggle
-  switches, sliders, badges (5-tier status), cards, KPIs, tabs, dropdown menus,
-  modals/dialogs, line charts + sparklines, spinners/skeletons.
-- **All interactive states shown:** default · hover · active · disabled · error · loading.
-- **Foundations:** colour + status system, typography scale, spacing system.
-
-## Screens (13)
+## Screens (12)
 
 | Screen | File | FSD |
 | --- | --- | --- |
@@ -55,7 +52,6 @@ the full library and re-themes with Pro1/Pro2:
 | Org Admin | `app/org-admin.html` | §6.9 |
 | Settings | `app/settings.html` | §6.10 |
 | Dr. Brain (training) | `app/dr-brain.html` | §10.3–10.4 |
-| Design system (component library) | `app/components.html` | §16 |
 
 ## Structure
 

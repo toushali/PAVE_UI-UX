@@ -30,8 +30,7 @@
     ["revenue","Revenue",'<path d="M12 3v18"/><path d="M16.5 6.5C16.5 4.8 14.5 3.5 12 3.5S7.5 4.8 7.5 6.5 9.5 9.5 12 9.5s4.5 1.3 4.5 3-2 3-4.5 3-4.5-1.3-4.5-3"/>',""],
     ["org-admin","Org Admin",'<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h6"/>',""],
     ["dr-brain","Dr. Brain",'<path d="M12 4a3.5 3.5 0 0 0-3.5 3.5A3 3 0 0 0 6 13a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0-2.5-5.5A3.5 3.5 0 0 0 12 4z"/><path d="M12 8v4"/><path d="M9.5 10.5 12 12l2.5-1.5"/>',""],
-    ["settings","Settings",'<circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.5M12 18v2.5M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M19.8 7.5l-2.2 1.3M6.4 15.2l-2.2 1.3"/>',""],
-    ["components","Design system",'<circle cx="7" cy="7" r="3.2"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><path d="M4 14h6v6H4zM14 17l3-3 3 3-3 3z"/>',""]
+    ["settings","Settings",'<circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.5M12 18v2.5M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M19.8 7.5l-2.2 1.3M6.4 15.2l-2.2 1.3"/>',""]
   ];
   function icon(paths) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>'; }
   function renderShell() {
