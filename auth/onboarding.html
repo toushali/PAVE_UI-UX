@@ -19,8 +19,13 @@
 
       <!-- 1) Trust card -->
       <section class="trustcard rise rise-1" aria-label="Your physician">
-        <span class="trustcard__photo">
-          <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="72" height="72" fill="#E4F2ED"/><circle cx="36" cy="28" r="13" fill="#147D64"/><path d="M12 68c0-13 11-21 24-21s24 8 24 21" fill="#147D64"/><path d="M30 41v6c0 3 2.7 5 6 5s6-2 6-5v-6" stroke="#0C5C49" stroke-width="2"/></svg>
+        <span class="trustcard__avatar">
+          <span class="trustcard__photo">
+            <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="72" height="72" fill="#E4F2ED"/><circle cx="36" cy="28" r="13" fill="#147D64"/><path d="M12 68c0-13 11-21 24-21s24 8 24 21" fill="#147D64"/><path d="M30 41v6c0 3 2.7 5 6 5s6-2 6-5v-6" stroke="#0C5C49" stroke-width="2"/></svg>
+          </span>
+          <span class="trustcard__verified" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17.5 19 7.5"/></svg>
+          </span>
         </span>
         <div>
           <div class="t-body-lg" style="font-weight:var(--fw-bold);">Your recovery plan from</div>
@@ -42,7 +47,7 @@
             <p class="t-body t-muted">A quick daily check-in keeps your doctor in the loop.</p>
           </div>
           <div class="welcome__card">
-            <span class="welcome__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8"/><path d="M12 13c0-3-2-5-5-5.5C7 10.5 9 13 12 13Z"/><path d="M12 11c0-3.5 2.5-6 6-6.5-.5 3.5-3 6-6 6.5Z"/></svg></span>
+            <span class="welcome__icon"><img src="../assets/art/plant-1-sprout.svg" alt="" width="52" height="52"></span>
             <h2 class="t-h2">Watch your progress grow</h2>
             <p class="t-body t-muted">Your streak grows like a plant as you keep going.</p>
           </div>
@@ -60,13 +65,14 @@
         <button type="button" class="btn btn--primary">Yes, that's me</button>
       </section>
 
-      <!-- 4) Large-text toggle -->
+      <!-- 4) Text size: three steps -->
       <section class="card rise rise-3" aria-label="Text size">
-        <div class="setrow" style="border:none; padding:0;">
-          <span class="setrow__label">Larger text
-            <span class="setrow__sub" style="display:block;">Makes everything easier to read.</span>
-          </span>
-          <button type="button" class="switch" data-textsize-toggle role="switch" aria-checked="false" aria-label="Larger text"></button>
+        <h2 class="card__title">Text size</h2>
+        <p class="setrow__sub" style="margin-bottom:var(--sp-4);">Choose what's comfortable to read.</p>
+        <div class="sizeseg" data-textsize role="group" aria-label="Text size">
+          <button type="button" class="sizeseg__opt" data-size="sm" aria-pressed="false" aria-label="Small text">Small</button>
+          <button type="button" class="sizeseg__opt is-active" data-size="md" aria-pressed="true" aria-label="Default text size">Default</button>
+          <button type="button" class="sizeseg__opt" data-size="lg" aria-pressed="false" aria-label="Large text">Large</button>
         </div>
       </section>
 

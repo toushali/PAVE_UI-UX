@@ -1,3 +1,7 @@
+/* Fonts loaded here so EVERY page gets Fraunces + Inter, not just the
+   few that included the <link> in <head>. Must precede all other rules. */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..900&family=Inter:wght@400;500;600;700&display=swap');
+
 /* ============================================================
    PAVE — Base: reset, typography, app-shell layout, motion
    Depends on tokens.css.
@@ -46,9 +50,22 @@ ul, ol { list-style: none; padding: 0; }
   outline-offset: 2px;
 }
 
-/* ---------- Typography helpers ---------- */
-.t-display { font-size: var(--fs-display); font-weight: var(--fw-bold); line-height: var(--lh-tight); }
-.t-h1      { font-size: var(--fs-h1); font-weight: var(--fw-bold); line-height: var(--lh-tight); }
+/* ---------- Typography helpers ----------
+   Headings use the soft humanist serif (Fraunces); body/UI stays Inter.
+   This establishes a warm, premium hierarchy with real step-down:
+   display (hero) → h1 → h2/section headers → body. */
+.t-display,
+.t-h1,
+.t-h2,
+.topbar__title,
+.card__title,
+.field-label {
+  font-family: var(--font-serif);
+  letter-spacing: -0.015em;
+}
+
+.t-display { font-size: var(--fs-display); font-weight: var(--fw-bold); line-height: 1.08; }
+.t-h1      { font-size: var(--fs-h1); font-weight: var(--fw-bold); line-height: 1.15; }
 .t-h2      { font-size: var(--fs-h2); font-weight: var(--fw-bold); line-height: var(--lh-tight); }
 .t-body-lg { font-size: var(--fs-body-lg); }
 .t-body    { font-size: var(--fs-body); }

@@ -15,18 +15,13 @@
     <main class="content">
       <div class="authwrap">
 
-        <span class="logo rise rise-1">
-          <svg viewBox="0 0 88 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M44 90V44" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-            <path d="M44 52c0-9-6-15-15-16 1 9 6 15 15 16Z" fill="#fff"/>
-            <path d="M44 40c0-10 7-17 17-18-1 10-7 17-17 18Z" fill="#E4F2ED"/>
-            <path d="M44 60c0-8 5-13 13-14-1 8-5 13-13 14Z" fill="#E4F2ED"/>
-          </svg>
-        </span>
+        <div class="plantscene rise rise-1" aria-hidden="true">
+          <img src="../assets/art/plant-2-seedling.svg" alt="" width="104" height="104">
+        </div>
 
         <div class="rise rise-2">
           <h1 class="t-h1">Let's get you back in</h1>
-          <p class="tagline" style="margin-top:var(--sp-2);">For your privacy, we signed you out. Enter your email or phone and we'll send a fresh link.</p>
+          <p class="tagline" style="margin-top:var(--sp-2);">For your privacy, we signed you out. Your plant is right where you left it — enter your email or phone and we'll send a fresh link.</p>
         </div>
 
         <div class="rise rise-2" style="display:flex; flex-direction:column; gap:var(--sp-4);">
@@ -34,7 +29,12 @@
           <a class="btn btn--primary" href="verify.html">Send my link</a>
         </div>
 
-        <p class="t-body t-muted rise rise-3">🔒 No password to remember, ever.</p>
+        <p class="rise rise-3" style="margin:0;">
+          <span class="reassure">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            No password to remember, ever.
+          </span>
+        </p>
 
       </div>
     </main>

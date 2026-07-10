@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Daily check-in · PAVE</title>
-  <meta name="theme-color" content="#FBFAF6">
+  <meta name="theme-color" content="#147D64">
+  <!-- Fonts: Fraunces (soft humanist serif) for headings, Inter for body/UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
@@ -13,27 +17,42 @@
 <body>
   <div class="app">
 
-    <!-- ==================== Top bar ==================== -->
-    <header class="topbar">
+    <!-- ============ Top bar: warm green brand band + sprig motif ============ -->
+    <header class="topbar topbar--brand">
       <a class="iconbtn" href="today.html" aria-label="Back to Today">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
       </a>
       <span class="topbar__title">Daily check-in</span>
+      <span class="topbar__motif" aria-hidden="true">
+        <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M30 82C34 52 50 30 82 20"/>
+          <path d="M56 34C58 22 66 16 80 15c-1 13-9 19-22 20" fill="currentColor" stroke="none"/>
+          <path d="M40 54C40 42 47 35 60 34c0 13-8 20-20 20" fill="currentColor" stroke="none"/>
+          <path d="M30 74C28 62 33 54 46 52c1 13-5 21-16 22" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
     </header>
 
     <!-- ==================== Content: the form ==================== -->
     <main class="content" data-checkin-form id="formView">
 
-      <h1 class="t-h1 rise rise-1">How are you today?</h1>
+      <h1 class="t-display rise rise-1">How are you today?</h1>
 
-      <!-- 1) Pain scale 0..10 -->
+      <!-- 1) Pain scale — the hero component -->
       <section class="card rise rise-1" aria-label="Pain level">
         <span class="field-label">Your pain today</span>
         <div class="painscale" data-painscale role="radiogroup" aria-label="Pain from 0 to 10">
+
+          <!-- Big readout: friendly prompt, then "N — Word" once chosen -->
           <div class="painscale__value">
-            <span class="painscale__num" data-pain-num>–</span>
-            <span class="painscale__word" data-pain-word>Tap a number below</span>
+            <span class="painscale__prompt">How is your pain right now?</span>
+            <span class="painscale__readout">
+              <span class="painscale__num" data-pain-num></span>
+              <span class="painscale__dash" aria-hidden="true">—</span>
+              <span class="painscale__word" data-pain-word></span>
+            </span>
           </div>
+
           <div class="painscale__segments">
             <button type="button" class="pain" data-pain="0"  role="radio" aria-checked="false" style="background:#4FA88B">0</button>
             <button type="button" class="pain" data-pain="1"  role="radio" aria-checked="false" style="background:#6CA87B">1</button>
@@ -47,6 +66,13 @@
             <button type="button" class="pain" data-pain="9"  role="radio" aria-checked="false" style="background:#C66A47">9</button>
             <button type="button" class="pain" data-pain="10" role="radio" aria-checked="false" style="background:#C05A4A">10</button>
           </div>
+
+          <!-- Clear end anchors + face cues at 0 / 5 / 10 -->
+          <div class="painscale__anchors">
+            <span>🙂 No pain</span>
+            <span aria-hidden="true">😐</span>
+            <span>Worst pain 😣</span>
+          </div>
         </div>
       </section>
 
@@ -58,28 +84,28 @@
             <span class="checkrow__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
             <span class="checkrow__body">
               <span class="checkrow__label">Pelvic tilt</span>
-              <span class="checkrow__meta">Pilates · 2× today</span>
+              <span class="checkrow__meta"><span class="checkrow__dot" style="--dot:var(--c-mod-pilates)"></span>Pilates · 2× today</span>
             </span>
           </button>
           <button type="button" class="checkrow" data-check-row aria-pressed="false">
             <span class="checkrow__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
             <span class="checkrow__body">
               <span class="checkrow__label">Cat–cow stretch</span>
-              <span class="checkrow__meta">Mobility · 1× today</span>
+              <span class="checkrow__meta"><span class="checkrow__dot" style="--dot:var(--c-mod-mobility)"></span>Mobility · 1× today</span>
             </span>
           </button>
           <button type="button" class="checkrow" data-check-row aria-pressed="false">
             <span class="checkrow__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
             <span class="checkrow__body">
               <span class="checkrow__label">Glute bridge</span>
-              <span class="checkrow__meta">Strengthening · 2× today</span>
+              <span class="checkrow__meta"><span class="checkrow__dot" style="--dot:var(--c-mod-strength)"></span>Strengthening · 2× today</span>
             </span>
           </button>
           <button type="button" class="checkrow" data-check-row aria-pressed="false">
             <span class="checkrow__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
             <span class="checkrow__body">
               <span class="checkrow__label">Box breathing</span>
-              <span class="checkrow__meta">Breathing · 1× today</span>
+              <span class="checkrow__meta"><span class="checkrow__dot" style="--dot:var(--c-mod-breathing)"></span>Breathing · 1× today</span>
             </span>
           </button>
         </div>
@@ -89,9 +115,18 @@
       <section class="rise rise-3" aria-label="Compared to yesterday">
         <span class="field-label">Compared to yesterday</span>
         <div class="pillgroup" data-pillgroup role="radiogroup" aria-label="Compared to yesterday">
-          <button type="button" class="pill" data-pill role="radio" aria-checked="false">Better</button>
-          <button type="button" class="pill" data-pill role="radio" aria-checked="false">Same</button>
-          <button type="button" class="pill" data-pill role="radio" aria-checked="false">Worse</button>
+          <button type="button" class="pill pill--better" data-pill role="radio" aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+            Better
+          </button>
+          <button type="button" class="pill pill--same" data-pill role="radio" aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14"/><path d="M5 15h14"/></svg>
+            Same
+          </button>
+          <button type="button" class="pill pill--worse" data-pill role="radio" aria-checked="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>
+            Worse
+          </button>
         </div>
       </section>
 
@@ -112,12 +147,9 @@
         </div>
       </section>
 
-      <!-- 5) Sticky submit. Nothing is required — forgiving by design. -->
-      <a class="btn btn--primary btn--sticky rise rise-4" href="confirmation.html">Submit today's check-in</a>
-
       <!-- Prototype helper: preview the already-submitted state -->
       <p class="t-center">
-        <button type="button" class="btn btn--ghost" id="demoDone" style="max-width:300px; margin:0 auto; min-height:var(--tap-min);">Preview “already checked in” state</button>
+        <button type="button" class="btn btn--ghost" id="demoDone" style="max-width:320px; margin:0 auto; min-height:var(--tap-min);">Preview “already checked in” state</button>
       </p>
 
     </main>
@@ -137,23 +169,34 @@
       </div>
     </main>
 
+    <!-- ============ Sticky bottom action bar (submit) ============ -->
+    <!-- Pinned to the bottom of the frame; full-bleed with a soft top
+         shadow. Nothing is required — forgiving by design. -->
+    <div class="actionbar" id="submitBar">
+      <a class="btn btn--primary" href="confirmation.html">Submit today's check-in</a>
+    </div>
+
   </div>
 
   <script src="../js/app.js"></script>
   <script>
     /* Prototype-only: swap between the form and the already-submitted
-       done panel so both states (Section 6.6) are demonstrable. */
+       done panel so both states (Section 6.6) are demonstrable.
+       The submit action bar is hidden on the done view. */
     (function () {
       var formView = document.getElementById("formView");
       var doneView = document.getElementById("doneView");
+      var submitBar = document.getElementById("submitBar");
       document.getElementById("demoDone").addEventListener("click", function () {
         formView.hidden = true;
         doneView.hidden = false;
+        submitBar.hidden = true;
         window.scrollTo(0, 0);
       });
       document.getElementById("demoForm").addEventListener("click", function () {
         doneView.hidden = true;
         formView.hidden = false;
+        submitBar.hidden = false;
         window.scrollTo(0, 0);
       });
     })();

@@ -93,12 +93,23 @@
    Toggle by adding class "text-lg" to <html>. Surfaced in
    Onboarding and Settings. */
 html.text-lg {
-  --fs-display: 46px;
-  --fs-h1:      32px;
+  --fs-display: 50px;
+  --fs-h1:      34px;
   --fs-h2:      25px;
   --fs-body-lg: 23px;
   --fs-body:    21px;
   --fs-caption: 18px;
+}
+
+/* ---- Small-text mode: ~10% down from default for a more compact view.
+   Body stays at a readable 16px. Toggle by adding class "text-sm" to <html>. */
+html.text-sm {
+  --fs-display: 40px;
+  --fs-h1:      27px;
+  --fs-h2:      20px;
+  --fs-body-lg: 18px;
+  --fs-body:    16px;
+  --fs-caption: 15px;
 }
 
 /* ---- High-contrast mode ----

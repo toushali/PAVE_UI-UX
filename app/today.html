@@ -27,41 +27,22 @@
     <!-- ==================== Content ==================== -->
     <main class="content">
 
-      <!-- Hero check-in: the one primary action.
-           Toggle .is-undone / .is-done to preview both states.
-           (Undone shown by default; a small demo link flips it.) -->
-      <section class="hero rise rise-1" aria-label="Today's check-in">
-        <a class="hero__ring is-undone" id="heroRing" href="checkin.html">
-          <span class="hero__ring-label" id="heroLabel">Do today's<br>check-in</span>
-          <span class="hero__ring-sub" id="heroSub">Takes about a minute</span>
-        </a>
-      </section>
-
-      <!-- Streak block with the growing-plant motif.
-           12-day streak -> growth stage 4. -->
-      <section class="streakcard rise rise-2" aria-label="Your streak">
-        <div class="plant streakcard__plant" data-stage="4">
-          <svg viewBox="0 0 88 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M22 74h44l-5 18a4 4 0 0 1-4 3H31a4 4 0 0 1-4-3l-5-18Z" fill="#C77700" opacity="0.85"/>
-            <rect x="19" y="68" width="50" height="9" rx="4" fill="#C77700"/>
-            <path data-grow="1" d="M44 68V40" stroke="#147D64" stroke-width="4" stroke-linecap="round"/>
-            <path data-grow="1" d="M44 44c0-6 4-10 9-11-1 6-4 10-9 11Z" fill="#4FA88B"/>
-            <path data-grow="2" d="M44 54c0-6-4-10-10-11 1 6 5 10 10 11Z" fill="#4FA88B"/>
-            <path data-grow="3" d="M44 34c0-7 5-12 12-13-1 7-5 12-12 13Z" fill="#147D64"/>
-            <path data-grow="4" d="M44 30c0-7-6-12-13-13 1 7 6 12 13 13Z" fill="#147D64"/>
-            <g data-grow="5">
-              <circle cx="44" cy="20" r="6" fill="#F2B705"/>
-              <circle cx="44" cy="11" r="4" fill="#F7CB47"/>
-              <circle cx="52" cy="18" r="4" fill="#F7CB47"/>
-              <circle cx="36" cy="18" r="4" fill="#F7CB47"/>
-              <circle cx="44" cy="20" r="3" fill="#C77700"/>
-            </g>
-          </svg>
+      <!-- Unified "garden home" hero: plant scene + growth ring + streak
+           + the day's check-in action, composed as ONE moment.
+           12-day streak -> seedling (plant-2), 71% toward the next stage.
+           Toggle .is-done on #gardenHome to preview the checked-in state. -->
+      <section class="gardenhome rise rise-1" id="gardenHome" aria-label="Today's check-in and streak">
+        <div class="garden__stage" style="--stage-prog:71;">
+          <span class="garden__ring" aria-hidden="true"></span>
+          <img class="garden__plant" src="../assets/art/plant-3-young.svg" alt="Your plant — a young seedling" width="152" height="152">
         </div>
-        <div class="streakcard__body">
-          <span class="streakcard__num">12</span>
-          <span class="streakcard__label">day streak — keep it growing</span>
+        <div class="gardenhome__streak">
+          <span class="gardenhome__num">12</span>
+          <span class="gardenhome__unit">day streak</span>
         </div>
+        <span class="garden__grow-note" id="growNote">2 days until your plant grows taller 🌱</span>
+        <a class="btn btn--primary gardenhome__cta" id="heroCta" href="checkin.html">Do today's check-in</a>
+        <span class="gardenhome__sub" id="heroSub">Takes about a minute</span>
       </section>
 
       <!-- Your plan today: mini checklist preview (tap -> Exercises) -->
@@ -133,28 +114,29 @@
 
   <script src="../js/app.js"></script>
   <script>
-    /* Prototype-only helper: flip the hero between undone and done
-       so the reference screen demonstrates both states (Section 6.5). */
+    /* Prototype-only helper: flip the unified hero between the undone and
+       checked-in states so the reference screen demonstrates both. */
     (function () {
-      var ring  = document.getElementById("heroRing");
-      var label = document.getElementById("heroLabel");
-      var sub   = document.getElementById("heroSub");
-      var btn   = document.getElementById("demoToggle");
-      var doneMarkup =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>';
+      var home = document.getElementById("gardenHome");
+      var cta  = document.getElementById("heroCta");
+      var sub  = document.getElementById("heroSub");
+      var note = document.getElementById("growNote");
+      var btn  = document.getElementById("demoToggle");
+      var check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>';
       btn.addEventListener("click", function () {
-        var done = ring.classList.toggle("is-done");
-        ring.classList.toggle("is-undone", !done);
+        var done = home.classList.toggle("is-done");
         if (done) {
-          label.innerHTML = doneMarkup;
+          cta.innerHTML = check + "Checked in for today";
+          cta.setAttribute("href", "#");
           sub.textContent = "See you tomorrow";
-          btn.textContent = "Preview “not yet” state";
-          ring.setAttribute("href", "#");
+          note.textContent = "Come back tomorrow to keep your plant growing 🌿";
+          btn.textContent = "Preview \u201Cnot yet\u201D state";
         } else {
-          label.innerHTML = "Do today's<br>check-in";
+          cta.textContent = "Do today's check-in";
+          cta.setAttribute("href", "checkin.html");
           sub.textContent = "Takes about a minute";
-          btn.textContent = "Preview “checked-in” state";
-          ring.setAttribute("href", "checkin.html");
+          note.textContent = "2 days until your plant grows taller 🌱";
+          btn.textContent = "Preview \u201Cchecked-in\u201D state";
         }
       });
     })();

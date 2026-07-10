@@ -71,7 +71,28 @@
       });
     });
   }
-  function initTextSize() { initClassToggle("data-textsize-toggle", "text-lg"); }
+  /* Text-size picker: [data-textsize] group with [data-size="sm|md|lg"]
+     buttons. Applies html.text-sm / (none) / html.text-lg, exclusively. */
+  function initTextSize() {
+    $$('[data-textsize]').forEach(function (group) {
+      var opts = $$('[data-size]', group);
+      opts.forEach(function (opt) {
+        opt.addEventListener("click", function () {
+          var size = opt.getAttribute("data-size");
+          var root = document.documentElement;
+          root.classList.remove("text-sm", "text-lg");
+          if (size === "sm") root.classList.add("text-sm");
+          else if (size === "lg") root.classList.add("text-lg");
+          opts.forEach(function (o) {
+            o.classList.remove("is-active");
+            o.setAttribute("aria-pressed", "false");
+          });
+          opt.classList.add("is-active");
+          opt.setAttribute("aria-pressed", "true");
+        });
+      });
+    });
+  }
   function initContrast() { initClassToggle("data-contrast-toggle", "high-contrast"); }
 
   /* ------------------------------------------------------------
@@ -121,6 +142,7 @@
       boxes.forEach(function (box, i) {
         box.addEventListener("input", function () {
           box.value = box.value.replace(/[^0-9]/g, "").slice(0, 1);
+          box.classList.toggle("is-filled", !!box.value);
           if (box.value && boxes[i + 1]) boxes[i + 1].focus();
         });
         box.addEventListener("keydown", function (e) {

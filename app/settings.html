@@ -47,12 +47,16 @@
           <button type="button" class="switch" data-switch role="switch" aria-checked="true" aria-label="Streak reminders"></button>
         </div>
 
-        <!-- large text -->
-        <div class="setrow">
-          <span class="setrow__label">Larger text
-            <span class="setrow__sub" style="display:block;">Makes everything easier to read.</span>
+        <!-- text size: three steps -->
+        <div class="setrow setrow--stack">
+          <span class="setrow__label">Text size
+            <span class="setrow__sub" style="display:block;">Choose what's comfortable to read.</span>
           </span>
-          <button type="button" class="switch" data-textsize-toggle role="switch" aria-checked="false" aria-label="Larger text"></button>
+          <div class="sizeseg" data-textsize role="group" aria-label="Text size">
+            <button type="button" class="sizeseg__opt" data-size="sm" aria-pressed="false" aria-label="Small text">Small</button>
+            <button type="button" class="sizeseg__opt is-active" data-size="md" aria-pressed="true" aria-label="Default text size">Default</button>
+            <button type="button" class="sizeseg__opt" data-size="lg" aria-pressed="false" aria-label="Large text">Large</button>
+          </div>
         </div>
 
         <!-- high contrast -->
