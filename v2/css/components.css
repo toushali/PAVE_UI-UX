@@ -501,8 +501,23 @@
 .faq__a { padding: 0 0 var(--sp-4); font-size: var(--fs-body); color: var(--c-ink-2); }
 /* ============================================================
    CELEBRATION overlay — calm daily vs. milestone.
-   Builds on the existing .celebrate full-screen container.
+   Full-screen, vertically centred container (fills the flex-column
+   .app; only one .celebrate is visible at a time, the other [hidden]).
    ============================================================ */
+.celebrate {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+  padding: var(--sp-7) var(--sp-5) var(--sp-6);
+  text-align: center;
+  overflow-y: auto;
+}
+.celebrate > * { flex: 0 0 auto; }
+/* buttons read as full-width actions, centred and capped */
+.celebrate .btn { width: 100%; max-width: 320px; }
 
 /* plant that grows one stage: two stacked images crossfade */
 .grow {
@@ -603,6 +618,51 @@
   z-index: 1;
   transform-origin: 50% 90%;
   animation: plant-breathe 5s ease-in-out infinite;
+}
+/* ---- Calm daily confirmation: streak flame in a warm glow ---- */
+.flamescene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 120px;
+  margin: 0 auto;
+}
+.flamescene::before {
+  content: "";
+  position: absolute;
+  width: 132px; height: 132px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(251,110,46,0.20), rgba(251,110,46,0));
+  animation: flame-glow 2.4s ease-in-out infinite;
+}
+.flamescene::after {
+  content: "";
+  position: absolute;
+  bottom: 12px;
+  width: 78px; height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(226,65,42,0.18), rgba(226,65,42,0));
+}
+.flamescene .flame {
+  position: relative;
+  z-index: 1;
+  transform-origin: 50% 92%;
+  filter: drop-shadow(0 4px 10px rgba(226,65,42,0.28));
+  animation: flame-flicker 2.4s ease-in-out infinite;
+}
+@keyframes flame-flicker {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25%      { transform: scale(1.04, 0.97) rotate(-1.5deg); }
+  50%      { transform: scale(0.97, 1.03) rotate(1deg); }
+  75%      { transform: scale(1.03, 0.99) rotate(-0.5deg); }
+}
+@keyframes flame-glow {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flamescene .flame, .flamescene::before { animation: none; }
 }
 /* ============================================================
    Reassurance chip (login "no password", etc.) — soft, quiet

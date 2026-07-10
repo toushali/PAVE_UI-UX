@@ -30,8 +30,22 @@
         <p class="t-body-lg t-muted">Your doctor can see your update.</p>
       </div>
 
-      <div class="plantscene">
-        <img class="celebrate__smallplant" src="../assets/art/plant-2-seedling.svg" alt="Your plant" width="96" height="96">
+      <div class="flamescene" role="img" aria-label="Check-in streak flame">
+        <svg class="flame" viewBox="0 0 64 64" width="104" height="104" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="flameOuter" x1="32" y1="4" x2="32" y2="58" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FFB24A"/>
+              <stop offset="0.5" stop-color="#FB6E2E"/>
+              <stop offset="1" stop-color="#E8412A"/>
+            </linearGradient>
+            <linearGradient id="flameInner" x1="32" y1="26" x2="32" y2="55" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FFE887"/>
+              <stop offset="1" stop-color="#FFA531"/>
+            </linearGradient>
+          </defs>
+          <path d="M32 5 C 33 16, 44 22, 44 36 C 44 48, 39 58, 32 58 C 25 58, 20 49, 20 37 C 20 29, 23 25, 26 28 C 24 18, 28 12, 32 5 Z" fill="url(#flameOuter)"/>
+          <path d="M32 27 C 33 33, 38 36, 38 43 C 38 51, 35 55, 32 55 C 29 55, 26 51, 26 43 C 26 38, 29 37, 30 39 C 29 34, 30 31, 32 27 Z" fill="url(#flameInner)"/>
+        </svg>
       </div>
 
       <span class="tickpoints">
