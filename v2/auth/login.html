@@ -8,6 +8,16 @@
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
+  <style>
+    /* Brand flame mark — a soft warm glow with a gentle sway. */
+    .brandflame { position: relative; display: flex; align-items: center; justify-content: center; width: 150px; height: 150px; margin: 0 auto; }
+    .brandflame::before { content: ""; position: absolute; width: 128px; height: 128px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,138,61,.26), rgba(255,138,61,0) 68%); }
+    .brandflame__img { position: relative; width: 104px; height: 104px; transform-origin: 50% 92%;
+      animation: flame-sway 3.2s ease-in-out infinite; }
+    @keyframes flame-sway { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(3deg) translateY(-4px); } }
+    @media (prefers-reduced-motion: reduce) { .brandflame__img { animation: none; } }
+  </style>
 </head>
 <body>
   <div class="app">
@@ -20,12 +30,12 @@
     <main class="content">
       <div class="authwrap">
 
-        <!-- Default: request a link. A sprout welcomes the patient into the
-             garden world — signing in is the first small step of recovery. -->
+        <!-- Default: request a link. The streak flame welcomes the patient in —
+             signing in is the first small step of recovery. -->
         <div id="requestView" style="display:flex; flex-direction:column; gap:var(--sp-5);">
 
-          <div class="plantscene rise rise-1" aria-hidden="true">
-            <img src="../assets/art/plant-3-young.svg" alt="" width="96" height="96">
+          <div class="brandflame rise rise-1" aria-hidden="true">
+            <img class="brandflame__img" src="../assets/art/flame.svg" alt="" width="104" height="104">
           </div>
 
           <div class="rise rise-1">

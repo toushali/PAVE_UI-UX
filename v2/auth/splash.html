@@ -8,23 +8,27 @@
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
+  <style>
+    /* Brand flame mark — a soft warm glow with a gentle sway. */
+    .brandflame { position: relative; display: flex; align-items: center; justify-content: center; width: 180px; height: 180px; margin: 0 auto; }
+    .brandflame::before { content: ""; position: absolute; width: 152px; height: 152px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,138,61,.26), rgba(255,138,61,0) 68%); }
+    .brandflame__img { position: relative; width: 128px; height: 128px; transform-origin: 50% 92%;
+      animation: flame-sway 3.2s ease-in-out infinite; }
+    @keyframes flame-sway { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(3deg) translateY(-4px); } }
+    @media (prefers-reduced-motion: reduce) { .brandflame__img { animation: none; } }
+  </style>
 </head>
 <body>
   <div class="app">
     <main class="content">
       <div class="authwrap">
 
-        <!-- Living brand mark: a translucent garden bubble with the plant
-             cycling seedling -> young -> mature -> flowering, softly swaying. -->
+        <!-- Brand mark: the streak flame, gently swaying (it also has a subtle
+             built-in flicker). -->
         <div class="rise rise-1">
-          <div class="brandplant" aria-hidden="true">
-            <span class="brandplant__bubble"><i class="mote"></i><i class="mote"></i><i class="mote"></i><i class="mote"></i></span>
-            <span class="brandplant__stack">
-              <img class="brandplant__img" src="../assets/art/plant-2-seedling.svg" alt="" width="132" height="132">
-              <img class="brandplant__img" src="../assets/art/plant-3-young.svg" alt="" width="132" height="132">
-              <img class="brandplant__img" src="../assets/art/plant-4-mature.svg" alt="" width="132" height="132">
-              <img class="brandplant__img" src="../assets/art/plant-5-flowering.svg" alt="" width="132" height="132">
-            </span>
+          <div class="brandflame" aria-hidden="true">
+            <img class="brandflame__img" src="../assets/art/flame.svg" alt="" width="128" height="128">
           </div>
           <h1 class="wordmark" style="margin-top:var(--sp-5);">PAVE</h1>
           <p class="brandtag">Healthcare. Simplified.</p>
