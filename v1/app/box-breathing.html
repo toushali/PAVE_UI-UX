@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Glute bridge · PAVE</title>
+  <title>Box breathing · PAVE</title>
   <meta name="theme-color" content="#FFFFFF">
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/base.css">
@@ -20,40 +20,40 @@
         <a class="iconbtn" href="exercises.html" aria-label="Close">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
         </a>
-        <span class="topbar__title">Glute bridge</span>
+        <span class="topbar__title">Box breathing</span>
       </header>
 
       <main class="content">
 
         <!-- Static illustration (no video) -->
         <div class="exhero rise rise-1">
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18v12"/><path d="M12 14v20"/><path d="M36 14v20"/><path d="M40 18v12"/><path d="M12 24h24"/></svg>
+          <img src="../assets/art/breathing.svg" alt="Box breathing exercise" width="132" height="132">
         </div>
 
-        <p class="t-body-lg rise rise-1"><strong>What this helps:</strong> strengthens the muscles that support your lower back and hips.</p>
+        <p class="t-body-lg rise rise-1"><strong>What this helps:</strong> calms your body and eases tension with slow, steady breaths.</p>
 
         <!-- Large numbered steps -->
         <section class="rise rise-2" aria-label="Steps">
           <h2 class="t-h2" style="margin-bottom:var(--sp-4);">Steps</h2>
           <ol class="steps">
-            <li class="step"><span class="step__n">1</span><span class="step__text">Lie on your back with your knees bent and feet flat on the floor.</span></li>
-            <li class="step"><span class="step__n">2</span><span class="step__text">Gently tighten your stomach muscles.</span></li>
-            <li class="step"><span class="step__n">3</span><span class="step__text">Slowly lift your hips until your body makes a straight line.</span></li>
-            <li class="step"><span class="step__n">4</span><span class="step__text">Hold, then lower back down slowly.</span></li>
+            <li class="step"><span class="step__n">1</span><span class="step__text">Sit comfortably and let your shoulders relax.</span></li>
+            <li class="step"><span class="step__n">2</span><span class="step__text">Breathe in slowly through your nose for a count of four.</span></li>
+            <li class="step"><span class="step__n">3</span><span class="step__text">Hold your breath gently for a count of four.</span></li>
+            <li class="step"><span class="step__n">4</span><span class="step__text">Breathe out for four, pause for four, and repeat.</span></li>
           </ol>
         </section>
 
-        <!-- Built-in timer: countdown ring for the hold -->
-        <section class="card rise rise-3" aria-label="Hold timer">
-          <h2 class="t-h2 t-center" style="margin-bottom:var(--sp-4);">Hold for 15 seconds</h2>
-          <div class="timer" data-timer data-duration="15">
+        <!-- Built-in timer: countdown ring for the breathing -->
+        <section class="card rise rise-3" aria-label="Breathing timer">
+          <h2 class="t-h2 t-center" style="margin-bottom:var(--sp-4);">Breathe slowly for 60 seconds</h2>
+          <div class="timer" data-timer data-duration="60">
             <div class="timer__ring">
               <svg viewBox="0 0 200 200" aria-hidden="true">
                 <circle class="timer__track" cx="100" cy="100" r="88" fill="none" stroke-width="12"/>
                 <circle class="timer__prog" data-timer-prog cx="100" cy="100" r="88" fill="none" stroke-width="12"/>
               </svg>
               <div class="timer__num">
-                <span class="timer__count" data-timer-count>15</span>
+                <span class="timer__count" data-timer-count>60</span>
                 <span class="timer__unit">seconds</span>
               </div>
             </div>
@@ -77,8 +77,6 @@
 
   <script src="../js/app.js"></script>
   <script>
-    /* "Mark as done" -> gentle toast, then back to the plan.
-       In the real app this syncs to today's check-in. */
     (function () {
       document.getElementById("markDone").addEventListener("click", function () {
         var host = document.getElementById("toastHost");
