@@ -427,9 +427,10 @@
     if (document.getElementById("paveDesignToggle")) return;
     var path = location.pathname;
     var isProvider = path.indexOf("/pro1/") > -1;
-    /* base = everything before the design-folder segment (v1 / v2 / pro1) */
+    var isAdmin = path.indexOf("/admin/") > -1;
+    /* base = everything before the design-folder segment (v1 / v2 / pro1 / admin) */
     var seg = null, base = "";
-    ["v1", "v2", "pro1"].forEach(function (sg) {
+    ["v1", "v2", "pro1", "admin"].forEach(function (sg) {
       var i = path.indexOf("/" + sg + "/"); if (i > -1) { seg = sg; base = path.slice(0, i); }
     });
     /* Provider Pro1/Pro2 are ONE codebase — colour scheme only, set via ?ptheme. */
@@ -437,10 +438,11 @@
     var provTarget = isProvider ? path : base + "/pro1/app/dashboard.html";
 
     var ITEMS = [
-      { label: "Patient · v1",    href: base + "/v1/app/today.html",  cur: seg === "v1" },
-      { label: "Patient · v2",    href: base + "/v2/app/today.html",  cur: seg === "v2" },
-      { label: "Provider · Pro1", href: provTarget + "?ptheme=pro1",  cur: isProvider && ptheme === "pro1" },
-      { label: "Provider · Pro2", href: provTarget + "?ptheme=pro2",  cur: isProvider && ptheme === "pro2" }
+      { label: "Patient · v1",     href: base + "/v1/app/today.html",  cur: seg === "v1" },
+      { label: "Patient · v2",     href: base + "/v2/app/today.html",  cur: seg === "v2" },
+      { label: "Provider · Pro1",  href: provTarget + "?ptheme=pro1",  cur: isProvider && ptheme === "pro1" },
+      { label: "Provider · Pro2",  href: provTarget + "?ptheme=pro2",  cur: isProvider && ptheme === "pro2" },
+      { label: "Platform · Admin", href: base + "/admin/app/overview.html",  cur: isAdmin }
     ];
     var curItem = ITEMS.filter(function (i) { return i.cur; })[0] || ITEMS[0];
     var curLabel = curItem.label;
@@ -453,7 +455,7 @@
     var wrap = document.createElement("div");
     wrap.id = "paveDesignToggle";
     var s = wrap.style;
-    s.position = "fixed"; s.left = "14px"; s.bottom = "14px"; s.zIndex = "2147483000";
+    s.position = "fixed"; s.left = "14px"; var _tb = document.querySelector(".tabbar"); s.bottom = _tb ? ((_tb.offsetHeight || 64) + 14) + "px" : "14px"; s.zIndex = "2147483000";
     s.font = "600 13px/1 Inter, system-ui, sans-serif";
 
     var menu = document.createElement("div");

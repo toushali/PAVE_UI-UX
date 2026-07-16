@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Governance · PAVE Platform Admin</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="ai-governance" data-title="AI Governance">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">AI governance</div>
+              <div class="pagehead__sub">Prompt version registry &amp; model traceability. Every patient plan is linked to the exact prompt and model that generated it (FDA / PCCP readiness).</div>
+            </div>
+            <span class="spacer"></span>
+            <button class="btn btn--ghost" data-confirm="Prompt version registry exported · logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export registry</button>
+          </div>
+        </div>
+
+        <!-- KPIs -->
+        <section class="kpigrid rise rise-2">
+          <div class="kpi kpi--accent"><div class="kpi__label">Production prompt</div><div class="kpi__num">v15</div><div class="kpi__delta">since Jul 16</div></div>
+          <div class="kpi"><div class="kpi__label">Registered versions</div><div class="kpi__num">15</div><div class="kpi__delta">append-only</div></div>
+          <div class="kpi"><div class="kpi__label">Production model</div><div class="kpi__num" style="font-size:19px">sonnet-4-6</div><div class="kpi__delta">claude-sonnet-4-6</div></div>
+          <div class="kpi kpi--ready"><div class="kpi__label">Plans traceable</div><div class="kpi__num">100%</div><div class="kpi__delta"><span class="num">1,540</span> plans linked</div></div>
+        </section>
+
+        <!-- Immutable framing -->
+        <div class="alertbar rise rise-2" style="margin-top:var(--sp-4);background:var(--c-primary-soft);color:var(--c-primary-dark);border-color:var(--c-primary-soft)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span><strong>Append-only registry.</strong> Prompt versions cannot be edited or deleted. Each generated plan is permanently tagged with its prompt + model version.</span>
+        </div>
+
+        <!-- Plan-to-version lookup -->
+        <section class="card rise rise-3" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Plan-to-version lookup</span><span class="t-meta">traceability</span></div><div class="card__body">
+          <p class="t-sm t-muted" style="margin-bottom:var(--sp-4)">For any patient plan, retrieve the exact prompt and model that generated it.</p>
+          <div class="toolbar" style="margin-bottom:0">
+            <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="lookupInput" value="John Carter · #P-1043" placeholder="Patient name or ID…"></span>
+            <button class="btn btn--primary" id="lookupBtn">Look up</button>
+          </div>
+          <div id="lookupResult" class="qrow__panel is-open" style="margin-top:var(--sp-4)">
+            <h4>John Carter · #P-1043</h4>
+            <div class="claimsum">
+              <span>Plan generated: <b class="num">2026-06-27</b></span>
+              <span>Prompt version: <b>v14</b></span>
+              <span>Model: <b class="num">claude-sonnet-4-6</b></span>
+              <span>Prompt registry hash: <b class="num">a1f3…9c02</b></span>
+            </div>
+            <p class="t-sm t-muted" style="margin:var(--sp-3) 0 0">Generated under <strong>v14</strong> — production is now <strong>v15</strong>. This plan is <strong>not</strong> retroactively changed by model updates (existing plans are frozen).</p>
+          </div>
+        </div></section>
+
+        <!-- Prompt version registry -->
+        <section class="card rise rise-4" style="margin-top:var(--sp-4)">
+          <div class="card__head"><span class="card__title">Prompt version registry</span><span class="spacer"></span><span class="t-meta">newest first · append-only</span></div>
+          <table class="qtable">
+            <thead><tr><th>Version</th><th>Effective</th><th>Model</th><th>Change description</th><th>Authorized by</th><th class="right"></th></tr></thead>
+            <tbody>
+              <tr><td><span class="row"><span class="num" style="font-weight:var(--fw-bold)">v15</span><span class="badge badge--ready">Production</span></span></td><td class="num t-sm">2026-07-16</td><td class="num t-sm">claude-sonnet-4-6</td><td class="t-sm">Defer end-range extension in week 1 for lumbar radiculopathy</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v15">View prompt</button></td></tr>
+              <tr><td class="num" style="font-weight:var(--fw-bold)">v14</td><td class="num t-sm">2026-06-27</td><td class="num t-sm">claude-sonnet-4-6</td><td class="t-sm">Add breathing-modality guidance for pain down-regulation</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v14">View prompt</button></td></tr>
+              <tr><td class="num" style="font-weight:var(--fw-bold)">v13</td><td class="num t-sm">2026-06-02</td><td class="num t-sm">claude-sonnet-4-5</td><td class="t-sm">Low-load Pilates progressions tuned for ages 60–85</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v13">View prompt</button></td></tr>
+              <tr><td class="num" style="font-weight:var(--fw-bold)">v12</td><td class="num t-sm">2026-05-10</td><td class="num t-sm">claude-sonnet-4-5</td><td class="t-sm">Rotator-cuff conservative-care protocol added</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v12">View prompt</button></td></tr>
+              <tr><td class="num" style="font-weight:var(--fw-bold)">v11</td><td class="num t-sm">2026-04-18</td><td class="num t-sm">claude-sonnet-4-5</td><td class="t-sm">Initial MSK protocol set — Pilates, mobility, strengthening</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v11">View prompt</button></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Prompt view modal -->
+<div class="modal" id="promptModal">
+  <div class="modal__backdrop"></div>
+  <div class="modal__panel" style="width:min(640px,calc(100vw - 32px))">
+    <div class="modal__head"><span class="modal__title">Prompt <span id="pmVer">v15</span></span><span class="modeltag" id="pmModel" style="margin-left:8px">claude-sonnet-4-6</span><button class="modal__x" data-modal-close aria-label="Close" style="margin-left:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="modal__body">
+      <p class="t-meta" style="margin:0 0 var(--sp-3)">Change: <span id="pmChange">Defer end-range extension in week 1 for lumbar radiculopathy</span> · Authorized by Dr. Stillman · <span class="num">read-only</span></p>
+      <pre style="margin:0;white-space:pre-wrap;font-family:var(--font-mono);font-size:12px;line-height:1.6;color:var(--c-ink-2);background:var(--c-bg);border:1px solid var(--c-line);border-radius:var(--radius-sm);padding:var(--sp-4);max-height:340px;overflow:auto">You are Dr. Brain, a physician-supervised rehabilitation planner.
+Draw only on the curated clinical knowledge base (retrieved chunks).
+Do not make diagnostic or prescriptive medical claims — therapeutic guidance only.
+
+INPUTS: {diagnosis_codes}, {history_flags}, {treatment_goals}, {modalities}
+
+RULES:
+- Structure the plan by modality with plain-language patient instructions
+  and clinical terminology for the physician.
+- For lumbar radiculopathy (M54.16): bias toward flexion / directional
+  preference; DEFER end-range extension until week 2.   ← v15
+- Low-load progressions for ages 60–85.
+- Produce a medical-rationale document citing the evidence basis.
+
+OUTPUT: strict JSON matching PlanSchema (Structured Outputs).</pre>
+    </div>
+    <div class="modal__foot"><button class="btn btn--primary" data-modal-close>Close</button></div>
+  </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script>
+  (function () {
+    /* Lookup reveal (mock — fixed to John Carter). */
+    var btn = document.getElementById("lookupBtn"), res = document.getElementById("lookupResult");
+    btn.addEventListener("click", function () { res.classList.add("is-open"); res.scrollIntoView({ block: "center", behavior: "smooth" }); window.paveBanner("Traceability record retrieved · logged."); });
+
+    /* Prompt view modal — set version/model/change from the row. */
+    var META = {
+      v15: ["claude-sonnet-4-6", "Defer end-range extension in week 1 for lumbar radiculopathy"],
+      v14: ["claude-sonnet-4-6", "Add breathing-modality guidance for pain down-regulation"],
+      v13: ["claude-sonnet-4-5", "Low-load Pilates progressions tuned for ages 60–85"],
+      v12: ["claude-sonnet-4-5", "Rotator-cuff conservative-care protocol added"],
+      v11: ["claude-sonnet-4-5", "Initial MSK protocol set — Pilates, mobility, strengthening"]
+    };
+    document.querySelectorAll("[data-view]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var v = b.getAttribute("data-view"), m = META[v] || META.v15;
+        document.getElementById("pmVer").textContent = v;
+        document.getElementById("pmModel").textContent = m[0];
+        document.getElementById("pmChange").textContent = m[1];
+        document.getElementById("promptModal").classList.add("is-open");
+      });
+    });
+  })();
+</script>
+</body>
+</html>

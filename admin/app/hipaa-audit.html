@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HIPAA Audit · PAVE Platform Admin</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="hipaa-audit" data-title="HIPAA audit">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">HIPAA audit logs</div>
+              <div class="pagehead__sub">Every access recorded — who, what, when, IP. Append-only · retained <span class="num">6 years</span>.</div>
+            </div>
+            <span class="spacer"></span>
+            <button class="btn btn--ghost" data-confirm="Audit log exported as CSV · export event itself logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export CSV</button>
+          </div>
+        </div>
+
+        <div class="alertbar rise rise-1" style="margin-top:0;background:var(--c-primary-soft);color:var(--c-primary-dark);border-color:var(--c-primary-soft)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span><strong>Immutable.</strong> Audit entries cannot be edited or deleted — including by platform administrators. Export events are themselves logged.</span>
+        </div>
+
+        <div class="card rise rise-2" style="margin-top:var(--sp-4)" data-tabs data-filtergroup>
+          <div class="card__body" style="padding-bottom:0">
+            <div class="tabbar2">
+              <button class="tab2 is-active" data-tab="phi">PHI access</button>
+              <button class="tab2" data-tab="auth">Failed auth</button>
+              <button class="tab2" data-tab="exp">Exports</button>
+              <button class="tab2" data-tab="adm">Admin actions</button>
+              <button class="tab2" data-tab="ses">Sessions</button>
+            </div>
+            <div class="toolbar" style="margin-top:var(--sp-4)">
+              <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input data-filter placeholder="Search actor, record, IP…"></span>
+              <select class="select select--sm" data-filter style="width:auto"><option value="">All time</option><option>Today</option><option>Last 7 days</option><option>Last 30 days</option></select>
+              <span class="spacer"></span><span class="t-meta"><span class="num" data-filtercount>21</span> entries</span>
+            </div>
+          </div>
+
+          <!-- PHI access -->
+          <div data-tabpanel="phi">
+            <table class="qtable">
+              <thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Record</th><th class="right">IP</th></tr></thead>
+              <tbody>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 10:02</td><td class="t-sm">Dr. Stillman</td><td class="t-sm">Viewed chart</td><td class="t-sm t-muted">Patient #P-1043</td><td class="right num t-sm">10.0.4.12</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 09:58</td><td class="t-sm">Dr. Haddad</td><td class="t-sm">Viewed billing timeline</td><td class="t-sm t-muted">Patient #P-1120</td><td class="right num t-sm">10.0.4.7</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 09:42</td><td class="t-sm">Dr. Brain</td><td class="t-sm">Generated plan</td><td class="t-sm t-muted">Patient #P-1043</td><td class="right num t-sm">—</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 09:30</td><td class="t-sm">Org Admin · Petrov</td><td class="t-sm">Viewed provider panel</td><td class="t-sm t-muted">Org #12</td><td class="right num t-sm">10.0.4.9</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 09:12</td><td class="t-sm">Dr. Stillman</td><td class="t-sm">Logged review time</td><td class="t-sm t-muted">Patient #P-1010</td><td class="right num t-sm">10.0.4.12</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Failed auth -->
+          <div data-tabpanel="auth" hidden>
+            <table class="qtable">
+              <thead><tr><th>Time</th><th>Attempted account</th><th>Reason</th><th class="center">Attempts</th><th class="right">IP</th></tr></thead>
+              <tbody>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 08:30</td><td class="t-sm">b.stillman@stillmanrehab.com</td><td class="t-sm"><span class="badge badge--attention">Wrong MFA code</span></td><td class="center num">3</td><td class="right num t-sm">73.11.8.201</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-15 22:14</td><td class="t-sm">unknown@mail.com</td><td class="t-sm">No such account</td><td class="center num">1</td><td class="right num t-sm">41.203.9.5</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-15 07:02</td><td class="t-sm">a.petrov@stillmanrehab.com</td><td class="t-sm">Expired session</td><td class="center num">1</td><td class="right num t-sm">10.0.4.9</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Exports -->
+          <div data-tabpanel="exp" hidden>
+            <table class="qtable">
+              <thead><tr><th>Time</th><th>Who</th><th>What</th><th class="center">Rows</th><th class="right">Purpose</th></tr></thead>
+              <tbody>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 10:02</td><td class="t-sm">Dr. Stillman</td><td class="t-sm">Claims CSV</td><td class="center num">5</td><td class="right t-sm t-muted">billing</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-14 16:20</td><td class="t-sm">A. Rivera</td><td class="t-sm">Complaints CSV</td><td class="center num">5</td><td class="right t-sm t-muted">compliance</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-01 09:00</td><td class="t-sm">Dr. Haddad</td><td class="t-sm">Claims CSV</td><td class="center num">11</td><td class="right t-sm t-muted">billing</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Admin actions -->
+          <div data-tabpanel="adm" hidden>
+            <table class="qtable">
+              <thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Target</th><th class="right">IP</th></tr></thead>
+              <tbody>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 09:20</td><td class="t-sm">A. Rivera</td><td class="t-sm">Promoted prompt v14→v15</td><td class="t-sm t-muted">Dr. Brain model</td><td class="right num t-sm">10.0.1.3</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 08:55</td><td class="t-sm">Org Admin · Petrov</td><td class="t-sm">Deactivated provider</td><td class="t-sm t-muted">Dr. Priya Raman</td><td class="right num t-sm">10.0.4.9</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-10 11:00</td><td class="t-sm">A. Rivera</td><td class="t-sm">Created provider</td><td class="t-sm t-muted">Dr. Nadia Haddad</td><td class="right num t-sm">10.0.1.3</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-05 14:30</td><td class="t-sm">Org Admin</td><td class="t-sm">Changed role</td><td class="t-sm t-muted">Petrov → Org Admin</td><td class="right num t-sm">10.0.4.9</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Sessions -->
+          <div data-tabpanel="ses" hidden>
+            <table class="qtable">
+              <thead><tr><th>Time</th><th>User</th><th>Event</th><th class="center">Duration</th><th class="right">IP</th></tr></thead>
+              <tbody>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 10:15</td><td class="t-sm">Dr. Stillman</td><td class="t-sm">Session start</td><td class="center t-muted">—</td><td class="right num t-sm">10.0.4.12</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 09:45</td><td class="t-sm">Dr. Haddad</td><td class="t-sm"><span class="badge badge--enrolled">Idle timeout</span></td><td class="center num">42 min</td><td class="right num t-sm">10.0.4.7</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-16 08:00</td><td class="t-sm">A. Rivera</td><td class="t-sm">Session start</td><td class="center t-muted">—</td><td class="right num t-sm">10.0.1.3</td></tr>
+                <tr data-filterrow><td class="num t-sm">2026-07-15 18:30</td><td class="t-sm">Dr. Petrov</td><td class="t-sm">Sign out</td><td class="center num">1h 12m</td><td class="right num t-sm">10.0.4.9</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

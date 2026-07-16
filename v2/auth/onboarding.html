@@ -21,7 +21,7 @@
       <section class="trustcard rise rise-1" aria-label="Your physician">
         <span class="trustcard__avatar">
           <span class="trustcard__photo">
-            <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="72" height="72" fill="#E4F2ED"/><circle cx="36" cy="28" r="13" fill="#147D64"/><path d="M12 68c0-13 11-21 24-21s24 8 24 21" fill="#147D64"/><path d="M30 41v6c0 3 2.7 5 6 5s6-2 6-5v-6" stroke="#0C5C49" stroke-width="2"/></svg>
+            <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="72" height="72" fill="#E9ECFF"/><circle cx="36" cy="28" r="13" fill="#5B5BF5"/><path d="M12 68c0-13 11-21 24-21s24 8 24 21" fill="#5B5BF5"/><path d="M30 41v6c0 3 2.7 5 6 5s6-2 6-5v-6" stroke="#4642DD" stroke-width="2"/></svg>
           </span>
           <span class="trustcard__verified" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17.5 19 7.5"/></svg>
@@ -76,6 +76,29 @@
         </div>
       </section>
 
+      <!-- 4b) Notification channel -->
+      <section class="card rise rise-4" aria-label="How we reach you">
+        <h2 class="card__title">How should we reach you?</h2>
+        <p class="t-body t-muted" style="margin-bottom:var(--sp-4);">Reminders help you keep your streak. Sign-in codes always come through.</p>
+        <div data-channelpick>
+          <button type="button" class="optcard is-on" data-ch="sms">
+            <span class="optcard__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2.5"/><path d="M10.5 18h3"/></svg></span>
+            <span class="optcard__t"><strong>Text message</strong><span>(555) 123-4567</span></span>
+            <span class="optcard__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
+          </button>
+          <button type="button" class="optcard" data-ch="email">
+            <span class="optcard__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></span>
+            <span class="optcard__t"><strong>Email</strong><span>john.carter@email.com</span></span>
+            <span class="optcard__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
+          </button>
+          <button type="button" class="optcard" data-ch="both">
+            <span class="optcard__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9a5.5 5.5 0 0 1 11 0c0 5 2 6 2 6H4.5s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span>
+            <span class="optcard__t"><strong>Both</strong><span>Text and email</span></span>
+            <span class="optcard__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
+          </button>
+        </div>
+      </section>
+
       <!-- 5) Pick daily reminder time -->
       <section class="card rise rise-4" aria-label="Daily reminder">
         <h2 class="card__title">When should we remind you?</h2>
@@ -100,6 +123,18 @@
           dots[i].classList.toggle("is-active", i === idx);
         }
       });
+
+      /* Notification channel — single select */
+      var pick = document.querySelector("[data-channelpick]");
+      if (pick) {
+        var cards = pick.querySelectorAll(".optcard");
+        cards.forEach(function (c) {
+          c.addEventListener("click", function () {
+            cards.forEach(function (x) { x.classList.remove("is-on"); });
+            c.classList.add("is-on");
+          });
+        });
+      }
     })();
   </script>
 </body>

@@ -12,7 +12,7 @@
      every screen/layout/component identical.
      ============================================================ */
 
-  /* ---- Brand: calm green (Pro1) ---- */
+  /* ---- Brand: calm green (matches Patient v1 / Provider Pro1) ---- */
   --c-primary:      #147D64;   /* actions, active nav, links */
   --c-primary-dark: #0C5C49;   /* hover / pressed */
   --c-primary-soft: #E4F2ED;   /* active-nav fill, soft chips */

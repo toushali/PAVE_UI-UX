@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Complaints & MDR · PAVE Platform Admin</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="complaints" data-title="Complaints &amp; MDR">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">Complaints &amp; MDR</div>
+              <div class="pagehead__sub">Intake, investigation, and Medical Device Reporting escalation. All records retained <span class="num">6 years</span>.</div>
+            </div>
+            <span class="spacer"></span>
+            <button class="btn btn--ghost" data-confirm="Complaints CSV exported · logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export CSV</button>
+            <button class="btn btn--primary" data-modal-open="intakeModal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Log complaint</button>
+          </div>
+        </div>
+
+        <!-- KPIs -->
+        <section class="kpigrid rise rise-2">
+          <div class="kpi kpi--attention"><div class="kpi__label">In progress</div><div class="kpi__num">2</div><div class="kpi__delta">open + investigating</div></div>
+          <div class="kpi kpi--attention"><div class="kpi__label">Escalated to MDR</div><div class="kpi__num">1</div><div class="kpi__delta">regulatory notified</div></div>
+          <div class="kpi kpi--ready"><div class="kpi__label">Resolved (YTD)</div><div class="kpi__num">14</div><div class="kpi__delta">this year</div></div>
+          <div class="kpi"><div class="kpi__label">Avg resolution</div><div class="kpi__num">4.2</div><div class="kpi__delta">days to close</div></div>
+        </section>
+
+        <!-- Table -->
+        <section class="card rise rise-3" style="margin-top:var(--sp-4)" data-filtergroup>
+          <div class="card__head"><span class="card__title">Complaint register</span><span class="spacer"></span><span class="t-meta"><span class="num" data-filtercount>5</span> shown</span></div>
+          <div class="card__body" style="padding-bottom:0">
+            <div class="toolbar">
+              <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input data-filter placeholder="Search ID, reporter, summary…"></span>
+              <select class="select select--sm" data-filter style="width:auto">
+                <option value="">All statuses</option>
+                <option value="Open">Open</option><option value="Investigating">Investigating</option><option value="Escalated">Escalated</option><option value="Resolved">Resolved</option>
+              </select>
+            </div>
+          </div>
+          <table class="qtable">
+            <thead><tr><th>ID</th><th>Received</th><th>Reporter</th><th>Summary</th><th>Severity</th><th>Status</th><th class="right"></th></tr></thead>
+            <tbody>
+
+              <!-- Escalated / High -->
+              <tr data-filterrow data-row><td class="num">CMP-102</td><td class="num t-sm">2026-07-02</td><td class="t-sm">Patient guardian</td><td class="t-sm">Dizziness reported during a prescribed exercise</td><td><span class="badge badge--attention">High</span></td><td><span class="badge badge--attention">Escalated</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="c102" data-panel-group="cmp">Details</button></td></tr>
+              <tr class="wqpanel" id="c102"><td colspan="7"><div class="wqpanel__inner" style="flex-direction:column;align-items:stretch;gap:var(--sp-4)">
+                <div><strong>Description</strong><p class="t-sm t-muted" style="margin:4px 0 0">Guardian reports the patient (M54.5, age 74) felt dizzy midway through the glute-bridge sequence and stopped. No fall. Requesting review of exercise intensity.</p></div>
+                <div class="claimsum"><span>Affected record: <b><a href="#" style="color:var(--c-primary)">Patient · #P-1043</a></b></span><span>Reporter: <b>guardian@email.com</b></span><span>Received: <b class="num">2026-07-02</b></span></div>
+                <div class="alertbar" style="margin:0;background:var(--st-attention-bg);color:var(--st-attention);border-color:#EFDCB2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg><span><strong>Flagged for MDR.</strong> Potential adverse event — escalated to the designated regulatory contact.</span></div>
+                <div><strong>Resolution record</strong>
+                  <div class="form2" style="margin-top:var(--sp-3)">
+                    <div class="formgroup"><label>Root cause</label><input class="input" placeholder="Under investigation…"></div>
+                    <div class="formgroup"><label>Resolution date</label><input class="input num" type="date"></div>
+                  </div>
+                  <div class="formgroup" style="margin-bottom:0"><label>Corrective action</label><textarea class="input" placeholder="Corrective / preventive action…"></textarea></div>
+                </div>
+                <div class="row" style="gap:var(--sp-3)">
+                  <button class="btn btn--ghost" data-confirm="Regulatory contact notified · MDR packet sent · logged.">Notify regulatory contact</button>
+                  <span class="spacer"></span>
+                  <button class="btn btn--primary" data-confirm="Complaint resolved · record locked · logged." data-status="ready" data-status-label="Resolved">Mark resolved</button>
+                </div>
+              </div></td></tr>
+
+              <!-- Open / Medium -->
+              <tr data-filterrow data-row><td class="num">CMP-103</td><td class="num t-sm">2026-07-10</td><td class="t-sm">Provider · Dr. Petrov</td><td class="t-sm">Reminder SMS not delivered to two patients</td><td><span class="badge badge--enrolled">Medium</span></td><td><span class="badge badge--enrolled">Open</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="c103" data-panel-group="cmp">Details</button></td></tr>
+              <tr class="wqpanel" id="c103"><td colspan="7"><div class="wqpanel__inner" style="flex-direction:column;align-items:stretch;gap:var(--sp-4)">
+                <div><strong>Description</strong><p class="t-sm t-muted" style="margin:4px 0 0">Two patients on the provider's panel did not receive their daily check-in reminder on Jul 9. Twilio delivery logs requested.</p></div>
+                <div class="claimsum"><span>Affected records: <b>#P-1120, #P-1131</b></span><span>Reporter: <b>a.petrov@stillmanrehab.com</b></span><span>Severity: <b>Medium</b></span></div>
+                <div class="row" style="gap:var(--sp-3)">
+                  <button class="btn btn--ghost" data-confirm="Escalated to MDR review · regulatory contact flagged.">Escalate to MDR</button>
+                  <span class="spacer"></span>
+                  <button class="btn btn--primary" data-confirm="Investigation started · assigned · logged." data-status="ontrack" data-status-label="Investigating">Start investigating</button>
+                </div>
+              </div></td></tr>
+
+              <!-- Investigating / Low -->
+              <tr data-filterrow data-row><td class="num">CMP-104</td><td class="num t-sm">2026-07-14</td><td class="t-sm">Patient · M. Alvarez</td><td class="t-sm">App showed an incorrect exercise count for a day</td><td><span class="badge badge--enrolled">Low</span></td><td><span class="badge badge--ontrack">Investigating</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="c104" data-panel-group="cmp">Details</button></td></tr>
+              <tr class="wqpanel" id="c104"><td colspan="7"><div class="wqpanel__inner" style="flex-direction:column;align-items:stretch;gap:var(--sp-4)">
+                <div><strong>Description</strong><p class="t-sm t-muted" style="margin:4px 0 0">Patient's plan showed 3 exercises complete when only 2 were done. Suspected client-side caching; no billing impact (check-ins are server-timestamped).</p></div>
+                <div class="claimsum"><span>Affected record: <b>#P-1010</b></span><span>Assigned: <b>Eng · PWA</b></span><span>Severity: <b>Low</b></span></div>
+                <div class="row" style="gap:var(--sp-3)"><span class="spacer"></span><button class="btn btn--primary" data-confirm="Complaint resolved · record locked · logged." data-status="ready" data-status-label="Resolved">Mark resolved</button></div>
+              </div></td></tr>
+
+              <!-- Resolved rows -->
+              <tr data-filterrow data-row><td class="num">CMP-101</td><td class="num t-sm">2026-06-20</td><td class="t-sm">Provider · Dr. Stillman</td><td class="t-sm">CSV export missing one approved claim</td><td><span class="badge badge--enrolled">Medium</span></td><td><span class="badge badge--ready">Resolved</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="c101" data-panel-group="cmp">Details</button></td></tr>
+              <tr class="wqpanel" id="c101"><td colspan="7"><div class="wqpanel__inner" style="flex-direction:column;align-items:stretch;gap:var(--sp-4)">
+                <div><strong>Resolution record</strong>
+                  <div class="claimsum" style="margin-top:var(--sp-2)"><span>Root cause: <b>Export filter excluded same-day approvals</b></span><span>Corrective action: <b>Filter boundary fixed + regression test</b></span><span>Resolved: <b class="num">2026-06-24</b></span></div>
+                </div>
+              </div></td></tr>
+
+              <tr data-filterrow data-row><td class="num">CMP-100</td><td class="num t-sm">2026-06-05</td><td class="t-sm">Patient · L. Park</td><td class="t-sm">Could not sign in with the magic link</td><td><span class="badge badge--enrolled">Low</span></td><td><span class="badge badge--ready">Resolved</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="c100" data-panel-group="cmp">Details</button></td></tr>
+              <tr class="wqpanel" id="c100"><td colspan="7"><div class="wqpanel__inner" style="flex-direction:column;align-items:stretch;gap:var(--sp-4)">
+                <div><strong>Resolution record</strong>
+                  <div class="claimsum" style="margin-top:var(--sp-2)"><span>Root cause: <b>Link expired before use (email delay)</b></span><span>Corrective action: <b>Link TTL extended; SMS fallback</b></span><span>Resolved: <b class="num">2026-06-06</b></span></div>
+                </div>
+              </div></td></tr>
+
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Intake modal -->
+<div class="modal" id="intakeModal">
+  <div class="modal__backdrop"></div>
+  <div class="modal__panel" style="width:min(560px,calc(100vw - 32px))">
+    <div class="modal__head"><span class="modal__title">Log a complaint</span><button class="modal__x" data-modal-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="modal__body">
+      <div class="form2">
+        <div class="formgroup"><label>Reporter identity</label><input class="input" placeholder="Name / role / contact"></div>
+        <div class="formgroup"><label>Date received</label><input class="input num" type="date" value="2026-07-16"></div>
+      </div>
+      <div class="formgroup"><label>Affected patient record(s)</label><input class="input" placeholder="#P-1043, #P-1120…"></div>
+      <div class="formgroup"><label>Severity</label>
+        <div class="chips" data-single><button type="button" class="chipopt is-on">Low</button><button type="button" class="chipopt">Medium</button><button type="button" class="chipopt">High</button></div></div>
+      <div class="formgroup" style="margin-bottom:0"><label>Description</label><textarea class="input" placeholder="What happened…"></textarea></div>
+    </div>
+    <div class="modal__foot"><button class="btn btn--ghost" data-modal-close>Cancel</button><button class="btn btn--primary" data-modal-close data-confirm="Complaint logged · CMP-105 opened · 6-yr retention · logged.">Log complaint</button></div>
+  </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script>
+  document.querySelectorAll('.chips[data-single]').forEach(function (g) {
+    var opts = g.querySelectorAll('.chipopt');
+    opts.forEach(function (o) { o.addEventListener('click', function () { opts.forEach(function (x) { x.classList.remove('is-on'); }); o.classList.add('is-on'); }); });
+  });
+</script>
+</body>
+</html>

@@ -57,12 +57,15 @@
           <div class="setrow"><span class="setrow__label"><strong>Weekly revenue summary</strong><span>Monday morning digest</span></span><button class="switch" data-switch role="switch" aria-checked="true"></button></div>
         </div></section>
 
-        <!-- Organization (Org Admin) -->
-        <section class="card rise rise-4" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Organization</span><span class="modeltag">Org admin</span></div><div class="card__body">
+        <!-- Organization & billing (Org Admin) -->
+        <section class="card rise rise-4" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Organization &amp; billing</span><span class="modeltag">Org admin</span></div><div class="card__body">
           <div class="form">
             <div class="formgroup"><label>Practice name</label><input class="input" value="Stillman Rehabilitation Group"></div>
-            <div class="setrow"><span class="setrow__label"><strong>Subscription</strong><span>Group tier · <span class="num">4</span> providers · billed monthly</span></span><span class="num t-sm">$996 / mo</span></div>
-            <div class="setrow"><span class="setrow__label"><strong>Invoices</strong><span>Managed by Stripe</span></span><a href="#" class="t-sm" style="font-weight:var(--fw-semi)">View invoices</a></div>
+            <div class="setrow"><span class="setrow__label"><strong>Subscription</strong><span>Group tier · <span class="num">4</span> providers · billed monthly</span></span>
+              <span class="row"><span class="num t-sm">$996 / mo</span><button class="btn btn--ghost btn--sm" data-modal-open="planModal">Change plan</button></span></div>
+            <div class="setrow"><span class="setrow__label"><strong>Payment method</strong><span>Card on file · handled by Stripe</span></span>
+              <span class="row"><span class="t-sm num" style="display:inline-flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--c-ink-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Visa ···· 4242 · exp 08/27</span><button class="btn btn--ghost btn--sm" data-modal-open="cardModal">Update card</button></span></div>
+            <div class="setrow"><span class="setrow__label"><strong>Invoices</strong><span>Managed by Stripe · Customer Portal</span></span><a href="#" class="t-sm" style="font-weight:var(--fw-semi)">View invoices</a></div>
           </div>
           <div style="margin-top:var(--sp-5)"><button class="btn btn--primary" data-confirm="Settings saved.">Save changes</button></div>
         </div></section>
@@ -71,6 +74,49 @@
     </main>
   </div>
 </div>
+
+<!-- Update payment method modal (Stripe Elements–style, mock) -->
+<div class="modal" id="cardModal">
+  <div class="modal__backdrop"></div>
+  <div class="modal__panel">
+    <div class="modal__head"><span class="modal__title">Update payment method</span><button class="modal__x" data-modal-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="modal__body">
+      <div class="formgroup"><label>Card number</label><input class="input num" value="4242 4242 4242 4242"></div>
+      <div class="form2">
+        <div class="formgroup"><label>Expiry</label><input class="input num" value="08 / 27"></div>
+        <div class="formgroup"><label>CVC</label><input class="input num" value="•••"></div>
+      </div>
+      <div class="authnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Card data is entered in Stripe Elements and never touches PAVE servers. Powered by Stripe.</span></div>
+    </div>
+    <div class="modal__foot"><button class="btn btn--ghost" data-modal-close>Cancel</button><button class="btn btn--primary" data-modal-close data-confirm="Payment method updated · Visa ···· 4242.">Save card</button></div>
+  </div>
+</div>
+
+<!-- Change plan modal -->
+<div class="modal" id="planModal">
+  <div class="modal__backdrop"></div>
+  <div class="modal__panel">
+    <div class="modal__head"><span class="modal__title">Change plan</span><button class="modal__x" data-modal-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="modal__body">
+      <div class="formgroup"><label>Plan tier</label>
+        <div class="chips" data-single><button type="button" class="chipopt">Individual</button><button type="button" class="chipopt is-on">Group</button></div></div>
+      <div class="formgroup"><label>Billing cycle</label>
+        <div class="chips" data-single><button type="button" class="chipopt is-on">Monthly</button><button type="button" class="chipopt">Annual · save 15%</button></div></div>
+      <div class="formgroup" style="margin-bottom:var(--sp-3)"><label>Apply change</label>
+        <div class="chips" data-single><button type="button" class="chipopt is-on">End of period</button><button type="button" class="chipopt">Immediately</button></div></div>
+      <div class="claimsum"><span>New total: <b>$996 / mo</b></span><span>Next invoice: <b>Aug 1, 2026</b></span></div>
+    </div>
+    <div class="modal__foot"><button class="btn btn--ghost" data-modal-close>Cancel</button><button class="btn btn--primary" data-modal-close data-confirm="Subscription updated · Group · monthly · effective end of period.">Confirm change</button></div>
+  </div>
+</div>
+
 <script src="../js/app.js"></script>
+<script>
+  /* single-select chip groups inside the billing modals */
+  document.querySelectorAll('.chips[data-single]').forEach(function (g) {
+    var opts = g.querySelectorAll('.chipopt');
+    opts.forEach(function (o) { o.addEventListener('click', function () { opts.forEach(function (x) { x.classList.remove('is-on'); }); o.classList.add('is-on'); }); });
+  });
+</script>
 </body>
 </html>

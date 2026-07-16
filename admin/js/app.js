@@ -22,16 +22,12 @@
      Page sets <body data-page="X" data-title="Title">. Keeps every
      provider page in sync from one place. ---- */
   var NAV = [
-    ["dashboard","Dashboard",'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',""],
-    ["work-queue","Work Queue",'<path d="M4 13h4l1.5 3h5L16 13h4"/><path d="M5 13 7 5h10l2 8v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"/>',"9"],
-    ["patients","Patients",'<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M16 5.4a3.2 3.2 0 0 1 0 5.2"/><path d="M17.5 14.8c2 .8 3.5 2.7 3.5 5.2"/>',""],
-    ["approvals","Approvals",'<circle cx="12" cy="12" r="9"/><path d="M8.5 12.5 11 15l4.5-5"/>',"3"],
+    ["overview","Overview",'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',""],
+    ["complaints","Complaints & MDR",'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/>',"2"],
+    ["ai-governance","AI Governance",'<path d="M12 3l8 3.5v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10v-5z"/><path d="M9 12l2 2 4-4"/>',""],
     ["reports","Reports",'<path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 17v-5"/><path d="M13 17V8"/><path d="M18 17v-3"/>',""],
-    ["revenue","Revenue",'<path d="M12 3v18"/><path d="M16.5 6.5C16.5 4.8 14.5 3.5 12 3.5S7.5 4.8 7.5 6.5 9.5 9.5 12 9.5s4.5 1.3 4.5 3-2 3-4.5 3-4.5-1.3-4.5-3"/>',""],
-    ["api-costs","API costs",'<path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15l4.5-3.2"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/><path d="M4 15h1.5M18.5 15H20M12 4.5V6"/>',""],
-    ["org-admin","Org Admin",'<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h6"/>',""],
-    ["dr-brain","Dr. Brain",'<path d="M12 4a3.5 3.5 0 0 0-3.5 3.5A3 3 0 0 0 6 13a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0-2.5-5.5A3.5 3.5 0 0 0 12 4z"/><path d="M12 8v4"/><path d="M9.5 10.5 12 12l2.5-1.5"/>',""],
-    ["settings","Settings",'<circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.5M12 18v2.5M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M19.8 7.5l-2.2 1.3M6.4 15.2l-2.2 1.3"/>',""]
+    ["hipaa-audit","HIPAA Audit",'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/>',""],
+    ["data-requests","Data Requests",'<path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><rect x="4" y="17" width="16" height="3" rx="1.5"/>',""]
   ];
   function icon(paths) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>'; }
   function renderShell() {
@@ -45,7 +41,7 @@
     }).join("");
     var side =
       '<aside class="sidebar">' +
-      '<div class="sidebar__brand"><span class="sidebar__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/></svg></span><span class="sidebar__word">PAVE<span>Provider Portal</span></span></div>' +
+      '<div class="sidebar__brand"><span class="sidebar__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/></svg></span><span class="sidebar__word">PAVE<span>Platform Admin</span></span></div>' +
       '<nav class="nav" aria-label="Main">' + items + '</nav></aside>';
     host.insertAdjacentHTML("afterbegin", side);
     var tb = $("[data-topbar]", host);
@@ -54,8 +50,9 @@
       '<span class="topbar__spacer"></span>' +
       '<span class="t-meta">Auto-refresh · updated <span class="num" data-ago>0s ago</span></span>' +
       '<button class="iconbtn" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="iconbtn__dot"></span></button>' +
-      '<span class="topbar__meta"><strong>Dr. Brandon Stillman, MD</strong><span>Stillman Rehabilitation Group</span></span>' +
-      '<span class="avatar">BS</span>';
+      '<span class="modeltag" style="background:var(--st-attention-bg);color:var(--st-attention)">System-wide access</span>' +
+      '<span class="topbar__meta"><strong>Alex Rivera</strong><span>Platform Administrator</span></span>' +
+      '<span class="avatar">AR</span>';
   }
 
   /* ---- Confirmation banner (top, auto-dismiss ~4s) ---- */

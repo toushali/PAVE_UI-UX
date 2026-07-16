@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Requests · PAVE Platform Admin</title>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="data-requests" data-title="Data requests">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="pagehead__title">Patient data requests</div>
+          <div class="pagehead__sub">HIPAA data-portability &amp; right-to-erasure. Export or permanently delete any patient's PHI — every action is logged to the immutable audit trail.</div>
+        </div>
+
+        <!-- Lookup + actions -->
+        <section class="card rise rise-2"><div class="card__head"><span class="card__title">Look up a patient</span></div><div class="card__body">
+          <div class="toolbar" style="margin-bottom:var(--sp-4)">
+            <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input value="John Carter · #P-1043" placeholder="Patient name or ID…"></span>
+            <button class="btn btn--primary">Find</button>
+          </div>
+
+          <div class="qrow__panel is-open">
+            <div class="row" style="gap:var(--sp-3);flex-wrap:wrap">
+              <span class="avatar">JC</span>
+              <div>
+                <strong>John Carter</strong>
+                <div class="t-sm t-muted">#P-1043 · M54.5 · enrolled Jun 8, 2026 · Dr. Stillman</div>
+              </div>
+              <span class="spacer"></span>
+              <button class="btn btn--ghost" data-confirm="PHI export prepared · encrypted archive · download link sent · logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export PHI</button>
+              <button class="btn" style="background:var(--st-attention);color:#fff" data-modal-open="delModal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"/></svg>Delete PHI</button>
+            </div>
+            <div class="claimsum" style="margin-top:var(--sp-4)"><span>Check-ins: <b class="num">38</b></span><span>Plan: <b>v14</b></span><span>Badges: <b class="num">6</b></span><span>Claims: <b class="num">2 approved</b></span></div>
+          </div>
+        </div></section>
+
+        <!-- Recent requests -->
+        <section class="card rise rise-3" style="margin-top:var(--sp-4)">
+          <div class="card__head"><span class="card__title">Recent data requests</span><span class="spacer"></span><span class="t-meta">6-year record</span></div>
+          <table class="qtable">
+            <thead><tr><th>Time</th><th>Patient</th><th>Type</th><th>Requested by</th><th class="right">Status</th></tr></thead>
+            <tbody>
+              <tr><td class="num t-sm">2026-07-12 14:20</td><td class="t-sm">Tomás Vega · #P-0994</td><td><span class="badge badge--enrolled">Export</span></td><td class="t-sm">Patient request (portal)</td><td class="right"><span class="badge badge--ready">Completed</span></td></tr>
+              <tr><td class="num t-sm">2026-06-28 10:05</td><td class="t-sm">Grace Lin · #P-0951</td><td><span class="badge badge--attention">Delete</span></td><td class="t-sm">Right-to-erasure</td><td class="right"><span class="badge badge--ready">Completed</span></td></tr>
+              <tr><td class="num t-sm">2026-06-15 09:40</td><td class="t-sm">Marcus Bell · #P-1002</td><td><span class="badge badge--enrolled">Export</span></td><td class="t-sm">Provider request</td><td class="right"><span class="badge badge--ready">Completed</span></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Delete PHI — type-to-confirm -->
+<div class="modal" id="delModal">
+  <div class="modal__backdrop"></div>
+  <div class="modal__panel">
+    <div class="modal__head"><span class="modal__title">Permanently delete PHI</span><button class="modal__x" data-modal-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="modal__body">
+      <div class="alertbar" style="margin:0 0 var(--sp-4);background:var(--st-attention-bg);color:var(--st-attention);border-color:#EFDCB2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>
+        <span><strong>This cannot be undone.</strong> All PHI for <strong>John Carter (#P-1043)</strong> — check-ins, plan, gamification, and billing history — is permanently erased.</span>
+      </div>
+      <div class="formgroup" style="margin-bottom:0"><label>Type <span class="num" style="font-weight:var(--fw-bold)">P-1043</span> to confirm</label><input class="input num" id="delConfirmInput" placeholder="P-1043" autocomplete="off"></div>
+    </div>
+    <div class="modal__foot"><button class="btn btn--ghost" data-modal-close>Cancel</button><button class="btn" id="delBtn" disabled style="background:var(--st-attention);color:#fff" data-modal-close data-confirm="PHI permanently deleted for #P-1043 · irreversible · logged to audit trail.">Permanently delete</button></div>
+  </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script>
+  (function () {
+    var input = document.getElementById("delConfirmInput"), btn = document.getElementById("delBtn");
+    input.addEventListener("input", function () {
+      btn.disabled = input.value.trim().toUpperCase() !== "P-1043";
+    });
+  })();
+</script>
+</body>
+</html>

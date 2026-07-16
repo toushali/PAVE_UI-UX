@@ -23,28 +23,58 @@
         <input class="timepick" type="time" value="09:00" aria-label="Daily reminder time">
       </section>
 
-      <!-- Toggles -->
-      <section class="card rise rise-2">
-        <!-- channel -->
-        <div class="setrow">
-          <span class="setrow__label">How to remind me
-            <span class="setrow__sub" style="display:block;">Where your daily nudge is sent.</span>
+      <!-- Notifications -->
+      <section class="card rise rise-2" aria-label="Notifications">
+        <h2 class="card__title">Notifications</h2>
+
+        <!-- preferred channel -->
+        <div class="setrow setrow--stack">
+          <span class="setrow__label">How to reach me
+            <span class="setrow__sub" style="display:block;">Where reminders are sent.</span>
           </span>
-          <div class="segmented" data-segmented role="group" aria-label="Reminder channel">
+          <div class="segmented" data-segmented data-saveable role="group" aria-label="Reminder channel">
             <button type="button" class="seg is-active" data-seg aria-pressed="true">Text</button>
             <button type="button" class="seg" data-seg aria-pressed="false">Email</button>
+            <button type="button" class="seg" data-seg aria-pressed="false">Both</button>
           </div>
+        </div>
+
+        <!-- check-in reminder -->
+        <div class="setrow">
+          <span class="setrow__label">Daily check-in reminder
+            <span class="setrow__sub" style="display:block;">A nudge if you haven't checked in.</span>
+          </span>
+          <button type="button" class="switch" data-switch data-saveable role="switch" aria-checked="true" aria-label="Daily check-in reminder"></button>
         </div>
 
         <!-- streak nudge -->
         <div class="setrow">
-          <span class="setrow__label">Streak reminders
-            <span class="setrow__sub" style="display:block;">A gentle nudge if you haven't checked in.</span>
+          <span class="setrow__label">Streak at-risk nudge
+            <span class="setrow__sub" style="display:block;">If your streak is about to break.</span>
           </span>
-          <button type="button" class="switch" data-switch role="switch" aria-checked="true" aria-label="Streak reminders"></button>
+          <button type="button" class="switch" data-switch data-saveable role="switch" aria-checked="true" aria-label="Streak at-risk nudge"></button>
         </div>
 
-        <!-- text size: three steps -->
+        <!-- milestone -->
+        <div class="setrow">
+          <span class="setrow__label">Milestone celebrations
+            <span class="setrow__sub" style="display:block;">When you reach a new streak or badge.</span>
+          </span>
+          <button type="button" class="switch" data-switch data-saveable role="switch" aria-checked="true" aria-label="Milestone celebrations"></button>
+        </div>
+
+        <!-- always-on -->
+        <p class="notealways" style="display:flex; gap:9px; align-items:flex-start; margin-top:var(--sp-4); color:var(--c-ink-2); font-size:var(--fs-body);">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto; margin-top:2px; color:var(--c-primary);"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span>Sign-in codes and security messages are always sent.</span>
+        </p>
+        <p id="savedMsg" class="t-caption" hidden style="text-align:center; color:var(--c-primary); font-weight:var(--fw-bold); margin-top:var(--sp-3);">Saved ✓</p>
+      </section>
+
+      <!-- Display -->
+      <section class="card rise rise-3" aria-label="Display">
+        <h2 class="card__title">Display</h2>
+
         <div class="setrow setrow--stack">
           <span class="setrow__label">Text size
             <span class="setrow__sub" style="display:block;">Choose what's comfortable to read.</span>
@@ -56,7 +86,6 @@
           </div>
         </div>
 
-        <!-- high contrast -->
         <div class="setrow">
           <span class="setrow__label">High contrast
             <span class="setrow__sub" style="display:block;">Stronger colors and borders.</span>
@@ -66,7 +95,7 @@
       </section>
 
       <!-- Help affordance -->
-      <a class="calloffice rise rise-3" href="help.html" style="border-color:var(--c-line); color:var(--c-primary);">
+      <a class="calloffice rise rise-4" href="help.html" style="border-color:var(--c-line); color:var(--c-primary);">
         Need help? Visit Help &amp; FAQ
       </a>
 
@@ -99,5 +128,15 @@
 
   </div>
   <script src="../js/app.js"></script>
+  <script>
+    /* Gentle "Saved" confirmation when a notification preference changes. */
+    (function () {
+      var msg = document.getElementById("savedMsg"), t;
+      function flash() { if (!msg) return; msg.hidden = false; clearTimeout(t); t = setTimeout(function () { msg.hidden = true; }, 1600); }
+      document.querySelectorAll("[data-saveable]").forEach(function (el) {
+        el.addEventListener("click", flash);
+      });
+    })();
+  </script>
 </body>
 </html>

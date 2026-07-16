@@ -24,8 +24,8 @@ applies it before paint. The theme tokens live at the top of
 
 Open **`index.html`** → redirects to `app/login.html`. Any static server works
 (e.g. VS Code Live Server). Click **Sign in with Google/Microsoft → MFA → Verify**
-to reach the dashboard. The bottom-left **toggle** switches between all four
-prototypes — **Patient v1 · Patient v2 · Provider Pro1 (green) · Provider Pro2 (blue)**
+to reach the dashboard. The bottom-left **toggle** switches between all five
+prototypes — **Patient v1 · v2 · Provider Pro1 (green) · Pro2 (blue) · Platform Admin**
 — and its own accent follows whichever theme you're viewing.
 
 ## Component library
@@ -36,7 +36,7 @@ KPIs, tabs, dropdown menus, modals/dialogs, line charts + sparklines,
 spinners/skeletons — each with default · hover · active · disabled · error ·
 loading states, plus the colour/status, typography, and spacing foundations.
 
-## Screens (12)
+## Screens (14)
 
 | Screen | File | FSD |
 | --- | --- | --- |
@@ -48,6 +48,8 @@ loading states, plus the colour/status, typography, and spacing foundations.
 | Approvals | `app/approvals.html` | §6.5 |
 | Reports | `app/reports.html` | §6.6 |
 | Revenue Calculator | `app/revenue.html` | §6.7 |
+| API Cost Dashboard | `app/api-costs.html` | §12 |
+| Plan Review & Approval | `app/plan-review.html` | §6.3 · §10.2 |
 | Patients (data table) | `app/patients.html` | §6.8 |
 | Org Admin | `app/org-admin.html` | §6.9 |
 | Settings | `app/settings.html` | §6.10 |
@@ -61,7 +63,7 @@ pro1/
 ├── css/  tokens · base · components
 ├── js/   app.js          (shell injection, panels, tabs, sort/filter,
 │                          steppers, confirm banners, toggle)
-└── app/  the 12 screens
+└── app/  the 14 screens
 ```
 
 The **sidebar + top bar are injected by `renderShell()`** in `app.js` from one
@@ -79,8 +81,8 @@ place — every page is just `<body data-page="X" data-title="Y">` + a
 
 ## Key building blocks
 
-- **5-tier status badge**: Enrolled (neutral) · On Track (blue) · Needs Attention
-  (**amber**, never red) · Ready to Bill (**green**) · Claim Approved.
+- **5-tier status badge**: Enrolled (neutral) · On Track (**white**, per §15.3) ·
+  Needs Attention (**amber**, never red) · Ready to Bill (**green**) · Claim Approved.
 - **`.num`** applies the monospace face to all metrics/CPT/$/timestamps.
 - Reusable JS hooks: `data-panel-toggle`/`data-panel-group`, `data-tabs`,
   `data-stepper`, `data-confirm` (+ `data-status`), `data-sort` (numeric-aware),

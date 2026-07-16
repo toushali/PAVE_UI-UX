@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review plan · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="patients" data-title="Review plan">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">Review plan — Evelyn Ross</div>
+              <div class="pagehead__sub">M54.16 · Radiculopathy, lumbar region · generated just now</div>
+            </div>
+            <span class="spacer"></span>
+            <span class="modeltag">Dr. Brain v2.3</span>
+          </div>
+        </div>
+
+        <!-- SaMD review gate -->
+        <div class="alertbar rise rise-1" style="background:var(--c-primary-soft);color:var(--c-primary-dark);border-color:var(--c-primary-soft);margin-top:0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9.5 12l2 2 3.5-4"/></svg>
+          <span><strong>Review before your patient sees this plan.</strong> Nothing is sent until you approve — this is the required physician sign-off (SaMD).</span>
+        </div>
+
+        <div class="grid-2 rise rise-2" style="margin-top:var(--sp-4)">
+          <!-- Generated plan -->
+          <section class="card"><div class="card__head"><span class="card__title">Generated plan</span><span class="t-meta">plain-language for the patient</span></div><div class="card__body">
+            <div class="planmod">
+              <div class="planmod__h">Pilates</div>
+              <div class="planex"><div><strong>Pelvic tilt</strong><div class="t-sm t-muted">Gently flatten the lower back to ease stiffness.</div></div><span class="planex__freq">2× / day</span></div>
+              <div class="planex"><div><strong>Roll-up</strong><div class="t-sm t-muted">Slow segmental curl to build core control.</div></div><span class="planex__freq">1× / day</span></div>
+            </div>
+            <div class="planmod">
+              <div class="planmod__h">Physical therapy</div>
+              <div class="planex"><div><strong>Cat–cow stretch</strong><div class="t-sm t-muted">Keep the spine mobile; flexion-biased.</div></div><span class="planex__freq">1× / day</span></div>
+              <div class="planex"><div><strong>Glute bridge</strong><div class="t-sm t-muted">Strengthen posterior-chain support.</div></div><span class="planex__freq">2× / day</span></div>
+            </div>
+            <div class="planmod" style="margin-bottom:0">
+              <div class="planmod__h">Breathing</div>
+              <div class="planex" style="border-bottom:none"><div><strong>Box breathing</strong><div class="t-sm t-muted">Down-regulate guarding and pain response.</div></div><span class="planex__freq">as needed</span></div>
+            </div>
+          </div></section>
+
+          <!-- Medical rationale -->
+          <section class="card"><div class="card__head"><span class="card__title">Medical rationale</span><span class="t-meta">SaMD evidence basis</span></div><div class="card__body">
+            <div class="rationale" style="margin-bottom:var(--sp-4)">Directional-preference (flexion-biased) exercise with core stabilization is supported for lumbar radiculopathy (M54.16). Week-1 plan <strong>defers end-range extension</strong> given radicular history, staging it from week 2. Low-load Pilates progressions suit the patient's age and deconditioning.</div>
+            <div class="planmod__h">Evidence sources</div>
+            <ul class="t-sm t-muted" style="margin:0;padding-left:18px;line-height:1.7">
+              <li>McKenzie MDT protocols — directional preference</li>
+              <li>Lumbar RCT: Pilates vs. general activity (2024)</li>
+              <li>Radiculopathy conservative-care guideline</li>
+            </ul>
+            <div class="t-meta" style="margin-top:var(--sp-4)">Model Dr. Brain v2.3 · prompt registry v14 · logged on this patient's record.</div>
+          </section>
+        </div>
+
+        <!-- Action bar -->
+        <section class="card rise rise-3" style="margin-top:var(--sp-4)" id="actionCard"><div class="card__body">
+          <div class="row" style="gap:var(--sp-3)">
+            <div>
+              <strong>Approve to activate this patient</strong>
+              <div class="t-sm t-muted">On approval, the plan is locked as generated and Evelyn is invited via her preferred channel (SMS).</div>
+            </div>
+            <span class="spacer"></span>
+            <button class="btn btn--ghost" data-confirm="Saved as draft — approve any time from the patient record.">Save as draft</button>
+            <button class="btn btn--ghost" data-confirm="Regeneration requested — Dr. Brain is drafting a revised plan.">Request regeneration</button>
+            <button class="btn btn--primary" id="approveBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>Approve plan</button>
+          </div>
+        </div></section>
+
+        <!-- Approved success state -->
+        <section class="card rise rise-3" style="margin-top:var(--sp-4)" id="approvedCard" hidden><div class="card__body" style="text-align:center;padding:var(--sp-6)">
+          <span class="calmcheck" style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:999px;background:var(--st-ready-bg);color:var(--st-ready);margin-bottom:var(--sp-3)"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
+          <h3 class="t-h2" style="margin:0 0 var(--sp-2)">Plan approved &amp; patient invited</h3>
+          <p class="t-sm t-muted" style="max-width:44ch;margin:0 auto var(--sp-4)">Invitation sent to Evelyn by <strong>SMS</strong> to <span class="num">(415) 555-0148</span>. Portal access is now active. Approval timestamped and written to the audit log.</p>
+          <div class="row" style="justify-content:center;gap:var(--sp-3)">
+            <a class="btn btn--primary" href="patient.html">View patient record</a>
+            <a class="btn btn--ghost" href="enroll.html">Enroll another</a>
+          </div>
+        </div></section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+<script>
+  (function () {
+    document.getElementById("approveBtn").addEventListener("click", function () {
+      window.paveBanner("Plan approved · Evelyn invited by SMS · access activated · logged.");
+      document.getElementById("actionCard").hidden = true;
+      var ok = document.getElementById("approvedCard");
+      ok.hidden = false;
+      ok.scrollIntoView({ block: "center", behavior: "smooth" });
+    });
+  })();
+</script>
+</body>
+</html>

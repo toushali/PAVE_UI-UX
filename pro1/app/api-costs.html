@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API costs · PAVE Provider</title>
+<script>(function(){var m=location.search.match(/[?&]ptheme=(pro1|pro2)/);var t=m?m[1]:(localStorage.getItem("pave-ptheme")||"pro1");try{localStorage.setItem("pave-ptheme",t);}catch(e){}document.documentElement.setAttribute("data-ptheme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="api-costs" data-title="API costs">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">API cost &amp; usage</div>
+              <div class="pagehead__sub">Every external call — logged, attributed, and costed. Set per-service budgets and export for accounting.</div>
+            </div>
+            <span class="spacer"></span>
+            <button class="btn btn--ghost" data-confirm="Accounting CSV exported · period · service · event · qty · unit cost · total · logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export accounting CSV</button>
+          </div>
+        </div>
+
+        <!-- KPI strip -->
+        <section class="kpigrid rise rise-2">
+          <div class="kpi kpi--accent"><div class="kpi__label">Spend this month</div><div class="kpi__num">$440</div><div class="kpi__delta">Jul 1 – 16</div>
+            <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none"><path class="area" d="M0,24 20,20 40,22 60,15 80,11 100,4 L100,30 L0,30 Z"/><path class="line" d="M0,24 20,20 40,22 60,15 80,11 100,4"/></svg></div>
+          <div class="kpi"><div class="kpi__label">Rolling 12 months</div><div class="kpi__num">$3,980</div><div class="kpi__delta">trailing spend</div>
+            <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none"><path class="area" d="M0,26 20,22 40,18 60,14 80,9 100,3 L100,30 L0,30 Z"/><path class="line" d="M0,26 20,22 40,18 60,14 80,9 100,3"/></svg></div>
+          <div class="kpi"><div class="kpi__label">Projected month-end</div><div class="kpi__num">$612</div><div class="kpi__delta">at current run rate</div>
+            <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none"><path class="area" d="M0,22 20,18 40,20 60,13 80,8 100,2 L100,30 L0,30 Z"/><path class="line" d="M0,22 20,18 40,20 60,13 80,8 100,2"/></svg></div>
+          <div class="kpi kpi--attention"><div class="kpi__label">Budget alerts</div><div class="kpi__num">1</div><div class="kpi__delta">Twilio near limit</div></div>
+        </section>
+
+        <div class="grid-2 rise rise-3" style="margin-top:var(--sp-4)">
+          <!-- Trend -->
+          <section class="card"><div class="card__body">
+            <div class="charthead"><div><div class="charthead__l">Spend by month</div><div class="charthead__n">$440</div></div><span class="charthead__d">▲ 17% vs Jun</span></div>
+            <div class="linechart">
+              <svg viewBox="0 0 320 132">
+                <line class="lc-grid" x1="6" y1="14" x2="314" y2="14"/><line class="lc-grid" x1="6" y1="52" x2="314" y2="52"/><line class="lc-grid" x1="6" y1="90" x2="314" y2="90"/>
+                <path class="lc-area" d="M6,90 67.6,71 129.2,80.5 190.8,48.8 252.4,33 314,14 L314,90 L6,90 Z"/>
+                <path class="lc-line" d="M6,90 67.6,71 129.2,80.5 190.8,48.8 252.4,33 314,14"/>
+                <circle class="lc-dot" cx="314" cy="14" r="3.5"/>
+                <text class="lc-axis" x="6" y="112">Feb</text><text class="lc-axis" x="60" y="112">Mar</text><text class="lc-axis" x="120" y="112">Apr</text><text class="lc-axis" x="182" y="112">May</text><text class="lc-axis" x="244" y="112">Jun</text><text class="lc-axis" x="300" y="112">Jul</text>
+              </svg>
+            </div>
+          </div></section>
+
+          <!-- Per-service breakdown -->
+          <section class="card"><div class="card__head"><span class="card__title">Spend by service</span><span class="t-meta">this month</span></div>
+            <table class="qtable">
+              <thead><tr><th>Service</th><th class="right">Volume</th><th>Share</th><th class="right">Cost</th></tr></thead>
+              <tbody>
+                <tr><td>Claude API</td><td class="right num t-sm">1,240 calls</td><td><span class="pbar" style="max-width:110px;display:block"><i style="width:49%;background:var(--c-primary)"></i></span></td><td class="right num">$214.80</td></tr>
+                <tr><td>Supabase DB</td><td class="right num t-sm">continuous</td><td><span class="pbar" style="max-width:110px;display:block"><i style="width:20%;background:var(--c-primary)"></i></span></td><td class="right num">$89.00</td></tr>
+                <tr><td>Twilio SMS</td><td class="right num t-sm">8,900 msgs</td><td><span class="pbar" style="max-width:110px;display:block"><i style="width:16%;background:var(--c-primary)"></i></span></td><td class="right num">$70.31</td></tr>
+                <tr><td>Stripe</td><td class="right num t-sm">42 charges</td><td><span class="pbar" style="max-width:110px;display:block"><i style="width:14%;background:var(--c-primary)"></i></span></td><td class="right num">$61.20</td></tr>
+                <tr><td>SendGrid email</td><td class="right num t-sm">12,400 sends</td><td><span class="pbar" style="max-width:110px;display:block"><i style="width:1%;background:var(--c-primary)"></i></span></td><td class="right num">$4.34</td></tr>
+                <tr><td>File storage</td><td class="right num t-sm">3.2 GB</td><td><span class="pbar" style="max-width:110px;display:block"><i style="width:1%;background:var(--c-primary)"></i></span></td><td class="right num">$0.74</td></tr>
+              </tbody>
+              <tfoot><tr><td colspan="3" style="text-align:right;font-weight:var(--fw-semi);padding:12px var(--sp-5)">Total</td><td class="right num" style="font-weight:var(--fw-bold)">$440.39</td></tr></tfoot>
+            </table>
+          </section>
+        </div>
+
+        <!-- Budget alerts -->
+        <section class="card rise rise-4" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Monthly budgets</span><span class="spacer"></span><button class="btn btn--ghost btn--sm" data-confirm="Budget limits saved.">Set limits</button></div><div class="card__body">
+          <div class="threshrow"><span>Claude API</span><span class="pbar"><i style="width:72%;background:var(--c-primary)"></i></span><span class="num t-sm">$215 / $300</span></div>
+          <div class="threshrow"><span>Twilio SMS <span class="badge badge--attention" style="margin-left:6px">88% · near limit</span></span><span class="pbar"><i style="width:88%;background:var(--st-attention)"></i></span><span class="num t-sm">$70 / $80</span></div>
+          <div class="threshrow"><span>Supabase DB</span><span class="pbar"><i style="width:59%;background:var(--c-primary)"></i></span><span class="num t-sm">$89 / $150</span></div>
+          <div class="threshrow"><span>Stripe fees</span><span class="pbar"><i style="width:41%;background:var(--c-primary)"></i></span><span class="num t-sm">$61 / $150</span></div>
+        </div></section>
+
+        <!-- Per-event log -->
+        <section class="card rise rise-4" style="margin-top:var(--sp-4)" data-filtergroup>
+          <div class="card__head"><span class="card__title">Per-event log</span><span class="spacer"></span><span class="t-meta"><span class="num" data-filtercount>8</span> events</span></div>
+          <div class="card__body" style="padding-bottom:0">
+            <div class="toolbar">
+              <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input data-filter placeholder="Search event or service…"></span>
+              <select class="select select--sm" data-filter style="width:auto">
+                <option value="">All services</option>
+                <option value="Claude">Claude API</option><option value="Twilio">Twilio SMS</option><option value="SendGrid">SendGrid</option><option value="Stripe">Stripe</option><option value="Supabase">Supabase</option>
+              </select>
+            </div>
+          </div>
+          <table class="qtable" data-sort>
+            <thead><tr><th data-col>Time</th><th data-col>Service</th><th data-col>Event</th><th class="right" data-col>Tokens (in/out)</th><th class="right" data-col>Cost</th></tr></thead>
+            <tbody>
+              <tr data-filterrow><td class="num t-sm">2026-07-16 09:42</td><td>Claude API</td><td class="t-sm">Plan generation · John Carter</td><td class="right num t-sm">4,210 / 1,890</td><td class="right num">$0.42</td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-07-16 09:41</td><td>Twilio SMS</td><td class="t-sm">Check-in reminder</td><td class="right num t-sm">—</td><td class="right num">$0.0079</td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-07-16 09:15</td><td>Claude API</td><td class="t-sm">Training session · Dr. Stillman</td><td class="right num t-sm">1,020 / 640</td><td class="right num">$0.03</td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-07-16 08:50</td><td>SendGrid</td><td class="t-sm">Invitation email</td><td class="right num t-sm">—</td><td class="right num">$0.0004</td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-07-16 08:30</td><td>Stripe</td><td class="t-sm">Subscription charge</td><td class="right num t-sm">—</td><td class="right num">$1.46</td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-07-15 18:20</td><td>Twilio SMS</td><td class="t-sm">Streak at-risk nudge</td><td class="right num t-sm">—</td><td class="right num">$0.0079</td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-07-15 14:05</td><td>Claude API</td><td class="t-sm">Plan generation · Ana Duarte</td><td class="right num t-sm">3,980 / 2,010</td><td class="right num">$0.41</td></tr>
+              <tr data-filterrow><td class="num t-sm">2026-07-15 11:12</td><td>Supabase</td><td class="t-sm">Realtime sync batch</td><td class="right num t-sm">—</td><td class="right num">$0.00</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

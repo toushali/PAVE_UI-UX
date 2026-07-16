@@ -1069,3 +1069,32 @@
   display: inline-block; margin-top: var(--sp-2); padding: 6px var(--sp-3); border-radius: var(--radius-pill);
   background: var(--t-coral); color: #B23A2C; font-family: var(--font-display); font-weight: 800; font-size: var(--fs-caption);
 }
+
+/* ============================================================
+   Choice card — large tappable option (MFA channel, notification
+   channel). Icon + label + sub, 60px+ target, selectable.
+   ============================================================ */
+.optcard {
+  display: flex; align-items: center; gap: var(--sp-4);
+  width: 100%; text-align: left;
+  padding: var(--sp-4) var(--sp-5);
+  border: 2px solid var(--c-line); border-radius: var(--radius-card);
+  background: var(--c-surface); color: var(--c-ink);
+  min-height: var(--tap-btn); cursor: pointer;
+  transition: border-color var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);
+}
+.optcard + .optcard { margin-top: var(--sp-3); }
+.optcard:active { transform: scale(0.99); }
+.optcard.is-on { border-color: var(--c-primary); background: var(--c-primary-soft); }
+.optcard__ic { flex: 0 0 auto; width: 46px; height: 46px; border-radius: 14px; background: var(--c-primary-soft); color: var(--c-primary); display: inline-flex; align-items: center; justify-content: center; }
+.optcard.is-on .optcard__ic { background: var(--c-primary); color: #fff; }
+.optcard__ic svg { width: 24px; height: 24px; }
+.optcard__t { flex: 1; min-width: 0; }
+.optcard__t strong { display: block; font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
+.optcard__t span { font-size: var(--fs-body); color: var(--c-ink-2); }
+.optcard__chev { flex: 0 0 auto; color: var(--c-ink-2); }
+.optcard__chev svg { width: 20px; height: 20px; }
+.optcard__check { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--c-line); display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.optcard__check svg { width: 14px; height: 14px; opacity: 0; }
+.optcard.is-on .optcard__check { background: var(--c-primary); border-color: var(--c-primary); }
+.optcard.is-on .optcard__check svg { opacity: 1; }

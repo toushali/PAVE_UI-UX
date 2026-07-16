@@ -38,15 +38,39 @@
         <!-- Provider list -->
         <section class="card rise rise-3" style="margin-top:var(--sp-4)">
           <div class="card__head"><span class="card__title">Providers</span><span class="spacer"></span>
-            <button class="btn btn--primary btn--sm" data-confirm="Invitation sent · provider must complete OAuth + MFA setup."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Invite provider</button>
+            <button class="btn btn--primary btn--sm" data-modal-open="inviteModal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Invite provider</button>
           </div>
           <table class="qtable">
             <thead><tr><th>Provider</th><th>Role</th><th class="center">Patients</th><th class="center">Claims approved</th><th class="right">Revenue (MTD)</th><th class="right">Manage</th></tr></thead>
             <tbody>
-              <tr><td><span class="row"><span class="avatar avatar--sm">BS</span>Dr. Brandon Stillman, MD</span></td><td>Physician · <span style="color:var(--c-primary);font-weight:var(--fw-semi)">Org admin</span></td><td class="center num">48</td><td class="center num">12</td><td class="right num">$3,840</td><td class="right"><button class="btn btn--ghost btn--sm">Manage</button></td></tr>
-              <tr><td><span class="row"><span class="avatar avatar--sm">AP</span>Dr. Alan Petrov, DO</span></td><td>Physician</td><td class="center num">36</td><td class="center num">9</td><td class="right num">$2,910</td><td class="right"><button class="btn btn--ghost btn--sm">Manage</button></td></tr>
-              <tr><td><span class="row"><span class="avatar avatar--sm">NH</span>Dr. Nadia Haddad, MD</span></td><td>Physician</td><td class="center num">41</td><td class="center num">11</td><td class="right num">$3,420</td><td class="right"><button class="btn btn--ghost btn--sm">Manage</button></td></tr>
-              <tr><td><span class="row"><span class="avatar avatar--sm">PR</span>Dr. Priya Raman, MD</span></td><td>Physician</td><td class="center num">29</td><td class="center num">6</td><td class="right num">$1,980</td><td class="right"><button class="btn btn--ghost btn--sm">Manage</button></td></tr>
+              <tr><td><span class="row"><span class="avatar avatar--sm">BS</span>Dr. Brandon Stillman, MD</span></td><td>Physician · <span style="color:var(--c-primary);font-weight:var(--fw-semi)">Org admin</span></td><td class="center num">48</td><td class="center num">12</td><td class="right num">$3,840</td><td class="right"><span class="dd" data-menu><button class="btn btn--ghost btn--sm" data-menu-trigger>Manage <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="dd__menu dd__menu--right">
+                  <button class="dd__item" data-confirm="Role updated · logged to audit trail."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Edit role</button>
+                  <button class="dd__item" data-confirm="Patient reassignment started — pick a target provider."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Reassign patients</button>
+                  <div class="dd__sep"></div>
+                  <button class="dd__item is-danger" data-deactivate data-confirm="Provider deactivated · access revoked · logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Deactivate</button>
+                </div></span></td></tr>
+              <tr><td><span class="row"><span class="avatar avatar--sm">AP</span>Dr. Alan Petrov, DO</span></td><td>Physician</td><td class="center num">36</td><td class="center num">9</td><td class="right num">$2,910</td><td class="right"><span class="dd" data-menu><button class="btn btn--ghost btn--sm" data-menu-trigger>Manage <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="dd__menu dd__menu--right">
+                  <button class="dd__item" data-confirm="Role updated · logged to audit trail."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Edit role</button>
+                  <button class="dd__item" data-confirm="Patient reassignment started — pick a target provider."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Reassign patients</button>
+                  <div class="dd__sep"></div>
+                  <button class="dd__item is-danger" data-deactivate data-confirm="Provider deactivated · access revoked · logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Deactivate</button>
+                </div></span></td></tr>
+              <tr><td><span class="row"><span class="avatar avatar--sm">NH</span>Dr. Nadia Haddad, MD</span></td><td>Physician</td><td class="center num">41</td><td class="center num">11</td><td class="right num">$3,420</td><td class="right"><span class="dd" data-menu><button class="btn btn--ghost btn--sm" data-menu-trigger>Manage <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="dd__menu dd__menu--right">
+                  <button class="dd__item" data-confirm="Role updated · logged to audit trail."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Edit role</button>
+                  <button class="dd__item" data-confirm="Patient reassignment started — pick a target provider."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Reassign patients</button>
+                  <div class="dd__sep"></div>
+                  <button class="dd__item is-danger" data-deactivate data-confirm="Provider deactivated · access revoked · logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Deactivate</button>
+                </div></span></td></tr>
+              <tr><td><span class="row"><span class="avatar avatar--sm">PR</span>Dr. Priya Raman, MD</span></td><td>Physician</td><td class="center num">29</td><td class="center num">6</td><td class="right num">$1,980</td><td class="right"><span class="dd" data-menu><button class="btn btn--ghost btn--sm" data-menu-trigger>Manage <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="dd__menu dd__menu--right">
+                  <button class="dd__item" data-confirm="Role updated · logged to audit trail."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Edit role</button>
+                  <button class="dd__item" data-confirm="Patient reassignment started — pick a target provider."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Reassign patients</button>
+                  <div class="dd__sep"></div>
+                  <button class="dd__item is-danger" data-deactivate data-confirm="Provider deactivated · access revoked · logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Deactivate</button>
+                </div></span></td></tr>
             </tbody>
           </table>
         </section>
@@ -70,6 +94,33 @@
     </main>
   </div>
 </div>
+
+<!-- Invite provider modal (captures role) -->
+<div class="modal" id="inviteModal">
+  <div class="modal__backdrop"></div>
+  <div class="modal__panel">
+    <div class="modal__head"><span class="modal__title">Invite a provider</span><button class="modal__x" data-modal-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="modal__body">
+      <div class="formgroup"><label>Work email</label><input class="input" type="email" placeholder="name@stillmanrehab.com"></div>
+      <div class="formgroup" style="margin-bottom:var(--sp-3)"><label>Role</label>
+        <div class="chips" data-single><button type="button" class="chipopt is-on">Physician</button><button type="button" class="chipopt">Org Admin</button></div></div>
+      <div class="authnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg><span>They'll receive an email invite and must complete OAuth + mandatory MFA setup before access.</span></div>
+    </div>
+    <div class="modal__foot"><button class="btn btn--ghost" data-modal-close>Cancel</button><button class="btn btn--primary" data-modal-close data-confirm="Invitation sent · role: Physician · OAuth + MFA required.">Send invite</button></div>
+  </div>
+</div>
+
 <script src="../js/app.js"></script>
+<script>
+  /* single-select chips in the invite modal */
+  document.querySelectorAll('.chips[data-single]').forEach(function (g) {
+    var opts = g.querySelectorAll('.chipopt');
+    opts.forEach(function (o) { o.addEventListener('click', function () { opts.forEach(function (x) { x.classList.remove('is-on'); }); o.classList.add('is-on'); }); });
+  });
+  /* deactivate dims the provider row */
+  document.querySelectorAll('[data-deactivate]').forEach(function (b) {
+    b.addEventListener('click', function () { var tr = b.closest('tr'); if (tr) { tr.style.opacity = '0.45'; } });
+  });
+</script>
 </body>
 </html>
