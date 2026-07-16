@@ -2066,17 +2066,16 @@
   width: 132px;
   height: 132px;
   opacity: 0;
-  animation: plant-cycle 12s ease-in-out infinite both;
+  animation: plant-cycle 9s ease-in-out infinite both;
 }
-.brandplant__img:nth-child(1) { animation-delay: 0s; }
-.brandplant__img:nth-child(2) { animation-delay: 3s; }
-.brandplant__img:nth-child(3) { animation-delay: 6s; }
-.brandplant__img:nth-child(4) { animation-delay: 9s; }
+.brandplant__img:nth-child(1) { animation-delay: 0s; }   /* seedling */
+.brandplant__img:nth-child(2) { animation-delay: 3s; }   /* mature */
+.brandplant__img:nth-child(3) { animation-delay: 6s; }   /* flowering */
 @keyframes plant-cycle {
   0%   { opacity: 0; transform: scale(0.96); }
-  5%   { opacity: 1; transform: scale(1); }
-  22%  { opacity: 1; transform: scale(1); }
-  27%  { opacity: 0; transform: scale(1.02); }
+  7%   { opacity: 1; transform: scale(1); }
+  28%  { opacity: 1; transform: scale(1); }
+  35%  { opacity: 0; transform: scale(1.02); }
   100% { opacity: 0; transform: scale(1.02); }
 }
 
@@ -2110,7 +2109,7 @@
   .brandplant__stack { animation: none; }
   .mote { opacity: 0; }
   .brandplant__img { animation: none; opacity: 0; }
-  .brandplant__img:nth-child(4) { opacity: 1; }  /* rest on flowering */
+  .brandplant__img:nth-child(3) { opacity: 1; }  /* rest on flowering */
 }
 
 /* ============================================================
