@@ -207,7 +207,7 @@ html[data-theme="light"] .themetoggle__thumb { left: 2px; }
    ============================================================ */
 .authpage { min-height: 100vh; display: grid; grid-template-columns: 1.05fr 0.95fr; }
 .authpage__brand {
-  background: linear-gradient(155deg, var(--c-primary) 0%, var(--c-primary-dark) 100%);
+  background: linear-gradient(155deg, #14505A 0%, #16294A 100%);
   color: #fff; padding: var(--sp-7) var(--sp-7) 76px;
   display: flex; flex-direction: column; justify-content: space-between; gap: var(--sp-6);
 }
