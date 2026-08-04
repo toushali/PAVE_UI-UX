@@ -1,5 +1,5 @@
 /* ============================================================
-   PAVE Provider Portal — Pro1 app.js
+   Kivie Provider Portal — Pro1 app.js
    Vanilla JS only: nav active state, confirmation banner, inline
    panels, tabs, table sort hooks, and the design-version toggle.
    No backend — static prototype, mock data.
@@ -41,7 +41,10 @@
     }).join("");
     var side =
       '<aside class="sidebar">' +
-      '<div class="sidebar__brand"><span class="sidebar__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/></svg></span><span class="sidebar__word">PAVE<span>Platform Admin</span></span></div>' +
+      '<div class="sidebar__brand">' +
+        '<img class="sidebar__logoimg sidebar__logoimg--light" src="../assets/logo.svg" alt="Kivie" width="92">' +
+        '<img class="sidebar__logoimg sidebar__logoimg--dark" src="../assets/logo-light.svg" alt="Kivie" width="92">' +
+        '<span class="sidebar__sub">Platform<br>Admin</span></div>' +
       '<nav class="nav" aria-label="Main">' + items + '</nav></aside>';
     host.insertAdjacentHTML("afterbegin", side);
     var tb = $("[data-topbar]", host);
@@ -49,10 +52,28 @@
       '<span class="topbar__ctx">' + title + '</span>' +
       '<span class="topbar__spacer"></span>' +
       '<span class="t-meta">Auto-refresh · updated <span class="num" data-ago>0s ago</span></span>' +
+      '<button class="themetoggle" data-theme-toggle type="button" aria-label="Toggle light or dark theme" title="Toggle theme">' +
+        '<svg class="themetoggle__ic themetoggle__ic--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19"/></svg>' +
+        '<svg class="themetoggle__ic themetoggle__ic--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></svg>' +
+        '<span class="themetoggle__thumb"></span>' +
+      '</button>' +
       '<button class="iconbtn" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="iconbtn__dot"></span></button>' +
       '<span class="modeltag" style="background:var(--st-attention-bg);color:var(--st-attention)">System-wide access</span>' +
       '<span class="topbar__meta"><strong>Alex Rivera</strong><span>Platform Administrator</span></span>' +
       '<span class="avatar">AR</span>';
+  }
+
+  /* ---- Light / dark theme toggle. Persists to localStorage; the <head>
+     bootstrap applies it before paint to avoid a flash. Admin defaults light. ---- */
+  function initThemeToggle() {
+    function current() { return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light"; }
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest && e.target.closest("[data-theme-toggle]");
+      if (!t) return;
+      var next = current() === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("kivie-admin-theme", next); } catch (err) {}
+    });
   }
 
   /* ---- Confirmation banner (top, auto-dismiss ~4s) ---- */
@@ -144,8 +165,8 @@
 
     /* accent follows the live theme so the control matches the page */
     var cs = getComputedStyle(document.documentElement);
-    var accent = (cs.getPropertyValue("--c-primary") || "").trim() || "#147D64";
-    var accentSoft = (cs.getPropertyValue("--c-primary-soft") || "").trim() || "#E4F2ED";
+    var accent = (cs.getPropertyValue("--c-primary") || "").trim() || "#17838C";
+    var accentSoft = (cs.getPropertyValue("--c-primary-soft") || "").trim() || "#E1F4F5";
 
     var wrap = document.createElement("div");
     wrap.id = "paveDesignToggle";
@@ -364,6 +385,7 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     renderShell();
+    initThemeToggle();
     initNav();
     initPanels();
     initTabs();

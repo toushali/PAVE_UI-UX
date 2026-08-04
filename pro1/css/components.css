@@ -12,14 +12,12 @@
   border-bottom: 1px solid var(--c-line);
   flex: 0 0 auto;
 }
-.sidebar__logo {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 30px; height: 30px; border-radius: 8px;
-  background: var(--c-primary); color: #fff;
+.sidebar__logoimg { width: 92px; height: auto; }
+.sidebar__sub {
+  font-size: 9px; font-weight: var(--fw-bold); letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--c-ink-3); line-height: 1.25;
+  padding-left: var(--sp-3); border-left: 1px solid var(--c-line);
 }
-.sidebar__logo svg { width: 18px; height: 18px; }
-.sidebar__word { font-weight: var(--fw-bold); font-size: 16px; letter-spacing: 0.02em; }
-.sidebar__word span { color: var(--c-ink-3); font-weight: var(--fw-medium); font-size: var(--fs-xs); display: block; letter-spacing: 0.04em; margin-top: -2px; }
 
 .nav { flex: 1; overflow-y: auto; padding: var(--sp-3) var(--sp-3); display: flex; flex-direction: column; gap: 2px; }
 .nav__section { font-size: var(--fs-xs); font-weight: var(--fw-semi); letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-ink-3); padding: var(--sp-3) var(--sp-3) var(--sp-2); }

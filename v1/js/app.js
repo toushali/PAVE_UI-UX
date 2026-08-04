@@ -1,5 +1,5 @@
 /* ============================================================
-   PAVE — app.js
+   Kivie — app.js
    Minimal vanilla JS. ONLY: tab navigation, expand/collapse,
    done/undone toggles, and the exercise timer.
    No framework. No API calls. Mock/in-memory state only.

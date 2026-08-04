@@ -1,5 +1,5 @@
 /* ============================================================
-   PAVE Provider Portal — Pro1 app.js
+   Kivie Provider Portal — Pro1 app.js
    Vanilla JS only: nav active state, confirmation banner, inline
    panels, tabs, table sort hooks, and the design-version toggle.
    No backend — static prototype, mock data.
@@ -45,7 +45,7 @@
     }).join("");
     var side =
       '<aside class="sidebar">' +
-      '<div class="sidebar__brand"><span class="sidebar__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/></svg></span><span class="sidebar__word">PAVE<span>Provider Portal</span></span></div>' +
+      '<div class="sidebar__brand"><img class="sidebar__logoimg" src="../assets/logo.svg" alt="Kivie" width="92"><span class="sidebar__sub">Provider<br>Portal</span></div>' +
       '<nav class="nav" aria-label="Main">' + items + '</nav></aside>';
     host.insertAdjacentHTML("afterbegin", side);
     var tb = $("[data-topbar]", host);
@@ -123,23 +123,18 @@
   function initDesignToggle() {
     if (document.getElementById("paveDesignToggle")) return;
     var path = location.pathname;
-    var isProvider = path.indexOf("/pro1/") > -1;
     var isAdmin = path.indexOf("/admin/") > -1;
-    /* base = everything before the design-folder segment (v1 / v2 / pro1 / admin) */
+    /* base = everything before the design-folder segment (v1 / v2 / pro1 / pro2 / admin) */
     var seg = null, base = "";
-    ["v1", "v2", "pro1", "admin"].forEach(function (sg) {
+    ["v1", "v2", "pro1", "pro2", "admin"].forEach(function (sg) {
       var i = path.indexOf("/" + sg + "/"); if (i > -1) { seg = sg; base = path.slice(0, i); }
     });
-    /* Provider Pro1/Pro2 are ONE codebase — colour scheme only, set via ?ptheme.
-       Stay on the current provider page when switching theme; else land on dashboard. */
-    var ptheme = document.documentElement.getAttribute("data-ptheme") || "pro1";
-    var provTarget = isProvider ? path : base + "/pro1/app/dashboard.html";
-
+    /* Pro1 and Pro2 are now two SEPARATE designs (own folders), not a colour theme. */
     var ITEMS = [
-      { label: "Patient · v1",     href: base + "/v1/app/today.html",  cur: seg === "v1" },
-      { label: "Patient · v2",     href: base + "/v2/app/today.html",  cur: seg === "v2" },
-      { label: "Provider · Pro1",  href: provTarget + "?ptheme=pro1",  cur: isProvider && ptheme === "pro1" },
-      { label: "Provider · Pro2",  href: provTarget + "?ptheme=pro2",  cur: isProvider && ptheme === "pro2" },
+      { label: "Patient · v1",     href: base + "/v1/app/today.html",        cur: seg === "v1" },
+      { label: "Patient · v2",     href: base + "/v2/app/today.html",        cur: seg === "v2" },
+      { label: "Provider · Pro1",  href: base + "/pro1/app/dashboard.html",  cur: seg === "pro1" },
+      { label: "Provider · Pro2",  href: base + "/pro2/app/dashboard.html",  cur: seg === "pro2" },
       { label: "Platform · Admin", href: base + "/admin/app/overview.html",  cur: isAdmin }
     ];
     var curItem = ITEMS.filter(function (i) { return i.cur; })[0] || ITEMS[0];
@@ -147,8 +142,8 @@
 
     /* accent follows the live theme so the control matches the page */
     var cs = getComputedStyle(document.documentElement);
-    var accent = (cs.getPropertyValue("--c-primary") || "").trim() || "#147D64";
-    var accentSoft = (cs.getPropertyValue("--c-primary-soft") || "").trim() || "#E4F2ED";
+    var accent = (cs.getPropertyValue("--c-primary") || "").trim() || "#17838C";
+    var accentSoft = (cs.getPropertyValue("--c-primary-soft") || "").trim() || "#E1F4F5";
 
     var wrap = document.createElement("div");
     wrap.id = "paveDesignToggle";

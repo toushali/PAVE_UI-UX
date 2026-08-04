@@ -3,31 +3,51 @@
    Light mode only. Dark-on-light, high contrast, large type.
    ============================================================ */
 :root {
-  /* ---- Core palette ---- */
-  --c-primary:      #5B5BF5;
-  --c-primary-dark: #4642DD;
-  --c-primary-soft: #E9ECFF;
-  --c-purple:       #A05BF5;
-  --c-coral:        #FF6B5A;
-  --c-yellow:       #FFC53D;   /* XP / points */
-  --c-green:        #21B866;   /* success (darkened from #2FCB6E for contrast on white) */
-  --c-green-bright: #2FCB6E;
-  --c-orange:       #FF8A3D;   /* streak / flame */
+  /* ============================================================
+     Kivie brand ramp — SHARED with v1 (one token system).
+     Add-ons for v2: --teal (hero surface) + --amber (ember end).
+     ============================================================ */
+  --ink:        #16294A;   /* all body / heading text */
+  --pine:       #0E4A44;   /* deep surface, gradient end point */
+  --teal:       #17838C;   /* v2 hero / level card surface */
+  --eucalyptus: #4F9C87;   /* secondary fills, dividers, inactive states */
+  --cyan:       #21B6C4;   /* PROGRESS ONLY — level, XP, active nav tab */
+  --clay:       #C08056;   /* ember start */
+  --amber:      #D9A441;   /* ember end */
+  --paper:      #F4F7F3;   /* page background */
 
-  /* ---- Category tints (card backgrounds) ---- */
-  --t-blue:   #E9ECFF;
-  --t-coral:  #FFE9E6;
-  --t-yellow: #FFF4D6;
-  --t-green:  #DDF7E8;
-  --t-purple: #F1E7FF;
+  /* reusable gradients (defined once) */
+  --grad-teal: linear-gradient(135deg, var(--teal), var(--pine));   /* teal surfaces (hero/level) */
+  --ember:     linear-gradient(135deg, var(--clay), var(--amber));  /* streak only */
+  --track:     rgba(22, 41, 74, 0.10);
+  --track-on-teal: rgba(255, 255, 255, 0.12);   /* XP track on the teal card */
 
-  /* ---- Neutrals ---- */
-  --c-bg:       #F4F5FB;
+  /* ---- Legacy v2 names remapped onto the ramp ---- */
+  --c-primary:      var(--teal);       /* brand / buttons */
+  --c-primary-dark: var(--pine);       /* chunky button base */
+  --c-primary-soft: #DDEEEC;           /* soft teal tint — nav / chips */
+  --c-cyan:         var(--cyan);
+  --c-purple:       var(--pine);       /* hero gradient end (teal→pine) */
+  --c-coral:        var(--clay);       /* ember start */
+  --c-yellow:       var(--amber);      /* ember end (XP itself becomes cyan) */
+  --c-green:        var(--eucalyptus); /* success */
+  --c-green-bright: #63B79E;
+  --c-orange:       var(--clay);       /* streak (ember) */
+
+  /* ---- Category tints ---- */
+  --t-blue:   #DDEEEC;                 /* light teal */
+  --t-coral:  rgba(192,128,86,0.10);   /* clay overlay (streak) */
+  --t-yellow: rgba(217,164,65,0.14);   /* amber tint */
+  --t-green:  #DCEFEA;
+  --t-purple: #DDEEEC;
+
+  /* ---- Neutrals — cool navy-slate ---- */
+  --c-bg:       var(--paper);          /* flat paper page */
   --c-surface:  #FFFFFF;
-  --c-ink:      #22223A;   /* 13.4:1 on white */
-  --c-ink-2:    #5A5A72;   /* 6.4:1 on white  — passes AA for body */
-  --c-ink-3:    #8A8AA0;   /* only for large/decorative text */
-  --c-line:     #E4E5F0;
+  --c-ink:      var(--ink);
+  --c-ink-2:    rgba(22,41,74,0.62);   /* secondary text */
+  --c-ink-3:    rgba(22,41,74,0.45);   /* inactive nav icons = --ink @45% */
+  --c-line:     rgba(22,41,74,0.12);
 
   /* ---- Type ---- */
   --font-display: 'Nunito', system-ui, sans-serif;   /* rounded, gamified, legible */
@@ -56,8 +76,8 @@
   --radius-chip: 14px;
   --radius-pill: 999px;
 
-  --shadow-card:  0 10px 26px rgba(40, 40, 90, 0.10);
-  --shadow-pop:   0 14px 34px rgba(40, 40, 90, 0.16);
+  --shadow-card:  0 10px 26px rgba(8, 48, 58, 0.10);
+  --shadow-pop:   0 14px 34px rgba(8, 48, 58, 0.16);
   --shadow-inset: inset 0 -4px 0 rgba(0,0,0,0.06);   /* chunky button base */
 
   /* ---- Spacing ---- */

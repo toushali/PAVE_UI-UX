@@ -51,7 +51,7 @@
 .tab:active { background: var(--c-primary-soft); }
 
 .tab.is-active {
-  color: var(--c-primary);
+  color: var(--cyan);   /* progress accent — active nav only */
   font-weight: var(--fw-bold);
 }
 .tab.is-active svg { stroke-width: 2.4; }
@@ -259,9 +259,9 @@
     radial-gradient(circle at 50% 32%, #2FA588 0%, var(--c-primary) 54%, var(--c-primary-dark) 100%);
   color: #fff;
   box-shadow:
-    0 14px 32px rgba(20,125,100,0.30),
+    0 14px 32px rgba(14,74,68,0.30),
     inset 0 3px 8px rgba(255,255,255,0.28),
-    inset 0 -12px 26px rgba(9,64,50,0.34);
+    inset 0 -12px 26px rgba(8,44,40,0.34);
 }
 /* soft concentric halo so the button sits in a gentle glow */
 .hero__ring::before {
@@ -269,11 +269,11 @@
   position: absolute;
   inset: -12px;
   border-radius: var(--radius-pill);
-  border: 1.5px solid rgba(20,125,100,0.16);
+  border: 1.5px solid rgba(14,74,68,0.16);
   pointer-events: none;
 }
 .hero__ring-label,
-.hero__ring-sub { text-shadow: 0 1px 2px rgba(9,64,50,0.28); }
+.hero__ring-sub { text-shadow: 0 1px 2px rgba(8,44,40,0.28); }
 .hero__ring:active { transform: scale(0.97); filter: brightness(0.97); }
 .hero__ring-label { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
 .hero__ring-sub { font-size: var(--fs-caption); opacity: 0.92; }
@@ -283,15 +283,15 @@
 @keyframes soft-pulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 14px 32px rgba(20,125,100,0.30),
+    box-shadow: 0 14px 32px rgba(14,74,68,0.30),
                 inset 0 3px 8px rgba(255,255,255,0.28),
-                inset 0 -12px 26px rgba(9,64,50,0.34);
+                inset 0 -12px 26px rgba(8,44,40,0.34);
   }
   50% {
     transform: scale(1.02);
-    box-shadow: 0 18px 44px rgba(20,125,100,0.42),
+    box-shadow: 0 18px 44px rgba(14,74,68,0.42),
                 inset 0 3px 8px rgba(255,255,255,0.28),
-                inset 0 -12px 26px rgba(9,64,50,0.34);
+                inset 0 -12px 26px rgba(8,44,40,0.34);
   }
 }
 .hero__ring.is-undone { animation: soft-pulse 3.2s var(--ease) infinite; }
@@ -302,7 +302,7 @@
   color: var(--c-primary-dark);
   animation: none;
 }
-.hero__ring.is-done::before { border-color: rgba(20,125,100,0.12); }
+.hero__ring.is-done::before { border-color: rgba(14,74,68,0.12); }
 .hero__ring.is-done svg { width: 64px; height: 64px; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -375,13 +375,13 @@
   gap: var(--sp-1);
 }
 .painscale__prompt {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--fs-h2);
   color: var(--c-ink-2);
 }
 .painscale__readout { display: none; align-items: baseline; gap: var(--sp-2); }
 .painscale__num {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--fs-display);
   font-weight: var(--fw-bold);
   line-height: 1;
@@ -1066,8 +1066,16 @@
   height: 180px;
   margin: 0 auto;
   border-radius: var(--radius-pill);
-  background:
-    conic-gradient(var(--c-primary) calc(var(--pct) * 1%), var(--c-primary-soft) 0);
+  background: var(--track);   /* --ink @10% track */
+}
+.aring::before {              /* fill = pine→cyan 135°, clipped to the arc */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--grad-progress);
+  -webkit-mask: conic-gradient(#000 calc(var(--pct) * 1%), transparent 0);
+          mask: conic-gradient(#000 calc(var(--pct) * 1%), transparent 0);
 }
 .aring::after {
   content: "";
@@ -1114,9 +1122,9 @@
   width: 100%;
   max-width: 72px;
   border-radius: var(--radius-btn) var(--radius-btn) 0 0;
-  background: var(--c-primary-soft);
+  background: var(--track);
 }
-.tbar__fill--now { background: var(--c-primary); }
+.tbar__fill--now { background: var(--grad-progress); }
 .tbar__val { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
 .tbar__lbl { font-size: var(--fs-caption); color: var(--c-ink-2); }
 
@@ -1454,10 +1462,8 @@
   border: 1px solid var(--c-line);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
-  /* gentle sky: light at the top, settling to white — the plant's scene */
-  background:
-    radial-gradient(120% 80% at 50% 0%, #DCEFE7 0%, rgba(220,239,231,0) 60%),
-    linear-gradient(180deg, var(--c-primary-soft) 0%, var(--c-surface) 70%);
+  /* light card so the plant reads clearly */
+  background: var(--c-primary-soft);
 }
 .garden__plant { width: 152px; height: 152px; }
 .garden__count { display: flex; align-items: baseline; gap: var(--sp-2); }
@@ -1479,7 +1485,7 @@
   gap: var(--sp-2);
 }
 .gardenpoints__num {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--fs-display);
   font-weight: var(--fw-bold);
   color: var(--c-ink);
@@ -1499,18 +1505,16 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--sp-2);
-  padding: var(--sp-5) var(--sp-3) var(--sp-4);
-  border: 1px solid var(--c-line);
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-3);
+  border: 1px solid var(--c-line);   /* --ink @12% hairline */
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  background: var(--c-surface);
+  box-shadow: none;
+  background: var(--paper);
 }
-.medal__art { width: 80px; height: 80px; }
-.medal__name { font-family: var(--font-serif); font-size: var(--fs-body); font-weight: var(--fw-bold); }
+.medal__art { width: 104px; height: 104px; }   /* larger badge in the grid */
 .medal__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
 .medal.is-locked { background: var(--c-bg); }
-.medal.is-locked .medal__name { color: var(--c-ink-2); }
 
 /* Milestone journey — vertical path, NEXT reward highlighted */
 .gpath { display: flex; flex-direction: column; }
@@ -1598,7 +1602,7 @@
   background: radial-gradient(closest-side, rgba(242,183,5,0.38), rgba(242,183,5,0));
   animation: glow-breathe 2.8s var(--ease) infinite;
 }
-.medalreveal img { position: relative; width: 128px; height: 128px; }
+.medalreveal img { position: relative; width: 144px; height: 144px; }
 .medalreveal { animation: medal-in var(--motion-slow) var(--ease) both; }
 @keyframes medal-in {
   0%   { opacity: 0; transform: scale(0.72) translateY(10px); }
@@ -1622,11 +1626,11 @@
   font-weight: var(--fw-bold);
 }
 .tickpoints__plus { color: var(--c-accent-dark); font-size: var(--fs-body-lg); }
-.tickpoints__num { font-family: var(--font-serif); font-size: var(--fs-h1); font-variant-numeric: tabular-nums; }
+.tickpoints__num { font-family: var(--font-sans); font-size: var(--fs-h1); font-variant-numeric: tabular-nums; }
 
 /* milestone name ribbon */
 .milestone-name {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--fs-h2);
   font-weight: var(--fw-bold);
   color: var(--c-accent-dark);
@@ -1708,18 +1712,33 @@
   width: 118px;
   height: 20px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(12,74,58,0.18), rgba(12,74,58,0));
+  background: radial-gradient(ellipse at center, rgba(14,74,68,0.18), rgba(14,74,68,0));
 }
 /* thin conic progress ring — how close to the next growth stage */
 .garden__ring {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: conic-gradient(
-      var(--c-primary) calc(var(--stage-prog, 0) * 1%),
-      rgba(20,125,100,0.14) 0);
+  /* progress fill = pine→cyan 135° (logo angle), clipped to the filled arc */
+  background: var(--grad-progress);
+  -webkit-mask:
+    conic-gradient(#000 calc(var(--stage-prog, 0) * 1%), transparent 0),
+    radial-gradient(closest-side, transparent 79%, #000 80%);
+  -webkit-mask-composite: source-in;
+  mask:
+    conic-gradient(#000 calc(var(--stage-prog, 0) * 1%), transparent 0),
+    radial-gradient(closest-side, transparent 79%, #000 80%);
+  mask-composite: intersect;
+}
+.garden__ring::before {   /* track — --ink @10% on the light card */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--track);
   -webkit-mask: radial-gradient(closest-side, transparent 79%, #000 80%);
           mask: radial-gradient(closest-side, transparent 79%, #000 80%);
+  z-index: -1;
 }
 .garden__stage .garden__plant {
   position: relative;
@@ -1733,7 +1752,7 @@
   margin-top: var(--sp-1);
   font-size: var(--fs-caption);
   font-weight: var(--fw-bold);
-  color: var(--c-accent-dark);
+  color: var(--c-accent-dark);   /* clay — warm note on the light card */
 }
 
 /* ---- Streak card (Today): soft glow behind the plant + sway ---- */
@@ -1751,24 +1770,9 @@
   z-index: -1;
 }
 
-/* ---- Earned medallions feel prized: a soft gold aura ---- */
-.medal { position: relative; overflow: hidden; }
-.medal:not(.is-locked) .medal__art {
-  position: relative;
-  filter: drop-shadow(0 3px 6px rgba(202,140,26,0.28));
-}
-.medal:not(.is-locked)::before {
-  content: "";
-  position: absolute;
-  top: var(--sp-5);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(242,183,5,0.22), rgba(242,183,5,0));
-  pointer-events: none;
-}
+/* ---- Medallions — flat: tier SVG on a plain paper card. No gloss,
+   aura, sparkle, metallic gradient, or drop shadow. ---- */
+.medal { position: relative; }
 .medal:active { transform: scale(0.99); }
 
 /* ---- Cross-tab garden chip (Progress top) — carries the metaphor ---- */
@@ -1778,9 +1782,8 @@
   gap: var(--sp-4);
   padding: var(--sp-4) var(--sp-5);
   border-radius: var(--radius-card);
-  background:
-    radial-gradient(120% 100% at 0% 0%, #DCEFE7 0%, rgba(220,239,231,0) 62%),
-    var(--c-primary-soft);
+  background: var(--paper);
+  border: 1px solid var(--c-line);
 }
 .gardenchip__plant {
   flex: 0 0 auto;
@@ -1813,7 +1816,7 @@
   position: absolute;
   width: 132px; height: 132px;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(20,125,100,0.10), rgba(20,125,100,0));
+  background: radial-gradient(closest-side, rgba(14,74,68,0.10), rgba(14,74,68,0));
 }
 .plantscene::after {
   content: "";
@@ -1821,7 +1824,7 @@
   bottom: 10px;
   width: 84px; height: 15px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(12,74,58,0.16), rgba(12,74,58,0));
+  background: radial-gradient(ellipse at center, rgba(14,74,68,0.16), rgba(14,74,68,0));
 }
 .plantscene > img {
   position: relative;
@@ -1854,11 +1857,8 @@
   border: 1px solid var(--c-line);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
-  /* same sky scene as the Rewards garden, so Today and Rewards feel like
-     one continuous world */
-  background:
-    radial-gradient(120% 78% at 50% 0%, #DCEFE7 0%, rgba(220,239,231,0) 58%),
-    linear-gradient(180deg, var(--c-primary-soft) 0%, var(--c-surface) 72%);
+  /* light card so the plant reads clearly — Today and Rewards share it */
+  background: var(--c-primary-soft);
 }
 .gardenhome .garden__stage { margin-bottom: 0; }
 .gardenhome__streak { display: flex; align-items: baseline; gap: var(--sp-2); }
@@ -1881,8 +1881,7 @@
 }
 .gardenhome__sub { font-size: var(--fs-caption); color: var(--c-ink-2); }
 
-/* checked-in state: the action rests (soft outlined check), the garden
-   stays warm and present. No red, no scolding — just "done for today". */
+/* checked-in state: the action rests as a soft outlined check. */
 .gardenhome.is-done .gardenhome__cta {
   background: var(--c-surface);
   color: var(--c-primary-dark);
@@ -1923,7 +1922,7 @@
   position: absolute;
   inset: -14px;
   border-radius: 36px;
-  background: radial-gradient(closest-side, rgba(20,125,100,0.22), rgba(20,125,100,0));
+  background: radial-gradient(closest-side, rgba(14,74,68,0.22), rgba(14,74,68,0));
   z-index: -1;
 }
 
@@ -1973,48 +1972,19 @@
 }
 /* translucent frosted garden bubble behind the plant — alive with a
    slow light sweep and drifting sunlit motes */
+/* flat soft disc — no glass gloss, sheen, or glint */
 .brandplant__bubble {
   position: absolute;
   width: 156px;
   height: 156px;
   border-radius: 50%;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 36% 30%, rgba(255,255,255,0.65), rgba(255,255,255,0) 46%),
-    radial-gradient(circle at 50% 62%, rgba(20,125,100,0.16), rgba(220,239,231,0.34) 72%);
-  border: 1px solid rgba(255,255,255,0.55);
-  box-shadow:
-    inset 0 3px 14px rgba(255,255,255,0.6),
-    inset 0 -14px 28px rgba(20,125,100,0.10),
-    0 12px 30px rgba(20,125,100,0.16);
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
+  background: rgba(79,156,135,0.14);   /* flat eucalyptus wash */
   animation: bubble-breathe 5s ease-in-out infinite;
 }
-/* slow rotating light sweep across the glass */
-.brandplant__bubble::before {
-  content: "";
-  position: absolute;
-  inset: -35%;
-  background: conic-gradient(from 0deg,
-    rgba(255,255,255,0) 0deg,
-    rgba(255,255,255,0.38) 55deg,
-    rgba(255,255,255,0) 130deg,
-    rgba(255,255,255,0) 360deg);
-  animation: bubble-sheen 8s linear infinite;
-}
-/* a soft moving glint highlight */
-.brandplant__bubble::after {
-  content: "";
-  position: absolute;
-  top: 16%;
-  left: 22%;
-  width: 34%;
-  height: 26%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.85), rgba(255,255,255,0) 70%);
-  animation: glint-drift 5s ease-in-out infinite;
-}
+.brandplant__bubble::before,
+.brandplant__bubble::after { content: none; }
+.brandplant .mote { display: none; }   /* no sparkle highlights */
 @keyframes bubble-breathe {
   0%, 100% { transform: scale(1);    }
   50%      { transform: scale(1.045); }
@@ -2163,78 +2133,19 @@
    ============================================================ */
 
 /* tier label under the name */
+/* tier label under the name — 11px letterspaced caps, --ink @55%.
+   Not clay, not gold, not a coloured pill. Same for every tier. */
 .medal__tier {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: var(--fw-bold);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: rgba(22,41,74,0.55);
 }
-.medal__tier--bronze   { color: #A76A3A; }
-.medal__tier--silver   { color: #7E8893; }
-.medal__tier--gold     { color: #C08F1D; }
-.medal__tier--platinum { color: #7F91A4; }
-.medal.is-locked .medal__tier { color: var(--c-ink-2); opacity: 0.65; }
+.medal.is-locked .medal__tier { color: rgba(22,41,74,0.4); }
 
-/* earned: gentle float */
-.medal:not(.is-locked) .medal__art { animation: medal-float 4.5s ease-in-out infinite; }
-@keyframes medal-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-
-/* earned: foil shine sweeping across the tile (staggered per medal) */
-.medal:not(.is-locked)::after {
-  content: "";
-  position: absolute;
-  top: 0; left: -70%;
-  width: 55%; height: 100%;
-  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
-  transform: skewX(-16deg);
-  pointer-events: none;
-  animation: medal-shine 6s ease-in-out infinite;
-}
-@keyframes medal-shine {
-  0%, 55%  { left: -70%; }
-  80%,100% { left: 170%; }
-}
-.medalgrid .medal:nth-child(2)::after { animation-delay: 1.4s; }
-.medalgrid .medal:nth-child(3)::after { animation-delay: 2.8s; }
-
-/* next-to-earn: primary outline + conic progress ring around the art */
-.medal.is-next { border-color: var(--c-primary); }
-.medal.is-next .medal__meta { color: var(--c-primary-dark); font-weight: var(--fw-bold); }
-.medal.is-next .medal__art { position: relative; z-index: 1; }
-.medal.is-next::after {
-  content: "";
-  position: absolute;
-  top: 12px; left: 50%;
-  transform: translateX(-50%);
-  width: 104px; height: 104px;
-  border-radius: 50%;
-  background: conic-gradient(var(--c-primary) calc(var(--medal-prog,0) * 1%), rgba(20,125,100,0.15) 0);
-  -webkit-mask: radial-gradient(closest-side, transparent 78%, #000 79%);
-          mask: radial-gradient(closest-side, transparent 78%, #000 79%);
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* one-time foil sweep on the celebration medal reveal */
-.medalreveal::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-pill);
-  background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.7) 50%, transparent 65%);
-  transform: translateX(-120%) skewX(-14deg);
-  animation: reveal-shine 1.4s var(--ease) 0.5s 2;
-  pointer-events: none;
-}
-@keyframes reveal-shine {
-  to { transform: translateX(120%) skewX(-14deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .medal:not(.is-locked) .medal__art { animation: none; }
-  .medal:not(.is-locked)::after { animation: none; left: -70%; opacity: 0; }
-  .medalreveal::after { animation: none; opacity: 0; }
-}
+/* next-to-earn stays a plain unearned card — no ring, no coloured outline */
+.medal.is-next .medal__meta { color: var(--c-ink-2); font-weight: var(--fw-bold); }
 
 /* collection-completion header — visible progress drives "collect them all" */
 .medalhead { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
@@ -2242,7 +2153,7 @@
 .collectbar {
   height: 8px;
   border-radius: var(--radius-pill);
-  background: var(--c-primary-soft);
+  background: var(--track);
   overflow: hidden;
   margin: var(--sp-3) 0 var(--sp-4);
 }
@@ -2250,7 +2161,7 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--c-primary), var(--c-primary-dark));
+  background: var(--grad-progress);
   transition: width var(--motion-slow) var(--ease);
 }
 
@@ -2293,3 +2204,16 @@
 .optcard__check svg { width: 14px; height: 14px; opacity: 0; }
 .optcard.is-on .optcard__check { background: var(--c-primary); border-color: var(--c-primary); }
 .optcard.is-on .optcard__check svg { opacity: 1; }
+
+/* ============================================================
+   Section labels — 11px letterspaced caps, --ink @60%.
+   Echoes the logo's tagline treatment ("HEALTHCARE. SIMPLIFIED.").
+   ============================================================ */
+.sectionlabel {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(22, 41, 74, 0.60);
+}

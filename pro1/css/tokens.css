@@ -5,25 +5,22 @@
    ============================================================ */
 :root {
   /* ============================================================
-     THEME — the ONLY difference between the two provider styles.
-     Pro1 (default, below)  = white-green, matches Patient v1.
-     Pro2 (html[data-ptheme="pro2"], end of file) = clinical blue.
-     Toggling swaps just these colour variables — one codebase,
-     every screen/layout/component identical.
+     Pro1 — Kivie teal/green provider style. Pro2 is now a fully
+     separate design (see /pro2), not a colour theme of this file.
      ============================================================ */
 
-  /* ---- Brand: calm green (Pro1) ---- */
-  --c-primary:      #147D64;   /* actions, active nav, links */
-  --c-primary-dark: #0C5C49;   /* hover / pressed */
-  --c-primary-soft: #E4F2ED;   /* active-nav fill, soft chips */
+  /* ---- Brand: Kivie teal / cyan (from the logo) ---- */
+  --c-primary:      #17838C;   /* actions, active nav, links */
+  --c-primary-dark: #0E5F66;   /* hover / pressed */
+  --c-primary-soft: #E1F4F5;   /* active-nav fill, soft chips */
 
-  /* ---- Neutrals: warm slate-green ---- */
-  --c-ink:     #1C2622;   /* headings, primary text */
-  --c-ink-2:   #51605A;   /* secondary text */
-  --c-ink-3:   #87938C;   /* meta, muted, timestamps label */
-  --c-line:    #DEE7E1;   /* card & table hairlines */
-  --c-line-2:  #EAF0EB;   /* subtle inner dividers */
-  --c-bg:      #F1F6F1;   /* app background */
+  /* ---- Neutrals: cool teal-slate ---- */
+  --c-ink:     #16292B;   /* headings, primary text */
+  --c-ink-2:   #4C6163;   /* secondary text */
+  --c-ink-3:   #82979A;   /* meta, muted, timestamps label */
+  --c-line:    #DBE7E7;   /* card & table hairlines */
+  --c-line-2:  #EAF1F1;   /* subtle inner dividers */
+  --c-bg:      #F1F6F6;   /* app background */
   --c-surface: #FFFFFF;   /* cards, panels, sidebar */
 
   /* ---- 5-tier patient status (FSD §15.3) — amber, never red ----
@@ -77,36 +74,4 @@
   --motion-fast: 140ms;
   --motion-base: 220ms;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-/* ============================================================
-   Pro2 — clinical blue. Same portal, colour scheme only.
-   The head bootstrap sets data-ptheme; the 4-way toggle switches
-   between ?ptheme=pro1 (green) and ?ptheme=pro2 (blue).
-   ============================================================ */
-html[data-ptheme="pro2"] {
-  /* Brand: clinical blue */
-  --c-primary:      #1E6FB8;
-  --c-primary-dark: #175A96;
-  --c-primary-soft: #E9F1FA;
-
-  /* Neutrals: cool slate */
-  --c-ink:     #1A2230;
-  --c-ink-2:   #566173;
-  --c-ink-3:   #8993A2;
-  --c-line:    #E4E8EE;
-  --c-line-2:  #EDEFF3;
-  --c-bg:      #F5F7FA;
-  --c-surface: #FFFFFF;
-
-  /* Status — on-track returns to brand blue */
-  --st-enrolled:  #8993A2;  --st-enrolled-bg:  #F0F2F5;
-  --st-ontrack:   #465063;  --st-ontrack-bg:   #FFFFFF;   /* FSD §15.3: On Track = white badge */
-  --st-attention: #B4770F;  --st-attention-bg: #FBF1DC;
-  --st-ready:     #1C8F62;  --st-ready-bg:     #E3F4EC;
-  --st-approved:  #6B7686;  --st-approved-bg:  #EEF0F3;
-
-  --shadow-card: 0 1px 2px rgba(20,40,70,0.05), 0 1px 3px rgba(20,40,70,0.04);
-  --shadow-pop:  0 8px 28px rgba(20,40,70,0.14);
-  --shadow-bar:  0 2px 8px rgba(20,40,70,0.06);
 }

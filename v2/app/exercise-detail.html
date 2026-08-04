@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PAVE — Exercise</title>
+<title>Kivie — Exercise</title>
 <link rel="stylesheet" href="../css/tokens.css">
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/components.css">
@@ -92,7 +92,7 @@
   var slug = (location.search.match(/[?&]ex=([a-z-]+)/) || [])[1] || "cat-cow";
   var ex = EX[slug] || EX["cat-cow"];
 
-  document.title = "PAVE — " + ex.name;
+  document.title = "Kivie — " + ex.name;
   document.querySelector("[data-ex-name]").textContent = ex.name;
   document.querySelector("[data-ex-mod]").textContent = ex.mod;
   document.querySelector("[data-ex-helps]").textContent = ex.helps;

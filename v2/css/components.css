@@ -13,8 +13,8 @@
 .btn:active { transform: translateY(2px); }
 .btn--primary { background: var(--c-primary); color: #fff; box-shadow: 0 6px 0 var(--c-primary-dark), var(--shadow-card); }
 .btn--primary:active { box-shadow: 0 2px 0 var(--c-primary-dark); }
-.btn--coral   { background: var(--c-coral); color: #fff; box-shadow: 0 6px 0 #E24B3C, var(--shadow-card); }
-.btn--coral:active { box-shadow: 0 2px 0 #E24B3C; }
+.btn--coral   { background: var(--c-coral); color: #fff; box-shadow: 0 6px 0 #A56A42, var(--shadow-card); }
+.btn--coral:active { box-shadow: 0 2px 0 #A56A42; }
 .btn--soft    { background: var(--c-primary-soft); color: var(--c-primary-dark); }
 .btn--ghost   { background: transparent; color: var(--c-ink-2); box-shadow: inset 0 0 0 2px var(--c-line); }
 .btn--block   { display: flex; width: 100%; }
@@ -30,8 +30,13 @@
 .card__title  { font-size: var(--fs-h2); font-weight: var(--fw-bold); margin-bottom: var(--sp-3); }
 
 /* ---------- Topbar / greeting ---------- */
-.topbar { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); min-height: 56px; padding: var(--sp-5) var(--sp-4) var(--sp-2); }
 .topbar__title { font-size: var(--fs-h1); font-weight: var(--fw-black); }
+/* compact topbar for auth flows — matches v1: back icon + inline title */
+.topbar--compact { justify-content: flex-start; }
+.topbar--compact .topbar__title { flex: 1; min-width: 0; font-size: var(--fs-h2); font-weight: var(--fw-bold); }
+/* eyebrow section label — 11px letterspaced caps, ink @60% (shared with v1) */
+.sectionlabel { font-family: var(--font-body); font-size: 11px; font-weight: var(--fw-bold); letter-spacing: .14em; text-transform: uppercase; color: rgba(22,41,74,.60); }
 .greet { font-size: var(--fs-h1); font-weight: var(--fw-black); }
 
 /* ---------- Streak chip (flame + count) ---------- */
@@ -51,60 +56,61 @@
 .hero__row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
 .hero__level { font-family: var(--font-display); font-weight: var(--fw-black); font-size: var(--fs-h2); }
 .hero__xp { font-weight: var(--fw-bold); font-size: var(--fs-body); }
-.xpbar { height: 14px; background: rgba(255,255,255,.28); border-radius: var(--radius-pill); overflow: hidden; margin-top: var(--sp-3); }
-.xpbar__fill { display: block; height: 100%; background: var(--c-yellow); border-radius: inherit; transition: width var(--motion-slow) var(--ease); }
+.xpbar { height: 14px; background: var(--track-on-teal); border-radius: var(--radius-pill); overflow: hidden; margin-top: var(--sp-3); }
+.xpbar__fill { display: block; height: 100%; background: var(--cyan); border-radius: inherit; transition: width var(--motion-slow) var(--ease); }
 .hero__note { margin-top: var(--sp-3); font-weight: var(--fw-bold); font-size: var(--fs-body); }
 
 /* ---------- Streak card (flame + count, simple) ---------- */
-.streakcard { display: flex; align-items: center; gap: var(--sp-4); background: linear-gradient(135deg, #FFF3E3, #FFE7D2); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: var(--sp-4) var(--sp-5); }
+.streakcard { display: flex; align-items: center; gap: var(--sp-4); background: linear-gradient(0deg, rgba(192,128,86,.08), rgba(192,128,86,.08)), var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: var(--sp-4) var(--sp-5); }
 .streakcard__flame { width: 64px; height: 64px; flex: 0 0 auto; }
 .streakcard__body { flex: 1; }
 .streakcard__num { font-family: var(--font-display); font-weight: var(--fw-black); font-size: var(--fs-display); color: var(--c-orange); line-height: 1; }
 .streakcard__label { font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--fs-body-lg); color: var(--c-ink); }
 .streakcard__sub { color: var(--c-ink-2); font-size: var(--fs-caption); margin-top: 2px; }
-.streakcard__bar { height: 10px; border-radius: var(--radius-pill); background: #FFD9BC; overflow: hidden; margin-top: var(--sp-3); }
-.streakcard__bar > i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--c-orange), var(--c-yellow)); transition: width var(--motion-slow) var(--ease); }
+.streakcard__bar { height: 10px; border-radius: var(--radius-pill); background: rgba(192,128,86,.18); overflow: hidden; margin-top: var(--sp-3); }
+.streakcard__bar > i { display: block; height: 100%; border-radius: inherit; background: var(--ember); transition: width var(--motion-slow) var(--ease); }
 
-/* ---------- Quick-action tiles ---------- */
+/* ---------- Quick-action tiles ----------
+   Crisp white cards (border + shadow, like v1) so they read clearly on the
+   paper background instead of blending; category colour sits in the icon chip. */
 .qgrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
 .qtile {
   display: flex; flex-direction: column; justify-content: space-between; gap: var(--sp-3);
   min-height: 116px; padding: var(--sp-4); border-radius: var(--radius-card);
+  background: var(--c-surface); border: 1px solid var(--c-line);
+  color: var(--c-ink);
   font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--fs-body-lg);
   text-decoration: none; box-shadow: var(--shadow-card); transition: transform var(--motion-fast) var(--ease);
 }
 .qtile:active { transform: translateY(2px); }
-.qtile__icon { font-size: 30px; }
-.qtile--blue   { background: var(--t-blue);   color: var(--c-primary-dark); }
-.qtile--green  { background: var(--t-green);  color: #0C7A41; }
-.qtile--coral  { background: var(--t-coral);  color: #B23A2C; }
-.qtile--purple { background: var(--t-purple); color: #6E2FB0; }
+.qtile__icon {
+  width: 46px; height: 46px; border-radius: 13px;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 26px;
+}
+.qtile--blue   .qtile__icon { background: var(--t-blue); }
+.qtile--green  .qtile__icon { background: var(--t-green); }
+.qtile--coral  .qtile__icon { background: var(--t-coral); }
+.qtile--purple .qtile__icon { background: var(--t-purple); }
 
 /* ---------- Challenge card ---------- */
-.challenge { position: relative; overflow: hidden; border-radius: var(--radius-card); padding: var(--sp-5); color: #fff; box-shadow: var(--shadow-card); background: linear-gradient(135deg, var(--c-coral), #FF9166); }
+.challenge { position: relative; overflow: hidden; border-radius: var(--radius-card); padding: var(--sp-5); color: #fff; box-shadow: var(--shadow-card); background: var(--grad-teal); }
 .challenge__tag { display: inline-block; background: rgba(255,255,255,.22); border-radius: var(--radius-pill); padding: 4px 12px; font-weight: var(--fw-bold); font-size: var(--fs-micro); }
 .challenge__title { font-family: var(--font-display); font-weight: var(--fw-black); font-size: var(--fs-h1); margin: var(--sp-2) 0; }
 .challenge__xp { font-weight: var(--fw-bold); }
 
 /* ---------- Medal / badge grid ---------- */
 .medalgrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
-.medal { position: relative; overflow: hidden; background: var(--c-surface); border: 2px solid var(--c-line); border-radius: var(--radius-card); padding: var(--sp-5) var(--sp-3) var(--sp-4); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-1); }
-.medal__art { width: 80px; height: 80px; }
-.medal:not(.is-locked) .medal__art { animation: medal-float 4.5s ease-in-out infinite; }
-@keyframes medal-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-.medal:not(.is-locked)::after { content:""; position:absolute; top:0; left:-70%; width:55%; height:100%; background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.55) 50%, transparent 80%); transform: skewX(-16deg); pointer-events:none; animation: medal-shine 6s ease-in-out infinite; }
-@keyframes medal-shine { 0%,55% { left:-70%; } 80%,100% { left:170%; } }
-.medal__name { font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--fs-body); }
-.medal__tier { font-size: var(--fs-micro); font-weight: var(--fw-bold); letter-spacing: .1em; text-transform: uppercase; }
-.medal__tier--bronze{color:#B06A34}.medal__tier--silver{color:#7E8893}.medal__tier--gold{color:#C7921F}.medal__tier--platinum{color:#7F91A4}
+/* v2's own star-medallion badges (teal disc) on a plain paper card. No float/shine. */
+.medal { position: relative; background: var(--paper); border: 1px solid var(--c-line); border-radius: var(--radius-card); padding: var(--sp-4) var(--sp-3); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); }
+.medal__art { width: 96px; height: 96px; }   /* 96px in the grid (120px in detail) */
+.medal__tier { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: .12em; text-transform: uppercase; color: rgba(22,41,74,.55); }
 .medal__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
-.medal.is-locked { opacity: .96; }
-.medal.is-next { border-color: var(--c-coral); }
-.medal.is-next .medal__meta { color: var(--c-coral); font-weight: var(--fw-bold); }
+.medal.is-locked .medal__tier { color: rgba(22,41,74,.4); }
+.medal.is-next .medal__meta { color: var(--c-ink-2); font-weight: var(--fw-bold); }
 
 /* collection completion */
-.collectbar { height: 10px; border-radius: var(--radius-pill); background: var(--c-primary-soft); overflow: hidden; margin: var(--sp-3) 0 var(--sp-4); }
-.collectbar__fill { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--c-primary), var(--c-purple)); transition: width var(--motion-slow) var(--ease); }
+.collectbar { height: 10px; border-radius: var(--radius-pill); background: var(--track); overflow: hidden; margin: var(--sp-3) 0 var(--sp-4); }
+.collectbar__fill { display: block; height: 100%; border-radius: inherit; background: var(--cyan); transition: width var(--motion-slow) var(--ease); }
 
 /* ---------- Pain scale (big, readable) ---------- */
 .painscale { display: flex; flex-direction: column; gap: var(--sp-4); }
@@ -139,10 +145,10 @@
 .switch[aria-checked="true"]::after { left: 32px; }
 
 /* ---------- Bottom tab bar ---------- */
-.tabbar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 460px; display: flex; background: var(--c-surface); border-top: 1px solid var(--c-line); box-shadow: 0 -6px 20px rgba(40,40,90,.06); padding: var(--sp-2) var(--sp-2) calc(var(--sp-2) + env(safe-area-inset-bottom, 0)); }
+.tabbar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 460px; display: flex; background: var(--c-surface); border-top: 1px solid var(--c-line); box-shadow: 0 -6px 20px rgba(8,48,58,.06); padding: var(--sp-2) var(--sp-2) calc(var(--sp-2) + env(safe-area-inset-bottom, 0)); }
 .tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; min-height: var(--tap-min); justify-content: center; text-decoration: none; color: var(--c-ink-3); font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--fs-micro); }
 .tab svg { width: 26px; height: 26px; }
-.tab[aria-current="page"] { color: var(--c-primary); }
+.tab[aria-current="page"] { color: var(--cyan); }
 
 /* ---------- Chips / pills ---------- */
 .chip { display: inline-flex; align-items: center; gap: var(--sp-2); background: var(--c-primary-soft); color: var(--c-primary-dark); border-radius: var(--radius-pill); padding: var(--sp-2) var(--sp-4); font-family: var(--font-display); font-weight: var(--fw-bold); font-size: var(--fs-caption); }
@@ -547,10 +553,9 @@
   position: absolute;
   inset: -18px;
   border-radius: var(--radius-pill);
-  background: radial-gradient(closest-side, rgba(242,183,5,0.38), rgba(242,183,5,0));
-  animation: glow-breathe 2.8s var(--ease) infinite;
+  background: none;   /* flat: no gold glow behind the medallion */
 }
-.medalreveal img { position: relative; width: 128px; height: 128px; }
+.medalreveal img { position: relative; width: 120px; height: 120px; }   /* 120px detail */
 .medalreveal { animation: medal-in var(--motion-slow) var(--ease) both; }
 /* points count-up chip (celebration) */
 .tickpoints {
@@ -563,14 +568,14 @@
   color: var(--c-primary-dark);
   font-weight: var(--fw-bold);
 }
-.tickpoints__plus { color: #B23A2C; font-size: var(--fs-body-lg); }
+.tickpoints__plus { color: #8A5A3A; font-size: var(--fs-body-lg); }
 .tickpoints__num { font-family: var(--font-display); font-size: var(--fs-h1); font-variant-numeric: tabular-nums; }
 /* milestone name ribbon */
 .milestone-name {
   font-family: var(--font-display);
   font-size: var(--fs-h2);
   font-weight: var(--fw-bold);
-  color: #B23A2C;
+  color: #8A5A3A;
 }
 /* soft bloom of petals drifting UP (terracotta + gold, never neon) */
 .bloom { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 6; }
@@ -619,7 +624,7 @@
   transform-origin: 50% 90%;
   animation: plant-breathe 5s ease-in-out infinite;
 }
-/* ---- Calm daily confirmation: streak flame in a warm glow ---- */
+/* ---- Calm daily confirmation: streak flame in a soft cyan glow ---- */
 .flamescene {
   position: relative;
   display: grid;
@@ -631,38 +636,19 @@
 .flamescene::before {
   content: "";
   position: absolute;
-  width: 132px; height: 132px;
+  width: 128px; height: 128px;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(251,110,46,0.20), rgba(251,110,46,0));
-  animation: flame-glow 2.4s ease-in-out infinite;
-}
-.flamescene::after {
-  content: "";
-  position: absolute;
-  bottom: 12px;
-  width: 78px; height: 14px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(226,65,42,0.18), rgba(226,65,42,0));
-}
-.flamescene .flame {
-  position: relative;
-  z-index: 1;
-  transform-origin: 50% 92%;
-  filter: drop-shadow(0 4px 10px rgba(226,65,42,0.28));
-  animation: flame-flicker 2.4s ease-in-out infinite;
-}
-@keyframes flame-flicker {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  25%      { transform: scale(1.04, 0.97) rotate(-1.5deg); }
-  50%      { transform: scale(0.97, 1.03) rotate(1deg); }
-  75%      { transform: scale(1.03, 0.99) rotate(-0.5deg); }
+  background: radial-gradient(closest-side, rgba(33,182,196,0.22), rgba(33,182,196,0));
+  animation: flame-glow 2.8s ease-in-out infinite;
 }
 @keyframes flame-glow {
   0%, 100% { opacity: 0.85; transform: scale(1); }
   50%      { opacity: 1; transform: scale(1.06); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .flamescene .flame, .flamescene::before { animation: none; }
+@media (prefers-reduced-motion: reduce) { .flamescene::before { animation: none; } }
+.flamescene .flame {
+  position: relative;
+  z-index: 1;
 }
 /* ============================================================
    Reassurance chip (login "no password", etc.) — soft, quiet
@@ -861,17 +847,8 @@
   background: var(--c-primary-soft);
   color: var(--c-primary-dark);
 }
-/* one-time foil sweep on the celebration medal reveal */
-.medalreveal::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-pill);
-  background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.7) 50%, transparent 65%);
-  transform: translateX(-120%) skewX(-14deg);
-  animation: reveal-shine 1.4s var(--ease) 0.5s 2;
-  pointer-events: none;
-}
+/* flat medallion reveal — no foil sweep */
+.medalreveal::after { content: none; }
 
 /* --- keyframes used above --- */
 @keyframes pain-pulse {
@@ -1067,7 +1044,7 @@
 .gstep__meta { font-size: var(--fs-caption); color: var(--c-ink-2); }
 .gstep__soon {
   display: inline-block; margin-top: var(--sp-2); padding: 6px var(--sp-3); border-radius: var(--radius-pill);
-  background: var(--t-coral); color: #B23A2C; font-family: var(--font-display); font-weight: 800; font-size: var(--fs-caption);
+  background: var(--t-coral); color: #8A5A3A; font-family: var(--font-display); font-weight: 800; font-size: var(--fs-caption);
 }
 
 /* ============================================================

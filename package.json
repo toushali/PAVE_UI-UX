@@ -1,0 +1,10 @@
+{
+  "name": "pave-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PAVE — static, clickable UI/UX prototype. Patient (v1 · v2), Provider (Pro1 · Pro2), and Platform Admin. No backend, no framework, no build step — pure HTML/CSS/vanilla JS.",
+  "scripts": {
+    "dev": "npx --yes serve@latest -l 5500 .",
+    "start": "npx --yes serve@latest -l 5500 ."
+  }
+}

@@ -5,43 +5,59 @@
    ============================================================ */
 
 :root {
-  /* ---- Color: brand / primary (calm recovery green-teal) ---- */
-  --c-primary:        #147D64;  /* buttons, active states, plant */
-  --c-primary-dark:   #0C5C49;  /* pressed */
-  --c-primary-soft:   #E4F2ED;  /* soft fills, done states */
+  /* ============================================================
+     Kivie brand ramp — matches the logo (cyan leaf · navy · teal).
+     These six are the source of truth; legacy --c-* names below
+     are remapped onto them so every existing usage inherits it.
+     ============================================================ */
+  --ink:        #16294A;   /* all body / heading text */
+  --pine:       #0E4A44;   /* card + hero surfaces, primary actions; gradient end */
+  --teal:       #17838C;   /* teal surface (v2 hero/level) — shared ramp */
+  --eucalyptus: #4F9C87;   /* secondary fills, dividers, inactive states */
+  --cyan:       #21B6C4;   /* PROGRESS ONLY — ring fills, level/XP bars, active tab */
+  --clay:       #C08056;   /* warm accent / ember start */
+  --amber:      #D9A441;   /* ember end — shared ramp */
+  --paper:      #F4F7F3;   /* page background */
 
-  /* ---- Accents ---- */
-  --c-accent-amber:   #C77700;  /* gentle "attention", NOT red */
-  --c-success:        #147D64;
-  --c-celebrate:      #F2B705;  /* badge gold, confetti */
+  /* progress: --ink @10% track, --pine→--cyan 135° fill (logo angle).
+     Reused by the plant ring AND the level/XP bar. */
+  --track:         rgba(22, 41, 74, 0.10);
+  --grad-progress: linear-gradient(135deg, var(--pine), var(--cyan));
+  --grad-teal:     linear-gradient(135deg, var(--teal), var(--pine));
+  --ember:         linear-gradient(135deg, var(--clay), var(--amber));
 
-  /* Secondary accent — soft terracotta/peach. Use SPARINGLY as a warm
-     counterpoint to the green (a modality dot, a small motif). */
-  --c-accent:         #D98E73;
-  --c-accent-dark:    #B96B50;  /* accessible text/border on light */
-  --c-accent-soft:    #F7E5DC;
+  /* ---- Legacy names remapped onto the ramp ---- */
+  --c-primary:        var(--pine);   /* buttons, primary actions */
+  --c-primary-dark:   #0A3A35;       /* pressed */
+  --c-primary-soft:   #E5EEEA;       /* soft eucalyptus tint (done states) */
 
-  /* Selected-state soft fills for the Better/Same/Worse pills */
-  --c-amber-soft:     #FBEBD4;  /* Worse (amber, never red) */
-  --c-neutral-soft:   #E8ECE7;  /* Same (neutral) */
+  --c-accent-amber:   var(--clay);   /* gentle warm "attention", never red */
+  --c-success:        var(--pine);
+  --c-celebrate:      var(--clay);
 
-  /* Modality dot colors (color-coded, always paired with a text label) */
-  --c-mod-pilates:    #147D64;  /* green */
-  --c-mod-mobility:   #3E8FA3;  /* teal */
-  --c-mod-strength:   #C36A4C;  /* terracotta */
-  --c-mod-breathing:  #B07E22;  /* warm gold */
+  --c-accent:         var(--clay);
+  --c-accent-dark:    #A66A45;
+  --c-accent-soft:    #EFE1D6;
 
-  /* ---- Neutrals (warm, not cold gray) ---- */
-  --c-ink:            #1F2421;  /* primary text, ~15:1 on bg */
-  --c-ink-2:          #4A544E;  /* secondary text */
-  --c-line:           #DDE4DE;  /* hairlines / borders */
-  --c-bg:             #EDF3EE;  /* cool green-tinted off-white app bg */
-  --c-surface:        #FFFFFF;  /* cards — pure white to lift off the bg */
+  --c-amber-soft:     #EFE1D6;       /* Worse (warm clay tint) */
+  --c-neutral-soft:   #E7EEEB;       /* Same (neutral) */
 
-  /* ---- Pain scale ramp (calm -> alert) ---- */
-  --c-pain-0:         #4FA88B;
-  --c-pain-5:         #E0A93B;
-  --c-pain-10:        #C05A4A;
+  --c-mod-pilates:    var(--pine);
+  --c-mod-mobility:   var(--eucalyptus);
+  --c-mod-strength:   var(--clay);
+  --c-mod-breathing:  #A66A45;
+
+  /* ---- Neutrals (cool navy-slate) ---- */
+  --c-ink:            var(--ink);          /* primary text */
+  --c-ink-2:          rgba(22,41,74,0.64); /* secondary text */
+  --c-line:           rgba(22,41,74,0.12); /* hairlines / borders */
+  --c-bg:             var(--paper);        /* app background */
+  --c-surface:        #FFFFFF;             /* cards lift off paper */
+
+  /* ---- Pain scale ramp (calm -> warm alert, no red) ---- */
+  --c-pain-0:         var(--eucalyptus);
+  --c-pain-5:         var(--clay);
+  --c-pain-10:        #A0503B;
 
   /* ---- Typography ---- */
   --font-sans:  "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -73,9 +89,9 @@
   --radius-pill: 999px;
 
   /* ---- Shadow ---- */
-  --shadow-card: 0 4px 16px rgba(20,60,45,0.09), 0 1px 3px rgba(20,60,45,0.05);
-  --shadow-lift: 0 10px 30px rgba(20,60,45,0.15);
-  --shadow-bar:  0 -8px 24px rgba(20,60,45,0.10);  /* sticky action bar top shadow */
+  --shadow-card: 0 4px 16px rgba(22,41,74,0.07), 0 1px 3px rgba(22,41,74,0.05);
+  --shadow-lift: 0 10px 30px rgba(22,41,74,0.12);
+  --shadow-bar:  0 -8px 24px rgba(22,41,74,0.08);  /* sticky action bar top shadow */
 
   /* ---- Tap targets ---- */
   --tap-min:  48px;   /* absolute minimum */
@@ -116,9 +132,9 @@ html.text-sm {
    Toggle by adding class "high-contrast" to <html>. Surfaced in
    Settings. Darkens ink, strengthens borders, whitens background. */
 html.high-contrast {
-  --c-ink:     #0A0F0C;
-  --c-ink-2:   #2C332F;
-  --c-line:    #5E6862;
+  --c-ink:     #0A1526;
+  --c-ink-2:   #263349;
+  --c-line:    rgba(22,41,74,0.34);
   --c-bg:      #FFFFFF;
-  --c-primary: #0C5C49;
+  --c-primary: #093A35;
 }

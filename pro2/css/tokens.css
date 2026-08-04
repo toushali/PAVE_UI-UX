@@ -1,0 +1,109 @@
+/* ============================================================
+   Kivie Provider Portal — Pro2 design tokens
+   A SEPARATE design from Pro1: dark-first, mono-forward technical
+   aesthetic (per the reference screenshots), teal/cyan accent.
+   Light + dark are switchable via html[data-theme]; DARK is default.
+   Same shell/layout/components as Pro1 — only the look differs.
+   ============================================================ */
+:root {
+  /* ---- Brand accent: Kivie teal / cyan ---- */
+  --c-primary:      #21B6C4;   /* rings, active nav, links, primary actions */
+  --c-primary-dark: #17838C;   /* hover / pressed */
+  --c-primary-soft: rgba(33,182,196,0.15);  /* active-nav fill, soft chips */
+
+  /* ---- Neutrals: dark (default) ---- */
+  --c-ink:     #E9EEEC;   /* headings, primary text */
+  --c-ink-2:   #9BA6A1;   /* secondary text */
+  --c-ink-3:   #6C7772;   /* meta, muted, timestamps label */
+  --c-line:    rgba(255,255,255,0.09);   /* card & table hairlines */
+  --c-line-2:  rgba(255,255,255,0.05);   /* subtle inner dividers */
+  --c-bg:      #0B100E;   /* app background */
+  --c-surface: #141B18;   /* cards, panels, sidebar */
+  --c-surface-2: #0E1512; /* insets / input wells */
+
+  /* ---- 5-tier patient status (amber, never red) — dark-tuned ---- */
+  --st-enrolled:  #9BA6A1;  --st-enrolled-bg:  rgba(255,255,255,0.06);
+  --st-ontrack:   #C7D0CB;  --st-ontrack-bg:   rgba(255,255,255,0.04);
+  --st-attention: #E3A63E;  --st-attention-bg: rgba(227,166,62,0.15);
+  --st-ready:     #2FCF9C;  --st-ready-bg:     rgba(47,207,156,0.15);
+  --st-approved:  #93A0B0;  --st-approved-bg:  rgba(147,160,176,0.13);
+
+  /* ---- Typography — mono-forward technical look ---- */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --fs-display: 34px;  /* KPI numbers (mono) */
+  --fs-h1:      22px;  /* page titles */
+  --fs-h2:      16px;  /* section headers */
+  --fs-body:    14px;  /* base UI text (dense) */
+  --fs-sm:      13px;  /* secondary */
+  --fs-xs:      12px;  /* labels, meta */
+
+  --lh-tight: 1.2;
+  --lh-body:  1.5;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semi:    600;
+  --fw-bold:    700;
+
+  /* letterspacing for the technical caps labels */
+  --ls-label: 0.14em;
+
+  /* ---- Spacing (dense 4px base) ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 28px; --sp-7: 40px;
+
+  /* ---- Shape ---- */
+  --radius:      10px;
+  --radius-sm:   7px;
+  --radius-pill: 999px;
+
+  /* ---- Shadow (deep, for dark) ---- */
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.30);
+  --shadow-pop:  0 12px 34px rgba(0,0,0,0.55);
+  --shadow-bar:  0 2px 10px rgba(0,0,0,0.40);
+
+  /* ---- Layout ---- */
+  --sidebar-w:   236px;
+  --topbar-h:    60px;
+  --content-max: 1100px;
+
+  /* ---- Motion ---- */
+  --motion-fast: 140ms;
+  --motion-base: 220ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  color-scheme: dark;
+}
+
+/* ============================================================
+   LIGHT mode — html[data-theme="light"]. Same teal/cyan accent,
+   light surfaces. Kept distinct from Pro1's green.
+   ============================================================ */
+html[data-theme="light"] {
+  --c-primary:      #17838C;
+  --c-primary-dark: #0E5F66;
+  --c-primary-soft: #E1F4F5;
+
+  --c-ink:     #12292B;
+  --c-ink-2:   #4C6163;
+  --c-ink-3:   #82979A;
+  --c-line:    #DBE7E7;
+  --c-line-2:  #EAF1F1;
+  --c-bg:      #F1F6F6;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #F4F8F8;
+
+  --st-enrolled:  #82979A;  --st-enrolled-bg:  #EEF2F2;
+  --st-ontrack:   #47595B;  --st-ontrack-bg:   #FFFFFF;
+  --st-attention: #B4770F;  --st-attention-bg: #FBF1DC;
+  --st-ready:     #16916A;  --st-ready-bg:     #E1F4EC;
+  --st-approved:  #6B7686;  --st-approved-bg:  #EEF0F3;
+
+  --shadow-card: 0 1px 2px rgba(20,45,45,0.06), 0 1px 3px rgba(20,45,45,0.05);
+  --shadow-pop:  0 8px 28px rgba(20,45,45,0.16);
+  --shadow-bar:  0 2px 8px rgba(20,45,45,0.06);
+
+  color-scheme: light;
+}

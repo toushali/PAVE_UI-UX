@@ -54,15 +54,18 @@ ul, ol { list-style: none; padding: 0; }
    Headings use the soft humanist serif (Fraunces); body/UI stays Inter.
    This establishes a warm, premium hierarchy with real step-down:
    display (hero) → h1 → h2/section headers → body. */
+/* Humanist sans everywhere. Serif is reserved for exactly two things —
+   the greeting (.greet) and the streak numerals — set on those elements. */
 .t-display,
 .t-h1,
 .t-h2,
 .topbar__title,
 .card__title,
 .field-label {
-  font-family: var(--font-serif);
-  letter-spacing: -0.015em;
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
 }
+.greet { font-family: var(--font-serif); letter-spacing: -0.02em; }
 
 .t-display { font-size: var(--fs-display); font-weight: var(--fw-bold); line-height: 1.08; }
 .t-h1      { font-size: var(--fs-h1); font-weight: var(--fw-bold); line-height: 1.15; }
@@ -154,7 +157,7 @@ ul, ol { list-style: none; padding: 0; }
     height: min(844px, calc(100dvh - var(--sp-6)));
     border-radius: 40px;
     border: 1px solid var(--c-line);
-    box-shadow: var(--shadow-lift), 0 30px 70px rgba(20,60,45,0.22);
+    box-shadow: var(--shadow-lift), 0 30px 70px rgba(22,41,74,0.22);
     overflow: hidden;
   }
 }

@@ -1,21 +1,12 @@
-# PAVE — Provider Portal (Pro1 · Pro2)
+# Kivie — Provider Portal (Pro1)
 
-Static, clickable prototype of the PAVE Provider Portal — the physician-side
+Static, clickable prototype of the Kivie Provider Portal — the physician-side
 RTM compliance & billing tool (FSD §6, §16.1).
 
-**Two design styles, one codebase.** Pro1 and Pro2 are the *same* portal — every
-screen, layout, and component identical — differing only in colour scheme:
-
-| Style | Scheme | Matches |
-| --- | --- | --- |
-| **Pro1** (default) | white-green | Patient **v1** |
-| **Pro2** | clinical blue | Patient **v2** |
-
-Toggling between them swaps only CSS custom properties (`html[data-ptheme]`) —
-nothing is duplicated. The active theme is chosen by `?ptheme=pro1|pro2` (set by
-the toggle) and persisted in `localStorage`; a tiny head bootstrap on each page
-applies it before paint. The theme tokens live at the top of
-[`css/tokens.css`](css/tokens.css) (`:root` = Pro1 green, `html[data-ptheme="pro2"]` = Pro2 blue).
+**Pro1** is the Kivie teal-green provider style (matches Patient **v1**). It is
+now a standalone design: **Pro2 is a fully separate portal** with its own
+dark/light look and lives in [`../pro2`](../pro2) — it is no longer a colour
+theme of this codebase.
 
 > No backend, no framework. Vanilla JS only. Mock data, internally consistent.
 > Desktop-optimized · light mode · data-dense clinical aesthetic · **monospace for every number/metric/$/timestamp** · content capped at 1100px.
@@ -25,7 +16,7 @@ applies it before paint. The theme tokens live at the top of
 Open **`index.html`** → redirects to `app/login.html`. Any static server works
 (e.g. VS Code Live Server). Click **Sign in with Google/Microsoft → MFA → Verify**
 to reach the dashboard. The bottom-left **toggle** switches between all five
-prototypes — **Patient v1 · v2 · Provider Pro1 (green) · Pro2 (blue) · Platform Admin**
+prototypes — **Patient v1 · v2 · Provider Pro1 · Pro2 · Platform Admin**
 — and its own accent follows whichever theme you're viewing.
 
 ## Component library
@@ -100,8 +91,9 @@ Real OAuth/MFA/auth, backend/API/PHI, actual CSV/PDF generation, live Stripe,
 real Dr. Brain model. All flows are mocked; numbers are illustrative but
 reconcile within a screen.
 
-## Pro2 (implemented)
+## Pro2 (separate design)
 
-Pro2 is **not** a separate copy — it is Pro1 under the blue theme. See the table
-at the top. Both are reachable from the 4-way toggle and via
-`app/login.html?ptheme=pro1` / `?ptheme=pro2`.
+Pro2 is now its **own portal** in [`../pro2`](../pro2): same pages, layout, and
+content as Pro1, but a distinct dark-first look with a top-bar light/dark toggle
+(mono-forward technical aesthetic, teal/cyan accent). Reach it from the
+bottom-left prototype toggle → **Provider · Pro2**.
