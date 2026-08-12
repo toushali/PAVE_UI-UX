@@ -83,24 +83,29 @@
         <p class="t-body-lg t-center" style="margin-top:var(--sp-5);">You've checked in <strong>24 of 30 days</strong> — great going, John.</p>
       </section>
 
-      <!-- 3) Pain trend -->
+      <!-- 3) Pain trend — daily, past 7 days. Bar height = pain (0–10);
+           bar colour grades deep→light teal (deeper = more pain). -->
       <section class="card rise rise-3" aria-label="Pain trend">
         <div class="trend__headline">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l7 7 3-3 6 6"/><path d="M20 17v-5h-5"/></svg>
           Your pain is trending down
         </div>
-        <p class="t-body t-muted" style="margin-top:var(--sp-2);">Lower is better — keep it up.</p>
-        <div class="trend__bars">
-          <div class="tbar">
-            <span class="tbar__val">5</span>
-            <span class="tbar__fill" style="height:50%;"></span>
-            <span class="tbar__lbl">Last week</span>
-          </div>
-          <div class="tbar">
-            <span class="tbar__val">3</span>
-            <span class="tbar__fill tbar__fill--now" style="height:30%;"></span>
-            <span class="tbar__lbl">This week</span>
-          </div>
+        <p class="t-body t-muted" style="margin-top:var(--sp-2);">Lower is better — your last 7 days.</p>
+
+        <div class="paindays" role="img" aria-label="Daily pain over the past 7 days, trending down from 7 to 3 out of 10.">
+          <div class="painbar"><span class="painbar__val">7</span><span class="painbar__fill" data-pain="7" style="height:70%;"></span><span class="painbar__lbl">Fri</span></div>
+          <div class="painbar"><span class="painbar__val">6</span><span class="painbar__fill" data-pain="6" style="height:60%;"></span><span class="painbar__lbl">Sat</span></div>
+          <div class="painbar"><span class="painbar__val">6</span><span class="painbar__fill" data-pain="6" style="height:60%;"></span><span class="painbar__lbl">Sun</span></div>
+          <div class="painbar"><span class="painbar__val">5</span><span class="painbar__fill" data-pain="5" style="height:50%;"></span><span class="painbar__lbl">Mon</span></div>
+          <div class="painbar"><span class="painbar__val">4</span><span class="painbar__fill" data-pain="4" style="height:40%;"></span><span class="painbar__lbl">Tue</span></div>
+          <div class="painbar"><span class="painbar__val">4</span><span class="painbar__fill" data-pain="4" style="height:40%;"></span><span class="painbar__lbl">Wed</span></div>
+          <div class="painbar painbar--today"><span class="painbar__val">3</span><span class="painbar__fill" data-pain="3" style="height:30%;"></span><span class="painbar__lbl">Today</span></div>
+        </div>
+
+        <div class="painlegend">
+          <span>Less</span>
+          <i class="painlegend__ramp" aria-hidden="true"></i>
+          <span>More pain</span>
         </div>
       </section>
 

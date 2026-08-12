@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notifications · Kivie</title>
+  <meta name="theme-color" content="#F4F7F3">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<!-- Static design preview only: shows what reminders look like and say.
+     No real web-push here — copy is rendered from js/notifications.js. -->
+<body data-tab="settings">
+  <div class="app">
+
+    <!-- ==================== Top bar ==================== -->
+    <header class="topbar">
+      <a class="iconbtn" href="settings.html" aria-label="Back to settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
+      </a>
+      <span class="topbar__title">Your reminders</span>
+    </header>
+
+    <!-- ==================== Content ==================== -->
+    <main class="content">
+
+      <p class="t-body t-muted rise rise-1">A preview of the gentle reminders Kivie sends. Nothing is sent right now — this is just how they look.</p>
+
+      <!-- (a) In-app notifications list -->
+      <section class="rise rise-1" aria-label="In the app">
+        <h2 class="sectionlabel" style="margin-bottom:var(--sp-3);">In the app</h2>
+        <div class="notiflist" id="notifList"></div>
+      </section>
+
+      <!-- (b) "On your phone" push preview -->
+      <section class="rise rise-2" aria-label="On your phone">
+        <h2 class="sectionlabel" style="margin-bottom:var(--sp-3);">On your phone</h2>
+        <p class="t-caption" style="margin-bottom:var(--sp-4);">How a reminder appears on your lock screen.</p>
+
+        <!-- reuse the install-screen segmented control to switch banner style -->
+        <div class="segmented" data-segmented role="group" aria-label="Choose your phone" style="margin-bottom:var(--sp-4);">
+          <button type="button" class="seg is-active" data-seg data-seg-target="ios" aria-pressed="true">iPhone</button>
+          <button type="button" class="seg" data-seg data-seg-target="android" aria-pressed="false">Android</button>
+        </div>
+
+        <div class="pushpreview" data-seg-panel="ios">
+          <div class="lockscreen" id="pushIos" aria-label="iPhone lock screen preview"></div>
+        </div>
+        <div class="pushpreview" data-seg-panel="android" hidden>
+          <div class="lockscreen lockscreen--android" id="pushAndroid" aria-label="Android lock screen preview"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../js/notifications.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    /* Render the design preview from the shared data array. Static only. */
+    (function () {
+      var data = window.KIVIE_NOTIFICATIONS || [];
+      var app  = window.KIVIE_APP || { name: "Kivie", icon: "../assets/art/plant-2-mature.svg", logo: "../assets/logo.svg" };
+
+      function el(tag, cls, text) {
+        var e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (text != null) e.textContent = text;
+        return e;
+      }
+      function thumb(cls, src, size) {
+        var span = el("span", cls);
+        var img = document.createElement("img");
+        img.src = src; img.alt = ""; img.setAttribute("aria-hidden", "true");
+        if (size) { img.width = size; img.height = size; }
+        span.appendChild(img);
+        return span;
+      }
+      function byEvent(ev) {
+        for (var i = 0; i < data.length; i++) { if (data[i].event === ev) return data[i]; }
+        return null;
+      }
+
+      /* (a) In-app list */
+      var list = document.getElementById("notifList");
+      data.forEach(function (n) {
+        var row = el("div", "notif");
+        row.setAttribute("data-event", n.event);
+        row.appendChild(thumb("notif__icon", n.icon, 72));
+        var body = el("div", "notif__body");
+        body.appendChild(el("div", "notif__title", n.title));
+        body.appendChild(el("div", "notif__text", n.body));
+        body.appendChild(el("div", "notif__time", n.time));
+        row.appendChild(body);
+        list.appendChild(row);
+      });
+
+      /* (b) Lock-screen push banners — one per container */
+      function banner(n) {
+        var b = el("div", "pushbanner");
+        var top = el("div", "pushbanner__top");
+        var logo = document.createElement("img");
+        logo.className = "pushbanner__logo"; logo.src = app.logo; logo.alt = app.name;
+        top.appendChild(logo);
+        top.appendChild(el("span", "pushbanner__time", n.time));
+        b.appendChild(top);
+        b.appendChild(el("div", "pushbanner__title", n.title));
+        b.appendChild(el("div", "pushbanner__text", n.body));
+        return b;
+      }
+      function fillLock(container) {
+        if (!container) return;
+        var clock = el("div", "lockscreen__clock");
+        clock.appendChild(el("div", "lockscreen__time", "8:00"));
+        clock.appendChild(el("div", "lockscreen__date", "Thursday, July 9"));
+        container.appendChild(clock);
+        ["daily_reminder", "streak_save"].forEach(function (ev) {
+          var n = byEvent(ev);
+          if (n) container.appendChild(banner(n));
+        });
+      }
+      fillLock(document.getElementById("pushIos"));
+      fillLock(document.getElementById("pushAndroid"));
+    })();
+  </script>
+</body>
+</html>

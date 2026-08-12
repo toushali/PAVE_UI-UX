@@ -28,64 +28,57 @@
     <!-- ==================== Content ==================== -->
     <main class="content">
 
-      <!-- Unified "garden home" hero: plant scene + growth ring + streak
-           + the day's check-in action, composed as ONE moment.
-           12-day streak -> seedling (plant-2), 71% toward the next stage.
-           Toggle .is-done on #gardenHome to preview the checked-in state. -->
-      <section class="gardenhome rise rise-1" id="gardenHome" aria-label="Today's check-in and streak">
-        <div class="garden__stage" style="--stage-prog:71;">
+      <!-- Level / XP hero — progress framed calmly, not game-like -->
+      <section class="xphero rise rise-1" aria-label="Your level and progress">
+        <div class="xphero__row">
+          <span class="xphero__level">Your plant is now mature</span>
+          <span class="xphero__xp">480 / 750 XP</span>
+        </div>
+        <div class="xphero__track" role="progressbar" aria-valuemin="0" aria-valuemax="750" aria-valuenow="480" aria-label="Progress to your next plant stage">
+          <span class="xphero__fill" style="width:64%;"></span>
+        </div>
+        <p class="xphero__note">Today's check-in earns +25 XP</p>
+      </section>
+
+      <!-- Plant streak card — the growing plant is the streak metaphor -->
+      <section class="card plantcard rise rise-2" aria-label="Your streak">
+        <div class="plantcard__stage" style="--stage-prog:71;">
           <span class="garden__ring" aria-hidden="true"></span>
-          <img class="garden__plant" src="../assets/art/plant-2-mature.svg" alt="Your plant — a young seedling" width="152" height="152">
+          <img class="plantcard__plant" src="../assets/art/plant-2-mature.svg" alt="Your plant, a young seedling" width="80" height="80">
         </div>
-        <div class="gardenhome__streak">
-          <span class="gardenhome__num">12</span>
-          <span class="gardenhome__unit">day streak</span>
+        <div class="plantcard__body">
+          <div class="plantcard__count">
+            <span class="plantcard__num">12</span>
+            <span class="plantcard__unit">day streak</span>
+          </div>
+          <p class="plantcard__sub">2 days to your <strong>Two Weeks Gold</strong> badge</p>
+          <div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="14" aria-valuenow="12" aria-label="Progress to Two Weeks Gold">
+            <span class="pbar__fill" style="width:86%;"></span>
+          </div>
         </div>
-        <span class="garden__grow-note" id="growNote">2 days until your plant grows taller 🌱</span>
-        <a class="btn btn--primary gardenhome__cta" id="heroCta" href="checkin.html">Do today's check-in</a>
-        <span class="gardenhome__sub" id="heroSub">Takes about a minute</span>
       </section>
 
-      <!-- Your plan today: mini checklist preview (tap -> Exercises) -->
-      <section class="card rise rise-3" aria-label="Your plan today">
-        <a href="exercises.html" style="display:flex; align-items:baseline; justify-content:space-between; color:inherit;">
-          <span class="sectionlabel" style="margin:0;">Your plan today</span>
-          <span class="t-caption" style="color:var(--c-primary); font-weight:var(--fw-bold);">See all</span>
+      <!-- Prominent primary call to action -->
+      <div class="rise rise-3">
+        <a class="btn btn--primary" href="checkin.html">Start today's check-in</a>
+        <p class="t-caption t-center" style="margin-top:var(--sp-3);">Takes about a minute · Dr. Stillman sees your updates</p>
+      </div>
+
+      <!-- Quick navigation -->
+      <nav class="navtiles rise rise-4" aria-label="Quick links">
+        <a class="navtile" href="exercises.html">
+          <span class="navtile__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11"/><path d="M17.5 6.5v11"/><path d="M4 9.5v5"/><path d="M20 9.5v5"/><path d="M6.5 12h11"/></svg></span>
+          <span class="navtile__label">Exercises</span>
         </a>
-        <ul class="miniplan" style="margin-top:var(--sp-4);">
-          <li class="miniplan__row is-done">
-            <span class="miniplan__tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
-            <span class="miniplan__label">Pelvic tilt (Pilates)</span>
-            <span class="miniplan__meta">2× today</span>
-          </li>
-          <li class="miniplan__row">
-            <span class="miniplan__tick"></span>
-            <span class="miniplan__label">Cat–cow stretch (Mobility)</span>
-            <span class="miniplan__meta">1× today</span>
-          </li>
-          <li class="miniplan__row">
-            <span class="miniplan__tick"></span>
-            <span class="miniplan__label">Glute bridge (Strengthening)</span>
-            <span class="miniplan__meta">2× today</span>
-          </li>
-          <li class="miniplan__row">
-            <span class="miniplan__tick"></span>
-            <span class="miniplan__label">Box breathing (Breathing)</span>
-            <span class="miniplan__meta">1× today</span>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Accountability line -->
-      <p class="accountability rise rise-4">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg>
-        Dr. Stillman can see your updates.
-      </p>
-
-      <!-- Demo-only: preview the done state of the hero (prototype helper) -->
-      <p class="t-center t-caption">
-        <button type="button" class="btn btn--ghost" id="demoToggle" style="max-width:280px; margin:0 auto; min-height:var(--tap-min);">Preview “checked-in” state</button>
-      </p>
+        <a class="navtile" href="progress.html">
+          <span class="navtile__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-4"/><path d="M12 16V8"/><path d="M16 16v-6"/></svg></span>
+          <span class="navtile__label">Progress</span>
+        </a>
+        <a class="navtile" href="rewards.html">
+          <span class="navtile__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5 7.5 21l4.5-2.5L16.5 21 15 13.5"/></svg></span>
+          <span class="navtile__label">Rewards</span>
+        </a>
+      </nav>
 
     </main>
 
@@ -118,33 +111,5 @@
   </div>
 
   <script src="../js/app.js"></script>
-  <script>
-    /* Prototype-only helper: flip the unified hero between the undone and
-       checked-in states so the reference screen demonstrates both. */
-    (function () {
-      var home = document.getElementById("gardenHome");
-      var cta  = document.getElementById("heroCta");
-      var sub  = document.getElementById("heroSub");
-      var note = document.getElementById("growNote");
-      var btn  = document.getElementById("demoToggle");
-      var check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>';
-      btn.addEventListener("click", function () {
-        var done = home.classList.toggle("is-done");
-        if (done) {
-          cta.innerHTML = check + "Checked in for today";
-          cta.setAttribute("href", "#");
-          sub.textContent = "See you tomorrow";
-          note.textContent = "Come back tomorrow to keep your plant growing 🌿";
-          btn.textContent = "Preview \u201Cnot yet\u201D state";
-        } else {
-          cta.textContent = "Do today's check-in";
-          cta.setAttribute("href", "checkin.html");
-          sub.textContent = "Takes about a minute";
-          note.textContent = "2 days until your plant grows taller 🌱";
-          btn.textContent = "Preview \u201Cchecked-in\u201D state";
-        }
-      });
-    })();
-  </script>
 </body>
 </html>

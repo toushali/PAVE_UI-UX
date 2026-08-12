@@ -2217,3 +2217,266 @@
   text-transform: uppercase;
   color: rgba(22, 41, 74, 0.60);
 }
+
+/* ============================================================
+   Today (home) — v2's home layout, re-skinned to v1 tokens.
+   XP hero + plant streak card + reusable progress bar + quick nav.
+   Teal/cream only; serif reserved for the level label + streak numeral.
+   ============================================================ */
+
+/* ---- Level / XP hero ---- */
+.xphero {
+  border-radius: var(--radius-card);
+  padding: var(--sp-5);
+  color: #fff;
+  background:
+    radial-gradient(circle at 20% 0%, #2FA588 0%, var(--c-primary) 52%, var(--c-primary-dark) 100%);
+  box-shadow: 0 12px 28px rgba(14,74,68,0.22), var(--shadow-card);
+}
+.xphero__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.xphero__level {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+.xphero__xp { font-size: var(--fs-body); font-weight: var(--fw-bold); opacity: 0.95; white-space: nowrap; }
+.xphero__track {
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255,255,255,0.26);
+  overflow: hidden;
+  margin-top: var(--sp-4);
+}
+.xphero__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #fff;
+}
+.xphero__note { margin-top: var(--sp-3); font-size: var(--fs-body); font-weight: var(--fw-medium); opacity: 0.96; }
+
+/* ---- Reusable horizontal progress bar (grad-progress on the ink track) ---- */
+.pbar {
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--track);
+  overflow: hidden;
+}
+.pbar__fill { display: block; height: 100%; border-radius: inherit; background: var(--grad-progress); }
+
+/* ---- Plant streak card (built on .card) ---- */
+.plantcard { display: flex; align-items: center; gap: var(--sp-4); }
+.plantcard__stage {
+  position: relative;
+  flex: 0 0 auto;
+  width: 104px; height: 104px;
+  display: grid;
+  place-items: center;
+}
+.plantcard__plant {
+  position: relative;
+  z-index: 1;
+  width: 80px; height: 80px;
+  transform-origin: 50% 88%;
+  animation: plant-sway 6s ease-in-out infinite;
+}
+.plantcard__body { flex: 1; min-width: 0; }
+.plantcard__count { display: flex; align-items: baseline; gap: var(--sp-2); }
+.plantcard__num {
+  font-family: var(--font-serif);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--c-primary-dark);
+}
+.plantcard__unit { font-size: var(--fs-body-lg); font-weight: var(--fw-medium); color: var(--c-ink-2); }
+.plantcard__sub { margin-top: var(--sp-1); font-size: var(--fs-body); color: var(--c-ink); }
+.plantcard__sub strong { font-weight: var(--fw-bold); }
+.plantcard .pbar { margin-top: var(--sp-3); }
+@media (prefers-reduced-motion: reduce) {
+  .plantcard__plant { animation: none; }
+}
+
+/* ---- Quick-nav tiles (Exercises / Progress / Rewards) ---- */
+.navtiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); }
+.navtile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 96px;
+  padding: var(--sp-4) var(--sp-2);
+  text-align: center;
+  color: var(--c-ink);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--motion-fast) var(--ease);
+}
+.navtile:active { transform: scale(0.98); }
+.navtile__icon {
+  display: grid;
+  place-items: center;
+  width: 46px; height: 46px;
+  border-radius: 14px;
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+}
+.navtile__icon svg { width: 24px; height: 24px; }
+.navtile__label { font-size: var(--fs-caption); font-weight: var(--fw-bold); color: var(--c-ink); }
+
+/* ============================================================
+   Progress — daily pain chart (past 7 days).
+   Bar HEIGHT = pain (0–10); bar COLOUR grades deep→light teal,
+   deeper = more pain. Teal family only.
+   ============================================================ */
+.paindays {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-2);
+  height: 150px;
+  margin-top: var(--sp-4);
+}
+.painbar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+  height: 100%;
+}
+.painbar__val { font-size: var(--fs-caption); font-weight: var(--fw-bold); color: var(--c-ink-2); }
+.painbar__fill {
+  width: 100%;
+  max-width: 30px;
+  min-height: 8px;
+  border-radius: var(--radius-btn) var(--radius-btn) 0 0;
+}
+.painbar__lbl { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.painbar--today .painbar__lbl { color: var(--c-primary-dark); font-weight: var(--fw-bold); }
+
+/* pain level -> teal shade (deeper = more pain) */
+.painbar__fill[data-pain="10"],
+.painbar__fill[data-pain="9"],
+.painbar__fill[data-pain="8"] { background: #0C4E54; }
+.painbar__fill[data-pain="7"],
+.painbar__fill[data-pain="6"] { background: #147D86; }
+.painbar__fill[data-pain="5"],
+.painbar__fill[data-pain="4"] { background: #3E9AA1; }
+.painbar__fill[data-pain="3"],
+.painbar__fill[data-pain="2"] { background: #7DC2C7; }
+.painbar__fill[data-pain="1"],
+.painbar__fill[data-pain="0"] { background: #BFE2E4; }
+
+/* colour-scale legend */
+.painlegend {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-caption);
+  color: var(--c-ink-2);
+}
+.painlegend__ramp {
+  flex: 1;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, #BFE2E4 0%, #7DC2C7 30%, #3E9AA1 55%, #147D86 80%, #0C4E54 100%);
+}
+
+/* ============================================================
+   Notifications preview (Settings -> Notifications).
+   (a) In-app rows (.notif) + (b) lock-screen push banners
+   (.lockscreen / .pushbanner). Static design only — no real
+   push. Skinned entirely to v1 tokens.
+   ============================================================ */
+
+/* (a) In-app notification list */
+.notiflist { display: flex; flex-direction: column; gap: var(--sp-3); }
+.notif {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: 72px;                 /* comfortably >= 48px */
+  padding: var(--sp-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+.notif__icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 72px; height: 72px;
+}
+.notif__icon img { width: 72px; height: 72px; }
+.notif__body { flex: 1; min-width: 0; }
+.notif__title { font-size: var(--fs-body); font-weight: var(--fw-bold); color: var(--c-ink); }
+.notif__text  { font-size: var(--fs-body); color: var(--c-ink); margin-top: 3px; }
+.notif__time  { font-size: var(--fs-caption); color: var(--c-ink-2); margin-top: var(--sp-2); }
+
+/* (b) "On your phone" — lock-screen push preview */
+.pushpreview { }
+.lockscreen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-6) var(--sp-4) var(--sp-5);
+  border-radius: 28px;
+  border: 1px solid var(--c-line);
+  background: linear-gradient(165deg, #CFE6DF 0%, #A9CFC6 100%);   /* soft teal wallpaper */
+}
+.lockscreen__clock { text-align: center; color: var(--c-primary-dark); margin-bottom: var(--sp-1); }
+.lockscreen__time {
+  font-family: var(--font-serif);
+  font-size: 44px; font-weight: var(--fw-bold);
+  line-height: 1; letter-spacing: -0.01em;
+}
+.lockscreen__date { font-size: var(--fs-caption); margin-top: 2px; }
+
+.pushbanner {
+  padding: var(--sp-4);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.86);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  box-shadow: 0 6px 18px rgba(22,41,74,0.12);
+}
+.pushbanner__top { display: flex; align-items: center; gap: var(--sp-2); color: var(--c-ink-2); }
+.pushbanner__appicon {
+  flex: 0 0 auto;
+  display: grid; place-items: center;
+  width: 26px; height: 26px;
+  border-radius: 8px;
+  background: var(--c-primary-soft);
+  overflow: hidden;
+}
+.pushbanner__appicon img { width: 22px; height: 22px; }
+.pushbanner__app {
+  font-size: var(--fs-caption); font-weight: var(--fw-bold); color: var(--c-ink);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.pushbanner__logo { height: 16px; width: auto; }
+.pushbanner__time  { margin-left: auto; font-size: var(--fs-caption); }
+.pushbanner__title { margin-top: var(--sp-3); font-size: var(--fs-body); font-weight: var(--fw-bold); color: var(--c-ink); }
+.pushbanner__text  { margin-top: 2px; font-size: var(--fs-body); color: var(--c-ink); }
+
+/* Android variant — flatter, opaque card (no frosted blur) */
+.lockscreen--android { background: linear-gradient(165deg, #D6E7E1 0%, #B9D3CB 100%); }
+.lockscreen--android .pushbanner {
+  background: #fff;
+  border-radius: 16px;
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+  box-shadow: 0 2px 8px rgba(22,41,74,0.14);
+}

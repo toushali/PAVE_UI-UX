@@ -502,70 +502,6 @@
     document.body.appendChild(wrap);
   }
 
-  /* ---- v2 check-in wiring (the redesigned markup: .pain[data-value],
-     .choice pills, [data-submit]) ---- */
-  var V2_WORDS = ["No pain","Very mild","Mild","Mild","Moderate","Moderate","Moderate","Strong","Strong","Very strong","Worst"];
-  var V2_FACE  = [0,0,1,1,2,2,2,3,3,4,4];
-
-  function v2CheckinReady() {
-    var submit = $("[data-submit]");
-    if (submit && $(".painscale .pain.is-selected")) submit.disabled = false;
-  }
-  function initV2PainScale() {
-    var scale = $(".painscale");
-    if (!scale) return;
-    var segs = $$(".pain", scale);
-    if (!segs.length || !segs[0].hasAttribute("data-value")) return; /* v1 scale handled elsewhere */
-    var readout = $(".painscale__readout", scale), face = $(".painscale__face", scale);
-    segs.forEach(function (seg) {
-      seg.addEventListener("click", function () {
-        segs.forEach(function (s) { s.classList.remove("is-selected"); s.setAttribute("aria-pressed", "false"); });
-        seg.classList.add("is-selected"); seg.setAttribute("aria-pressed", "true");
-        var v = parseInt(seg.getAttribute("data-value"), 10);
-        if (readout) readout.textContent = v + " · " + (V2_WORDS[v] || "");
-        if (face) face.setAttribute("src", "../assets/art/pain-face-" + (V2_FACE[v] || 2) + ".svg");
-        v2CheckinReady();
-      });
-    });
-  }
-  function initV2Choices() {
-    $$(".choicegrid").forEach(function (grid) {
-      var opts = $$(".choice", grid);
-      opts.forEach(function (opt) {
-        opt.addEventListener("click", function () {
-          opts.forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
-          opt.setAttribute("aria-pressed", "true");
-        });
-      });
-    });
-  }
-  function initV2Submit() {
-    var submit = $("[data-submit]");
-    if (submit) submit.addEventListener("click", function () {
-      if (!submit.disabled) location.href = "confirmation.html";
-    });
-  }
-  /* exercises page: ticks update the "n of m done" + collect bar */
-  function initV2Exercises() {
-    var ticks = $$(".excard__tick");
-    if (!ticks.length) return;
-    var total = ticks.length, doneEl = $("[data-exdone]"), bar = $("[data-exbar]");
-    function update() {
-      var done = $$('.excard__tick[aria-pressed="true"]').length;
-      if (doneEl) doneEl.textContent = done + " of " + total + " done";
-      if (bar) bar.style.width = Math.round(done / total * 100) + "%";
-    }
-    ticks.forEach(function (t) {
-      t.addEventListener("click", function () {
-        var on = t.getAttribute("aria-pressed") === "true";
-        t.setAttribute("aria-pressed", on ? "false" : "true");
-        var card = t.closest(".excard"); if (card) card.classList.toggle("is-done", !on);
-        update();
-      });
-    });
-    update();
-  }
-
   document.addEventListener("DOMContentLoaded", function () {
     initDesignToggle();
     initTabs();
@@ -584,9 +520,5 @@
     initCountUp();
     initBars();
     initMilestone();
-    initV2PainScale();
-    initV2Choices();
-    initV2Submit();
-    initV2Exercises();
   });
 })();

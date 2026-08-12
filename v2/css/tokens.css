@@ -1,109 +1,140 @@
 /* ============================================================
-   PAVE v2 — Design tokens (gamified, accessible for 60–85)
-   Light mode only. Dark-on-light, high contrast, large type.
+   PAVE — Design Tokens (Section 4)
+   All screens inherit these. Never hardcode a value that
+   belongs here — add a token instead.
    ============================================================ */
+
 :root {
   /* ============================================================
-     Kivie brand ramp — SHARED with v1 (one token system).
-     Add-ons for v2: --teal (hero surface) + --amber (ember end).
+     Kivie brand ramp — matches the logo (cyan leaf · navy · teal).
+     These six are the source of truth; legacy --c-* names below
+     are remapped onto them so every existing usage inherits it.
      ============================================================ */
   --ink:        #16294A;   /* all body / heading text */
-  --pine:       #0E4A44;   /* deep surface, gradient end point */
-  --teal:       #17838C;   /* v2 hero / level card surface */
+  --pine:       #0E4A44;   /* card + hero surfaces, primary actions; gradient end */
+  --teal:       #17838C;   /* teal surface (v2 hero/level) — shared ramp */
   --eucalyptus: #4F9C87;   /* secondary fills, dividers, inactive states */
-  --cyan:       #21B6C4;   /* PROGRESS ONLY — level, XP, active nav tab */
-  --clay:       #C08056;   /* ember start */
-  --amber:      #D9A441;   /* ember end */
+  --cyan:       #21B6C4;   /* PROGRESS ONLY — ring fills, level/XP bars, active tab */
+  --clay:       #C08056;   /* warm accent / ember start */
+  --amber:      #D9A441;   /* ember end — shared ramp */
   --paper:      #F4F7F3;   /* page background */
 
-  /* reusable gradients (defined once) */
-  --grad-teal: linear-gradient(135deg, var(--teal), var(--pine));   /* teal surfaces (hero/level) */
-  --ember:     linear-gradient(135deg, var(--clay), var(--amber));  /* streak only */
-  --track:     rgba(22, 41, 74, 0.10);
-  --track-on-teal: rgba(255, 255, 255, 0.12);   /* XP track on the teal card */
+  /* progress: --ink @10% track, --pine→--cyan 135° fill (logo angle).
+     Reused by the plant ring AND the level/XP bar. */
+  --track:         rgba(22, 41, 74, 0.10);
+  --grad-progress: linear-gradient(135deg, var(--pine), var(--cyan));
+  --grad-teal:     linear-gradient(135deg, var(--teal), var(--pine));
+  --ember:         linear-gradient(135deg, var(--clay), var(--amber));
 
-  /* ---- Legacy v2 names remapped onto the ramp ---- */
-  --c-primary:      var(--teal);       /* brand / buttons */
-  --c-primary-dark: var(--pine);       /* chunky button base */
-  --c-primary-soft: #DDEEEC;           /* soft teal tint — nav / chips */
-  --c-cyan:         var(--cyan);
-  --c-purple:       var(--pine);       /* hero gradient end (teal→pine) */
-  --c-coral:        var(--clay);       /* ember start */
-  --c-yellow:       var(--amber);      /* ember end (XP itself becomes cyan) */
-  --c-green:        var(--eucalyptus); /* success */
-  --c-green-bright: #63B79E;
-  --c-orange:       var(--clay);       /* streak (ember) */
+  /* ---- Legacy names remapped onto the ramp ---- */
+  --c-primary:        var(--pine);   /* buttons, primary actions */
+  --c-primary-dark:   #0A3A35;       /* pressed */
+  --c-primary-soft:   #E5EEEA;       /* soft eucalyptus tint (done states) */
 
-  /* ---- Category tints ---- */
-  --t-blue:   #DDEEEC;                 /* light teal */
-  --t-coral:  rgba(192,128,86,0.10);   /* clay overlay (streak) */
-  --t-yellow: rgba(217,164,65,0.14);   /* amber tint */
-  --t-green:  #DCEFEA;
-  --t-purple: #DDEEEC;
+  --c-accent-amber:   var(--clay);   /* gentle warm "attention", never red */
+  --c-success:        var(--pine);
+  --c-celebrate:      var(--clay);
 
-  /* ---- Neutrals — cool navy-slate ---- */
-  --c-bg:       var(--paper);          /* flat paper page */
-  --c-surface:  #FFFFFF;
-  --c-ink:      var(--ink);
-  --c-ink-2:    rgba(22,41,74,0.62);   /* secondary text */
-  --c-ink-3:    rgba(22,41,74,0.45);   /* inactive nav icons = --ink @45% */
-  --c-line:     rgba(22,41,74,0.12);
+  --c-accent:         var(--clay);
+  --c-accent-dark:    #A66A45;
+  --c-accent-soft:    #EFE1D6;
 
-  /* ---- Type ---- */
-  --font-display: 'Nunito', system-ui, sans-serif;   /* rounded, gamified, legible */
-  --font-body:    'Inter', system-ui, sans-serif;    /* long-form legibility */
+  --c-amber-soft:     #EFE1D6;       /* Worse (warm clay tint) */
+  --c-neutral-soft:   #E7EEEB;       /* Same (neutral) */
 
-  /* Readability-first scale (default = comfortable). ~1.25 ratio. */
-  --fs-display:  40px;
-  --fs-h1:       30px;
-  --fs-h2:       23px;
-  --fs-body-lg:  20px;
-  --fs-body:     18px;   /* never below this by default */
-  --fs-caption:  16px;
-  --fs-micro:    14px;   /* labels only, never body */
+  --c-mod-pilates:    var(--pine);
+  --c-mod-mobility:   var(--eucalyptus);
+  --c-mod-strength:   var(--clay);
+  --c-mod-breathing:  #A66A45;
+
+  /* ---- Neutrals (cool navy-slate) ---- */
+  --c-ink:            var(--ink);          /* primary text */
+  --c-ink-2:          rgba(22,41,74,0.64); /* secondary text */
+  --c-line:           rgba(22,41,74,0.12); /* hairlines / borders */
+  --c-bg:             var(--paper);        /* app background */
+  --c-surface:        #FFFFFF;             /* cards lift off paper */
+
+  /* ---- Pain scale ramp (calm -> warm alert, no red) ---- */
+  --c-pain-0:         var(--eucalyptus);
+  --c-pain-5:         var(--clay);
+  --c-pain-10:        #A0503B;
+
+  /* ---- Typography ---- */
+  --font-sans:  "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-serif: "Fraunces", "Iowan Old Style", Georgia, "Times New Roman", serif;
+
+  --fs-display: 44px;  /* hero question, streak number, pain number */
+  --fs-h1:      30px;  /* screen titles, greeting */
+  --fs-h2:      22px;  /* section headers */
+  --fs-body-lg: 20px;  /* primary body, button labels */
+  --fs-body:    18px;  /* minimum body */
+  --fs-caption: 16px;  /* secondary/meta — do not go smaller */
+
+  --lh-tight: 1.25;
+  --lh-body:  1.5;
 
   --fw-regular: 400;
   --fw-medium:  600;
-  --fw-bold:    800;
-  --fw-black:   900;
+  --fw-bold:    700;
 
-  --lh-tight: 1.15;
-  --lh-body:  1.55;
+  /* ---- Spacing (8px base) ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --page-pad:    20px;   /* left/right screen padding */
+  --content-max: 440px;  /* center content, cap width */
 
-  /* ---- Shape & depth (chunky, playful) ---- */
-  --radius-card: 24px;
+  /* ---- Radius ---- */
+  --radius-card: 20px;
   --radius-btn:  16px;
-  --radius-chip: 14px;
   --radius-pill: 999px;
 
-  --shadow-card:  0 10px 26px rgba(8, 48, 58, 0.10);
-  --shadow-pop:   0 14px 34px rgba(8, 48, 58, 0.16);
-  --shadow-inset: inset 0 -4px 0 rgba(0,0,0,0.06);   /* chunky button base */
+  /* ---- Shadow ---- */
+  --shadow-card: 0 4px 16px rgba(22,41,74,0.07), 0 1px 3px rgba(22,41,74,0.05);
+  --shadow-lift: 0 10px 30px rgba(22,41,74,0.12);
+  --shadow-bar:  0 -8px 24px rgba(22,41,74,0.08);  /* sticky action bar top shadow */
 
-  /* ---- Spacing ---- */
-  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
-  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px;
-
-  /* ---- Tap targets (accessibility) ---- */
-  --tap-min: 48px;
-  --tap-btn: 60px;   /* generous primary actions for 60–85 */
+  /* ---- Tap targets ---- */
+  --tap-min:  48px;   /* absolute minimum */
+  --tap-btn:  60px;   /* primary button height */
+  --tap-hero: 72px;   /* the check-in Go button ring */
 
   /* ---- Motion ---- */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --motion-fast: 160ms;
+  --motion-base: 260ms;
   --motion-slow: 420ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);  /* soft */
 }
 
-/* ---- Accessibility text-size modes (Settings) ---- */
-html.text-sm {
-  --fs-display: 34px; --fs-h1: 26px; --fs-h2: 21px;
-  --fs-body-lg: 18px; --fs-body: 16px; --fs-caption: 15px; --fs-micro: 13px;
-}
+/* ---- Large-text mode: +~15% on the type ramp ----
+   Toggle by adding class "text-lg" to <html>. Surfaced in
+   Onboarding and Settings. */
 html.text-lg {
-  --fs-display: 46px; --fs-h1: 35px; --fs-h2: 27px;
-  --fs-body-lg: 23px; --fs-body: 21px; --fs-caption: 18px; --fs-micro: 16px;
+  --fs-display: 50px;
+  --fs-h1:      34px;
+  --fs-h2:      25px;
+  --fs-body-lg: 23px;
+  --fs-body:    21px;
+  --fs-caption: 18px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+/* ---- Small-text mode: ~10% down from default for a more compact view.
+   Body stays at a readable 16px. Toggle by adding class "text-sm" to <html>. */
+html.text-sm {
+  --fs-display: 40px;
+  --fs-h1:      27px;
+  --fs-h2:      20px;
+  --fs-body-lg: 18px;
+  --fs-body:    16px;
+  --fs-caption: 15px;
+}
+
+/* ---- High-contrast mode ----
+   Toggle by adding class "high-contrast" to <html>. Surfaced in
+   Settings. Darkens ink, strengthens borders, whitens background. */
+html.high-contrast {
+  --c-ink:     #0A1526;
+  --c-ink-2:   #263349;
+  --c-line:    rgba(22,41,74,0.34);
+  --c-bg:      #FFFFFF;
+  --c-primary: #093A35;
 }

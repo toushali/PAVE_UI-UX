@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kivie</title>
-  <meta name="theme-color" content="#EFF6F6">
+  <meta name="theme-color" content="#F4F7F3">
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
@@ -14,9 +14,18 @@
     <main class="content">
       <div class="authwrap">
 
-        <!-- Single brand mark: the Kivie logo (no stacked flame). -->
+        <!-- Living brand mark: a translucent bubble with the cat companion,
+             softly swaying. -->
         <div class="rise rise-1">
-          <img class="brandlogo" src="../assets/logo.svg" alt="Kivie" style="display:block;width:190px;height:auto;margin:0 auto;">
+          <div class="brandplant" aria-hidden="true">
+            <span class="brandplant__bubble"><i class="mote"></i><i class="mote"></i><i class="mote"></i><i class="mote"></i></span>
+            <span class="brandplant__stack">
+              <img class="brandplant__img" src="../assets/art/cat-1-kitten.png" alt="" width="132" height="132">
+              <img class="brandplant__img" src="../assets/art/cat-2-young.png" alt="" width="132" height="132">
+              <img class="brandplant__img" src="../assets/art/cat-3-wise.png" alt="" width="132" height="132">
+            </span>
+          </div>
+          <img class="brandlogo" src="../assets/logo.svg" alt="Kivie" style="display:block;width:118px;height:auto;margin:var(--sp-4) auto 0;">
           <p class="brandtag" style="margin-top:var(--sp-3);">Healthcare. Simplified.</p>
         </div>
 
