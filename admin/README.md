@@ -10,8 +10,8 @@ green identity, distinguished by the **"Platform Admin"** wordmark and a
 
 ## How to open
 Open **`index.html`** → redirects to `app/login.html`. Sign in with Google/Microsoft →
-MFA → **Overview**. The bottom-left **toggle** switches between all five prototypes
-(Patient v1 · v2 · Provider Pro1 · Pro2 · **Platform Admin**).
+MFA → **Overview**. The bottom-left **toggle** switches between all four prototypes
+(Patient v1 · v2 · Provider · **Platform Admin**).
 
 ## Screens (7)
 

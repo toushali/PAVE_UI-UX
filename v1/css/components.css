@@ -2480,3 +2480,75 @@
           backdrop-filter: none;
   box-shadow: 0 2px 8px rgba(22,41,74,0.14);
 }
+
+/* ============================================================
+   Exercise preview popup (Exercises) + small countdown timer.
+   Opens from any exercise card; one shared image/desc/time for now.
+   ============================================================ */
+/* the card trigger is now a <button> — strip default button padding */
+.excard__link { padding: 0; text-align: left; }
+
+.exmodal {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--page-pad);
+}
+.exmodal[hidden] { display: none; }
+.exmodal__backdrop { position: absolute; inset: 0; background: rgba(22,41,74,0.45); }
+.exmodal__card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  background: var(--c-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lift);
+  padding: var(--sp-6) var(--sp-5);
+  text-align: center;
+  animation: exmodal-in var(--motion-base) var(--ease) both;
+}
+@keyframes exmodal-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+.exmodal__card:focus-visible { outline: none; }
+.exmodal__close {
+  position: absolute;
+  top: var(--sp-3); right: var(--sp-3);
+  width: var(--tap-min); height: var(--tap-min);
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-pill);
+  color: var(--c-ink-2);
+}
+.exmodal__close:active { background: var(--c-primary-soft); }
+.exmodal__close svg { width: 24px; height: 24px; }
+.exmodal__art { width: 132px; height: 132px; margin: var(--sp-2) auto var(--sp-4); }
+.exmodal__name { font-size: var(--fs-h2); font-weight: var(--fw-bold); }
+.exmodal__desc {
+  font-size: var(--fs-body); color: var(--c-ink-2);
+  margin: var(--sp-2) auto 0; max-width: 30ch;
+}
+
+/* small countdown timer */
+.extimer { margin-top: var(--sp-5); }
+.extimer__time {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 40px; font-weight: var(--fw-bold);
+  line-height: 1; color: var(--c-primary-dark);
+}
+.extimer__controls { display: flex; gap: var(--sp-3); justify-content: center; margin-top: var(--sp-4); }
+.extimer__btn {
+  min-height: var(--tap-min);
+  padding: 0 var(--sp-5);
+  border-radius: var(--radius-btn);
+  font-size: var(--fs-body); font-weight: var(--fw-bold);
+}
+.extimer__btn--go { background: var(--c-primary); color: #fff; }
+.extimer__btn--go:active { background: var(--c-primary-dark); }
+.extimer__btn--ghost { background: var(--c-surface); border: 1.5px solid var(--c-line); color: var(--c-primary); }
+.extimer__btn--ghost:active { background: var(--c-primary-soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  .exmodal__card { animation: none; }
+}

@@ -565,3 +565,35 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 .charthead__n { font-family: var(--font-mono); font-size: var(--fs-h1); font-weight: var(--fw-semi); letter-spacing: -0.02em; }
 .charthead__l { font-size: var(--fs-xs); font-weight: var(--fw-semi); letter-spacing: 0.05em; text-transform: uppercase; color: var(--c-ink-3); }
 .charthead__d { margin-left: auto; font-size: var(--fs-xs); color: var(--st-ready); font-weight: var(--fw-semi); }
+
+/* ============================================================
+   Editable generated plan (Review plan) — inline edit affordances.
+   ============================================================ */
+.card.is-editing .planex { align-items: center; }
+.card.is-editing [contenteditable="true"] {
+  outline: none;
+  border: 1px dashed var(--c-primary);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+  background: var(--c-surface);
+}
+.card.is-editing [contenteditable="true"]:focus {
+  border-style: solid;
+  box-shadow: 0 0 0 2px var(--c-primary-soft);
+}
+.planex__del {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; margin-left: var(--sp-2);
+  border-radius: var(--radius-sm);
+  color: var(--st-attention);
+}
+.planex__del:hover { background: var(--st-attention-bg); }
+.planex__del svg { width: 18px; height: 18px; }
+.planadd {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: var(--sp-2);
+  color: var(--c-primary); font-weight: var(--fw-semi); font-size: var(--fs-sm);
+}
+.planadd:hover { text-decoration: underline; }
+.planadd svg { width: 16px; height: 16px; }

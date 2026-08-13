@@ -135,7 +135,7 @@
 
   /* ============================================================
      Design-version toggle — jump between prototypes (client demo).
-     Patient v1 · Patient v2 · Provider Pro1  (Pro2 added in S21).
+     Patient v1 · Patient v2 · Provider · Platform Admin.
      Self-styled inline so it looks identical in every app.
      ============================================================ */
   function initDesignToggle() {
@@ -148,7 +148,7 @@
     ["v1", "v2", "pro1", "admin"].forEach(function (sg) {
       var i = path.indexOf("/" + sg + "/"); if (i > -1) { seg = sg; base = path.slice(0, i); }
     });
-    /* Provider Pro1/Pro2 are ONE codebase — colour scheme only, set via ?ptheme.
+    /* Provider portal design toggle.
        Stay on the current provider page when switching theme; else land on dashboard. */
     var ptheme = document.documentElement.getAttribute("data-ptheme") || "pro1";
     var provTarget = isProvider ? path : base + "/pro1/app/dashboard.html";
@@ -156,8 +156,7 @@
     var ITEMS = [
       { label: "Patient · v1",     href: base + "/v1/app/today.html",  cur: seg === "v1" },
       { label: "Patient · v2",     href: base + "/v2/app/today.html",  cur: seg === "v2" },
-      { label: "Provider · Pro1",  href: provTarget + "?ptheme=pro1",  cur: isProvider && ptheme === "pro1" },
-      { label: "Provider · Pro2",  href: provTarget + "?ptheme=pro2",  cur: isProvider && ptheme === "pro2" },
+      { label: "Provider",  href: provTarget + "?ptheme=pro1",  cur: isProvider && ptheme === "pro1" },
       { label: "Platform · Admin", href: base + "/admin/app/overview.html",  cur: isAdmin }
     ];
     var curItem = ITEMS.filter(function (i) { return i.cur; })[0] || ITEMS[0];

@@ -3,10 +3,8 @@
 Static, clickable prototype of the Kivie Provider Portal — the physician-side
 RTM compliance & billing tool (FSD §6, §16.1).
 
-**Pro1** is the Kivie teal-green provider style (matches Patient **v1**). It is
-now a standalone design: **Pro2 is a fully separate portal** with its own
-dark/light look and lives in [`../pro2`](../pro2) — it is no longer a colour
-theme of this codebase.
+The Kivie teal-green provider style (matches Patient **v1**). This is the
+single provider portal.
 
 > No backend, no framework. Vanilla JS only. Mock data, internally consistent.
 > Desktop-optimized · light mode · data-dense clinical aesthetic · **monospace for every number/metric/$/timestamp** · content capped at 1100px.
@@ -15,8 +13,8 @@ theme of this codebase.
 
 Open **`index.html`** → redirects to `app/login.html`. Any static server works
 (e.g. VS Code Live Server). Click **Sign in with Google/Microsoft → MFA → Verify**
-to reach the dashboard. The bottom-left **toggle** switches between all five
-prototypes — **Patient v1 · v2 · Provider Pro1 · Pro2 · Platform Admin**
+to reach the dashboard. The bottom-left **toggle** switches between all four
+prototypes — **Patient v1 · v2 · Provider · Platform Admin**
 — and its own accent follows whichever theme you're viewing.
 
 ## Component library
@@ -90,10 +88,3 @@ John Carter (M54.5) · RTM CPT 98975–98981.
 Real OAuth/MFA/auth, backend/API/PHI, actual CSV/PDF generation, live Stripe,
 real Dr. Brain model. All flows are mocked; numbers are illustrative but
 reconcile within a screen.
-
-## Pro2 (separate design)
-
-Pro2 is now its **own portal** in [`../pro2`](../pro2): same pages, layout, and
-content as Pro1, but a distinct dark-first look with a top-bar light/dark toggle
-(mono-forward technical aesthetic, teal/cyan accent). Reach it from the
-bottom-left prototype toggle → **Provider · Pro2**.

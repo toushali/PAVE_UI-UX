@@ -5,11 +5,8 @@
    ============================================================ */
 :root {
   /* ============================================================
-     THEME — the ONLY difference between the two provider styles.
-     Pro1 (default, below)  = white-green, matches Patient v1.
-     Pro2 (html[data-ptheme="pro2"], end of file) = clinical blue.
-     Toggling swaps just these colour variables — one codebase,
-     every screen/layout/component identical.
+     THEME — Platform Admin uses the Kivie teal/cyan palette with a
+     light (default) and dark mode, toggled via html[data-theme].
      ============================================================ */
 
   /* ---- Brand: Kivie teal / cyan (from the logo, matches Pro1) ---- */

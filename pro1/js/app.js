@@ -24,6 +24,7 @@
   var NAV = [
     ["dashboard","Dashboard",'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',""],
     ["work-queue","Work Queue",'<path d="M4 13h4l1.5 3h5L16 13h4"/><path d="M5 13 7 5h10l2 8v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"/>',"9"],
+    ["reminders","Reminders",'<path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/>',"5"],
     ["patients","Patients",'<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M16 5.4a3.2 3.2 0 0 1 0 5.2"/><path d="M17.5 14.8c2 .8 3.5 2.7 3.5 5.2"/>',""],
     ["approvals","Approvals",'<circle cx="12" cy="12" r="9"/><path d="M8.5 12.5 11 15l4.5-5"/>',"3"],
     ["reports","Reports",'<path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 17v-5"/><path d="M13 17V8"/><path d="M18 17v-3"/>',""],
@@ -117,24 +118,23 @@
 
   /* ============================================================
      Design-version toggle — jump between prototypes (client demo).
-     Patient v1 · Patient v2 · Provider Pro1  (Pro2 added in S21).
+     Patient v1 · Patient v2 · Provider · Platform Admin.
      Self-styled inline so it looks identical in every app.
      ============================================================ */
   function initDesignToggle() {
     if (document.getElementById("paveDesignToggle")) return;
     var path = location.pathname;
     var isAdmin = path.indexOf("/admin/") > -1;
-    /* base = everything before the design-folder segment (v1 / v2 / pro1 / pro2 / admin) */
+    /* base = everything before the design-folder segment (v1 / v2 / pro1 / admin) */
     var seg = null, base = "";
-    ["v1", "v2", "pro1", "pro2", "admin"].forEach(function (sg) {
+    ["v1", "v2", "pro1", "admin"].forEach(function (sg) {
       var i = path.indexOf("/" + sg + "/"); if (i > -1) { seg = sg; base = path.slice(0, i); }
     });
-    /* Pro1 and Pro2 are now two SEPARATE designs (own folders), not a colour theme. */
+    /* Single provider portal. */
     var ITEMS = [
       { label: "Patient · v1",     href: base + "/v1/app/today.html",        cur: seg === "v1" },
       { label: "Patient · v2",     href: base + "/v2/app/today.html",        cur: seg === "v2" },
-      { label: "Provider · Pro1",  href: base + "/pro1/app/dashboard.html",  cur: seg === "pro1" },
-      { label: "Provider · Pro2",  href: base + "/pro2/app/dashboard.html",  cur: seg === "pro2" },
+      { label: "Provider",  href: base + "/pro1/app/dashboard.html",  cur: seg === "pro1" },
       { label: "Platform · Admin", href: base + "/admin/app/overview.html",  cur: isAdmin }
     ];
     var curItem = ITEMS.filter(function (i) { return i.cur; })[0] || ITEMS[0];
