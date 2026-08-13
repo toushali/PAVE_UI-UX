@@ -46,7 +46,10 @@
     }).join("");
     var side =
       '<aside class="sidebar">' +
-      '<div class="sidebar__brand"><img class="sidebar__logoimg" src="../assets/logo.svg" alt="Kivie" width="92"><span class="sidebar__sub">Provider<br>Portal</span></div>' +
+      '<div class="sidebar__brand">' +
+        '<img class="sidebar__logoimg sidebar__logoimg--light" src="../assets/logo.svg" alt="Kivie" width="92">' +
+        '<img class="sidebar__logoimg sidebar__logoimg--dark" src="../assets/logo-light.svg" alt="Kivie" width="92">' +
+        '<span class="sidebar__sub">Provider<br>Portal</span></div>' +
       '<nav class="nav" aria-label="Main">' + items + '</nav></aside>';
     host.insertAdjacentHTML("afterbegin", side);
     var tb = $("[data-topbar]", host);
@@ -54,9 +57,27 @@
       '<span class="topbar__ctx">' + title + '</span>' +
       '<span class="topbar__spacer"></span>' +
       '<span class="t-meta">Auto-refresh · updated <span class="num" data-ago>0s ago</span></span>' +
+      '<button class="themetoggle" data-theme-toggle type="button" aria-label="Toggle light or dark theme" title="Toggle theme">' +
+        '<svg class="themetoggle__ic themetoggle__ic--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19"/></svg>' +
+        '<svg class="themetoggle__ic themetoggle__ic--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></svg>' +
+        '<span class="themetoggle__thumb"></span>' +
+      '</button>' +
       '<button class="iconbtn" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="iconbtn__dot"></span></button>' +
       '<span class="topbar__meta"><strong>Dr. Brandon Stillman, MD</strong><span>Stillman Rehabilitation Group</span></span>' +
       '<span class="avatar">BS</span>';
+  }
+
+  /* ---- Light / dark theme toggle. Persists to localStorage; the <head>
+     bootstrap applies it before paint to avoid a flash. Defaults light. ---- */
+  function initThemeToggle() {
+    function current() { return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light"; }
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest && e.target.closest("[data-theme-toggle]");
+      if (!t) return;
+      var next = current() === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("kivie-pro1-theme", next); } catch (err) {}
+    });
   }
 
   /* ---- Confirmation banner (top, auto-dismiss ~4s) ---- */
@@ -360,8 +381,65 @@
     });
   }
 
+  /* ---- Editable generated plan: #editPlanBtn toggles inline editing of the
+     plan inside #planCard. Physician can rename/retime, add, or remove
+     exercises; the "Medical rationale" module is left read-only. Used on
+     Review plan (new patient) and on the patient record's Generated plan tab. ---- */
+  function initPlanEditor() {
+    var card = $("#planCard"), btn = $("#editPlanBtn");
+    if (!card || !btn) return;
+    var editHtml = btn.innerHTML;
+    var doneHtml = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>Done editing';
+    var delSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+    var addSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>';
+    var editing = false;
+
+    function setEditable(ex, on) {
+      [ex.querySelector("strong"), ex.querySelector(".t-sm"), ex.querySelector(".planex__freq")]
+        .forEach(function (el) { if (el) el.contentEditable = on ? "true" : "false"; });
+    }
+    function addDel(ex) {
+      if (ex.querySelector(".planex__del")) return;
+      var d = document.createElement("button");
+      d.type = "button"; d.className = "planex__del"; d.setAttribute("aria-label", "Remove exercise");
+      d.innerHTML = delSvg;
+      d.addEventListener("click", function () { ex.remove(); });
+      ex.appendChild(d);
+    }
+    function newEx() {
+      var ex = document.createElement("div");
+      ex.className = "planex";
+      ex.innerHTML = '<div><strong>New exercise</strong><div class="t-sm t-muted">Add a short, plain-language description.</div></div><span class="planex__freq">1&times; / day</span>';
+      setEditable(ex, true); addDel(ex);
+      return ex;
+    }
+    function addAdd(mod) {
+      if (mod.querySelector(".planadd")) return;
+      var a = document.createElement("button");
+      a.type = "button"; a.className = "planadd";
+      a.innerHTML = addSvg + "Add exercise";
+      a.addEventListener("click", function () { mod.insertBefore(newEx(), a); });
+      mod.appendChild(a);
+    }
+    function enter() {
+      editing = true; card.classList.add("is-editing");
+      $$(".planex", card).forEach(function (ex) { setEditable(ex, true); addDel(ex); });
+      $$(".planmod", card).forEach(function (mod) { if (mod.querySelector(".planex")) addAdd(mod); });
+      btn.innerHTML = doneHtml;
+    }
+    function exit() {
+      editing = false; card.classList.remove("is-editing");
+      $$(".planex", card).forEach(function (ex) { setEditable(ex, false); });
+      $$(".planex__del, .planadd", card).forEach(function (el) { el.remove(); });
+      btn.innerHTML = editHtml;
+      window.paveBanner("Plan updated — review the changes and approve when ready.");
+    }
+    btn.addEventListener("click", function () { editing ? exit() : enter(); });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     renderShell();
+    initThemeToggle();
     initNav();
     initPanels();
     initTabs();
@@ -375,6 +453,7 @@
     initModals();
     initMenus();
     initLoadingDemo();
+    initPlanEditor();
     initDesignToggle();
   });
 })();

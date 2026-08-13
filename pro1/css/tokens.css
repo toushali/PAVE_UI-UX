@@ -21,6 +21,7 @@
   --c-line-2:  #EAF1F1;   /* subtle inner dividers */
   --c-bg:      #F1F6F6;   /* app background */
   --c-surface: #FFFFFF;   /* cards, panels, sidebar */
+  --c-surface-2: #F4F8F8; /* insets / input wells */
 
   /* ---- 5-tier patient status (FSD §15.3) — amber, never red ----
      On Track = white badge (outlined) per §15.3; Enrolled stays grey-fill
@@ -73,4 +74,37 @@
   --motion-fast: 140ms;
   --motion-base: 220ms;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  color-scheme: light;
+}
+
+/* ============================================================
+   DARK theme — html[data-theme="dark"]. Same teal/cyan accent,
+   dark surfaces. Toggled from the top bar; :root above = light.
+   ============================================================ */
+html[data-theme="dark"] {
+  --c-primary:      #21B6C4;
+  --c-primary-dark: #17838C;
+  --c-primary-soft: rgba(33,182,196,0.15);
+
+  --c-ink:     #E9EEEC;
+  --c-ink-2:   #9BA6A1;
+  --c-ink-3:   #6C7772;
+  --c-line:    rgba(255,255,255,0.09);
+  --c-line-2:  rgba(255,255,255,0.05);
+  --c-bg:      #0B100E;
+  --c-surface: #141B18;
+  --c-surface-2: #0E1512;
+
+  --st-enrolled:  #9BA6A1;  --st-enrolled-bg:  rgba(255,255,255,0.06);
+  --st-ontrack:   #C7D0CB;  --st-ontrack-bg:   rgba(255,255,255,0.04);
+  --st-attention: #E3A63E;  --st-attention-bg: rgba(227,166,62,0.15);
+  --st-ready:     #2FCF9C;  --st-ready-bg:     rgba(47,207,156,0.15);
+  --st-approved:  #93A0B0;  --st-approved-bg:  rgba(147,160,176,0.13);
+
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.30);
+  --shadow-pop:  0 12px 34px rgba(0,0,0,0.55);
+  --shadow-bar:  0 2px 10px rgba(0,0,0,0.40);
+
+  color-scheme: dark;
 }

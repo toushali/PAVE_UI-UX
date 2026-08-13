@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Review plan · Kivie Provider</title>
+<script>(function(){var q=(location.search.match(/[?&]theme=(light|dark)/)||[])[1];var t=q;if(!t){try{t=localStorage.getItem("kivie-pro1-theme");}catch(e){}}if(t!=="light"&&t!=="dark")t="light";try{localStorage.setItem("kivie-pro1-theme",t);}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
 <link rel="stylesheet" href="../css/tokens.css">
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/components.css">
@@ -103,62 +104,6 @@
       ok.hidden = false;
       ok.scrollIntoView({ block: "center", behavior: "smooth" });
     });
-  })();
-
-  /* Edit the generated plan before sign-off. The physician can rename/retime,
-     remove, or add exercises; changes stay on-screen until Approve. */
-  (function () {
-    var card = document.getElementById("planCard");
-    var btn = document.getElementById("editPlanBtn");
-    if (!card || !btn) return;
-    var editHtml = btn.innerHTML;
-    var doneHtml = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>Done editing';
-    var delSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
-    var addSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>';
-    var editing = false;
-    var each = function (nodes, fn) { Array.prototype.forEach.call(nodes, fn); };
-
-    function setEditable(ex, on) {
-      [ex.querySelector("strong"), ex.querySelector(".t-sm"), ex.querySelector(".planex__freq")]
-        .forEach(function (el) { if (el) el.contentEditable = on ? "true" : "false"; });
-    }
-    function addDel(ex) {
-      if (ex.querySelector(".planex__del")) return;
-      var d = document.createElement("button");
-      d.type = "button"; d.className = "planex__del"; d.setAttribute("aria-label", "Remove exercise");
-      d.innerHTML = delSvg;
-      d.addEventListener("click", function () { ex.remove(); });
-      ex.appendChild(d);
-    }
-    function newEx() {
-      var ex = document.createElement("div");
-      ex.className = "planex";
-      ex.innerHTML = '<div><strong>New exercise</strong><div class="t-sm t-muted">Add a short, plain-language description.</div></div><span class="planex__freq">1&times; / day</span>';
-      setEditable(ex, true); addDel(ex);
-      return ex;
-    }
-    function addAdd(mod) {
-      if (mod.querySelector(".planadd")) return;
-      var a = document.createElement("button");
-      a.type = "button"; a.className = "planadd";
-      a.innerHTML = addSvg + "Add exercise";
-      a.addEventListener("click", function () { mod.insertBefore(newEx(), a); });
-      mod.appendChild(a);
-    }
-    function enter() {
-      editing = true; card.classList.add("is-editing");
-      each(card.querySelectorAll(".planex"), function (ex) { setEditable(ex, true); addDel(ex); });
-      each(card.querySelectorAll(".planmod"), addAdd);
-      btn.innerHTML = doneHtml;
-    }
-    function exit() {
-      editing = false; card.classList.remove("is-editing");
-      each(card.querySelectorAll(".planex"), function (ex) { setEditable(ex, false); });
-      each(card.querySelectorAll(".planex__del, .planadd"), function (el) { el.remove(); });
-      btn.innerHTML = editHtml;
-      window.paveBanner("Plan updated — review the changes and approve when ready.");
-    }
-    btn.addEventListener("click", function () { editing ? exit() : enter(); });
   })();
 </script>
 </body>
