@@ -1,5 +1,5 @@
 /* ============================================================
-   PAVE Platform Admin — components
+   PAVE Provider Portal — components
    ============================================================ */
 
 /* ---------- Sidebar ---------- */
@@ -464,20 +464,6 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 .conn svg { width: 15px; height: 15px; }
 .avatar--sm { width: 28px; height: 28px; font-size: var(--fs-xs); }
 
-/* Dr. Brain chat */
-.chatwrap { display: flex; flex-direction: column; height: 460px; }
-.chatlog { flex: 1; overflow-y: auto; padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-4); }
-.msg { max-width: 78%; padding: var(--sp-3) var(--sp-4); border-radius: 12px; font-size: var(--fs-body); line-height: 1.5; }
-.msg--ai { background: var(--c-bg); border: 1px solid var(--c-line); align-self: flex-start; border-bottom-left-radius: 4px; }
-.msg--me { background: var(--c-primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-.msg__who { font-size: var(--fs-xs); font-weight: var(--fw-semi); margin-bottom: 4px; opacity: 0.7; }
-.chatbar { display: flex; gap: var(--sp-3); padding: var(--sp-4); border-top: 1px solid var(--c-line); }
-.chatbar input { flex: 1; height: 40px; padding: 0 12px; border: 1px solid var(--c-line); border-radius: var(--radius-sm); font-size: var(--fs-body); }
-.chatbar input:focus { border-color: var(--c-primary); outline: none; box-shadow: 0 0 0 3px var(--c-primary-soft); }
-
-.dropzone { border: 2px dashed var(--c-line); border-radius: var(--radius); padding: var(--sp-6); text-align: center; color: var(--c-ink-3); }
-.dropzone svg { width: 30px; height: 30px; margin: 0 auto var(--sp-2); }
-.sandbox { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4); background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--radius-sm); }
 .modeltag { font-family: var(--font-mono); font-size: var(--fs-xs); background: var(--c-primary-soft); color: var(--c-primary-dark); padding: 3px 8px; border-radius: 6px; font-weight: var(--fw-semi); }
 
 /* ============================================================
@@ -592,6 +578,38 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 .charthead__d { margin-left: auto; font-size: var(--fs-xs); color: var(--st-ready); font-weight: var(--fw-semi); }
 
 /* ============================================================
+   Editable generated plan (Review plan) — inline edit affordances.
+   ============================================================ */
+.card.is-editing .planex { align-items: center; }
+.card.is-editing [contenteditable="true"] {
+  outline: none;
+  border: 1px dashed var(--c-primary);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+  background: var(--c-surface);
+}
+.card.is-editing [contenteditable="true"]:focus {
+  border-style: solid;
+  box-shadow: 0 0 0 2px var(--c-primary-soft);
+}
+.planex__del {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; margin-left: var(--sp-2);
+  border-radius: var(--radius-sm);
+  color: var(--st-attention);
+}
+.planex__del:hover { background: var(--st-attention-bg); }
+.planex__del svg { width: 18px; height: 18px; }
+.planadd {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: var(--sp-2);
+  color: var(--c-primary); font-weight: var(--fw-semi); font-size: var(--fs-sm);
+}
+.planadd:hover { text-decoration: underline; }
+.planadd svg { width: 16px; height: 16px; }
+
+/* ============================================================
    S1 — Utility layer.
    Exists so that NO layout decision lives in an inline style
    attribute: inline styles beat media queries, which blocks the
@@ -675,21 +693,6 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
   margin-bottom: var(--sp-3);
 }
 
-/* ---- Read-only code / prompt viewer ---- */
-.codeblock {
-  margin: 0;
-  white-space: pre-wrap;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--c-ink-2);
-  background: var(--c-bg);
-  border: 1px solid var(--c-line);
-  border-radius: var(--radius-sm);
-  padding: var(--sp-4);
-  max-height: 340px;
-  overflow: auto;
-}
 
 /* ---- Evidence / bulleted source list ---- */
 .evidencelist {
@@ -770,8 +773,6 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
   color: var(--c-primary); font-weight: var(--fw-semi);
 }
 
-/* dropzone is a <label> wrapping a hidden file input */
-.dropzone { display: block; cursor: pointer; }
 
 /* borderless tile (used inside cards that draw their own frame) */
 .tile--bare { border: none; padding: 0; }
@@ -996,7 +997,6 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 }
 @keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
 
-.modeltag--warn { background: var(--st-attention-bg); color: var(--st-attention); }
 
 /* ============================================================
    S5 — Layout primitives. Every fixed-track grid in the build
@@ -1019,10 +1019,6 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
    patient app. NOTE: weekday alignment + an in/miss/today legend are
    still outstanding (gap-analysis B4.3). ---- */
 .cal { grid-template-columns: repeat(7, 1fr); }
-
-/* ---- Dr. Brain chat: was a hard 460px ---- */
-.chatwrap { height: auto; min-height: 320px; max-height: 60vh; max-height: 60dvh; }
-.chatlog  { min-height: 240px; }
 
 /* ---- Tab strips scroll rather than overflow (5 tabs on Patient
    Detail and HIPAA Audit) ---- */

@@ -7,7 +7,7 @@
 >
 > Format: **As a** \<role\>, **I want** \<capability\>, **so that** \<value\>. AC = key acceptance criteria. Each story cites its FSD section.
 >
-> Roles: **Patient** (PWA, v1) · **Provider/Physician** (portal, pro1) · **Org Admin** (portal).
+> Roles: **Patient** (PWA, `patient/`) · **Provider/Physician** (portal, `provider/`) · **Org Admin** (same portal, elevated).
 
 ---
 

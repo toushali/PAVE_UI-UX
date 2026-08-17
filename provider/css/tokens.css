@@ -1,15 +1,14 @@
 /* ============================================================
-   PAVE Platform Admin — design tokens
+   PAVE Provider Portal — design tokens
    Desktop, light mode, data-dense clinical aesthetic (FSD §16.1).
    Monospace for every number/metric/financial value/timestamp.
    ============================================================ */
 :root {
   /* ============================================================
-     THEME — Platform Admin uses the Kivie teal/cyan palette with a
-     light (default) and dark mode, toggled via html[data-theme].
+     Kivie teal/green provider style — the single provider design.
      ============================================================ */
 
-  /* ---- Brand: Kivie teal / cyan (from the logo, matches the provider portal) ---- */
+  /* ---- Brand: Kivie teal / cyan (from the logo) ---- */
   --c-primary:      #17838C;   /* actions, active nav, links */
   --c-primary-dark: #0E5F66;   /* hover / pressed */
   --c-primary-soft: #E1F4F5;   /* active-nav fill, soft chips */

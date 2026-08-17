@@ -1,19 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kivie</title>
-  <!-- S13: v1 and v2 merged into ONE patient portal with a runtime
-       "Choose your companion" option (plant / cat). Three prototypes now. -->
-  <meta http-equiv="refresh" content="0; url=v1/index.html">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kivie — prototype</title>
+<script>(function(){var t;try{t=localStorage.getItem("kivie-provider-theme");}catch(e){}if(t!=="light"&&t!=="dark")t="light";document.documentElement.setAttribute("data-theme",t);})();</script>
+<link rel="stylesheet" href="provider/css/tokens.css">
+<link rel="stylesheet" href="provider/css/base.css">
+<link rel="stylesheet" href="provider/css/components.css">
+<style>
+  /* This page is scaffolding around the prototype, not part of it. */
+  .pick { max-width: 940px; margin: 0 auto; padding: var(--sp-7) var(--sp-5) var(--sp-8); }
+  .pick__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  .pick__card { display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-5);
+                border: 1px solid var(--c-line); border-radius: var(--radius-card);
+                background: var(--c-surface); }
+  .pick__card:hover { border-color: var(--c-primary); }
+  .pick__name { font-size: var(--fs-h2); font-weight: var(--fw-bold); }
+  .pick__acct { display: block; padding: var(--sp-2) 0; border-top: 1px solid var(--c-line-2); }
+  .pick__role { font-size: 11px; font-weight: var(--fw-bold); letter-spacing: .08em;
+                text-transform: uppercase; color: var(--c-ink-3); }
+  .pick__mail { display: block; font-size: var(--fs-sm); font-weight: var(--fw-semi);
+                word-break: break-all; }
+  @media (max-width: 900px) { .pick__grid { grid-template-columns: 1fr; } }
+</style>
 </head>
-<body style="font-family:system-ui,sans-serif;padding:40px;text-align:center">
-  <p>Opening Kivie…</p>
-  <p>
-    <a href="v1/index.html">Patient Portal</a> &nbsp;·&nbsp;
-    <a href="pro1/app/login.html">Provider Portal</a> &nbsp;·&nbsp;
-    <a href="admin/index.html">Platform Admin</a>
+<body>
+<main class="pick">
+
+  <img src="provider/assets/logo.svg" alt="Kivie" width="104" class="mb-5">
+  <h1 class="t-display">Three portals, four roles</h1>
+  <p class="t-muted measure mb-6">
+    Every account below uses the MFA code <strong class="num">123456</strong>. The provider
+    portal opens on provider work by default &mdash; sign in with a different address to
+    enter as someone else.
   </p>
+
+  <div class="pick__grid">
+
+    <section class="pick__card">
+      <span class="pick__name">Provider Portal</span>
+      <p class="t-sm t-muted">Physicians work their own panel. Org admins manage the practice.</p>
+      <span class="pick__acct">
+        <span class="pick__role">Physician</span>
+        <span class="pick__mail num">b.stillman@stillmanrehab.com</span>
+      </span>
+      <span class="pick__acct">
+        <span class="pick__role">Org admin</span>
+        <span class="pick__mail num">d.okafor@stillmanrehab.com</span>
+      </span>
+      <span class="spacer"></span>
+      <a class="btn btn--primary" href="provider/app/login.html">Open provider sign-in</a>
+    </section>
+
+    <section class="pick__card">
+      <span class="pick__name">Platform Admin</span>
+      <p class="t-sm t-muted">Compliance, audit, provider accounts and platform-wide reporting.</p>
+      <span class="pick__acct">
+        <span class="pick__role">Platform admin</span>
+        <span class="pick__mail num">a.rivera@pave.health</span>
+      </span>
+      <p class="t-caption t-muted">Also reachable from the provider sign-in with this address.</p>
+      <span class="spacer"></span>
+      <a class="btn btn--ghost" href="admin/app/login.html">Open admin sign-in</a>
+    </section>
+
+    <section class="pick__card">
+      <span class="pick__name">Patient App</span>
+      <p class="t-sm t-muted">The PWA patients use: daily check-in, exercises, progress, rewards.</p>
+      <span class="pick__acct">
+        <span class="pick__role">Patient</span>
+        <span class="pick__mail num">john.carter@example.com</span>
+      </span>
+      <p class="t-caption t-muted">Magic link, no password &mdash; per FSD &sect;5.1.</p>
+      <span class="spacer"></span>
+      <a class="btn btn--ghost" href="patient/index.html">Open patient app</a>
+    </section>
+
+  </div>
+
+  <p class="t-caption t-muted mt-6 measure">
+    Prototype only. Roles are resolved from the address typed at sign-in; a real build reads
+    the role from the identity provider&rsquo;s claim.
+  </p>
+
+</main>
 </body>
 </html>

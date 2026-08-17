@@ -11,7 +11,7 @@ green identity, distinguished by the **"Platform Admin"** wordmark and a
 ## How to open
 Open **`index.html`** → redirects to `app/login.html`. Sign in with Google/Microsoft →
 MFA → **Overview**. The bottom-left **toggle** switches between all four prototypes
-(Patient v1 · v2 · Provider · **Platform Admin**).
+(Patient · Provider · **Platform Admin**).
 
 ## Screens (8)
 
@@ -43,7 +43,7 @@ MFA → **Overview**. The bottom-left **toggle** switches between all four proto
 ```
 admin/
 ├── index.html            → redirect to app/login.html
-├── css/  tokens · base · components   (copied from pro1, green tokens)
+├── css/  tokens · base · components   (copied from provider/, green tokens)
 ├── js/   app.js           (shell injection, tabs, panels, modals, menus, 5-way toggle)
 └── app/  the 8 screens
 ```

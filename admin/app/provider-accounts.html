@@ -21,6 +21,7 @@
             <div>
               <div class="pagehead__title">Provider accounts</div>
               <div class="pagehead__sub">Every provider across all organizations. Platform-level account control &mdash; distinct from an Org Admin managing their own practice.</div>
+              <p class="t-sm t-muted mt-2 mb-0">Account state, MFA and <a class="t-link" href="dr-brain.html">Dr. Brain training</a> access are all managed here.</p>
             </div>
             <span class="spacer"></span>
             <button class="btn btn--ghost" data-confirm="Provider account export queued &middot; logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export CSV</button>
@@ -52,6 +53,10 @@
                 <option>Cascade Physio</option>
               </select>
               <select class="select select--sm w-auto" data-filter>
+                <option value="">Dr. Brain access</option>
+                <option value="Dr. Brain">Granted</option>
+              </select>
+              <select class="select select--sm w-auto" data-filter>
                 <option value="">All statuses</option>
                 <option value="Active">Active</option>
                 <option value="Dormant">Dormant</option>
@@ -75,7 +80,7 @@
                 <tr data-filterrow data-row>
                   <td><span class="row"><span class="avatar avatar--sm">BS</span>Dr. Brandon Stillman, MD</span><div class="t-meta">b.stillman@stillmanrehab.com</div></td>
                   <td class="t-sm t-muted">Stillman Rehabilitation Group</td>
-                  <td class="t-sm">Physician &middot; <span class="t-primary fw-semi">Org admin</span></td>
+                  <td class="t-sm">Physician &middot; <span class="t-primary fw-semi">Org admin</span> <span class="badge badge--enrolled">Dr. Brain</span></td>
                   <td><span class="badge badge--ready">Active</span></td>
                   <td class="center"><span class="conn">Enrolled</span></td>
                   <td class="num t-sm">2026-07-16 10:02</td>
@@ -95,7 +100,7 @@
                       data-cf-body="Access is revoked immediately and any open session ends. Their patients stay enrolled and their billing windows keep running &mdash; reassign the panel before windows close or claims will expire."
                       data-cf-cta="Suspend account" data-cf-tone="danger">Suspend</button>
                   </div>
-                </div></td></tr>
+                <div class="setrow bb-0 pt-0"><span class="setrow__label"><strong>Dr. Brain training access</strong><span>Granted &middot; may open the training console and stage model changes. Promotion to production still needs a clinician&rsquo;s sign-off.</span></span><button class="btn btn--ghost btn--sm" data-confirm="Dr. Brain training access revoked for Dr. Brandon Stillman, MD &middot; logged." data-cf-title="Revoke Dr. Brain training access?" data-cf-body="Dr. Brandon Stillman, MD loses the training console at their next page load. Sandbox changes they already staged are kept and stay attributable to them. Nothing already promoted to production is affected." data-cf-cta="Revoke access" data-cf-tone="danger">Revoke access</button></div></div></td></tr>
 
                 <tr data-filterrow data-row>
                   <td><span class="row"><span class="avatar avatar--sm">NH</span>Dr. Nadia Haddad, MD</span><div class="t-meta">n.haddad@stillmanrehab.com</div></td>
@@ -116,7 +121,7 @@
                     <button class="btn btn--danger btn--sm" data-confirm="Provider suspended &middot; logged."
                       data-cf-title="Suspend this provider account?" data-cf-body="Access is revoked immediately. Reassign their panel before billing windows close." data-cf-cta="Suspend account" data-cf-tone="danger">Suspend</button>
                   </div>
-                </div></td></tr>
+                <div class="setrow bb-0 pt-0"><span class="setrow__label"><strong>Dr. Brain training access</strong><span>Not granted &middot; this provider cannot open the training console.</span></span><button class="btn btn--ghost btn--sm" data-confirm="Dr. Brain training access granted to Dr. Nadia Haddad, MD &middot; logged to AI Governance." data-cf-title="Grant Dr. Brain training access?" data-cf-body="Dr. Nadia Haddad, MD will be able to open the training console, converse with the model and stage changes to the sandbox. They will NOT be able to promote a model to production &mdash; that stays a named clinical sign-off under FSD &sect;10.4. Every action they take is written to AI Governance." data-cf-cta="Grant access">Grant access</button></div></div></td></tr>
 
                 <tr data-filterrow data-row>
                   <td><span class="row"><span class="avatar avatar--sm">AP</span>Dr. Alan Petrov, DO</span><div class="t-meta">a.petrov@stillmanrehab.com</div></td>
@@ -134,12 +139,12 @@
                       data-cf-title="Reset this provider&rsquo;s authenticator?" data-cf-body="They must enrol a new authenticator at next sign-in." data-cf-cta="Reset authenticator">Reset MFA</button>
                     <a class="btn btn--ghost btn--sm" href="hipaa-audit.html">View sign-in history</a>
                   </div>
-                </div></td></tr>
+                <div class="setrow bb-0 pt-0"><span class="setrow__label"><strong>Dr. Brain training access</strong><span>Not granted &middot; this provider cannot open the training console.</span></span><button class="btn btn--ghost btn--sm" data-confirm="Dr. Brain training access granted to Dr. Alan Petrov, DO &middot; logged to AI Governance." data-cf-title="Grant Dr. Brain training access?" data-cf-body="Dr. Alan Petrov, DO will be able to open the training console, converse with the model and stage changes to the sandbox. They will NOT be able to promote a model to production &mdash; that stays a named clinical sign-off under FSD &sect;10.4. Every action they take is written to AI Governance." data-cf-cta="Grant access">Grant access</button></div></div></td></tr>
 
                 <tr data-filterrow data-row>
                   <td><span class="row"><span class="avatar avatar--sm">PR</span>Dr. Priya Raman, MD</span><div class="t-meta">p.raman@stillmanrehab.com</div></td>
                   <td class="t-sm t-muted">Stillman Rehabilitation Group</td>
-                  <td class="t-sm">Physician</td>
+                  <td class="t-sm">Physician <span class="badge badge--enrolled">Dr. Brain</span></td>
                   <td><span class="badge badge--attention">Dormant</span></td>
                   <td class="center"><span class="conn">Enrolled</span></td>
                   <td class="num t-sm under">2026-06-14 08:11</td>
@@ -154,7 +159,7 @@
                     <button class="btn btn--danger btn--sm" data-confirm="Provider suspended &middot; logged."
                       data-cf-title="Suspend this provider account?" data-cf-body="Access is revoked immediately. 29 patients need reassigning before their windows close." data-cf-cta="Suspend account" data-cf-tone="danger">Suspend</button>
                   </div>
-                </div></td></tr>
+                <div class="setrow bb-0 pt-0"><span class="setrow__label"><strong>Dr. Brain training access</strong><span>Granted &middot; may open the training console and stage model changes. Promotion to production still needs a clinician&rsquo;s sign-off.</span></span><button class="btn btn--ghost btn--sm" data-confirm="Dr. Brain training access revoked for Dr. Priya Raman, MD &middot; logged." data-cf-title="Revoke Dr. Brain training access?" data-cf-body="Dr. Priya Raman, MD loses the training console at their next page load. Sandbox changes they already staged are kept and stay attributable to them. Nothing already promoted to production is affected." data-cf-cta="Revoke access" data-cf-tone="danger">Revoke access</button></div></div></td></tr>
 
                 <tr data-filterrow data-row>
                   <td><span class="row"><span class="avatar avatar--sm">JL</span>Dr. Jordan Liu, MD</span><div class="t-meta">j.liu@bayareaortho.com</div></td>
@@ -168,7 +173,7 @@
                 <tr class="wqpanel" id="pa-5"><td colspan="7"><div class="wqpanel__inner stackfields">
                   <div class="claimsum"><span>Account created <b class="num">2026-05-19</b></span><span>Sign-ins (30d) <b class="num">26</b></span><span>Patients <b class="num">33</b></span></div>
                   <div class="row gap-3 flex-wrap"><a class="btn btn--ghost btn--sm" href="hipaa-audit.html">View sign-in history</a></div>
-                </div></td></tr>
+                <div class="setrow bb-0 pt-0"><span class="setrow__label"><strong>Dr. Brain training access</strong><span>Not granted &middot; this provider cannot open the training console.</span></span><button class="btn btn--ghost btn--sm" data-confirm="Dr. Brain training access granted to Dr. Jordan Liu, MD &middot; logged to AI Governance." data-cf-title="Grant Dr. Brain training access?" data-cf-body="Dr. Jordan Liu, MD will be able to open the training console, converse with the model and stage changes to the sandbox. They will NOT be able to promote a model to production &mdash; that stays a named clinical sign-off under FSD &sect;10.4. Every action they take is written to AI Governance." data-cf-cta="Grant access">Grant access</button></div></div></td></tr>
 
                 <tr data-filterrow data-row>
                   <td><span class="row"><span class="avatar avatar--sm">MO</span>Dr. Maya Okonkwo, DO</span><div class="t-meta">m.okonkwo@bayareaortho.com</div></td>
@@ -187,7 +192,7 @@
                     <button class="btn btn--danger btn--sm" data-confirm="Invitation revoked &middot; logged."
                       data-cf-title="Revoke this invitation?" data-cf-body="The invite link stops working immediately. They will need a fresh invitation to join." data-cf-cta="Revoke invite" data-cf-tone="danger">Revoke invite</button>
                   </div>
-                </div></td></tr>
+                <div class="setrow bb-0 pt-0"><span class="setrow__label"><strong>Dr. Brain training access</strong><span>Not granted &middot; this provider cannot open the training console.</span></span><button class="btn btn--ghost btn--sm" data-confirm="Dr. Brain training access granted to Dr. Maya Okonkwo, DO &middot; logged to AI Governance." data-cf-title="Grant Dr. Brain training access?" data-cf-body="Dr. Maya Okonkwo, DO will be able to open the training console, converse with the model and stage changes to the sandbox. They will NOT be able to promote a model to production &mdash; that stays a named clinical sign-off under FSD &sect;10.4. Every action they take is written to AI Governance." data-cf-cta="Grant access">Grant access</button></div></div></td></tr>
 
                 <tr data-filterrow data-row>
                   <td><span class="row"><span class="avatar avatar--sm">TC</span>Dr. Tomas Cordero, MD</span><div class="t-meta">t.cordero@cascadephysio.com</div></td>
@@ -201,7 +206,7 @@
                 <tr class="wqpanel" id="pa-7"><td colspan="7"><div class="wqpanel__inner stackfields">
                   <div class="claimsum"><span>Account created <b class="num">2026-06-08</b></span><span>Sign-ins (30d) <b class="num">19</b></span><span>Patients <b class="num">27</b></span></div>
                   <div class="row gap-3 flex-wrap"><a class="btn btn--ghost btn--sm" href="hipaa-audit.html">View sign-in history</a></div>
-                </div></td></tr>
+                <div class="setrow bb-0 pt-0"><span class="setrow__label"><strong>Dr. Brain training access</strong><span>Not granted &middot; this provider cannot open the training console.</span></span><button class="btn btn--ghost btn--sm" data-confirm="Dr. Brain training access granted to Dr. Tomas Cordero, MD &middot; logged to AI Governance." data-cf-title="Grant Dr. Brain training access?" data-cf-body="Dr. Tomas Cordero, MD will be able to open the training console, converse with the model and stage changes to the sandbox. They will NOT be able to promote a model to production &mdash; that stays a named clinical sign-off under FSD &sect;10.4. Every action they take is written to AI Governance." data-cf-cta="Grant access">Grant access</button></div></div></td></tr>
 
                 <tr data-filterrow data-row>
                   <td><span class="row"><span class="avatar avatar--sm">HW</span>Dr. Helen Ward, MD</span><div class="t-meta">h.ward@cascadephysio.com</div></td>
@@ -218,7 +223,7 @@
                     <button class="btn btn--ghost btn--sm" data-confirm="Account reinstated &middot; MFA re-enrolment required &middot; logged."
                       data-cf-title="Reinstate this account?" data-cf-body="Access is restored and they must enrol a new authenticator at next sign-in. Their previous patient panel is not returned automatically." data-cf-cta="Reinstate">Reinstate</button>
                   </div>
-                </div></td></tr>
+                <div class="setrow bb-0 pt-0"><span class="setrow__label"><strong>Dr. Brain training access</strong><span>Not granted &middot; this provider cannot open the training console.</span></span><button class="btn btn--ghost btn--sm" data-confirm="Dr. Brain training access granted to Dr. Helen Ward, MD &middot; logged to AI Governance." data-cf-title="Grant Dr. Brain training access?" data-cf-body="Dr. Helen Ward, MD will be able to open the training console, converse with the model and stage changes to the sandbox. They will NOT be able to promote a model to production &mdash; that stays a named clinical sign-off under FSD &sect;10.4. Every action they take is written to AI Governance." data-cf-cta="Grant access">Grant access</button></div></div></td></tr>
               </tbody>
             </table>
           </div>

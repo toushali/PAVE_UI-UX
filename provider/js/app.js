@@ -22,51 +22,106 @@
      Page sets <body data-page="X" data-title="Title">. Keeps every
      provider page in sync from one place. ---- */
   /* ============================================================
-     S4 — one mock feed drives BOTH the bell and the Complaints nav
-     badge, so a count can never disagree with itself (D3.5, D6.3).
-     Sourced from the same signals as the Overview "Needs attention"
-     card, which is the single origin for admin alerts.
+     S4 — one mock feed drives the bell, so a count can never disagree
+     with itself (D3.5, D6.3). R6 removed the Reminders screen, so the
+     bell is now the only surface this feed renders.
      ============================================================ */
   var NOTIFS = [
-    { unread: true,  group: "Unread",  tone: "attention", type: "MDR",       text: "CMP-102 escalated to regulatory review",        time: "40m", href: "complaints.html" },
-    { unread: true,  group: "Unread",  tone: "enrolled",  type: "Auth",      text: "7 failed login attempts in the last 24h",       time: "2h",  href: "hipaa-audit.html" },
-    { unread: true,  group: "Unread",  tone: "attention", type: "Budget",    text: "Twilio SMS spend at 88% of its monthly limit",  time: "5h",  href: "api-costs.html" },
-    { unread: false, group: "Earlier", tone: "enrolled",  type: "PHI",       text: "1 patient data request awaiting handling",      time: "1d",  href: "data-requests.html" },
-    { unread: false, group: "Earlier", tone: "ready",     type: "AI",        text: "Prompt v14 promoted to v15 by A. Rivera",       time: "1d",  href: "ai-governance.html" }
+    { unread: true,  group: "Unread",  tone: "attention", type: "Billing",   text: "3 patients approaching their billing window", time: "12m", href: "work-queue.html" },
+    { unread: true,  group: "Unread",  tone: "ready",     type: "Approvals", text: "2 claims are pending your approval",           time: "1h",  href: "approvals.html" },
+    { unread: true,  group: "Unread",  tone: "ready",     type: "New plan",  text: "A Dr. Brain plan is ready for Evelyn Ross",    time: "3h",  href: "plan-review.html" },
+    { unread: false, group: "Earlier", tone: "attention", type: "At risk",   text: "Maria Alvarez needs a contact call",           time: "1d",  href: "patient.html" },
+    { unread: false, group: "Earlier", tone: "enrolled",  type: "Review",    text: "David Nguyen needs 8 more minutes of review",  time: "2d",  href: "patient.html" }
   ];
   var UNREAD = NOTIFS.filter(function (n) { return n.unread; }).length;
-  var OPEN   = NOTIFS.length;
+
+  /* ============================================================
+     Roles (FSD §4). One sign-in door; the work email you enter
+     decides which role you enter as and where you land.
+
+     Prototype only — a real build resolves the role from the IdP
+     claim, never from a string typed into a box.
+     ============================================================ */
+  var ROLES = {
+    "b.stillman@stillmanrehab.com": {
+      role: "physician", name: "Dr. Brandon Stillman, MD", initials: "BS",
+      title: "Physician", org: "Stillman Rehabilitation Group",
+      portal: "provider", land: "dashboard.html"
+    },
+    "d.okafor@stillmanrehab.com": {
+      role: "org-admin", name: "Dana Okafor", initials: "DO",
+      title: "Practice administrator", org: "Stillman Rehabilitation Group",
+      portal: "provider", land: "dashboard.html"
+    },
+    "a.rivera@pave.health": {
+      role: "platform-admin", name: "Alex Rivera", initials: "AR",
+      title: "Platform administrator", org: "Kivie Platform",
+      portal: "admin", land: "../../admin/app/overview.html"
+    },
+    "john.carter@example.com": {
+      role: "patient", name: "John Carter", initials: "JC",
+      title: "Patient", org: "Stillman Rehabilitation Group",
+      portal: "patient", land: "../../patient/app/today.html"
+    }
+  };
+  var ROLE_KEY = "kivie-provider-role";
+  /* The portal opens as a physician. Everything else is opted into by
+     signing in with that account's email. */
+  var DEFAULT_EMAIL = "b.stillman@stillmanrehab.com";
+
+  function lookup(email) {
+    return ROLES[String(email || "").trim().toLowerCase()] || null;
+  }
+  function currentUser() {
+    var e = DEFAULT_EMAIL;
+    try { e = localStorage.getItem(ROLE_KEY) || DEFAULT_EMAIL; } catch (x) {}
+    /* a patient or platform admin has no provider-portal identity */
+    var u = lookup(e);
+    return (u && u.portal === "provider") ? u : ROLES[DEFAULT_EMAIL];
+  }
+  window.paveRoles   = ROLES;
+  window.paveRoleKey = ROLE_KEY;
+  window.paveLookup  = lookup;
+  window.paveUser    = currentUser;
 
   /* [slug, label, icon paths, badge, group] — group drives the section
      headings, which collapse to hairline dividers in icon-rail mode (S3). */
+  /* R6 — Clinical is exactly four: Dashboard, Work Queue, Patients,
+     Approvals. Reminders was a fifth that duplicated the bell (its feed)
+     and Settings (its preferences); both halves now live where they
+     belong. */
   var NAV = [
-    ["overview","Overview",'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',"","Operations"],
-    ["complaints","Complaints & MDR",'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/>',String(UNREAD),"Operations"],
-    /* S11 — FSD §4: the Platform Administrator "manages provider accounts". */
-    ["organizations","Organizations",'<rect x="3" y="8" width="8" height="13" rx="1.5"/><rect x="13" y="3" width="8" height="18" rx="1.5"/><path d="M6 12h2M6 16h2M16 7h2M16 11h2M16 15h2"/>',"","Accounts"],
-    ["provider-accounts","Provider accounts",'<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M16 5.4a3.2 3.2 0 0 1 0 5.2"/><path d="M17.5 14.8c2 .8 3.5 2.7 3.5 5.2"/>',"","Accounts"],
-    ["reports","Platform reports",'<path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 17v-5"/><path d="M13 17V8"/><path d="M18 17v-3"/>',"","Analytics"],
-    /* S2: §12 API cost & usage — platform vendor spend (gap-analysis E.0) */
-    ["api-costs","API costs",'<path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15l4.5-3.2"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/><path d="M4 15h1.5M18.5 15H20M12 4.5V6"/>',"","Analytics"],
-    /* R7 — both AI surfaces live together: training is where the model
-       changes, governance is where the change is recorded. Training moved
-       here from the provider portal because it will be restricted, not
-       offered to every physician. */
-    ["dr-brain","Dr. Brain training",'<path d="M12 4a3.5 3.5 0 0 0-3.5 3.5A3 3 0 0 0 6 13a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0-2.5-5.5A3.5 3.5 0 0 0 12 4z"/><path d="M12 8v4"/><path d="M9.5 10.5 12 12l2.5-1.5"/>',"","AI"],
-    ["ai-governance","AI Governance",'<path d="M12 3l8 3.5v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10v-5z"/><path d="M9 12l2 2 4-4"/>',"","AI"],
-    ["hipaa-audit","HIPAA Audit",'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/>',"","Compliance"],
-    ["data-requests","Data Requests",'<path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><rect x="4" y="17" width="16" height="3" rx="1.5"/>',"","Compliance"],
-    ["platform-settings","Platform settings",'<circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.5M12 18v2.5M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M19.8 7.5l-2.2 1.3M6.4 15.2l-2.2 1.3"/>',"","Compliance"]
+    ["dashboard","Dashboard",'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',"","Clinical"],
+    ["work-queue","Work Queue",'<path d="M4 13h4l1.5 3h5L16 13h4"/><path d="M5 13 7 5h10l2 8v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"/>',"9","Clinical"],
+    ["patients","Patients",'<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M16 5.4a3.2 3.2 0 0 1 0 5.2"/><path d="M17.5 14.8c2 .8 3.5 2.7 3.5 5.2"/>',"","Clinical"],
+    ["approvals","Approvals",'<circle cx="12" cy="12" r="9"/><path d="M8.5 12.5 11 15l4.5-5"/>',"3","Clinical"],
+    ["reports","Billing reports",'<path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 17v-5"/><path d="M13 17V8"/><path d="M18 17v-3"/>',"","Business"],
+    ["revenue","Revenue",'<path d="M12 3v18"/><path d="M16.5 6.5C16.5 4.8 14.5 3.5 12 3.5S7.5 4.8 7.5 6.5 9.5 9.5 12 9.5s4.5 1.3 4.5 3-2 3-4.5 3-4.5-1.3-4.5-3"/>',"","Business"],
+    /* S2: API costs (§12) moved to the Platform Admin console — it reports
+       PAVE's vendor spend, not the practice's. See gap-analysis E.0. */
+    ["org-admin","Org Admin",'<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h6"/>',"","Practice"],
+    ["settings","Settings",'<circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.5M12 18v2.5M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M19.8 7.5l-2.2 1.3M6.4 15.2l-2.2 1.3"/>',"","Practice"]
   ];
   function icon(paths) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>'; }
   var HAMBURGER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+
   function renderShell() {
     var host = $("[data-shell]");
     if (!host) return;
     var page = document.body.getAttribute("data-page") || "";
     var title = document.body.getAttribute("data-title") || "";
+    var me = currentUser();
+    document.documentElement.setAttribute("data-role", me.role);
+
+    /* FSD §4 — Org Admin is the practice-management surface. A physician
+       has no business there, so it is absent from their nav rather than
+       present-and-refusing. */
+    var visible = NAV.filter(function (n) {
+      return n[0] !== "org-admin" || me.role === "org-admin";
+    });
+
     var group = null, items = "";
-    NAV.forEach(function (n) {
+    visible.forEach(function (n) {
       if (n[4] !== group) { group = n[4]; items += '<div class="nav__section">' + group + '</div>'; }
       items += '<a class="navitem' + (n[0] === page ? " is-active" : "") + '" data-nav="' + n[0] + '" href="' + n[0] + '.html">' +
         icon(n[2]) + '<span class="navitem__label">' + n[1] + '</span>' +
@@ -79,7 +134,7 @@
         '<img class="sidebar__logoimg sidebar__logoimg--light" src="../assets/logo.svg" alt="Kivie" width="92">' +
         '<img class="sidebar__logoimg sidebar__logoimg--dark" src="../assets/logo-light.svg" alt="Kivie" width="92">' +
         '<span class="sidebar__mark" aria-hidden="true">K</span>' +
-        '<span class="sidebar__sub">Platform<br>Admin</span></div>' +
+        '<span class="sidebar__sub">Provider<br>Portal</span></div>' +
       '<nav class="nav" aria-label="Main">' + items + '</nav></aside>' +
       '<div class="scrim" data-scrim hidden></div>';
     host.insertAdjacentHTML("afterbegin", side);
@@ -87,6 +142,7 @@
     /* skip-link target */
     var content = $(".content", host);
     if (content) { content.id = "maincontent"; content.setAttribute("tabindex", "-1"); }
+
     var tb = $("[data-topbar]", host);
     if (tb) tb.innerHTML =
       '<button class="iconbtn navtoggle" data-navtoggle type="button" aria-label="Open navigation" aria-controls="appnav" aria-expanded="false">' + HAMBURGER + '</button>' +
@@ -99,20 +155,20 @@
         '<span class="themetoggle__thumb"></span>' +
       '</button>' +
       notifMenu() +
-      '<span class="modeltag modeltag--warn">System-wide access</span>' +
-      '<span class="topbar__meta"><strong>Alex Rivera</strong><span>Platform Administrator</span></span>' +
+      '<span class="topbar__meta"><strong>' + me.name + '</strong><span>' + me.org + '</span></span>' +
       acctMenu();
   }
 
-  /* S4/D6.3 — the admin feed is sourced from the Overview
-     "Needs attention" card, so that is where "View all" goes.
-     No "Notification settings" link: the admin console has no
-     preferences screen until S11 builds Platform settings (C6),
-     and a link to nowhere is worse than no link. */
-  var NOTIF_FOOT = '<a href="overview.html">View all alerts</a>';
+  /* R6 — two surfaces, not three. The bell peeks; the Work Queue is
+     where these items are actually worked; Settings owns what is sent.
+     "View all" points at the queue because every alert here resolves
+     there, not at a second list of the same five rows. */
+  var NOTIF_FOOT =
+    '<a href="work-queue.html">Open work queue</a><span class="spacer"></span>' +
+    '<a href="settings.html#notifications">Notification settings</a>';
 
-  /* ---- S4: notification panel. Peek at the feed; Reminders is the
-     full history + triage view; Settings owns delivery channels. ---- */
+  /* ---- S4: notification panel. Peek at the feed; the Work Queue is
+     the triage view; Settings owns what gets sent (R6). ---- */
   function notifMenu() {
     var group = null, rows = "";
     NOTIFS.forEach(function (n) {
@@ -137,22 +193,30 @@
       '</div></span>';
   }
 
-  /* ---- S4: account menu (admin).
-     S11 added Platform settings (C6), so the menu now carries it.
-     Still no per-admin profile screen, so no "My profile" item — a
-     menu item pointing nowhere is worse than an absent one. ---- */
+  /* ---- S4: account menu. "Sign out" is the control the portal had no
+     way to perform at all before this (gap-analysis D6.1).
+     Omitted deliberately:
+       · Switch organization — blocked on whether a provider may belong
+         to more than one org (FSD §2.2 is silent; gap-analysis E.1).
+       · Help & support — no destination screen exists yet; a dead link
+         is worse than an absent one. ---- */
   function acctMenu() {
     var ic = function (p) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>'; };
+    var me = currentUser(), email = DEFAULT_EMAIL;
+    try { email = localStorage.getItem(ROLE_KEY) || DEFAULT_EMAIL; } catch (x) {}
+    if (!lookup(email) || lookup(email).portal !== "provider") email = DEFAULT_EMAIL;
     return '<span class="dd dd--end" data-menu>' +
-      '<button class="avatar avatar--btn" data-menu-trigger type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu — Alex Rivera">AR</button>' +
+      '<button class="avatar avatar--btn" data-menu-trigger type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu — ' + me.name + '">' + me.initials + '</button>' +
       '<div class="dd__menu acctmenu" role="menu">' +
-        '<div class="acctmenu__id"><span class="avatar avatar--sm">AR</span><span>' +
-          '<strong>Alex Rivera</strong>' +
-          '<span class="t-meta">a.rivera@pave.health</span>' +
-          '<span class="t-meta">Platform Administrator · system-wide access</span>' +
+        '<div class="acctmenu__id"><span class="avatar avatar--sm">' + me.initials + '</span><span>' +
+          '<strong>' + me.name + '</strong>' +
+          '<span class="t-meta">' + email + '</span>' +
+          '<span class="t-meta">' + me.org + ' · ' + me.title + '</span>' +
         '</span></div>' +
         '<div class="acctmenu__list">' +
-          '<a class="dd__item" role="menuitem" href="platform-settings.html">' + ic('<circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.5M12 18v2.5M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M19.8 7.5l-2.2 1.3M6.4 15.2l-2.2 1.3"/>') + 'Platform settings</a>' +
+          '<a class="dd__item" role="menuitem" href="settings.html#profile">' + ic('<circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>') + 'My profile</a>' +
+          '<a class="dd__item" role="menuitem" href="settings.html">' + ic('<circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.5M12 18v2.5M4.2 7.5l2.2 1.3M17.6 15.2l2.2 1.3M19.8 7.5l-2.2 1.3M6.4 15.2l-2.2 1.3"/>') + 'Settings</a>' +
+          '<a class="dd__item" role="menuitem" href="settings.html#notifications">' + ic('<path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/>') + 'Notification preferences</a>' +
           '<div class="dd__sep"></div>' +
           '<a class="dd__item is-danger" role="menuitem" href="login.html">' + ic('<path d="M15 17l5-5-5-5"/><path d="M20 12H9"/><path d="M12 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6"/>') + 'Sign out</a>' +
         '</div>' +
@@ -270,7 +334,7 @@
   }
 
   /* ---- Light / dark theme toggle. Persists to localStorage; the <head>
-     bootstrap applies it before paint to avoid a flash. Admin defaults light. ---- */
+     bootstrap applies it before paint to avoid a flash. Defaults light. ---- */
   function initThemeToggle() {
     function current() { return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light"; }
     document.addEventListener("click", function (e) {
@@ -278,7 +342,7 @@
       if (!t) return;
       var next = current() === "dark" ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", next);
-      try { localStorage.setItem("kivie-admin-theme", next); } catch (err) {}
+      try { localStorage.setItem("kivie-provider-theme", next); } catch (err) {}
     });
   }
 
@@ -428,6 +492,10 @@
     });
   }
 
+  /* ---- Tabs: [data-tabs] with [data-tab="X"] buttons + [data-tabpanel="X"].
+     S12/D2.1 — these were plain buttons: no tablist semantics, no
+     aria-selected, no arrow-key navigation. Now a proper roving-tabindex
+     tablist. ---- */
   /* ============================================================
      S12 — shared accessibility helpers (gap-analysis D.2)
      ============================================================ */
@@ -529,10 +597,7 @@
       });
     });
   }
-  /* ---- Tabs: [data-tabs] with [data-tab="X"] buttons + [data-tabpanel="X"].
-     S12/D2.1 — these were plain buttons: no tablist semantics, no
-     aria-selected, no arrow-key navigation. Now a proper roving-tabindex
-     tablist. ---- */
+
   /* ---- Mock 60-second auto-refresh ticker: [data-ago] ---- */
   function initAgo() {
     $$('[data-ago]').forEach(function (el) {
@@ -553,20 +618,16 @@
   function initDesignToggle() {
     if (document.getElementById("paveDesignToggle")) return;
     var path = location.pathname;
-    var isProvider = path.indexOf("/provider/") > -1;
     var isAdmin = path.indexOf("/admin/") > -1;
     /* base = everything before the portal segment (patient / provider / admin) */
     var seg = null, base = "";
     ["patient", "provider", "admin"].forEach(function (sg) {
       var i = path.indexOf("/" + sg + "/"); if (i > -1) { seg = sg; base = path.slice(0, i); }
     });
-    /* Provider portal design toggle.
-       Stay on the current provider page when switching theme; else land on dashboard. */
-    var provTarget = isProvider ? path : base + "/provider/app/dashboard.html";
-
+    /* Single provider portal. */
     var ITEMS = [
       { label: "Patient",          href: base + "/patient/app/today.html",   cur: seg === "patient" },
-      { label: "Provider",         href: provTarget,                        cur: isProvider },
+      { label: "Provider",  href: base + "/provider/app/dashboard.html",  cur: seg === "provider" },
       { label: "Platform · Admin", href: base + "/admin/app/overview.html",  cur: isAdmin }
     ];
     var curItem = ITEMS.filter(function (i) { return i.cur; })[0] || ITEMS[0];
@@ -829,19 +890,6 @@
     sync();
   }
 
-
-  /* ---- S11 · C4: custom date ranges (FSD §14.5 requires them on all
-     reports). The preset select reveals a real from/to pair. ---- */
-  function initDateRange() {
-    $$('[data-daterange-preset]').forEach(function (sel) {
-      var custom = $('[data-daterange-custom]', sel.parentNode);
-      if (!custom) return;
-      function sync() { custom.hidden = sel.value !== "custom"; }
-      sel.addEventListener("change", sync);
-      sync();
-    });
-  }
-
   /* ---- Sortable table: [data-sort] with th[data-col].
      S12/D2.2 — the <th> itself was the click target: not focusable, not
      keyboard-operable, and direction was signalled by a CSS glyph with no
@@ -1068,8 +1116,110 @@
     });
   }
 
+  /* ---- Editable generated plan: #editPlanBtn toggles inline editing of the
+     plan inside #planCard. Physician can rename/retime, add, or remove
+     exercises; the "Medical rationale" module is left read-only. Used on
+     Review plan (new patient) and on the patient record's Generated plan tab. ---- */
+  function initPlanEditor() {
+    var card = $("#planCard"), btn = $("#editPlanBtn");
+    if (!card || !btn) return;
+    var editHtml = btn.innerHTML;
+    var doneHtml = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>Done editing';
+    var delSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+    var addSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>';
+    var editing = false;
+
+    function setEditable(ex, on) {
+      [ex.querySelector("strong"), ex.querySelector(".t-sm"), ex.querySelector(".planex__freq")]
+        .forEach(function (el) { if (el) el.contentEditable = on ? "true" : "false"; });
+    }
+    function addDel(ex) {
+      if (ex.querySelector(".planex__del")) return;
+      var d = document.createElement("button");
+      d.type = "button"; d.className = "planex__del"; d.setAttribute("aria-label", "Remove exercise");
+      d.innerHTML = delSvg;
+      d.addEventListener("click", function () { ex.remove(); });
+      ex.appendChild(d);
+    }
+    function newEx() {
+      var ex = document.createElement("div");
+      ex.className = "planex";
+      ex.innerHTML = '<div><strong>New exercise</strong><div class="t-sm t-muted">Add a short, plain-language description.</div></div><span class="planex__freq">1&times; / day</span>';
+      setEditable(ex, true); addDel(ex);
+      return ex;
+    }
+    function addAdd(mod) {
+      if (mod.querySelector(".planadd")) return;
+      var a = document.createElement("button");
+      a.type = "button"; a.className = "planadd";
+      a.innerHTML = addSvg + "Add exercise";
+      a.addEventListener("click", function () { mod.insertBefore(newEx(), a); });
+      mod.appendChild(a);
+    }
+    function enter() {
+      editing = true; card.classList.add("is-editing");
+      $$(".planex", card).forEach(function (ex) { setEditable(ex, true); addDel(ex); });
+      $$(".planmod", card).forEach(function (mod) { if (mod.querySelector(".planex")) addAdd(mod); });
+      btn.innerHTML = doneHtml;
+    }
+    function exit() {
+      editing = false; card.classList.remove("is-editing");
+      $$(".planex", card).forEach(function (ex) { setEditable(ex, false); });
+      $$(".planex__del, .planadd", card).forEach(function (el) { el.remove(); });
+      btn.innerHTML = editHtml;
+      window.paveBanner("Plan updated — review the changes and approve when ready.");
+    }
+    btn.addEventListener("click", function () { editing ? exit() : enter(); });
+  }
+
+  /* ---- R8: role guards.
+     [data-role-only="org-admin"] elements are removed for anyone else,
+     and a page marked <body data-requires-role="org-admin"> swaps its
+     content for a plain explanation rather than a blank screen. ---- */
+  function initRoleGuard() {
+    var me = currentUser();
+    $$("[data-role-only]").forEach(function (el) {
+      if (el.getAttribute("data-role-only") !== me.role) el.remove();
+    });
+
+    var needs  = document.body.getAttribute("data-requires-role");
+    var denies = document.body.getAttribute("data-forbids-role");
+    var blocked = (needs && needs !== me.role) || (denies && denies === me.role);
+    if (!blocked) return;
+    var host = $(".content__inner");
+    if (!host) return;
+    var why = denies === me.role
+      ? '<p class="measure">Organization administrators manage the practice \u2014 providers, ' +
+        'patient assignment, group billing and outcomes. An individual clinical record stays ' +
+        'with the treating physician.</p>'
+      : '<p class="measure">This is the practice-management area. It is available to your ' +
+        'organization\'s administrator, who manages providers, patient assignment and ' +
+        'group billing.</p>';
+    host.innerHTML =
+      '<div class="pagehead rise rise-1"><div class="pagehead__title">Not available for your role</div>' +
+      '<div class="pagehead__sub">You are signed in as ' + me.title.toLowerCase() + '.</div></div>' +
+      '<section class="card rise rise-2"><div class="card__body">' + why +
+        '<p class="measure t-sm t-muted">FSD \u00a74 keeps these separate on purpose: an org ' +
+        'admin manages the practice and <strong>cannot access individual patient clinical ' +
+        'records</strong>; a physician works their own panel.</p>' +
+        '<div class="row gap-3 mt-5"><a class="btn btn--primary" href="dashboard.html">Back to dashboard</a>' +
+        '<a class="btn btn--ghost" href="settings.html">Settings</a></div>' +
+      '</div></section>';
+  }
+
+  /* ---- Signing out returns the door to its default identity. ---- */
+  function initSignout() {
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("[data-signout]");
+      if (!a) return;
+      try { localStorage.removeItem(ROLE_KEY); } catch (x) {}
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     renderShell();
+    initRoleGuard();
+    initSignout();
     initDrawer();
     initNotifs();
     initThemeToggle();
@@ -1088,11 +1238,11 @@
     initSort();
     initTables();
     initStatusText();
-    initDateRange();
     initSwitch();
     initModals();
     initMenus();
     initLoadingDemo();
+    initPlanEditor();
     initDesignToggle();
   });
 })();

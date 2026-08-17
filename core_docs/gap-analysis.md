@@ -1,8 +1,9 @@
 # PAVE — Open Gaps & Client Decisions
 
 > **15 Aug 2026.** Only what is still open. Resolved items (S1–S16) are in [build.md](build.md) and git history.
-> **3 portals** — Provider 16 screens · Admin 13 · Patient PWA 15. Verified: 44 pages, 0 markup/link/asset errors.
+> **3 portals, 39 feature screens** — Provider 12 · Admin 12 · Patient PWA 15. Verified: 47 pages, 0 markup/link/asset errors.
 > **Not verified: nothing has been opened in a browser.** QA matrix = 154 portal + 168 patient checks, never run.
+> **18 Aug:** the portal folders are now `provider/`, `patient/` and `admin/`. Frontend handover doc: [../README.md](../README.md).
 
 ---
 
@@ -13,16 +14,16 @@
 | 1 | **Responsive scope** | FSD §16.1 says desktop-only, 1100px. Build is now responsive. Spec and build disagree on paper | Amend §16.1: responsive to 768px, essential-actions subset below |
 | 2 | **Dark mode** | §17.2 says out of scope; it is shipped in both portals | Decide before QA — it doubles the matrix to 308 checks |
 | 3 | **Post-approval plan editing** | §17.2 and M3 §4 say plans are frozen after approval; `patient.html` makes them editable | Remove from `patient.html`, keep on `plan-review.html` |
-| 4 | **Org Admin record access** | §4 says Org Admins cannot see clinical records. No restricted view exists — they can open any patient | Design it. **Only decision with a compliance edge** |
+| ~~4~~ | ~~**Org Admin record access**~~ | ✅ **Gated 18 Aug** (build.md **R8**): the nav item, the Settings card and `patient.html` all respect the role. *Still open:* what an org admin sees **instead of** a clinical record | Design the panel-counts + billing view |
 | 5 | **Brand name** | Docs say PAVE; code, logos, titles, storage keys and ~60 toast strings say Kivie | Pick one — blocks consolidating the copy |
-| 6 | **Cat art format** | Cat companion is PNG; everything else, including its own medallions, is SVG. Softens at 176px on tablet | Redraw 3 cat stages as SVG |
+| ~~6~~ | ~~**Cat art format**~~ | ✅ **Closed 18 Aug:** all three cat stages supplied as SVG, PNGs deleted. A `viewBox` was added to each — they shipped without one and would have clipped rather than scaled | — |
 | 7 | **`--st-ready` contrast** | Green status badge is 3.53:1, under AA. It is the §15.3 status colour, so a design call | `#14714D` passes at 5.2:1 |
-| 8 | **Reminders screen** | In no core doc; duplicates Settings' notification controls | Fold into Settings, or keep and de-duplicate |
-| 9 | **Dr. Brain training placement** | Training sits in Provider, governance of the same model in Admin. M5 assigns training to the admin engineer | Move training to Admin |
+| ~~8~~ | ~~**Reminders screen**~~ | ✅ **Closed 18 Aug:** folded into Settings; its duplicate feed dropped (build.md **R6**) | — |
+| ~~9~~ | ~~**Dr. Brain training placement & access**~~ | ✅ **Fully closed 18 Aug.** Training moved to Platform Admin (R7); the per-provider permission is granted there on the account record (R7b). Client: *keep the control on the admin end only, leave the provider portal without Dr. Brain* — so the grant is recorded, not yet wired to a provider surface, by choice | — |
 | 10 | **Complaint intake channel** | See §2 | Decide the channel, or declare it off-system |
 | 11 | **Patient service worker** | Built in S16; the removed UI spec deferred it, FSD §17.1 + M1 §4 budget it | Keep |
 
-Decisions **2, 5, 7, 8** change work already done — clear those first.
+Decisions **2, 5, 7** change work already done — clear those first. **4, 8 and 9 were answered by the 15 Aug feedback** and are now sessions R5–R7 in [build.md](build.md).
 
 ---
 
@@ -33,6 +34,23 @@ Decisions **2, 5, 7, 8** change work already done — clear those first.
 **The gap is upstream:** no designed way to *raise* one. The patient app offers only "Call the office"; the provider portal offers nothing; and complaints appear in **neither the FSD nor user-stories** — only M2/M4. So entry into a regulated 6-year MDR register is entirely off-system.
 
 Defensible as-is: a complaint can carry a regulatory clock, so admin-mediated intake keeps severity assessment with someone qualified to judge it. The decision is whether to design the inbound channel or state that it is deliberately off-system.
+
+---
+
+## 2b. Sign-in now selects the role — read this before demoing
+
+One door, four accounts. The provider sign-in takes a **work email**; the address decides the role and the destination.
+
+| Role (FSD §4) | Email | Lands on |
+|---|---|---|
+| Physician / Provider | `b.stillman@stillmanrehab.com` | Provider → Dashboard *(the default)* |
+| Organization Administrator | `d.okafor@stillmanrehab.com` | Provider → Dashboard, **+ Org Admin** |
+| Platform Administrator | `a.rivera@pave.health` | **Platform Admin** → Overview |
+| Patient | `john.carter@example.com` | Turned away, pointed at the patient app |
+
+MFA code `123456` throughout. All four are listed on the sign-in screen and at the root chooser (`index.html`).
+
+**This is not authentication.** The role comes from a string typed into a box and is kept in `localStorage`. A real build takes it from the identity provider's claim — flagged on every surface that offers a demo account.
 
 ---
 
@@ -61,10 +79,9 @@ Defensible as-is: a complaint can carry a regulatory clock, so admin-mediated in
 | B5.5 | CSV export has no field/date config, progress or failure state | 🟡 |
 | B5.6 | Patients table missing adherence column; date sort is string-based | 🟡 |
 | B7.1 | Settings dead links — login history (§14.4), invoices (§13.3) | 🟡 |
-| B7.3 | Settings has no role gating; no plain-physician view | 🟡 |
 | B7.4 | Reassignment is single-patient; menu action only toasts | 🟡 |
 | B7.5 | Org Admin has no per-provider drill-down or outcome metrics (§6.9) | 🟡 |
-| B7.8 | Dr. Brain training actions not logged in-portal (§10.3) | 🟡 |
+| B7.8 | Dr. Brain training actions not logged in-portal (§10.3) — **now an admin gap**; the page links to AI Governance but writes nothing to it | 🟡 |
 | B7.9 | Knowledge base has no upload progress, errors, empty state or pagination | 🟡 |
 | B7.11 | Dr. Brain chat has no streaming, typing, error or cost state | 🟡 |
 | B2.3 · B2.6 · B2.8 · B3.3 · B3.5 · B4.7 | Panel cross-fade · priority invisible · banner dismissal not per-session · history flags mismatch · no step-4 edit links · back-link not contextual | 🟢 |
@@ -97,16 +114,16 @@ Defensible as-is: a complaint can carry a regulatory clock, so admin-mediated in
 | ID | Gap | Sev |
 |---|---|---|
 | — | PWA icons are placeholder — drawn from the design system's leaf, not a designer export | 🟠 |
-| PT-4 | Cat art is PNG (decision 6) | 🟠 |
+| PT-8 | Companion art is traced SVG: 200–400 paths per file, ~3.4 MB across the art directory. Correct, but unoptimised — run SVGO | 🟡 |
 | PT-7 | Prototype frame chrome ships in CSS; gate behind a flag before build | 🟡 |
 
-**Noted, not a gap:** 18 selectors are unreferenced in both portals, but most are deliberate component-library entries (`.skeleton`, `.slider`, `.input--error`). Dead ≠ deletable — left in place by choice.
+**Noted, not a gap:** ~35 selectors in provider and ~100 in admin are unreferenced. Both portals share one design system, so each carries rules the other uses; the rest are component-library entries (`.skeleton`, `.slider`, `.input--error`, `.radio`) and state hooks. Dead ≠ deletable — left in place by choice. The **R7 orphans** (every Dr. Brain rule still sitting in provider) *were* removed, 18 Aug.
 
 ---
 
 ## 4. Next
 
-1. Clear §1 with the client — **2, 5, 7, 8 first**, they change delivered work.
+1. Clear §1 with the client — **2, 5, 7 first**, they change delivered work.
 2. Run the QA matrix in a browser. Largest single risk: 17 sessions verified statically, none in a viewport.
 3. Work §3 — ordinary engineering, nothing blocked.
 
@@ -114,18 +131,16 @@ Defensible as-is: a complaint can carry a regulatory clock, so admin-mediated in
 
 ## Appendix — portal & screen inventory
 
-**3 portals, 40 feature screens.** The FSD specifies 2 portals and budgets 15 screens; it also defines a Platform Administrator (§4) with PHI export/delete powers (§3.4) and five report families (§14) — and allocates that role no screen. The admin console is the missing third of a four-role model, not scope creep. *Org Admin is a role inside the Provider Portal, not a portal.*
+**3 portals, 39 feature screens.** The FSD specifies 2 portals and budgets 15 screens; it also defines a Platform Administrator (§4) with PHI export/delete powers (§3.4) and five report families (§14) — and allocates that role no screen. The admin console is the missing third of a four-role model, not scope creep. *Org Admin is a role inside the Provider Portal, not a portal.*
 
 | Portal | Role(s) | Screens | FSD |
 |---|---|---|---|
-| **Provider** `pro1/` | Physician · Org Admin (elevated) | **14** + 404, session-expired | §6 |
-| **Patient PWA** `v1/` | Patient (60–85) | **15** | §7, §8 |
-| **Platform Admin** `admin/` | Platform Administrator | **11** + sign-in, 404, session-expired | §4, §14, §12, §3.4 |
+| **Provider** `provider/` | Physician · Org Admin (elevated) | **12** + 404, session-expired | §6 |
+| **Patient PWA** `patient/` | Patient (60–85) | **15** | §7, §8 |
+| **Platform Admin** `admin/` | Platform Administrator | **12** + 404, session-expired | §4, §14, §12, §3.4, §10.4 |
 
-**Provider (14):** Dashboard · Work Queue · Enrollment · Plan Review · Patient Detail · Approvals · Billing reports · Revenue Calculator · Patients · Org Admin · Settings · Dr. Brain · Sign in · Reminders*
+**Provider (12):** Dashboard · Work Queue · Enrollment · Plan Review · Patient Detail · Approvals · Billing reports · Revenue Calculator · Patients · Org Admin · Settings · Sign in
 **Patient (15):** splash · login · verify · onboarding · session-expired · today · checkin · confirmation · exercises · progress · rewards · settings · help · offline · notifications
-**Admin (11):** Overview · Complaints & MDR · AI Governance · Platform reports · HIPAA Audit · Data Requests · API costs · Provider accounts · Organizations · Platform settings · Sign in
+**Admin (12):** Overview · Complaints & MDR · **Dr. Brain training** · AI Governance · Platform reports · HIPAA Audit · Data Requests · API costs · Provider accounts · Organizations · Platform settings · Sign in
 
-\* Reminders is discretionary — decision 8.
-
-**Scope note:** the Delivery Planner budgets a designer for **15 screens**; the real surface is **40**. Not drift — five patient auth/support files sit under one FSD "screen", the admin console was never budgeted, and two FSD-mandated provider screens are absent from its own page count. Re-baseline before committing to M1's two-week design window.
+**Scope note:** the Delivery Planner budgets a designer for **15 screens**; the real surface is **39**. Not drift — five patient auth/support files sit under one FSD "screen", the admin console was never budgeted, and two FSD-mandated provider screens are absent from its own page count. Re-baseline before committing to M1's two-week design window.

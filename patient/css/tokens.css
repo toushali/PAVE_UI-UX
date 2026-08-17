@@ -1,0 +1,140 @@
+/* ============================================================
+   PAVE — Design Tokens (Section 4)
+   All screens inherit these. Never hardcode a value that
+   belongs here — add a token instead.
+   ============================================================ */
+
+:root {
+  /* ============================================================
+     Kivie brand ramp — matches the logo (cyan leaf · navy · teal).
+     These six are the source of truth; legacy --c-* names below
+     are remapped onto them so every existing usage inherits it.
+     ============================================================ */
+  --ink:        #16294A;   /* all body / heading text */
+  --pine:       #0E4A44;   /* card + hero surfaces, primary actions; gradient end */
+  --teal:       #17838C;   /* teal surface (v2 hero/level) — shared ramp */
+  --eucalyptus: #4F9C87;   /* secondary fills, dividers, inactive states */
+  --cyan:       #21B6C4;   /* PROGRESS ONLY — ring fills, points bars, active tab */
+  --clay:       #C08056;   /* warm accent / ember start */
+  --amber:      #D9A441;   /* ember end — shared ramp */
+  --paper:      #F4F7F3;   /* page background */
+
+  /* progress: --ink @10% track, --pine→--cyan 135° fill (logo angle).
+     Reused by the companion ring AND the points bar. */
+  --track:         rgba(22, 41, 74, 0.10);
+  --grad-progress: linear-gradient(135deg, var(--pine), var(--cyan));
+  --grad-teal:     linear-gradient(135deg, var(--teal), var(--pine));
+  --ember:         linear-gradient(135deg, var(--clay), var(--amber));
+
+  /* ---- Legacy names remapped onto the ramp ---- */
+  --c-primary:        var(--pine);   /* buttons, primary actions */
+  --c-primary-dark:   #0A3A35;       /* pressed */
+  --c-primary-soft:   #E5EEEA;       /* soft eucalyptus tint (done states) */
+
+  --c-accent-amber:   var(--clay);   /* gentle warm "attention", never red */
+  --c-success:        var(--pine);
+  --c-celebrate:      var(--clay);
+
+  --c-accent:         var(--clay);
+  --c-accent-dark:    #A66A45;
+  --c-accent-soft:    #EFE1D6;
+
+  --c-amber-soft:     #EFE1D6;       /* Worse (warm clay tint) */
+  --c-neutral-soft:   #E7EEEB;       /* Same (neutral) */
+
+  --c-mod-pilates:    var(--pine);
+  --c-mod-mobility:   var(--eucalyptus);
+  --c-mod-strength:   var(--clay);
+  --c-mod-breathing:  #A66A45;
+
+  /* ---- Neutrals (cool navy-slate) ---- */
+  --c-ink:            var(--ink);          /* primary text */
+  --c-ink-2:          rgba(22,41,74,0.64); /* secondary text */
+  --c-line:           rgba(22,41,74,0.12); /* hairlines / borders */
+  --c-bg:             var(--paper);        /* app background */
+  --c-surface:        #FFFFFF;             /* cards lift off paper */
+
+  /* ---- Pain scale ramp (calm -> warm alert, no red) ---- */
+  --c-pain-0:         var(--eucalyptus);
+  --c-pain-5:         var(--clay);
+  --c-pain-10:        #A0503B;
+
+  /* ---- Typography ---- */
+  --font-sans:  "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-serif: "Fraunces", "Iowan Old Style", Georgia, "Times New Roman", serif;
+
+  --fs-display: 44px;  /* hero question, streak number, pain number */
+  --fs-h1:      30px;  /* screen titles, greeting */
+  --fs-h2:      22px;  /* section headers */
+  --fs-body-lg: 20px;  /* primary body, button labels */
+  --fs-body:    18px;  /* minimum body */
+  --fs-caption: 16px;  /* secondary/meta — do not go smaller */
+
+  --lh-tight: 1.25;
+  --lh-body:  1.5;
+
+  --fw-regular: 400;
+  --fw-medium:  600;
+  --fw-bold:    700;
+
+  /* ---- Spacing (8px base) ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --page-pad:    20px;   /* left/right screen padding */
+  --content-max: 440px;  /* center content, cap width */
+
+  /* ---- Radius ---- */
+  --radius-card: 20px;
+  --radius-btn:  16px;
+  --radius-pill: 999px;
+
+  /* ---- Shadow ---- */
+  --shadow-card: 0 4px 16px rgba(22,41,74,0.07), 0 1px 3px rgba(22,41,74,0.05);
+  --shadow-lift: 0 10px 30px rgba(22,41,74,0.12);
+  --shadow-bar:  0 -8px 24px rgba(22,41,74,0.08);  /* sticky action bar top shadow */
+
+  /* ---- Tap targets ---- */
+  --tap-min:  48px;   /* absolute minimum */
+  --tap-btn:  60px;   /* primary button height */
+  --tap-hero: 72px;   /* the check-in Go button ring */
+
+  /* ---- Motion ---- */
+  --motion-fast: 160ms;
+  --motion-base: 260ms;
+  --motion-slow: 420ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);  /* soft */
+}
+
+/* ---- Large-text mode: +~15% on the type ramp ----
+   Toggle by adding class "text-lg" to <html>. Surfaced in
+   Onboarding and Settings. */
+html.text-lg {
+  --fs-display: 50px;
+  --fs-h1:      34px;
+  --fs-h2:      25px;
+  --fs-body-lg: 23px;
+  --fs-body:    21px;
+  --fs-caption: 18px;
+}
+
+/* ---- Small-text mode: ~10% down from default for a more compact view.
+   Body stays at a readable 16px. Toggle by adding class "text-sm" to <html>. */
+html.text-sm {
+  --fs-display: 40px;
+  --fs-h1:      27px;
+  --fs-h2:      20px;
+  --fs-body-lg: 18px;
+  --fs-body:    16px;
+  --fs-caption: 15px;
+}
+
+/* ---- High-contrast mode ----
+   Toggle by adding class "high-contrast" to <html>. Surfaced in
+   Settings. Darkens ink, strengthens borders, whitens background. */
+html.high-contrast {
+  --c-ink:     #0A1526;
+  --c-ink-2:   #263349;
+  --c-line:    rgba(22,41,74,0.34);
+  --c-bg:      #FFFFFF;
+  --c-primary: #093A35;
+}
