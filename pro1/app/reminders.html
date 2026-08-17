@@ -29,8 +29,8 @@
 
         <!-- Push notifications enable -->
         <section class="card rise rise-1"><div class="card__body">
-          <div class="row" style="gap:var(--sp-4)">
-            <span style="flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:var(--c-primary-soft);color:var(--c-primary)">
+          <div class="row gap-4">
+            <span class="iconbadge">
               <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
             </span>
             <div>
@@ -43,11 +43,11 @@
         </div></section>
 
         <!-- Active reminders -->
-        <section class="card rise rise-2" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Active reminders</span><span class="badge badge--attention" style="height:20px">5 open</span></div><div class="card__body">
+        <section class="card rise rise-2 mt-4"><div class="card__head"><span class="card__title">Active reminders</span><span class="badge badge--attention badge--head">5 open</span></div><div class="card__body">
 
           <div class="setrow">
             <span class="setrow__label">
-              <strong style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="badge badge--attention">Billing</span>3 patients approaching their billing window</strong>
+              <strong class="remtitle"><span class="badge badge--attention">Billing</span>3 patients approaching their billing window</strong>
               <span>Review this week to capture RTM revenue before the window closes.</span>
             </span>
             <a class="btn btn--ghost btn--sm" href="work-queue.html">Open work queue</a>
@@ -55,7 +55,7 @@
 
           <div class="setrow">
             <span class="setrow__label">
-              <strong style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="badge badge--ready">Approvals</span>2 claims are pending your approval</strong>
+              <strong class="remtitle"><span class="badge badge--ready">Approvals</span>2 claims are pending your approval</strong>
               <span>Sign off to release them to billing.</span>
             </span>
             <a class="btn btn--ghost btn--sm" href="approvals.html">Review approvals</a>
@@ -63,7 +63,7 @@
 
           <div class="setrow">
             <span class="setrow__label">
-              <strong style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="badge badge--attention">At risk</span>Maria Alvarez needs a contact call</strong>
+              <strong class="remtitle"><span class="badge badge--attention">At risk</span>Maria Alvarez needs a contact call</strong>
               <span>One contact call keeps her billing window open &middot; <span class="num">3</span> days left.</span>
             </span>
             <a class="btn btn--ghost btn--sm" href="patient.html">Open patient</a>
@@ -71,15 +71,15 @@
 
           <div class="setrow">
             <span class="setrow__label">
-              <strong style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="badge badge--enrolled">Review</span>David Nguyen needs <span class="num">8</span> more minutes of review</strong>
+              <strong class="remtitle"><span class="badge badge--enrolled">Review</span>David Nguyen needs <span class="num">8</span> more minutes of review</strong>
               <span>Log review time to qualify this billing period.</span>
             </span>
             <a class="btn btn--ghost btn--sm" href="patient.html">Open patient</a>
           </div>
 
-          <div class="setrow" style="border-bottom:none">
+          <div class="setrow bb-0">
             <span class="setrow__label">
-              <strong style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="badge badge--ready">New plan</span>A new Dr. Brain plan is ready for Evelyn Ross</strong>
+              <strong class="remtitle"><span class="badge badge--ready">New plan</span>A new Dr. Brain plan is ready for Evelyn Ross</strong>
               <span>Review and approve before the patient is invited.</span>
             </span>
             <a class="btn btn--ghost btn--sm" href="plan-review.html">Review plan</a>
@@ -88,13 +88,13 @@
         </div></section>
 
         <!-- What to remind me about -->
-        <section class="card rise rise-3" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">What to remind me about</span></div><div class="card__body">
+        <section class="card rise rise-3 mt-4"><div class="card__head"><span class="card__title">What to remind me about</span></div><div class="card__body">
           <div class="setrow"><span class="setrow__label"><strong>Billing window closing</strong><span>When a patient is approaching their billing window</span></span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="Billing window closing"></button></div>
           <div class="setrow"><span class="setrow__label"><strong>Claims pending approval</strong><span>When qualified claims are awaiting your sign-off</span></span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="Claims pending approval"></button></div>
           <div class="setrow"><span class="setrow__label"><strong>Patient at risk</strong><span>Missed check-ins or a broken streak</span></span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="Patient at risk"></button></div>
           <div class="setrow"><span class="setrow__label"><strong>New plans to review</strong><span>When Dr. Brain generates a plan for sign-off</span></span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="New plans to review"></button></div>
-          <div class="setrow"><span class="setrow__label"><strong>Alert me</strong><span>How many days before a billing window closes</span></span><select class="select select--sm" style="width:auto"><option>3 days before</option><option>5 days before</option><option>7 days before</option></select></div>
-          <div class="setrow" style="border-bottom:none"><span class="setrow__label"><strong>Delivery</strong><span>Where reminders are sent</span></span><span class="row" style="gap:var(--sp-2)"><span class="t-sm t-muted">In-app</span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="In-app delivery"></button><span class="t-sm t-muted">Email</span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="Email delivery"></button><span class="t-sm t-muted">Push</span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="Push delivery"></button></span></div>
+          <div class="setrow"><span class="setrow__label"><strong>Alert me</strong><span>How many days before a billing window closes</span></span><select class="select select--sm w-auto"><option>3 days before</option><option>5 days before</option><option>7 days before</option></select></div>
+          <div class="setrow bb-0"><span class="setrow__label"><strong>Delivery</strong><span>Where reminders are sent</span></span><span class="row gap-2"><span class="t-sm t-muted">In-app</span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="In-app delivery"></button><span class="t-sm t-muted">Email</span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="Email delivery"></button><span class="t-sm t-muted">Push</span><button class="switch" data-switch role="switch" aria-checked="true" aria-label="Push delivery"></button></span></div>
         </div></section>
 
       </div>

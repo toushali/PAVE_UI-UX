@@ -438,8 +438,7 @@
     var provTarget = isProvider ? path : base + "/pro1/app/dashboard.html";
 
     var ITEMS = [
-      { label: "Patient · v1",     href: base + "/v1/app/today.html",  cur: seg === "v1" },
-      { label: "Patient · v2",     href: base + "/v2/app/today.html",  cur: seg === "v2" },
+      { label: "Patient",          href: base + "/v1/app/today.html",       cur: seg === "v1" || seg === "v2" },
       { label: "Provider",  href: provTarget + "?ptheme=pro1",  cur: isProvider && ptheme === "pro1" },
       { label: "Platform · Admin", href: base + "/admin/app/overview.html",  cur: isAdmin }
     ];
@@ -501,7 +500,104 @@
     document.body.appendChild(wrap);
   }
 
+
+  /* ============================================================
+     S13 — Choose your companion.
+     v1 (plant) and v2 (cat) were two builds of the same portal. They
+     are now one portal with a runtime motif: the patient picks at
+     onboarding and can change it in Settings without losing streak,
+     points or badges.
+
+     Both motifs ship THREE stages, and the 1/2/3 art files map 1:1 —
+     the five-stage `data-grow` layering in components.css was an
+     earlier iteration that no markup ever used (dead CSS).
+
+     html[data-companion] is set pre-paint by a <head> bootstrap so
+     colour and copy are correct immediately; the image sources are
+     swapped here on mount. In production this would be rendered
+     server-side from the stored preference.
+     ============================================================ */
+  var COMPANIONS = {
+    plant: {
+      label: "plant",
+      art: { "1": "plant-1-young.svg", "2": "plant-2-mature.svg", "3": "plant-3-flowering.svg" },
+      alt: { "1": "Your plant, a young seedling", "2": "Your plant, growing well", "3": "Your plant, in flower" },
+      /* medallions carry the motif too — leaf emblem (v1 originals) */
+      medal: { bronze: "badge-bronze-plant.svg", gold: "badge-gold-plant.svg",
+               locked: "badge-locked-plant.svg", platinum: "badge-platinum-plant.svg" }
+    },
+    cat: {
+      label: "cat",
+      art: { "1": "cat-1-kitten.png", "2": "cat-2-young.png", "3": "cat-3-wise.png" },
+      alt: { "1": "Your cat, a small kitten", "2": "Your cat, a playful young cat", "3": "Your cat, wise and content" },
+      /* paw emblem — the designed cat medallions, imported from v2 */
+      medal: { bronze: "badge-bronze-cat.svg", gold: "badge-gold-cat.svg",
+               locked: "badge-locked-cat.svg", platinum: "badge-platinum-cat.svg" }
+    }
+  };
+
+  function getCompanion() {
+    var c;
+    try { c = localStorage.getItem("kivie-companion"); } catch (e) {}
+    return (c === "cat" || c === "plant") ? c : "plant";
+  }
+
+  function paintCompanion(name) {
+    var c = COMPANIONS[name] || COMPANIONS.plant;
+    document.documentElement.setAttribute("data-companion", name);
+    $$("[data-companion-art]").forEach(function (img) {
+      var stage = img.getAttribute("data-companion-art");
+      if (!c.art[stage]) return;
+      img.setAttribute("src", "../assets/art/" + c.art[stage]);
+      img.setAttribute("alt", c.alt[stage]);
+    });
+    /* medallions follow the motif — the emblem inside the frame changes */
+    $$("[data-companion-medal]").forEach(function (img) {
+      var tier = img.getAttribute("data-companion-medal");
+      if (!c.medal[tier]) return;
+      img.setAttribute("src", "../assets/art/" + c.medal[tier]);
+      img.setAttribute("alt", (img.getAttribute("alt") || "")
+        .replace(/ medallion.*$/, " medallion") || "Medallion");
+    });
+    /* any copy that names the companion */
+    $$("[data-companion-word]").forEach(function (el) { el.textContent = c.label; });
+    /* keep every chooser in sync */
+    $$("[data-companion-pick]").forEach(function (btn) {
+      var on = btn.getAttribute("data-companion-pick") === name;
+      btn.classList.toggle("is-on", on);
+      btn.setAttribute("aria-checked", on ? "true" : "false");
+    });
+  }
+
+  function setCompanion(name) {
+    try { localStorage.setItem("kivie-companion", name); } catch (e) {}
+    paintCompanion(name);
+  }
+
+  function initCompanion() {
+    paintCompanion(getCompanion());
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest && e.target.closest("[data-companion-pick]");
+      if (!btn) return;
+      var name = btn.getAttribute("data-companion-pick");
+      if (name === getCompanion()) return;
+      setCompanion(name);
+      /* the art change is self-evident visually; announce it for AT */
+      var live = $("[data-companion-live]");
+      if (!live) {
+        live = document.createElement("div");
+        live.setAttribute("data-companion-live", "");
+        live.setAttribute("role", "status");
+        live.setAttribute("aria-live", "polite");
+        live.className = "sr-only";
+        document.body.appendChild(live);
+      }
+      live.textContent = "Your companion is now a " + COMPANIONS[name].label + ".";
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    initCompanion();
     initDesignToggle();
     initTabs();
     initToggles();

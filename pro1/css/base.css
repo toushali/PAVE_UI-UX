@@ -49,6 +49,7 @@ ul, ol { list-style: none; padding: 0; }
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
   min-height: 100vh;
+  min-height: 100dvh;   /* mobile browser chrome */
 }
 
 /* ---- Left sidebar (fixed) ---- */
@@ -70,6 +71,7 @@ ul, ol { list-style: none; padding: 0; }
   flex-direction: column;
   min-width: 0;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* ---- Top bar (sticky) ---- */
@@ -90,7 +92,7 @@ ul, ol { list-style: none; padding: 0; }
 .content {
   flex: 1;
   width: 100%;
-  padding: var(--sp-6);
+  padding: var(--page-pad);
 }
 .content__inner {
   max-width: var(--content-max);
@@ -120,10 +122,8 @@ ul, ol { list-style: none; padding: 0; }
   }
 }
 
-/* narrower desktop: let the sidebar stay, content flexes */
-@media (max-width: 1024px) {
-  .content { padding: var(--sp-5); }
-}
+/* Gutters now come from --page-pad in tokens.css (breakpoint ladder).
+   The shell itself (sidebar → rail → drawer) is handled in S3. */
 
 /* hidden attribute must always win over component display rules */
 [hidden] { display: none !important; }

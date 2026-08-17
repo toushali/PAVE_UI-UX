@@ -143,10 +143,21 @@ ul, ol { list-style: none; padding: 0; }
 
 /* ============================================================
    Desktop framing — render the app as a centered phone device.
-   On a real phone (< 480px) the frame fills the screen; on wider
-   viewports it becomes a 390px device with rounded corners.
+
+   S14 (PT-1): this was gated on WIDTH ALONE (`min-width: 480px`).
+   Every phone in landscape is at least 480px wide — iPhone SE is 667,
+   Pro Max is 844 — so simply rotating the device dropped the app into
+   desktop device-mock mode: a 390px column stranded on a grey field,
+   about 358px tall. The frame is prototype presentation, never product.
+
+   It is now gated on three things at once:
+     · min-width  480px  — narrower than this IS a phone
+     · min-height 700px  — rules out any landscape phone
+     · pointer: fine     — rules out touch devices entirely
+   A tablet in portrait (768x1024, coarse pointer) therefore gets the
+   real responsive layout from S15, not a phone mock.
    ============================================================ */
-@media (min-width: 480px) {
+@media (min-width: 480px) and (min-height: 700px) and (pointer: fine) {
   body {
     align-items: center;
     padding: var(--sp-5) 0;
@@ -160,6 +171,17 @@ ul, ol { list-style: none; padding: 0; }
     box-shadow: var(--shadow-lift), 0 30px 70px rgba(22,41,74,0.22);
     overflow: hidden;
   }
+}
+
+/* ------------------------------------------------------------
+   S14 (PT-6): short viewports — phone landscape, or a small phone
+   with browser chrome. The check-in hero and the celebration
+   overlay were sized for a 844px-tall frame and clipped here.
+   ------------------------------------------------------------ */
+@media (max-height: 600px) {
+  .topbar { min-height: 48px; padding-top: var(--sp-2); padding-bottom: var(--sp-2); }
+  .content { padding-top: var(--sp-4); padding-bottom: var(--sp-5); }
+  .content > * + * { margin-top: var(--sp-4); }
 }
 
 /* ============================================================

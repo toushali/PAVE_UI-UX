@@ -249,7 +249,8 @@ html[data-theme="dark"] .themetoggle__thumb { left: 28px; }
 
 .authfoot { margin-top: var(--sp-6); font-size: var(--fs-xs); color: var(--c-ink-3); display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); }
 
-@media (max-width: 860px) { .authpage { grid-template-columns: 1fr; } .authpage__brand { display: none; } }
+/* ladder: md */
+@media (max-width: 767px) { .authpage { grid-template-columns: 1fr; } .authpage__brand { display: none; } }
 
 /* ============================================================
    Dashboard work queues + inline action panels (FSD §6.1)
@@ -441,7 +442,8 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 .revbig { grid-column: 1 / -1; background: linear-gradient(135deg, var(--c-primary), var(--c-primary-dark)); color: #fff; border-radius: var(--radius); padding: var(--sp-5); }
 .revbig__n { font-family: var(--font-mono); font-size: 40px; font-weight: var(--fw-semi); letter-spacing: -0.02em; }
 .revbig__l { opacity: 0.85; font-size: var(--fs-sm); }
-@media (max-width: 900px) { .revgrid { grid-template-columns: 1fr; } }
+/* ladder: md */
+@media (max-width: 767px) { .revgrid { grid-template-columns: 1fr; } }
 
 /* removing-row animation (approve) */
 .rowgone { opacity: 0; transition: opacity var(--motion-base) var(--ease); }
@@ -620,3 +622,1022 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 }
 .planadd:hover { text-decoration: underline; }
 .planadd svg { width: 16px; height: 16px; }
+
+/* ============================================================
+   S1 — Utility layer.
+   Exists so that NO layout decision lives in an inline style
+   attribute: inline styles beat media queries, which blocks the
+   responsive work in S3–S7. Add to this list rather than
+   reaching for style="…" in markup.
+   ============================================================ */
+
+/* ---- Spacing ---- */
+.mt-0 { margin-top: 0; }
+.mt-2 { margin-top: var(--sp-2); }
+.mt-3 { margin-top: var(--sp-3); }
+.mt-4 { margin-top: var(--sp-4); }
+.mt-5 { margin-top: var(--sp-5); }
+.mt-6 { margin-top: var(--sp-6); }
+.mb-0 { margin-bottom: 0; }
+.mb-2 { margin-bottom: var(--sp-2); }
+.mb-3 { margin-bottom: var(--sp-3); }
+.mb-4 { margin-bottom: var(--sp-4); }
+.mb-5 { margin-bottom: var(--sp-5); }
+.m-0  { margin: 0; }
+.pt-0 { padding-top: 0; }
+.pb-0 { padding-bottom: 0; }
+
+/* ---- Type & colour ---- */
+.fw-semi     { font-weight: var(--fw-semi); }
+.fw-bold     { font-weight: var(--fw-bold); }
+.t-ready     { color: var(--st-ready); }
+.t-attention { color: var(--st-attention); }
+.t-primary   { color: var(--c-primary); }
+.t-nocase    { text-transform: none; letter-spacing: 0; }
+.t-link      { font-size: var(--fs-sm); font-weight: var(--fw-semi); }
+/* readable measure for centred prose */
+.measure     { max-width: 44ch; margin-left: auto; margin-right: auto; }
+
+/* ---- Layout ---- */
+.w-auto    { width: auto; }
+.w-full    { width: 100%; }
+.min-w-0   { min-width: 0; }
+.gap-3     { gap: var(--sp-3); }
+/* inline panel whose fields should stack full-width instead of sitting
+   on one line — used by the admin complaint detail panels */
+.stackfields {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sp-4);
+}
+/* badge sized to sit on a card__head baseline */
+.badge--head { height: 20px; }
+/* a card head that follows a table/section above it */
+.card__head--sep { border-top: 1px solid var(--c-line); }
+
+/* ---- Progress bar variants ----
+   The inline width="NN%" on the <i> is DATA and stays inline.
+   The fill colour is presentation and belongs here. */
+.pbar--primary   > i { background: var(--c-primary); }
+.pbar--attention > i { background: var(--st-attention); }
+/* compact share bar inside a table cell */
+.pbar--cell { display: block; max-width: 110px; }
+
+/* ---- Component size variants ---- */
+.threshrow--compact { grid-template-columns: 120px 1fr auto; }
+.linechart--sm      { max-width: 420px; }
+.modal__panel--md   { width: min(560px, calc(100vw - 32px)); }
+.modal__panel--lg   { width: min(640px, calc(100vw - 32px)); }
+
+/* ---- Empty state (S9 will reuse this across every table) ---- */
+.emptystate {
+  padding: var(--sp-7) var(--sp-5);
+  text-align: center;
+  color: var(--c-ink-3);
+}
+.emptystate__title { font-size: var(--fs-h2); font-weight: var(--fw-semi); color: var(--c-ink-2); }
+.emptystate__body  { font-size: var(--fs-sm); margin-top: 6px; }
+
+/* ---- Success block (plan approved, etc.) ---- */
+.successblock { text-align: center; padding: var(--sp-6); }
+.successblock__ic {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 64px; height: 64px; border-radius: var(--radius-pill);
+  background: var(--st-ready-bg); color: var(--st-ready);
+  margin-bottom: var(--sp-3);
+}
+
+/* ---- Read-only code / prompt viewer ---- */
+.codeblock {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--c-ink-2);
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-4);
+  max-height: 340px;
+  overflow: auto;
+}
+
+/* ---- Evidence / bulleted source list ---- */
+.evidencelist {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.7;
+  list-style: disc;
+}
+
+/* ---- Destructive button ---- */
+.btn--danger { background: var(--st-attention); color: #fff; }
+.btn--danger:hover { background: #9A650C; }
+.btn--danger:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ---- Table footer total ---- */
+.qtable tfoot td { padding: 12px var(--sp-5); font-weight: var(--fw-semi); }
+.qtable tfoot .total-label { text-align: right; }
+.qtable tfoot .total-value { font-weight: var(--fw-bold); }
+
+/* ---- Auth page pieces (were inline on both login screens) ---- */
+.authlogo { width: 112px; height: auto; }
+.authbrand__tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; line-height: 1.25;
+  padding-left: 12px;
+  border-left: 1px solid rgba(255,255,255,0.32);
+  color: rgba(255,255,255,0.85);
+}
+.authicon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--c-primary-soft); color: var(--c-primary);
+}
+.authcard__title { font-size: 26px; }
+.authcard__title--sm { font-size: 24px; margin-top: var(--sp-4); }
+.authcard__lead { margin-top: 6px; font-size: var(--fs-body); }
+
+/* ---- Reminder row title (badge + text, wraps on narrow) ---- */
+.remtitle { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* ---- S1 round 2: remaining layout-bearing cases ---- */
+.span-all      { grid-column: 1 / -1; }
+.flex-1        { flex: 1; }
+.justify-center{ justify-content: center; }
+.flex-wrap     { flex-wrap: wrap; }
+.self-center   { align-self: center; }
+.ml-auto       { margin-left: auto; }
+.gap-2         { gap: var(--sp-2); }
+.gap-4         { gap: var(--sp-4); }
+
+/* alert bar tone variants (were repeated inline on 5 screens) */
+.alertbar--info {
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  border-color: var(--c-primary-soft);
+}
+.alertbar--warn {
+  background: var(--st-attention-bg);
+  color: var(--st-attention);
+  border-color: #EFDCB2;
+}
+
+/* square icon badge — 44px (reminders) / 48px (auth) */
+.iconbadge {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--c-primary-soft); color: var(--c-primary);
+}
+
+/* oversized stat number (patient outcomes) */
+.tile__n--xl { font-size: 44px; }
+/* KPI whose value is a long identifier rather than a figure */
+.kpi__num--sm { font-size: 19px; }
+
+/* Dr. Brain "generating…" inline status */
+.genstate {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--c-primary); font-weight: var(--fw-semi);
+}
+
+/* dropzone is a <label> wrapping a hidden file input */
+.dropzone { display: block; cursor: pointer; }
+
+/* borderless tile (used inside cards that draw their own frame) */
+.tile--bare { border: none; padding: 0; }
+
+.ml-1 { margin-left: 6px; }
+.bb-0 { border-bottom: none; }
+.mt-1 { margin-top: 4px; }
+
+/* ============================================================
+   S3 — Responsive app shell: expanded → icon rail → drawer.
+   Breakpoints follow the ladder in tokens.css (1024 / 768).
+   ============================================================ */
+
+/* ---- Skip link (WCAG 2.4.1 — 10 nav links precede <main>) ---- */
+.skiplink {
+  position: fixed; top: var(--sp-2); left: var(--sp-2); z-index: 100;
+  padding: 10px var(--sp-4);
+  background: var(--c-primary); color: #fff;
+  border-radius: var(--radius-sm); font-weight: var(--fw-semi);
+  transform: translateY(-250%);
+  transition: transform var(--motion-fast) var(--ease);
+}
+.skiplink:focus { transform: none; }
+
+/* ---- Nav label wrapper (hidden in rail mode) ---- */
+.navitem__label { flex: 1; min-width: 0; }
+
+/* ---- Compact brand mark — shown only in the icon rail.
+   TODO: replace with the real brand mark once the PAVE/Kivie
+   naming decision lands (gap-analysis E.1.5). ---- */
+.sidebar__mark {
+  display: none;
+  align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: var(--radius-sm);
+  background: var(--c-primary-soft); color: var(--c-primary-dark);
+  font-weight: var(--fw-bold); font-size: var(--fs-h2);
+}
+
+/* ---- Drawer trigger — only rendered <768px ---- */
+.navtoggle { display: none; }
+
+/* ---- Drawer scrim ---- */
+.scrim {
+  position: fixed; inset: 0; z-index: 39;
+  background: rgba(20,35,30,0.44);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--motion-base) var(--ease);
+}
+.scrim.is-open { opacity: 1; pointer-events: auto; }
+
+/* ============================================================
+   1024px ↓ — icon rail (68px). Labels stay in the DOM for AT.
+   ============================================================ */
+@media (max-width: 1023px) {
+  /* --sidebar-w flips to the rail width in tokens.css */
+  .sidebar__brand { justify-content: center; padding: 0; }
+  .sidebar__logoimg, .sidebar__sub { display: none; }
+  html[data-theme="dark"] .sidebar__logoimg--dark { display: none; }
+  .sidebar__mark { display: inline-flex; }
+
+  .nav { padding: var(--sp-3) var(--sp-2); }
+  .navitem { justify-content: center; padding: 11px 0; gap: 0; }
+  .navitem svg { width: 20px; height: 20px; }
+  .navitem__label {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .navitem__badge {
+    position: absolute; top: 4px; right: 8px;
+    min-width: 16px; height: 16px; padding: 0 4px; font-size: 10px;
+  }
+  /* group headings collapse to hairline dividers */
+  .nav__section {
+    height: 1px; padding: 0; margin: var(--sp-3) var(--sp-3);
+    background: var(--c-line-2);
+    text-indent: -9999px; overflow: hidden;
+  }
+  .nav__section:first-child { display: none; }
+}
+
+/* ============================================================
+   768px ↓ — off-canvas drawer. Sidebar returns to its expanded
+   presentation *inside* the drawer.
+   ============================================================ */
+@media (max-width: 767px) {
+  .app  { grid-template-columns: 1fr; }
+  .main { grid-column: 1; }
+
+  .sidebar {
+    width: 280px; z-index: 40;
+    padding-left: env(safe-area-inset-left);
+    transform: translateX(-100%);
+    transition: transform var(--motion-base) var(--ease);
+    box-shadow: var(--shadow-pop);
+  }
+  .sidebar.is-open { transform: none; }
+
+  .sidebar__brand { justify-content: flex-start; padding: 0 var(--sp-5); }
+  .sidebar__logoimg--light { display: block; }
+  html[data-theme="dark"] .sidebar__logoimg--light { display: none; }
+  html[data-theme="dark"] .sidebar__logoimg--dark  { display: block; }
+  .sidebar__sub  { display: block; }
+  .sidebar__mark { display: none; }
+
+  .nav { padding: var(--sp-3); }
+  .navitem { justify-content: flex-start; padding: 12px var(--sp-3); gap: var(--sp-3); }
+  .navitem svg { width: 20px; height: 20px; }
+  .navitem__label {
+    position: static; width: auto; height: auto;
+    padding: 0; margin: 0; overflow: visible; clip: auto; border: 0;
+  }
+  .navitem__badge {
+    position: static; margin-left: auto;
+    min-width: 20px; height: 18px; padding: 0 6px; font-size: 11px;
+  }
+  .nav__section {
+    height: auto; padding: var(--sp-4) var(--sp-3) var(--sp-2);
+    margin: var(--sp-2) 0 0;
+    background: none; text-indent: 0; overflow: visible;
+    border-top: 1px solid var(--c-line-2);
+  }
+  .nav__section:first-child { display: block; border-top: none; margin-top: 0; padding-top: var(--sp-2); }
+
+  .navtoggle { display: inline-flex; }
+
+  /* top bar slims: title + hamburger + bell + avatar survive.
+     The name/org block moves into the account menu in S4. */
+  .topbar { padding: 0 var(--page-pad); gap: var(--sp-2); }
+  .topbar__ctx  { font-size: var(--fs-body); }
+  .topbar__meta { display: none; }
+  .topbar .t-meta { display: none; }
+}
+
+/* Prototype-switcher FAB is a demo control — keep it clear of the
+   drawer trigger and off small viewports entirely (gap-analysis A1.5). */
+@media (max-width: 767px) { #paveDesignToggle { display: none; } }
+
+/* ============================================================
+   S4 — Top-bar account menu + notification panel (gap-analysis D.6)
+   ============================================================ */
+
+/* right-aligned dropdown that cannot overflow the viewport edge */
+.dd--end .dd__menu { left: auto; right: 0; }
+
+/* avatar as a real control */
+.avatar--btn { border: none; padding: 0; cursor: pointer; }
+.avatar--btn:hover { background: var(--c-primary); color: #fff; }
+
+/* unread count replaces the meaningless bare dot */
+.iconbtn__count {
+  position: absolute; top: 3px; right: 3px;
+  min-width: 17px; height: 17px; padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--st-attention); color: #fff;
+  font-family: var(--font-mono); font-size: 10px; font-weight: var(--fw-semi);
+  border: 1.5px solid var(--c-surface);
+}
+
+/* ---- Account menu ---- */
+.acctmenu { min-width: 268px; padding: 0; }
+.acctmenu__id {
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  padding: var(--sp-4); border-bottom: 1px solid var(--c-line);
+}
+.acctmenu__id strong { display: block; font-weight: var(--fw-semi); font-size: var(--fs-sm); }
+.acctmenu__id .t-meta { display: block; }
+.acctmenu__list { padding: 6px; }
+
+/* ---- Notification panel ---- */
+.notifpanel { width: 380px; max-width: calc(100vw - 24px); padding: 0; }
+.notifpanel__head,
+.notifpanel__foot {
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+}
+.notifpanel__head { border-bottom: 1px solid var(--c-line); }
+.notifpanel__foot { border-top: 1px solid var(--c-line); }
+.notifpanel__foot a { font-size: var(--fs-sm); font-weight: var(--fw-semi); }
+.notifpanel__scroll { max-height: 340px; overflow-y: auto; }
+
+.notifgroup {
+  padding: var(--sp-3) var(--sp-4) var(--sp-2);
+  font-size: var(--fs-xs); font-weight: var(--fw-semi);
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-ink-3);
+}
+.notif {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start; gap: var(--sp-2) var(--sp-3);
+  padding: 10px var(--sp-4);
+  color: var(--c-ink);
+  border-left: 3px solid transparent;
+}
+.notif:hover { background: var(--c-bg); }
+.notif.is-unread { border-left-color: var(--c-primary); background: var(--c-surface-2); }
+.notif__body { font-size: var(--fs-sm); line-height: 1.45; min-width: 0; }
+.notif__time {
+  font-family: var(--font-mono); font-size: var(--fs-xs);
+  color: var(--c-ink-3); white-space: nowrap;
+}
+.notifempty { padding: var(--sp-6) var(--sp-4); text-align: center; color: var(--c-ink-3); }
+.notifempty strong { display: block; color: var(--c-ink-2); font-size: var(--fs-h2); font-weight: var(--fw-semi); }
+
+/* ---- <768px: both menus become bottom sheets (gap-analysis A6.2) ---- */
+@media (max-width: 767px) {
+  .dd--end .dd__menu {
+    position: fixed;
+    top: auto; right: 0; bottom: 0; left: 0;
+    width: 100%; min-width: 0; max-width: none;
+    max-height: 82vh; max-height: 82dvh;
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: var(--shadow-pop);
+    animation: sheet-up var(--motion-base) var(--ease);
+  }
+  .notifpanel__scroll { max-height: 54vh; max-height: 54dvh; }
+  /* sheet rows get a comfortable touch height */
+  .acctmenu__list .dd__item { min-height: 48px; }
+  .notif { padding: var(--sp-3) var(--sp-4); }
+}
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+
+.modeltag--warn { background: var(--st-attention-bg); color: var(--st-attention); }
+
+/* ============================================================
+   S5 — Layout primitives. Every fixed-track grid in the build
+   either becomes intrinsically responsive (auto-fit) or collapses
+   on a ladder breakpoint from tokens.css (640 / 768 / 1024 / 1280).
+   ============================================================ */
+
+/* ---- Intrinsically responsive: no breakpoint needed. These react to
+   the space they actually have, which is what we want for cards that
+   appear both full-width and nested inside .grid-2. ---- */
+.kpigrid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.grid-2  { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.revout  { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+/* ---- Search field: shrinks with the toolbar instead of overflowing ---- */
+.search { flex: 1 1 200px; min-width: 0; }
+.search input { width: 100%; max-width: 260px; }
+
+/* ---- Billing-window calendar: real 7-column week grid, matching the
+   patient app. NOTE: weekday alignment + an in/miss/today legend are
+   still outstanding (gap-analysis B4.3). ---- */
+.cal { grid-template-columns: repeat(7, 1fr); }
+
+/* ---- Dr. Brain chat: was a hard 460px ---- */
+.chatwrap { height: auto; min-height: 320px; max-height: 60vh; max-height: 60dvh; }
+.chatlog  { min-height: 240px; }
+
+/* ---- Tab strips scroll rather than overflow (5 tabs on Patient
+   Detail and HIPAA Audit) ---- */
+.tabbar2 {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.tabbar2::-webkit-scrollbar { display: none; }
+.tab2 { white-space: nowrap; flex: 0 0 auto; }
+
+/* ============================================================
+   768px ↓
+   ============================================================ */
+@media (max-width: 767px) {
+  /* work-queue / dashboard rows stack instead of squeezing 3 columns */
+  .qrow__main { grid-template-columns: 1fr; gap: var(--sp-3); }
+  .qrow__right { justify-content: flex-start; flex-wrap: wrap; }
+  .qrow__acts { flex-wrap: wrap; }
+
+  /* page headers: title above actions */
+  .pagehead .row { flex-wrap: wrap; }
+}
+
+/* ============================================================
+   640px ↓
+   ============================================================ */
+@media (max-width: 640px) {
+  .form2 { grid-template-columns: 1fr; }
+
+  /* threshold rows: label on its own line, bar spans full width */
+  .threshrow { grid-template-columns: 1fr auto; gap: var(--sp-2) var(--sp-3); }
+  .threshrow .pbar { grid-column: 1 / -1; }
+  .threshrow--compact { grid-template-columns: 1fr auto; }
+
+  /* enrollment review list: stacked term/definition */
+  .sumrow { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .sumrow dt { width: auto; }
+
+  /* approve-claim panel: summary above the button */
+  .panelclaim { grid-template-columns: 1fr; }
+
+  /* card heads wrap rather than push their action off-screen */
+  .card__head, .queuecard__head { flex-wrap: wrap; }
+}
+
+/* ============================================================
+   S6 — Data tables. Three modes as width drops:
+     ≥1024  full table
+     641–1023  horizontal scroll inside .tablewrap, priority-3
+               columns hidden, edge fade signals more content
+     ≤640   table collapses to stacked "label: value" cards
+   .qtable appears on 17 of 22 screens, so this is the single
+   highest-volume responsive fix (gap-analysis A3).
+   ============================================================ */
+
+.tablewrap {
+  position: relative;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+/* right-edge shadow — the affordance that says "there is more".
+   An inset shadow paints against the padding box and does not scroll
+   with the content, so it stays pinned to the edge; unlike a floated
+   pseudo-element it cannot disturb table layout. */
+.tablewrap { transition: box-shadow var(--motion-fast) var(--ease); }
+.tablewrap.is-scrollable { box-shadow: inset -14px 0 12px -12px rgba(25,50,40,0.22); }
+.tablewrap.is-scrollend  { box-shadow: none; }
+
+/* opt-in vertical scroller for very long logs — enables a sticky head.
+   (A plain overflow-x container cannot host a viewport-sticky thead,
+   so stickiness is scoped to tables that declare a max height.) */
+@media (min-width: 768px) {
+  .tablewrap--tall { max-height: 70vh; max-height: 70dvh; overflow-y: auto; }
+  .tablewrap--tall .qtable thead th {
+    position: sticky; top: 0; z-index: 2;
+    background: var(--c-surface);
+    box-shadow: 0 1px 0 var(--c-line);
+  }
+}
+
+/* keep columns readable while scrolling rather than crushing them */
+.tablewrap > .qtable { min-width: 680px; }
+
+/* ---- Pagination ---- */
+.pager {
+  display: flex; align-items: center; gap: var(--sp-3);
+  flex-wrap: wrap;
+  padding: var(--sp-3) var(--sp-5);
+  border-top: 1px solid var(--c-line);
+}
+.pager__info { font-size: var(--fs-sm); color: var(--c-ink-2); }
+.pager__btns { display: flex; gap: var(--sp-2); margin-left: auto; }
+.pager__btn {
+  min-width: 34px; height: 34px; padding: 0 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--c-line); border-radius: var(--radius-sm);
+  background: var(--c-surface); color: var(--c-ink);
+  font-size: var(--fs-sm); font-weight: var(--fw-semi);
+  font-family: var(--font-mono);
+}
+.pager__btn:hover:not(:disabled) { background: var(--c-bg); }
+.pager__btn.is-current { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
+.pager__btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ============================================================
+   1024px ↓ — drop the lowest-priority columns
+   ============================================================ */
+@media (max-width: 1023px) {
+  .qtable [data-priority="3"] { display: none; }
+}
+
+/* ============================================================
+   640px ↓ — stacked cards. thead is hidden and each cell carries
+   its column name via data-label (populated by initTables()).
+   ============================================================ */
+@media (max-width: 640px) {
+  .tablewrap { overflow-x: visible; box-shadow: none; }
+  .tablewrap > .qtable { min-width: 0; }
+
+  .qtable, .qtable tbody, .qtable tr, .qtable td { display: block; width: 100%; }
+  .qtable thead { display: none; }
+  .qtable [data-priority="2"],
+  .qtable [data-priority="3"] { display: block; }   /* cards have room */
+
+  .qtable tbody tr {
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-sm);
+    padding: var(--sp-2) var(--sp-4);
+    margin-bottom: var(--sp-3);
+    background: var(--c-surface);
+  }
+  .qtable tbody tr:hover { background: var(--c-surface); }
+  .qtable tbody tr:last-child td { border-bottom: none; }
+
+  .qtable tbody td {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--c-line-2);
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: var(--sp-3);
+    align-items: baseline;
+    text-align: left;
+  }
+  .qtable tbody td:last-child { border-bottom: none; }
+  .qtable td.center, .qtable td.right { text-align: left; }
+
+  .qtable tbody td::before {
+    content: attr(data-label);
+    font-size: var(--fs-xs); font-weight: var(--fw-semi);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--c-ink-3);
+  }
+  /* cells with no column name (action cells) go full width */
+  .qtable tbody td[data-label=""]::before { display: none; }
+  .qtable tbody td[data-label=""] { grid-template-columns: 1fr; }
+
+  /* expandable detail rows are panels, not label/value pairs */
+  .qtable tbody tr.wqpanel { padding: 0; border: none; background: none; }
+  .qtable tr.wqpanel > td { grid-template-columns: 1fr; padding: 0; border: none; }
+  .qtable tr.wqpanel > td::before { display: none; }
+
+  /* footer totals */
+  .qtable tfoot, .qtable tfoot tr, .qtable tfoot td { display: block; width: 100%; }
+  .qtable tfoot .total-label { text-align: left; }
+
+  /* action cells: buttons go full width and stack */
+  .qtable td .btn { width: 100%; }
+  .qtable td .btn + .btn { margin-top: var(--sp-2); }
+
+  .pager { padding: var(--sp-3) var(--sp-4); }
+  .pager__btns { margin-left: 0; width: 100%; }
+}
+
+/* ============================================================
+   S7 — Overlays, forms, touch targets, charts (gap-analysis A4–A7)
+   ============================================================ */
+
+/* ---- Modal: never traps its own footer off-screen ----
+   Was: fixed 11vh top margin, no max-height, no internal scroll —
+   the complaint-intake and change-plan modals were unreachable on a
+   667px-tall phone (gap-analysis A6.1). */
+.modal__panel {
+  margin: min(11vh, 56px) auto 0;
+  max-height: calc(100vh - min(11vh, 56px) - 24px);
+  max-height: calc(100dvh - min(11vh, 56px) - 24px);
+  display: flex;
+  flex-direction: column;
+}
+.modal__head, .modal__foot { flex: 0 0 auto; }
+.modal__body { flex: 1 1 auto; overflow-y: auto; }
+
+/* ---- Toast: stacks instead of overlapping on identical coordinates
+   (gap-analysis A6.3). --banner-offset is set per-banner by JS. ---- */
+.banner {
+  top: calc(var(--sp-4) + var(--banner-offset, 0px));
+  max-width: min(calc(100vw - 32px), 520px);
+}
+
+/* ---- Charts ---- */
+.charthead { flex-wrap: wrap; }
+.charthead__d { margin-left: auto; }
+
+/* ============================================================
+   767px ↓
+   ============================================================ */
+@media (max-width: 767px) {
+  /* keep the toast clear of the sticky top bar */
+  .banner {
+    top: calc(var(--topbar-h) + var(--sp-2) + var(--banner-offset, 0px));
+  }
+
+  /* axis labels: thin out to every other tick and enlarge in viewBox
+     units so the scaled-down text stays legible (gap-analysis A4.1) */
+  .linechart .lc-axis { font-size: 13px; }
+  .linechart .lc-axis:nth-of-type(2n) { display: none; }
+}
+
+/* ============================================================
+   640px ↓ — modals become bottom sheets
+   ============================================================ */
+@media (max-width: 640px) {
+  .modal__panel {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    width: 100%; max-width: none; margin: 0;
+    max-height: 92vh; max-height: 92dvh;
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    animation: sheet-up var(--motion-base) var(--ease);
+  }
+  .modal__panel--md, .modal__panel--lg { width: 100%; }
+  .modal__foot { flex-wrap: wrap; }
+  .modal__foot .btn { flex: 1 1 auto; }
+
+  /* enrollment wizard: the 4-step rail does not fit — swap it for a
+     progress bar, and pin the Back/Continue controls (A5.1, A5.7) */
+  .wizsteps { display: none; }
+  .wizprogress { display: block; }
+  .wizfoot {
+    position: sticky; bottom: 0; z-index: 5;
+    flex-wrap: wrap;
+    margin: var(--sp-5) calc(var(--sp-5) * -1) calc(var(--sp-5) * -1);
+    padding: var(--sp-3) var(--sp-5) calc(var(--sp-3) + env(safe-area-inset-bottom));
+    background: var(--c-surface);
+    border-top: 1px solid var(--c-line);
+  }
+  .wizfoot .btn { flex: 1 1 auto; }
+
+  .trend__bar span { font-size: 10px; }
+}
+
+/* ---- Wizard progress bar (mobile substitute for the step rail) ---- */
+.wizprogress { display: none; margin-bottom: var(--sp-5); }
+.wizprogress__track {
+  height: 6px; border-radius: var(--radius-pill);
+  background: var(--c-line); overflow: hidden;
+}
+.wizprogress__fill {
+  display: block; height: 100%;
+  background: var(--c-primary);
+  transition: width var(--motion-base) var(--ease);
+}
+.wizprogress__label {
+  display: flex; gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm); font-weight: var(--fw-semi);
+}
+.wizprogress__label span:last-child { color: var(--c-ink-2); font-weight: var(--fw-regular); }
+
+/* ============================================================
+   Touch devices — M6 requires 48px minimum on mobile. The desktop
+   build ships 32–38px controls (gap-analysis A7.1); this restores
+   the target size without loosening the dense desktop aesthetic.
+   ============================================================ */
+@media (pointer: coarse) {
+  .btn           { min-height: 48px; }
+  .btn--sm       { min-height: 44px; padding: 0 var(--sp-4); }
+  .iconbtn       { width: 44px; height: 44px; }
+  .chipopt       { min-height: 44px; padding: 10px var(--sp-4); }
+  .stepper button{ width: 44px; height: 44px; }
+  .input, .select, .field { height: 44px; }
+  .select--sm, .search input { height: 44px; }
+  .tab2          { min-height: 48px; }
+  .navitem       { min-height: 48px; }
+  .dd__item      { min-height: 44px; }
+  .pager__btn    { min-width: 44px; height: 44px; }
+  .otpbox        { width: 48px; height: 58px; }
+  .alertbar__x   { width: 44px; height: 44px; }
+  .modal__x      { width: 44px; height: 44px; }
+  .notif         { min-height: 48px; }
+
+  /* Toggles read best at their designed size, so the visual stays
+     compact and the HIT AREA is expanded instead (WCAG 2.5.5). */
+  .switch { width: 52px; height: 30px; }
+  .switch::after { width: 24px; height: 24px; top: 3px; left: 3px; }
+  .switch[aria-checked="true"]::after { left: 25px; }
+  .switch::before,
+  .themetoggle::before {
+    content: "";
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: max(100%, 48px); height: 48px;
+  }
+
+  .themetoggle { width: 60px; height: 32px; }
+  .themetoggle__thumb { width: 26px; height: 26px; top: 2px; left: 2px; }
+  html[data-theme="dark"] .themetoggle__thumb { left: 32px; }
+}
+
+/* ============================================================
+   S9 — Empty · loading · error · validation states.
+   The library defined .spinner / .errmsg / .emptystate but no
+   screen used them (gap-analysis D.1). These are the missing
+   pieces plus the wiring hooks.
+   ============================================================ */
+
+/* ---- Validation ---- */
+.input.is-invalid, .select.is-invalid, textarea.input.is-invalid {
+  border-color: var(--st-attention);
+  background: var(--st-attention-bg);
+}
+.input.is-invalid:focus, .select.is-invalid:focus {
+  border-color: var(--st-attention);
+  box-shadow: 0 0 0 3px var(--st-attention-bg);
+}
+.chips.is-invalid { outline: 1px solid var(--st-attention); outline-offset: 6px; border-radius: var(--radius-sm); }
+.formgroup > label .req { color: var(--st-attention); margin-left: 2px; }
+/* summary banner at the top of an invalid form */
+.formerror {
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4); margin-bottom: var(--sp-4);
+  background: var(--st-attention-bg); color: var(--st-attention);
+  border: 1px solid #EFDCB2; border-radius: var(--radius-sm);
+  font-size: var(--fs-sm); font-weight: var(--fw-medium);
+}
+.formerror svg { width: 18px; height: 18px; flex: 0 0 auto; }
+
+/* ---- Skeleton loading ---- */
+@keyframes skel { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+.skeleton {
+  background: linear-gradient(90deg, var(--c-surface-2) 25%, var(--c-line-2) 50%, var(--c-surface-2) 75%);
+  background-size: 200% 100%;
+  animation: skel 1.4s linear infinite;
+  border-radius: var(--radius-sm);
+  color: transparent !important;
+}
+.skeleton--line { height: 12px; margin: 6px 0; }
+.skeleton--num  { height: 26px; width: 60%; }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+/* ---- Inline async status (Dr. Brain generation, exports) ---- */
+.asyncstate {
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  padding: var(--sp-4);
+  border: 1px solid var(--c-line); border-radius: var(--radius-sm);
+  background: var(--c-surface-2);
+}
+.asyncstate__body { flex: 1; min-width: 0; }
+.asyncstate__title { font-weight: var(--fw-semi); }
+.asyncstate--error { border-color: #EFDCB2; background: var(--st-attention-bg); color: var(--st-attention); }
+.asyncstate--error .asyncstate__title { color: var(--st-attention); }
+.asyncsteps { margin-top: var(--sp-3); font-size: var(--fs-sm); color: var(--c-ink-2); }
+.asyncsteps li { display: flex; align-items: center; gap: var(--sp-2); padding: 3px 0; }
+.asyncsteps li[data-done="1"] { color: var(--st-ready); }
+.asyncsteps li[data-done="1"]::before { content: "✓"; font-family: var(--font-mono); }
+.asyncsteps li[data-done="0"]::before { content: "·"; font-family: var(--font-mono); opacity: 0.5; }
+
+/* ---- Offline / connection-lost bar ---- */
+.offlinebar {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(var(--sp-4) + env(safe-area-inset-bottom));
+  z-index: 70;
+  display: none; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-5);
+  max-width: min(calc(100vw - 32px), 520px);
+  background: var(--c-ink); color: #fff;
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-pop);
+  font-size: var(--fs-sm); font-weight: var(--fw-medium);
+}
+.offlinebar.is-on { display: flex; }
+.offlinebar svg { width: 18px; height: 18px; flex: 0 0 auto; color: var(--st-attention); }
+
+/* ---- Full-page error (404 / 500) ---- */
+.errpage {
+  min-height: 60vh; min-height: 60dvh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: var(--sp-7) var(--sp-5);
+}
+.errpage__code {
+  font-family: var(--font-mono); font-size: 56px; font-weight: var(--fw-semi);
+  color: var(--c-ink-3); line-height: 1;
+}
+.errpage__title { font-size: var(--fs-h1); font-weight: var(--fw-bold); margin-top: var(--sp-4); }
+.errpage__body { color: var(--c-ink-2); margin-top: var(--sp-2); max-width: 46ch; }
+.errpage__acts { display: flex; gap: var(--sp-3); margin-top: var(--sp-5); flex-wrap: wrap; justify-content: center; }
+
+.btn:disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+
+/* ---- S10: auth enrolment, lockout and recovery ---- */
+.qrbox {
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--sp-4);
+  background: #fff;
+  border: 1px solid var(--c-line); border-radius: var(--radius);
+  color: var(--c-ink);
+}
+.qrbox svg { width: 168px; height: 168px; }
+.authicon--warn { background: var(--st-attention-bg); color: var(--st-attention); }
+.otpbox.is-invalid { border-color: var(--st-attention); background: var(--st-attention-bg); }
+.reccodes summary {
+  cursor: pointer; font-size: var(--fs-sm); font-weight: var(--fw-semi);
+  color: var(--c-primary); padding: var(--sp-2) 0;
+}
+.reccodes__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--sp-2); margin-top: var(--sp-2);
+  padding: var(--sp-3);
+  background: var(--c-surface-2); border: 1px solid var(--c-line);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm); letter-spacing: 0.02em;
+}
+
+/* ---- S11: date-range control (FSD §14.5 — custom ranges on all reports) ---- */
+.daterange { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
+.daterange__sep { color: var(--c-ink-3); font-size: var(--fs-sm); }
+.daterange input[type="date"] {
+  height: 38px; padding: 0 10px; width: auto;
+  border: 1px solid var(--c-line); border-radius: var(--radius-sm);
+  background: var(--c-surface-2); font-family: var(--font-mono); font-size: var(--fs-sm);
+}
+.daterange input[type="date"]:focus { border-color: var(--c-primary); outline: none; box-shadow: 0 0 0 3px var(--c-primary-soft); }
+.daterange__custom[hidden] { display: none; }
+
+/* ---- S11: facet filter chips (audit log) ---- */
+.facets { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
+.facets__label { font-size: var(--fs-xs); font-weight: var(--fw-semi); letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-ink-3); }
+
+/* ---- S11: definition rows for settings-style records ---- */
+.kvrow { display: flex; align-items: baseline; gap: var(--sp-4); padding: 10px 0; border-bottom: 1px solid var(--c-line-2); }
+.kvrow:last-child { border-bottom: none; }
+.kvrow__k { flex: 0 0 200px; color: var(--c-ink-2); font-size: var(--fs-sm); }
+.kvrow__v { flex: 1; min-width: 0; }
+@media (max-width: 640px) {
+  .kvrow { flex-direction: column; gap: 2px; }
+  .kvrow__k { flex: none; }
+}
+
+/* ============================================================
+   S12 — Accessibility pass (gap-analysis D.2)
+   ============================================================ */
+
+/* Visually hidden but announced — the text alternative for anything
+   currently carried by colour or a bare glyph. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---- Sortable headers are real buttons now (D2.2) ---- */
+.qtable th .sortbtn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: inherit; color: inherit;
+  text-transform: inherit; letter-spacing: inherit;
+  padding: 0; background: none; border: 0; cursor: pointer;
+}
+.qtable th .sortbtn:hover { color: var(--c-ink); }
+.qtable th .sortbtn__ind { font-size: 9px; color: var(--c-primary); opacity: 0; }
+.qtable th[aria-sort] .sortbtn__ind { opacity: 1; }
+/* the old CSS-only arrows are replaced by the indicator span */
+.sortable[data-dir="asc"]::after, .sortable[data-dir="desc"]::after { content: none; }
+
+/* ---- Status that does not rely on colour alone (WCAG 1.4.1 · D2.7) ----
+   `under` marks a value below its threshold. Colour was the only signal;
+   now there is a shape too, plus an announced text alternative. */
+.num.under::after {
+  content: "▾";
+  margin-left: 3px;
+  font-size: 0.8em;
+  vertical-align: baseline;
+}
+.contact-yes, .contact-no { font-weight: var(--fw-semi); }
+
+/* ---- On Track badge (D2.8) ----
+   FSD §15.3 fixes this badge as WHITE, which gives almost no contrast
+   against a white card. The spec wins on fill, so the boundary is
+   carried by a stronger border and the dot rather than the background.
+   Documented exception: the label text itself meets AA at 7.6:1. */
+.badge--ontrack {
+  box-shadow: inset 0 0 0 1.5px var(--c-ink-3);
+}
+
+/* ---- Tabs keyboard focus ---- */
+.tab2[role="tab"]:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+[role="tabpanel"]:focus { outline: none; }
+
+/* ---- Destructive (red) and safe (green) data operations.
+   Scoped to data-operation controls — never to patient status,
+   which FSD §15.3 fixes as amber-never-red. ---- */
+.btn--destructive { background: var(--c-danger); color: #fff; }
+.btn--destructive:hover:not(:disabled) { background: var(--c-danger-dark); }
+.btn--destructive:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn--safe {
+  background: var(--c-safe-bg);
+  color: var(--c-safe);
+  border: 1px solid var(--c-safe);
+}
+.btn--safe:hover { background: var(--c-safe); color: #fff; }
+
+.badge--danger { color: var(--c-danger); background: var(--c-danger-bg); }
+.badge--safe   { color: var(--c-safe);   background: var(--c-safe-bg); }
+
+/* ---- Search result list (multi-match lookup) ---- */
+.reslist { display: grid; gap: var(--sp-2); }
+.reslist__item {
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: var(--sp-3);
+  width: 100%; text-align: left;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--c-line); border-radius: var(--radius-sm);
+  background: var(--c-surface); color: var(--c-ink);
+  font-size: var(--fs-body);
+}
+.reslist__item:hover { background: var(--c-bg); border-color: var(--c-primary); }
+@media (max-width: 640px) {
+  .reslist__item { grid-template-columns: auto 1fr; }
+  .reslist__item .num { grid-column: 2; }
+}
+
+/* ============================================================
+   S17 — Print (gap-analysis A8.6).
+
+   PDF export is explicitly out of MVP scope (FSD §17.2), which makes
+   the browser's own print the de-facto way a physician gets a claim
+   summary or an audit extract onto paper. Without this the fixed
+   sidebar, sticky top bar and every interactive control printed too.
+   ============================================================ */
+@media print {
+  /* chrome that means nothing on paper */
+  .sidebar, .scrim, .topbar, .navtoggle, .skiplink, .tabbar,
+  .banner, .offlinebar, .modal, .dd__menu, #paveDesignToggle,
+  .pager, .toolbar, .themetoggle, .iconbtn { display: none !important; }
+
+  /* the shell collapses to a single column of content */
+  .app  { display: block; min-height: 0; }
+  .main { grid-column: 1; min-height: 0; display: block; }
+  .content { padding: 0; }
+  .content__inner { max-width: none; }
+
+  html, body { background: #fff; color: #000; }
+  .card, .kpi {
+    box-shadow: none;
+    border: 1px solid #999;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .kpigrid { grid-template-columns: repeat(4, 1fr); gap: 8pt; }
+
+  /* tables must print whole, with headers repeated across pages */
+  .tablewrap { overflow: visible !important; box-shadow: none !important; max-height: none !important; }
+  .tablewrap > .qtable { min-width: 0; }
+  .qtable thead { display: table-header-group; }
+  .qtable tr { break-inside: avoid; page-break-inside: avoid; }
+  .qtable [data-priority] { display: table-cell !important; }   /* paper has room */
+
+  /* expandable evidence prints open — it IS the audit trail */
+  .wqpanel { display: table-row !important; }
+  .qrow__panel { display: block !important; }
+
+  /* badges need an outline, not a fill, to survive mono printing */
+  .badge { border: 1px solid #666; background: none !important; color: #000 !important; }
+  .badge::before { display: none; }
+
+  /* actions are meaningless on paper */
+  .btn, .btn--primary, .btn--ghost, .btn--danger, .btn--destructive, .btn--safe { display: none !important; }
+  .qtable td:last-child:empty { display: none; }
+
+  /* show link targets so a printed page is self-contained */
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
+
+  @page { margin: 14mm; }
+}

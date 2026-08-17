@@ -15,8 +15,8 @@
   <!-- ===== Brand panel ===== -->
   <aside class="authpage__brand">
     <span class="brandmark">
-      <img src="../assets/logo-light.svg" alt="Kivie" style="width:112px;height:auto">
-      <span style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding-left:12px;border-left:1px solid rgba(255,255,255,.32);color:rgba(255,255,255,.85);line-height:1.25">Provider<br>Portal</span>
+      <img src="../assets/logo-light.svg" alt="Kivie" class="authlogo">
+      <span class="authbrand__tag">Provider<br>Portal</span>
     </span>
     <div>
       <h1 class="authbrand__head">Recurring RTM revenue from patients you already treat.</h1>
@@ -34,10 +34,10 @@
 
     <!-- View 1: OAuth -->
     <div class="authcard rise rise-1" id="oauthView">
-      <h2 class="t-display" style="font-size:26px">Sign in to Kivie</h2>
-      <p class="t-muted" style="margin-top:6px;font-size:var(--fs-body)">Use your clinic's work account. No passwords to manage.</p>
+      <h2 class="t-display authcard__title">Sign in to Kivie</h2>
+      <p class="t-muted authcard__lead">Use your clinic's work account. No passwords to manage.</p>
 
-      <div style="margin-top:var(--sp-6)">
+      <div class="mt-6">
         <button type="button" class="oauth" data-signin>
           <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.7-.06-1.4-.18-2H12v3.85h5.9a5 5 0 0 1-2.19 3.3v2.74h3.54c2.07-1.9 3.25-4.71 3.25-7.89z"/><path fill="#34A853" d="M12 23c2.94 0 5.42-.98 7.22-2.65l-3.54-2.74c-.98.66-2.24 1.05-3.68 1.05-2.83 0-5.23-1.91-6.09-4.48H2.27v2.82A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.91 14.18a6.6 6.6 0 0 1 0-4.36V7H2.27a11 11 0 0 0 0 9.99l3.64-2.81z"/><path fill="#EA4335" d="M12 5.16c1.6 0 3.03.55 4.16 1.63l3.12-3.12A11 11 0 0 0 2.27 7l3.64 2.82C6.77 7.25 9.17 5.16 12 5.16z"/></svg>
           Sign in with Google
@@ -53,6 +53,8 @@
         <span>Enterprise sign-in via OAuth 2.0 (Google Workspace or Microsoft 365). Two-factor authentication is required on every account.</span>
       </div>
 
+      <p class="t-sm mt-4"><a href="#" data-firsttime class="t-link">First time signing in? Set up two-factor authentication</a></p>
+
       <div class="authfoot">
         <span>Sessions expire after 15 min idle</span><span>·</span>
         <span>All logins logged</span><span>·</span>
@@ -62,13 +64,13 @@
 
     <!-- View 2: MFA -->
     <div class="authcard rise rise-1" id="mfaView" hidden>
-      <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:var(--c-primary-soft);color:var(--c-primary)">
+      <span class="authicon">
         <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 8.3-7 9.5-4-1.2-7-5.1-7-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg>
       </span>
-      <h2 class="t-display" style="font-size:24px;margin-top:var(--sp-4)">Two-factor authentication</h2>
-      <p class="t-muted" style="margin-top:6px;font-size:var(--fs-body)">Enter the 6-digit code from your authenticator app for <strong>b.stillman@stillmanrehab.com</strong>.</p>
+      <h2 class="t-display authcard__title--sm">Two-factor authentication</h2>
+      <p class="t-muted authcard__lead">Enter the 6-digit code from your authenticator app for <strong>b.stillman@stillmanrehab.com</strong>.</p>
 
-      <div class="otp" data-otp style="margin-top:var(--sp-5)" aria-label="6-digit code">
+      <div class="otp mt-5" data-otp aria-label="6-digit code">
         <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 1" autocomplete="one-time-code">
         <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 2">
         <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 3">
@@ -77,11 +79,12 @@
         <input class="otpbox" inputmode="numeric" maxlength="1" aria-label="Digit 6">
       </div>
 
-      <a class="btn btn--primary" href="dashboard.html" style="width:100%;margin-top:var(--sp-5)">Verify &amp; continue</a>
+      <div class="errmsg mt-3" id="otpError" hidden role="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg><span data-otp-msg></span></div>
+      <button class="btn btn--primary w-full mt-4" type="button" data-verify>Verify &amp; continue</button>
 
-      <div class="row" style="margin-top:var(--sp-4);gap:var(--sp-4)">
-        <a href="#" style="font-size:var(--fs-sm);font-weight:var(--fw-semi)">Resend code</a>
-        <a href="#" style="font-size:var(--fs-sm);font-weight:var(--fw-semi)">Lost your device?</a>
+      <div class="row mt-4 gap-4">
+        <a href="#" class="t-link" data-resend>Resend code</a>
+        <a href="#" class="t-link" data-lostdevice>Lost your device?</a>
       </div>
 
       <div class="authnote">
@@ -90,19 +93,149 @@
       </div>
     </div>
 
+    <!-- View 3 - S10: first-time MFA enrolment (FSD 5.1 - TOTP is mandatory
+         on every provider account and cannot be disabled) -->
+    <div class="authcard rise rise-1" id="setupView" hidden>
+      <span class="authicon">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><path d="M13 13h3v3h-3zM17 17h3v3h-3z"/></svg>
+      </span>
+      <h2 class="t-display authcard__title--sm">Set up two-factor authentication</h2>
+      <p class="t-muted authcard__lead">Scan this with Google Authenticator, Authy, Microsoft Authenticator or 1Password.</p>
+
+      <div class="qrbox mt-5" aria-hidden="true">
+        <svg viewBox="0 0 21 21" role="img"><rect width="21" height="21" fill="#fff"/><g fill="currentColor"><path d="M0 0h7v7H0zm1 1v5h5V1z"/><path d="M2 2h3v3H2z"/><path d="M14 0h7v7h-7zm1 1v5h5V1z"/><path d="M16 2h3v3h-3z"/><path d="M0 14h7v7H0zm1 1v5h5v-5z"/><path d="M2 16h3v3H2z"/><path d="M9 0h1v2H9zM11 1h1v1h-1zM9 3h2v1H9zM12 3h1v2h-1zM9 5h1v2H9zM11 6h2v1h-2zM8 8h2v1H8zM11 8h1v1h-1zM13 8h2v1h-2zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM8 10h1v1H8zM10 10h2v1h-2zM13 10h1v1h-1zM15 10h1v1h-1zM17 10h2v1h-2zM8 12h2v1H8zM11 12h1v1h-1zM14 12h1v1h-1zM16 12h2v1h-2zM19 12h2v1h-2zM9 14h1v1H9zM11 14h2v1h-2zM14 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM9 16h2v1H9zM12 16h1v1h-1zM15 16h2v1h-2zM18 16h1v1h-1zM20 16h1v1h-1zM9 18h1v1H9zM11 18h1v1h-1zM13 18h2v1h-2zM16 18h1v1h-1zM18 18h2v1h-2zM9 20h2v1H9zM12 20h2v1h-2zM15 20h1v1h-1zM17 20h1v1h-1zM19 20h2v1h-2z"/></g></svg>
+      </div>
+
+      <div class="formgroup mt-4">
+        <label>Or enter this key manually</label>
+        <div class="row gap-2">
+          <input class="input num" value="KVIE 4TQX 9PMR 2WFD" readonly aria-label="Setup key">
+          <button class="btn btn--ghost" type="button" data-copy-key>Copy</button>
+        </div>
+      </div>
+
+      <div class="authnote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+        <span>Save your <strong>recovery codes</strong> before continuing &mdash; they are the only way back in if you lose your device. They are shown once.</span>
+      </div>
+
+      <details class="reccodes mt-3">
+        <summary>Show recovery codes</summary>
+        <div class="reccodes__grid num">
+          <span>4KQ2-9WMX</span><span>7TRD-1PLV</span><span>B3NH-6ZCF</span>
+          <span>Y8SG-2QKA</span><span>M5WJ-4DXE</span><span>R9VT-7HBN</span>
+        </div>
+        <button class="btn btn--ghost btn--sm mt-3" type="button" data-confirm="Recovery codes downloaded &mdash; store them somewhere safe.">Download codes</button>
+      </details>
+
+      <button class="btn btn--primary w-full mt-5" type="button" data-setup-done>I have scanned it &mdash; continue</button>
+    </div>
+
+    <!-- View 4 - S10: account locked after 5 failed attempts (FSD 5.1) -->
+    <div class="authcard rise rise-1" id="lockedView" hidden>
+      <span class="authicon authicon--warn">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></svg>
+      </span>
+      <h2 class="t-display authcard__title--sm">Account temporarily locked</h2>
+      <p class="t-muted authcard__lead">Five incorrect codes were entered for <strong>b.stillman@stillmanrehab.com</strong>. Access is locked to protect patient data.</p>
+
+      <div class="authnote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+        <span>This attempt has been logged with its timestamp and IP address. If it was not you, unlock and then reset your authenticator from Settings.</span>
+      </div>
+
+      <button class="btn btn--primary w-full mt-5" type="button" data-unlock>Email me an unlock link</button>
+      <div id="unlockSent" hidden class="asyncstate mt-4">
+        <span class="t-ready fw-bold">&#10003;</span>
+        <div class="asyncstate__body">
+          <div class="asyncstate__title">Unlock link sent</div>
+          <div class="t-sm t-muted">Check <strong>b.stillman@stillmanrehab.com</strong>. The link is single-use and expires in 15 minutes.</div>
+        </div>
+      </div>
+    </div>
+
   </main>
 </div>
 
 <script src="../js/app.js"></script>
 <script>
-  /* OAuth buttons → MFA step (mock; no real auth). */
+  /* S10 - provider auth states (mock; no real auth).
+     Demo contract: the correct code is 123456. Any other six digits fails,
+     and five failures lock the account, per FSD 5.1. */
   (function () {
-    var oauth = document.getElementById("oauthView"), mfa = document.getElementById("mfaView");
+    var views = {
+      oauth:  document.getElementById("oauthView"),
+      setup:  document.getElementById("setupView"),
+      mfa:    document.getElementById("mfaView"),
+      locked: document.getElementById("lockedView")
+    };
+    function show(name) {
+      Object.keys(views).forEach(function (k) { views[k].hidden = k !== name; });
+      var f = views[name].querySelector("input:not([readonly]), button:not([disabled])");
+      if (f) f.focus();
+    }
+
     Array.prototype.forEach.call(document.querySelectorAll("[data-signin]"), function (b) {
-      b.addEventListener("click", function () {
-        oauth.hidden = true; mfa.hidden = false;
-        var first = mfa.querySelector(".otpbox"); if (first) first.focus();
+      b.addEventListener("click", function () { show("mfa"); });
+    });
+    var firstTime = document.querySelector("[data-firsttime]");
+    if (firstTime) firstTime.addEventListener("click", function (e) { e.preventDefault(); show("setup"); });
+    document.querySelector("[data-setup-done]").addEventListener("click", function () { show("mfa"); });
+
+    var copy = document.querySelector("[data-copy-key]");
+    if (copy) copy.addEventListener("click", function () { window.paveBanner("Setup key copied to the clipboard."); });
+
+    /* --- OTP verification with an attempt counter --- */
+    var attempts = 0, MAX = 5;
+    var boxes = document.querySelectorAll("#mfaView .otpbox");
+    var verify = document.querySelector("[data-verify]");
+    var err = document.getElementById("otpError");
+
+    function code() {
+      return Array.prototype.map.call(boxes, function (b) { return b.value; }).join("");
+    }
+    function clearBoxes() {
+      Array.prototype.forEach.call(boxes, function (b) {
+        b.value = ""; b.classList.remove("is-filled", "is-invalid");
       });
+      boxes[0].focus();
+    }
+    verify.addEventListener("click", function () {
+      var v = code();
+      if (v.length < 6) {
+        err.hidden = false;
+        err.querySelector("[data-otp-msg]").textContent = "Enter all six digits.";
+        return;
+      }
+      if (v === "123456") { location.href = "dashboard.html"; return; }
+      attempts++;
+      if (attempts >= MAX) { show("locked"); return; }
+      Array.prototype.forEach.call(boxes, function (b) { b.classList.add("is-invalid"); });
+      err.hidden = false;
+      var left = MAX - attempts;
+      err.querySelector("[data-otp-msg]").textContent =
+        "That code is not right. " + left + " attempt" + (left === 1 ? "" : "s") + " left before the account locks.";
+      setTimeout(clearBoxes, 700);
+    });
+
+    var lost = document.querySelector("[data-lostdevice]");
+    if (lost) lost.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.paveConfirm({
+        title: "Lost your authenticator device?",
+        body: "We will email a single-use recovery link to b.stillman@stillmanrehab.com. You will then set up a new authenticator - MFA cannot be skipped.",
+        cta: "Email a recovery link"
+      }, function () { window.paveBanner("Recovery link sent - single-use - expires in 15 minutes."); });
+    });
+
+    var resend = document.querySelector("[data-resend]");
+    if (resend) resend.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.paveBanner("A new code has been sent to your authenticator app.");
+    });
+
+    document.querySelector("[data-unlock]").addEventListener("click", function () {
+      document.getElementById("unlockSent").hidden = false;
     });
   })();
 </script>

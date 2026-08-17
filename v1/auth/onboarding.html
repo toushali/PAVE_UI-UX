@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
+  <script>(function(){var q=(location.search.match(/[?&]companion=(plant|cat)/)||[])[1];var c=q;if(!c){try{c=localStorage.getItem("kivie-companion");}catch(e){}}if(c!=="plant"&&c!=="cat")c="plant";try{localStorage.setItem("kivie-companion",c);}catch(e){}document.documentElement.setAttribute("data-companion",c);})();</script>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Kivie">
 </head>
 <body>
   <div class="app">
@@ -47,7 +55,7 @@
             <p class="t-body t-muted">A quick daily check-in keeps your doctor in the loop.</p>
           </div>
           <div class="welcome__card">
-            <span class="welcome__icon"><img src="../assets/art/plant-1-young.svg" alt="" width="52" height="52"></span>
+            <span class="welcome__icon"><img src="../assets/art/plant-1-young.svg" data-companion-art="1" alt="" width="52" height="52"></span>
             <h2 class="t-h2">Watch your progress grow</h2>
             <p class="t-body t-muted">Your streak grows like a plant as you keep going.</p>
           </div>
@@ -99,6 +107,22 @@
         </div>
       </section>
 
+      <!-- S13) Choose your companion -->
+      <section class="card rise rise-4" aria-label="Choose your companion">
+        <h2 class="card__title">Who's keeping you company?</h2>
+        <p class="t-body t-muted mb-4">Your companion grows as your streak grows. You can change it any time in Settings.</p>
+        <div class="companionpick" role="radiogroup" aria-label="Choose your companion">
+          <button type="button" class="companionpick__opt" role="radio" aria-checked="true" data-companion-pick="plant">
+            <img src="../assets/art/plant-2-mature.svg" alt="" aria-hidden="true" width="72" height="72">
+            <span>Plant</span>
+          </button>
+          <button type="button" class="companionpick__opt" role="radio" aria-checked="false" data-companion-pick="cat">
+            <img src="../assets/art/cat-2-young.png" alt="" aria-hidden="true" width="72" height="72">
+            <span>Cat</span>
+          </button>
+        </div>
+      </section>
+
       <!-- 5) Pick daily reminder time -->
       <section class="card rise rise-4" aria-label="Daily reminder">
         <h2 class="card__title">When should we remind you?</h2>
@@ -137,5 +161,14 @@
       }
     })();
   </script>
+<script>
+  /* S16 — register the service worker so the app is genuinely installable
+     (FSD §5.2, M1 §4). Silently ignored on browsers without support. */
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("../sw.js", { scope: "../" }).catch(function () {});
+    });
+  }
+</script>
 </body>
 </html>

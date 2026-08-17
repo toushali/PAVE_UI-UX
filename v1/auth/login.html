@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
+  <script>(function(){var q=(location.search.match(/[?&]companion=(plant|cat)/)||[])[1];var c=q;if(!c){try{c=localStorage.getItem("kivie-companion");}catch(e){}}if(c!=="plant"&&c!=="cat")c="plant";try{localStorage.setItem("kivie-companion",c);}catch(e){}document.documentElement.setAttribute("data-companion",c);})();</script>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Kivie">
 </head>
 <body>
   <div class="app">
@@ -25,7 +33,7 @@
         <div id="requestView" style="display:flex; flex-direction:column; gap:var(--sp-5);">
 
           <div class="plantscene rise rise-1" aria-hidden="true">
-            <img src="../assets/art/plant-2-mature.svg" alt="" width="96" height="96">
+            <img src="../assets/art/plant-2-mature.svg" data-companion-art="2" alt="" width="96" height="96">
           </div>
 
           <div class="rise rise-1">
@@ -80,5 +88,14 @@
       });
     })();
   </script>
+<script>
+  /* S16 — register the service worker so the app is genuinely installable
+     (FSD §5.2, M1 §4). Silently ignored on browsers without support. */
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("../sw.js", { scope: "../" }).catch(function () {});
+    });
+  }
+</script>
 </body>
 </html>

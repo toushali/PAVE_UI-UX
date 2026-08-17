@@ -23,37 +23,74 @@
 
         <!-- Lookup + actions -->
         <section class="card rise rise-2"><div class="card__head"><span class="card__title">Look up a patient</span></div><div class="card__body">
-          <div class="toolbar" style="margin-bottom:var(--sp-4)">
-            <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input value="John Carter · #P-1043" placeholder="Patient name or ID…"></span>
-            <button class="btn btn--primary">Find</button>
-          </div>
+          <form class="toolbar mb-4" data-lookup role="search">
+            <span class="search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+              <input data-lookup-input type="search" placeholder="Patient name or ID&hellip;" aria-label="Search for a patient by name or ID" autocomplete="off">
+            </span>
+            <button class="btn btn--primary" type="submit">Find</button>
+            <button class="btn btn--ghost" type="button" data-lookup-clear hidden>Clear</button>
+          </form>
 
-          <div class="qrow__panel is-open">
-            <div class="row" style="gap:var(--sp-3);flex-wrap:wrap">
-              <span class="avatar">JC</span>
-              <div>
-                <strong>John Carter</strong>
-                <div class="t-sm t-muted">#P-1043 · M54.5 · enrolled Jun 8, 2026 · Dr. Stillman</div>
-              </div>
-              <span class="spacer"></span>
-              <button class="btn btn--ghost" data-confirm="PHI export prepared · encrypted archive · download link sent · logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export PHI</button>
-              <button class="btn" style="background:var(--st-attention);color:#fff" data-modal-open="delModal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"/></svg>Delete PHI</button>
-            </div>
-            <div class="claimsum" style="margin-top:var(--sp-4)"><span>Check-ins: <b class="num">38</b></span><span>Plan: <b>v14</b></span><span>Badges: <b class="num">6</b></span><span>Claims: <b class="num">2 approved</b></span></div>
-          </div>
+          <!-- results host — idle / no-match / multi-match / single record -->
+          <div data-lookup-out aria-live="polite"></div>
         </div></section>
 
+        <!-- S11 · C3: the pending queue. Overview counts "1 pending data
+             request" but this page previously showed only completed history,
+             with no intake → triage → decision path. -->
+        <section class="card rise rise-2 mt-4">
+          <div class="card__head">
+            <span class="card__title">Pending requests</span>
+            <span class="badge badge--attention badge--head">1 awaiting decision</span>
+            <span class="spacer"></span>
+            <span class="t-meta">HIPAA response window: <span class="num">30 days</span></span>
+          </div>
+          <div class="tablewrap">
+            <table class="qtable">
+              <thead><tr><th>Received</th><th>Patient</th><th>Type</th><th>Requested by</th><th data-priority="3">Due</th><th class="right">Action</th></tr></thead>
+              <tbody>
+                <tr data-row>
+                  <td class="num t-sm">2026-07-15</td>
+                  <td class="t-sm">Priya Nair &middot; #P-1187</td>
+                  <td><span class="badge badge--danger">Erasure</span></td>
+                  <td class="t-sm">Patient request (portal)</td>
+                  <td class="num t-sm under">2026-08-14 &middot; 29d</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="dr-1" data-panel-group="dr">Review</button></td>
+                </tr>
+                <tr class="wqpanel" id="dr-1"><td colspan="6"><div class="wqpanel__inner stackfields">
+                  <div><strong>Request detail</strong><p class="t-sm t-muted mt-1 m-0">Patient submitted a right-to-erasure request through the portal on 15 Jul. Identity confirmed by magic-link session. Provider (Dr. Haddad) has been notified but has not objected.</p></div>
+                  <div class="claimsum"><span>Enrolled <b class="num">2026-05-02</b></span><span>Check-ins <b class="num">61</b></span><span>Approved claims <b class="num">2</b></span><span>Provider <b>Dr. N. Haddad</b></span></div>
+                  <div class="alertbar alertbar--warn m-0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>
+                    <span><strong>Two approved claims reference this record.</strong> Billing evidence must be retained for 6 years, so erasure de-identifies the clinical record and keeps the claim evidence under a pseudonymous key. Confirm this is acceptable before approving.</span>
+                  </div>
+                  <div class="formgroup mb-0"><label>Decision note<span class="req">*</span></label><textarea class="input" placeholder="Basis for the decision — becomes part of the 6-year record…" data-required="Record why this request was approved or refused."></textarea></div>
+                  <div class="row gap-3 flex-wrap">
+                    <button class="btn btn--ghost btn--sm" data-dr-refuse>Refuse request</button>
+                    <span class="spacer"></span>
+                    <button class="btn btn--ghost btn--sm" data-confirm="Request acknowledged &middot; patient notified &middot; clock continues.">Acknowledge to patient</button>
+                    <button class="btn btn--destructive btn--sm" data-dr-approve>Approve erasure</button>
+                  </div>
+                </div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         <!-- Recent requests -->
-        <section class="card rise rise-3" style="margin-top:var(--sp-4)">
-          <div class="card__head"><span class="card__title">Recent data requests</span><span class="spacer"></span><span class="t-meta">6-year record</span></div>
-          <table class="qtable">
+        <section class="card rise rise-3 mt-4">
+          <div class="card__head"><span class="card__title">Completed requests</span><span class="spacer"></span><span class="t-meta">6-year record</span></div>
+          <div class="tablewrap">
+            <table class="qtable">
             <thead><tr><th>Time</th><th>Patient</th><th>Type</th><th>Requested by</th><th class="right">Status</th></tr></thead>
             <tbody>
-              <tr><td class="num t-sm">2026-07-12 14:20</td><td class="t-sm">Tomás Vega · #P-0994</td><td><span class="badge badge--enrolled">Export</span></td><td class="t-sm">Patient request (portal)</td><td class="right"><span class="badge badge--ready">Completed</span></td></tr>
-              <tr><td class="num t-sm">2026-06-28 10:05</td><td class="t-sm">Grace Lin · #P-0951</td><td><span class="badge badge--attention">Delete</span></td><td class="t-sm">Right-to-erasure</td><td class="right"><span class="badge badge--ready">Completed</span></td></tr>
-              <tr><td class="num t-sm">2026-06-15 09:40</td><td class="t-sm">Marcus Bell · #P-1002</td><td><span class="badge badge--enrolled">Export</span></td><td class="t-sm">Provider request</td><td class="right"><span class="badge badge--ready">Completed</span></td></tr>
+              <tr><td class="num t-sm">2026-07-12 14:20</td><td class="t-sm">Tomás Vega · #P-0994</td><td><span class="badge badge--safe">Export</span></td><td class="t-sm">Patient request (portal)</td><td class="right"><span class="badge badge--ready">Completed</span></td></tr>
+              <tr><td class="num t-sm">2026-06-28 10:05</td><td class="t-sm">Grace Lin · #P-0951</td><td><span class="badge badge--danger">Delete</span></td><td class="t-sm">Right-to-erasure</td><td class="right"><span class="badge badge--ready">Completed</span></td></tr>
+              <tr><td class="num t-sm">2026-06-15 09:40</td><td class="t-sm">Marcus Bell · #P-1002</td><td><span class="badge badge--safe">Export</span></td><td class="t-sm">Provider request</td><td class="right"><span class="badge badge--ready">Completed</span></td></tr>
             </tbody>
           </table>
+          </div>
         </section>
 
       </div>
@@ -61,30 +98,165 @@
   </div>
 </div>
 
-<!-- Delete PHI — type-to-confirm -->
-<div class="modal" id="delModal">
-  <div class="modal__backdrop"></div>
-  <div class="modal__panel">
-    <div class="modal__head"><span class="modal__title">Permanently delete PHI</span><button class="modal__x" data-modal-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-    <div class="modal__body">
-      <div class="alertbar" style="margin:0 0 var(--sp-4);background:var(--st-attention-bg);color:var(--st-attention);border-color:#EFDCB2">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>
-        <span><strong>This cannot be undone.</strong> All PHI for <strong>John Carter (#P-1043)</strong> — check-ins, plan, gamification, and billing history — is permanently erased.</span>
-      </div>
-      <div class="formgroup" style="margin-bottom:0"><label>Type <span class="num" style="font-weight:var(--fw-bold)">P-1043</span> to confirm</label><input class="input num" id="delConfirmInput" placeholder="P-1043" autocomplete="off"></div>
-    </div>
-    <div class="modal__foot"><button class="btn btn--ghost" data-modal-close>Cancel</button><button class="btn" id="delBtn" disabled style="background:var(--st-attention);color:#fff" data-modal-close data-confirm="PHI permanently deleted for #P-1043 · irreversible · logged to audit trail.">Permanently delete</button></div>
-  </div>
-</div>
 
 <script src="../js/app.js"></script>
 <script>
-  (function () {
-    var input = document.getElementById("delConfirmInput"), btn = document.getElementById("delBtn");
-    input.addEventListener("input", function () {
-      btn.disabled = input.value.trim().toUpperCase() !== "P-1043";
+  /* ============================================================
+     Patient lookup. Previously the field held a hard-coded value, the
+     Find button did nothing, and one fixed record was always on screen —
+     so the destructive action below was bound to #P-1043 no matter who
+     appeared to be selected. It now searches real (mock) records and the
+     export/erase actions follow the selected patient.
+     ============================================================ */
+  var PATIENTS = [
+    { id: "P-1043", name: "John Carter",     dx: "M54.5",   enrolled: "Jun 8, 2026",  provider: "Dr. Stillman", checkins: 38, plan: "v14", badges: 6, claims: "2 approved", status: "active" },
+    { id: "P-1187", name: "Priya Nair",      dx: "M54.16",  enrolled: "May 2, 2026",  provider: "Dr. Haddad",   checkins: 61, plan: "v14", badges: 9, claims: "2 approved", status: "pending" },
+    { id: "P-1010", name: "Maria Alvarez",   dx: "M17.11",  enrolled: "Jun 10, 2026", provider: "Dr. Stillman", checkins: 12, plan: "v15", badges: 2, claims: "0",          status: "active" },
+    { id: "P-1120", name: "David Nguyen",    dx: "M25.561", enrolled: "Jun 9, 2026",  provider: "Dr. Petrov",   checkins: 14, plan: "v15", badges: 3, claims: "0",          status: "active" },
+    { id: "P-1131", name: "Sofia Reyes",     dx: "M54.5",   enrolled: "Jun 5, 2026",  provider: "Dr. Haddad",   checkins: 15, plan: "v14", badges: 4, claims: "1 approved", status: "active" },
+    { id: "P-1002", name: "Marcus Bell",     dx: "M75.100", enrolled: "Jun 2, 2026",  provider: "Dr. Petrov",   checkins: 16, plan: "v14", badges: 5, claims: "1 approved", status: "active" },
+    { id: "P-0994", name: "Tom\u00e1s Vega",    dx: "M48.06",  enrolled: "Apr 18, 2026", provider: "Dr. Raman",    checkins: 74, plan: "v13", badges: 8, claims: "3 approved", status: "active" },
+    { id: "P-0951", name: "Grace Lin",       dx: "\u2014",       enrolled: "Mar 3, 2026",  provider: "Dr. Raman",    checkins: 0,  plan: "\u2014",   badges: 0, claims: "billing evidence retained", status: "erased" }
+  ];
+
+  var out   = document.querySelector("[data-lookup-out]");
+  var form  = document.querySelector("[data-lookup]");
+  var input = document.querySelector("[data-lookup-input]");
+  var clear = document.querySelector("[data-lookup-clear]");
+  var selected = null;
+
+  function esc(t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
+  function initials(n) { return n.split(/\s+/).map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase(); }
+
+  function idle() {
+    selected = null;
+    out.innerHTML = '<div class="emptystate">' +
+      '<div class="emptystate__title">Search for a patient</div>' +
+      '<p class="emptystate__body">Enter a name or record ID to export or erase their PHI. Every lookup is written to the audit trail.</p></div>';
+  }
+
+  function none(q) {
+    selected = null;
+    out.innerHTML = '<div class="emptystate">' +
+      '<div class="emptystate__title">No patient matches &ldquo;' + esc(q) + '&rdquo;</div>' +
+      '<p class="emptystate__body">Check the spelling, or search by record ID (for example <span class="num">P-1043</span>). ' +
+      'Records erased under a right-to-erasure request are still listed, so a missing result means no such record exists.</p></div>';
+  }
+
+  function many(list, q) {
+    selected = null;
+    out.innerHTML = '<p class="t-sm t-muted mb-3">' + list.length + ' patients match &ldquo;' + esc(q) + '&rdquo;. Choose one.</p>' +
+      '<div class="reslist">' + list.map(function (p) {
+        return '<button type="button" class="reslist__item" data-pick="' + p.id + '">' +
+          '<span class="avatar avatar--sm">' + initials(p.name) + '</span>' +
+          '<span><strong>' + esc(p.name) + '</strong>' +
+          '<span class="t-sm t-muted"> &middot; ' + p.dx + ' &middot; ' + p.provider + '</span></span>' +
+          '<span class="num t-sm">#' + p.id + '</span></button>';
+      }).join("") + '</div>';
+  }
+
+  function record(p) {
+    selected = p;
+    var erased  = p.status === "erased";
+    var pending = p.status === "pending";
+    out.innerHTML =
+      '<div class="qrow__panel is-open">' +
+        '<div class="row gap-3 flex-wrap">' +
+          '<span class="avatar">' + initials(p.name) + '</span>' +
+          '<div><strong>' + esc(p.name) + '</strong>' +
+            '<div class="t-sm t-muted"><span class="num">#' + p.id + '</span> &middot; ' + p.dx +
+            ' &middot; enrolled ' + p.enrolled + ' &middot; ' + p.provider + '</div></div>' +
+          '<span class="spacer"></span>' +
+          (erased ? '<span class="badge badge--danger">PHI erased</span>' :
+            '<button class="btn btn--safe" data-export type="button">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export PHI</button>' +
+            '<button class="btn btn--destructive" data-erase type="button">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"/></svg>Delete PHI</button>') +
+        '</div>' +
+        (erased ?
+          '<div class="alertbar alertbar--warn mt-4 m-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>' +
+          '<span>Erased on <span class="num">2026-06-28</span> under a right-to-erasure request. Billing evidence is retained under a pseudonymous key for the statutory 6 years. Nothing further can be exported or deleted.</span></div>' : "") +
+        (pending ?
+          '<div class="alertbar alertbar--warn mt-4 m-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>' +
+          '<span>An erasure request for this patient is <strong>already pending</strong> a decision below. Handle it there rather than erasing directly, so the decision basis is recorded.</span></div>' : "") +
+        '<div class="claimsum mt-4">' +
+          '<span>Check-ins: <b class="num">' + p.checkins + '</b></span>' +
+          '<span>Plan: <b>' + p.plan + '</b></span>' +
+          '<span>Badges: <b class="num">' + p.badges + '</b></span>' +
+          '<span>Claims: <b>' + p.claims + '</b></span>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function search(q) {
+    q = (q || "").trim();
+    clear.hidden = !q;
+    if (!q) { idle(); return; }
+    var needle = q.toLowerCase().replace(/^#/, "");
+    var hits = PATIENTS.filter(function (p) {
+      return p.name.toLowerCase().indexOf(needle) > -1 || p.id.toLowerCase().indexOf(needle) > -1;
     });
-  })();
+    if (!hits.length) { none(q); window.paveAnnounce("No patients match " + q); return; }
+    if (hits.length === 1) { record(hits[0]); window.paveAnnounce(hits[0].name + " selected."); return; }
+    many(hits, q);
+    window.paveAnnounce(hits.length + " patients match " + q);
+  }
+
+  form.addEventListener("submit", function (e) { e.preventDefault(); search(input.value); });
+  input.addEventListener("input", function () { if (!input.value.trim()) idle(); clear.hidden = !input.value.trim(); });
+  clear.addEventListener("click", function () { input.value = ""; idle(); input.focus(); });
+
+  out.addEventListener("click", function (e) {
+    var pick = e.target.closest("[data-pick]");
+    if (pick) {
+      var p = PATIENTS.filter(function (x) { return x.id === pick.getAttribute("data-pick"); })[0];
+      if (p) { input.value = p.name; record(p); }
+      return;
+    }
+    if (e.target.closest("[data-export]") && selected) {
+      window.paveBanner("PHI export prepared for #" + selected.id + " · encrypted archive · download link sent · logged.");
+      return;
+    }
+    if (e.target.closest("[data-erase]") && selected) {
+      /* type-to-confirm now uses the SELECTED patient, not a fixed id */
+      window.paveConfirm({
+        title: "Permanently delete this patient's PHI?",
+        body: "All PHI for " + selected.name + " (#" + selected.id + ") — check-ins, plan, gamification and billing history — is erased. This cannot be undone, and the deletion itself is written to the immutable audit trail.",
+        detail: "<span>Check-ins <b>" + selected.checkins + "</b></span><span>Plan <b>" + selected.plan +
+                "</b></span><span>Badges <b>" + selected.badges + "</b></span><span>Claims <b>" + selected.claims + "</b></span>",
+        cta: "Permanently delete",
+        tone: "destructive",
+        match: selected.id
+      }, function () {
+        window.paveBanner("PHI permanently deleted for #" + selected.id + " · irreversible · logged to audit trail.");
+        selected.status = "erased";
+        record(selected);
+      });
+    }
+  });
+
+  idle();
+
+  /* S11 · C3 — a decision on a data request needs a recorded basis. */
+  var panel = document.getElementById("dr-1");
+  document.querySelector("[data-dr-approve]").addEventListener("click", function () {
+    if (!window.paveValidate(panel)) return;
+    window.paveConfirm({
+      title: "Approve erasure for #P-1187?",
+      body: "The clinical record is de-identified and the patient loses portal access. Billing evidence for 2 approved claims is retained under a pseudonymous key, as the 6-year rule requires. This cannot be undone.",
+      cta: "Approve erasure", tone: "destructive", match: "P-1187"
+    }, function () {
+      window.paveBanner("Erasure approved for #P-1187 · scheduled · patient and provider notified · logged.");
+    });
+  });
+  document.querySelector("[data-dr-refuse]").addEventListener("click", function () {
+    if (!window.paveValidate(panel)) return;
+    window.paveConfirm({
+      title: "Refuse this request?",
+      body: "The patient is told the request was refused and given the stated basis. Refusals are reviewable, so the note must stand on its own.",
+      cta: "Refuse request"
+    }, function () { window.paveBanner("Request refused · patient notified with the recorded basis · logged."); });
+  });
 </script>
 </body>
 </html>

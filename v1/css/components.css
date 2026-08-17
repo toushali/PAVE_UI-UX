@@ -213,25 +213,8 @@
 }
 .streakcard__label { font-size: var(--fs-body); color: var(--c-ink-2); }
 
-/* Plant growth stages: show only the layers up to data-stage.
-   Each growth layer has class .g1..(.g5). Default hides all
-   beyond stage; stages are additive (sprout -> flowering). */
-.plant [data-grow] { opacity: 0; transition: opacity var(--motion-slow) var(--ease); }
-.plant[data-stage="1"] [data-grow="1"],
-.plant[data-stage="2"] [data-grow="1"],
-.plant[data-stage="2"] [data-grow="2"],
-.plant[data-stage="3"] [data-grow="1"],
-.plant[data-stage="3"] [data-grow="2"],
-.plant[data-stage="3"] [data-grow="3"],
-.plant[data-stage="4"] [data-grow="1"],
-.plant[data-stage="4"] [data-grow="2"],
-.plant[data-stage="4"] [data-grow="3"],
-.plant[data-stage="4"] [data-grow="4"],
-.plant[data-stage="5"] [data-grow="1"],
-.plant[data-stage="5"] [data-grow="2"],
-.plant[data-stage="5"] [data-grow="3"],
-.plant[data-stage="5"] [data-grow="4"],
-.plant[data-stage="5"] [data-grow="5"] { opacity: 1; }
+/* S13: the five-stage growth layering was removed — no markup ever
+   used data-stage/data-grow, and both motifs ship three stages. */
 
 /* ============================================================
    Hero check-in "Go" button (Today) — big circular affordance
@@ -243,40 +226,7 @@
   gap: var(--sp-4);
   text-align: center;
 }
-.hero__ring {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-1);
-  width: 200px;
-  height: 200px;
-  border-radius: var(--radius-pill);
-  /* dimensional: light from top, deepening to the base — reads as a
-     soft dome, not a flat disc */
-  background:
-    radial-gradient(circle at 50% 32%, #2FA588 0%, var(--c-primary) 54%, var(--c-primary-dark) 100%);
-  color: #fff;
-  box-shadow:
-    0 14px 32px rgba(14,74,68,0.30),
-    inset 0 3px 8px rgba(255,255,255,0.28),
-    inset 0 -12px 26px rgba(8,44,40,0.34);
-}
 /* soft concentric halo so the button sits in a gentle glow */
-.hero__ring::before {
-  content: "";
-  position: absolute;
-  inset: -12px;
-  border-radius: var(--radius-pill);
-  border: 1.5px solid rgba(14,74,68,0.16);
-  pointer-events: none;
-}
-.hero__ring-label,
-.hero__ring-sub { text-shadow: 0 1px 2px rgba(8,44,40,0.28); }
-.hero__ring:active { transform: scale(0.97); filter: brightness(0.97); }
-.hero__ring-label { font-size: var(--fs-body-lg); font-weight: var(--fw-bold); }
-.hero__ring-sub { font-size: var(--fs-caption); opacity: 0.92; }
 
 /* gentle breathing pulse when the check-in is undone — a soft scale +
    glow, slow enough to feel calm rather than blinking */
@@ -294,19 +244,10 @@
                 inset 0 -12px 26px rgba(8,44,40,0.34);
   }
 }
-.hero__ring.is-undone { animation: soft-pulse 3.2s var(--ease) infinite; }
 
 /* done state: green check on soft fill */
-.hero__ring.is-done {
-  background: var(--c-primary-soft);
-  color: var(--c-primary-dark);
-  animation: none;
-}
-.hero__ring.is-done::before { border-color: rgba(14,74,68,0.12); }
-.hero__ring.is-done svg { width: 64px; height: 64px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__ring.is-undone { animation: none; }
 }
 
 /* ============================================================
@@ -795,7 +736,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pop, .toast, .celebrate .plant [data-grow] { animation: none !important; }
+  .pop, .toast { animation: none !important; }
   .confetti { display: none; }
 }
 
@@ -988,8 +929,6 @@
    The ring is an SVG; JS updates stroke-dashoffset + the number.
    ============================================================ */
 .timer { display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); }
-.timer__ring { position: relative; width: 200px; height: 200px; }
-.timer__ring svg { width: 200px; height: 200px; transform: rotate(-90deg); }
 .timer__track { stroke: var(--c-line); }
 .timer__prog {
   stroke: var(--c-primary);
@@ -2551,4 +2490,147 @@
 
 @media (prefers-reduced-motion: reduce) {
   .exmodal__card { animation: none; }
+}
+
+
+/* ---- S13: visually hidden, still announced ---- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ============================================================
+   S13 — "Choose your companion" picker.
+   Two large cards, icon + label, ≥48px targets. Offered once at
+   onboarding and always changeable in Settings.
+   ============================================================ */
+.companionpick {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+.companionpick__opt {
+  display: flex; flex-direction: column; align-items: center;
+  gap: var(--sp-2);
+  min-height: 148px;
+  padding: var(--sp-4) var(--sp-3);
+  background: var(--c-surface);
+  border: 2px solid var(--c-line);
+  border-radius: var(--radius-card);
+  color: var(--c-ink);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-medium);
+  text-align: center;
+  transition: border-color var(--motion-fast) var(--ease),
+              background var(--motion-fast) var(--ease),
+              transform var(--motion-fast) var(--ease);
+}
+.companionpick__opt img { width: 72px; height: 72px; object-fit: contain; }
+.companionpick__opt:active { transform: scale(0.98); }
+.companionpick__opt.is-on {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+  font-weight: var(--fw-bold);
+}
+.companionpick__opt.is-on::after {
+  content: "✓ Chosen";
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary);
+}
+.companionpick__opt:not(.is-on)::after {
+  content: "Tap to choose";
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-regular);
+  color: var(--c-ink-2);
+}
+@media (prefers-reduced-motion: reduce) {
+  .companionpick__opt { transition: none; }
+}
+
+.mb-4 { margin-bottom: var(--sp-4); }
+
+/* ============================================================
+   S14 / S15 — fluid illustration sizing.
+
+   Every companion, medal and hero illustration was a fixed pixel
+   size tuned for a 390px frame (gap-analysis PT-4). They neither
+   shrank at 320px (Galaxy Fold cover, iPhone SE 1st gen) nor grew
+   on tablet, and on a short landscape viewport the hero clipped.
+
+   clamp() ties them to viewport width with a hard floor and ceiling,
+   so nothing is ever smaller than legible or larger than intended.
+   ============================================================ */
+
+.celebrate .plant    { width: clamp(96px,  28vw, 120px); height: clamp(105px, 31vw, 132px); }
+.brandplant__img     { width: clamp(96px,  30vw, 132px); height: auto; }
+.celebrate__smallplant { width: clamp(72px, 22vw, 96px); height: auto; }
+.gardenchip__plant   { width: clamp(52px,  16vw, 64px);  height: auto; }
+.plantcard__plant    { width: clamp(64px,  20vw, 80px);  height: auto; }
+
+/* medallions */
+.medal__art          { width: clamp(80px,  24vw, 104px); height: clamp(80px, 24vw, 104px); }
+.medalreveal img     { width: clamp(112px, 34vw, 144px); height: clamp(112px, 34vw, 144px); }
+
+/* exercise sheet art */
+.exmodal__art        { width: clamp(104px, 32vw, 132px); height: clamp(104px, 32vw, 132px); }
+
+/* ---- short viewports (landscape phone): give the fold back to content ---- */
+@media (max-height: 600px) {
+  .garden__plant     { width: clamp(88px,  20vh, 112px); height: clamp(88px, 20vh, 112px); }
+  .celebrate .plant  { width: 84px; height: 92px; }
+  .medalreveal img   { width: 96px; height: 96px; }
+  .medal__art        { width: 72px; height: 72px; }
+}
+
+/* ============================================================
+   S15 — Tablet layout (gap-analysis PT-2, PT-3).
+
+   FSD §16.2 asks for "mobile-first RESPONSIVE". The build was
+   mobile-ONLY: below 480px it filled the screen, above it became a
+   fixed 390px phone mock. An iPad therefore showed a small phone on
+   a grey field — and adults 60–85 are disproportionately tablet
+   users, so this was the second-most-likely device with no layout.
+
+   S14 freed the ≥768px range by gating the phone frame on height and
+   pointer. This is what fills it: the content column widens to the
+   --content-max token (which never bound inside the 390px frame),
+   type steps up, and the screens that are lists of cards go two-up.
+   ============================================================ */
+@media (min-width: 768px) {
+  :root {
+    --content-max: 620px;   /* was dead inside the phone frame (PT-3) */
+    --page-pad:    var(--sp-6);
+  }
+
+  /* the shell fills the tablet rather than sitting in a box */
+  .app { width: 100%; height: 100vh; height: 100dvh; border: 0; border-radius: 0; box-shadow: none; }
+  body { background: var(--c-bg); padding: 0; }
+
+  .topbar { min-height: 68px; }
+  .topbar__title { font-size: var(--fs-h1); }
+
+  /* the tab bar stays bottom-anchored and always visible (pave_ui §2.3),
+     but its items no longer stretch across a tablet's full width */
+  .tabbar__inner { max-width: 620px; margin: 0 auto; }
+
+  /* screens that are simply lists of cards go two-up */
+  .medalgrid    { grid-template-columns: repeat(3, 1fr); }
+  .exlist       { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4); align-items: start; }
+  .exlist > *   { margin-top: 0 !important; }
+
+  /* the adherence ring and level hero are the two hero blocks that exist */
+  .aring        { transform: scale(1.12); transform-origin: center; }
+  .xphero       { padding: var(--sp-5) var(--sp-6); }
+
+  /* illustrations get the extra room */
+  .garden__plant  { width: 176px; height: 176px; }
+  .medal__art     { width: 120px; height: 120px; }
+}
+
+/* wide tablet / landscape iPad — cap the measure, keep it centred */
+@media (min-width: 1024px) {
+  :root { --content-max: 680px; }
+  .tabbar__inner { max-width: 680px; }
 }

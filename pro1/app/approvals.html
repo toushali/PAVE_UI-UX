@@ -29,55 +29,57 @@
         </div>
 
         <section class="card rise rise-2">
-          <table class="qtable" data-panel-group>
+          <div class="tablewrap">
+            <table class="qtable" data-panel-group>
             <thead><tr><th>Patient</th><th>Billing period</th><th>CPT codes</th><th class="right">Est. reimbursement</th><th class="right">Action</th></tr></thead>
             <tbody id="claims">
               <tr data-claim>
                 <td><a class="qlink" href="patient.html">John Carter</a><div class="t-meta">M54.5 · Low back pain</div></td>
-                <td class="num t-sm">Jun 8 – Jul 8, 2026</td>
+                <td class="num t-sm">Jun 16 – Jul 16, 2026</td>
                 <td class="num t-sm">98980, 98981</td>
                 <td class="right num">$395.00</td>
                 <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="c-john">Details</button> <button class="btn btn--primary btn--sm" data-approve="Claim approved for John Carter — locked &amp; moved to Reports.">Approve</button></td>
               </tr>
               <tr class="wqpanel" id="c-john">
                 <td colspan="5">
-                  <div class="claimsum"><span>Check-ins <b>16/16</b></span><span>Review <b>22 min</b></span><span>Contact call <b>✓ Jul 5</b></span><span>Plan approved <b>Jun 27</b></span></div>
+                  <div class="claimsum"><span>Check-ins <b>16/16</b></span><span>Review <b>22 min</b></span><span>Contact call <b>✓ Jul 13</b></span><span>Plan approved <b>Jul 5</b></span></div>
                   <ul class="actlist eventlist">
-                    <li class="actitem"><span class="actbody t-sm">Final qualifying check-in received</span><span class="acttime">2026-07-08 08:14</span></li>
-                    <li class="actitem"><span class="actbody t-sm">Review time logged (period total 22 min)</span><span class="acttime">2026-07-07 16:40</span></li>
-                    <li class="actitem"><span class="actbody t-sm">Contact call logged</span><span class="acttime">2026-07-05 11:05</span></li>
+                    <li class="actitem"><span class="actbody t-sm">Final qualifying check-in received</span><span class="acttime">2026-07-16 08:14</span></li>
+                    <li class="actitem"><span class="actbody t-sm">Review time logged (period total 22 min)</span><span class="acttime">2026-07-15 16:40</span></li>
+                    <li class="actitem"><span class="actbody t-sm">Contact call logged</span><span class="acttime">2026-07-13 11:05</span></li>
                   </ul>
                 </td>
               </tr>
 
               <tr data-claim>
                 <td><a class="qlink" href="patient.html">Sofia Reyes</a><div class="t-meta">M54.5 · Low back pain</div></td>
-                <td class="num t-sm">Jun 5 – Jul 5, 2026</td>
+                <td class="num t-sm">Jun 13 – Jul 13, 2026</td>
                 <td class="num t-sm">98980</td>
                 <td class="right num">$198.00</td>
                 <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="c-sofia">Details</button> <button class="btn btn--primary btn--sm" data-approve="Claim approved for Sofia Reyes — locked &amp; moved to Reports.">Approve</button></td>
               </tr>
               <tr class="wqpanel" id="c-sofia">
                 <td colspan="5">
-                  <div class="claimsum"><span>Check-ins <b>14/16</b></span><span>Review <b>20 min</b></span><span>Contact call <b>✓ Jul 1</b></span><span>Plan approved <b>Jun 24</b></span></div>
+                  <div class="claimsum"><span>Check-ins <b>14/16</b></span><span>Review <b>20 min</b></span><span>Contact call <b>✓ Jul 9</b></span><span>Plan approved <b>Jul 2</b></span></div>
                 </td>
               </tr>
 
               <tr data-claim>
                 <td><a class="qlink" href="patient.html">Marcus Bell</a><div class="t-meta">M75.100 · Rotator cuff</div></td>
-                <td class="num t-sm">Jun 2 – Jul 2, 2026</td>
+                <td class="num t-sm">Jun 10 – Jul 10, 2026</td>
                 <td class="num t-sm">98980, 98981</td>
                 <td class="right num">$395.00</td>
                 <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="c-marcus">Details</button> <button class="btn btn--primary btn--sm" data-approve="Claim approved for Marcus Bell — locked &amp; moved to Reports.">Approve</button></td>
               </tr>
               <tr class="wqpanel" id="c-marcus">
                 <td colspan="5">
-                  <div class="claimsum"><span>Check-ins <b>16/16</b></span><span>Review <b>25 min</b></span><span>Contact call <b>✓ Jun 30</b></span><span>Plan approved <b>Jun 21</b></span></div>
+                  <div class="claimsum"><span>Check-ins <b>16/16</b></span><span>Review <b>25 min</b></span><span>Contact call <b>✓ Jul 8</b></span><span>Plan approved <b>Jun 29</b></span></div>
                 </td>
               </tr>
             </tbody>
           </table>
-          <div id="empty" hidden style="padding:var(--sp-7);text-align:center;color:var(--c-ink-3)">
+          </div>
+          <div id="empty" hidden class="emptystate">
             <div class="t-h2" style="color:var(--c-ink-2)">All caught up</div>
             <p class="t-sm" style="margin-top:6px">No claims awaiting approval. Approved claims are in <a href="reports.html">Reports</a>.</p>
           </div>
@@ -102,17 +104,44 @@
         if (left === 0) { document.querySelector(".qtable").hidden = true; document.getElementById("empty").hidden = false; }
       }, 220);
     }
+    /* S8: approval is one-way — confirm before locking. */
     document.querySelectorAll("[data-approve]").forEach(function (b) {
       b.addEventListener("click", function () {
-        window.paveBanner(b.getAttribute("data-approve"));
-        removeClaim(b.closest("[data-claim]"));
+        var row = b.closest("[data-claim]");
+        var name = row.querySelector(".qlink").textContent;
+        var cells = row.querySelectorAll("td");
+        window.paveConfirm({
+          title: "Approve and lock this claim?",
+          body: "Approval is one-way. The claim locks, its qualifying events freeze as evidence, and it moves to Billing reports. No one can un-approve or edit it afterwards.",
+          detail: "<span>Patient <b>" + name + "</b></span>" +
+                  "<span>Period <b>" + cells[1].textContent.trim() + "</b></span>" +
+                  "<span>CPT <b>" + cells[2].textContent.trim() + "</b></span>" +
+                  "<span>Est. <b>" + cells[3].textContent.trim() + "</b></span>",
+          cta: "Approve & lock"
+        }, function () {
+          window.paveBanner(b.getAttribute("data-approve"));
+          removeClaim(row);
+        });
       });
     });
     document.getElementById("batch").addEventListener("click", function () {
       var rows = document.querySelectorAll("#claims [data-claim]");
       if (!rows.length) return;
-      window.paveBanner("Batch approved " + rows.length + " claims — locked & moved to Reports.");
-      rows.forEach(removeClaim);
+      var total = 0;
+      rows.forEach(function (r) {
+        total += parseFloat(r.querySelectorAll("td")[3].textContent.replace(/[^0-9.]/g, "")) || 0;
+      });
+      window.paveConfirm({
+        title: "Approve all " + rows.length + " claims?",
+        body: "Every listed claim locks at once and moves to Billing reports. This cannot be undone — review each claim's evidence first if you have not already.",
+        detail: "<span>Claims <b>" + rows.length + "</b></span>" +
+                "<span>Total <b>$" + total.toLocaleString(undefined, {minimumFractionDigits: 2}) + "</b></span>",
+        cta: "Approve all " + rows.length,
+        tone: "danger"
+      }, function () {
+        window.paveBanner("Batch approved " + rows.length + " claims — locked & moved to Reports.");
+        rows.forEach(removeClaim);
+      });
     });
   })();
 </script>

@@ -25,7 +25,7 @@ KPIs, tabs, dropdown menus, modals/dialogs, line charts + sparklines,
 spinners/skeletons — each with default · hover · active · disabled · error ·
 loading states, plus the colour/status, typography, and spacing foundations.
 
-## Screens (14)
+## Screens (13)
 
 | Screen | File | FSD |
 | --- | --- | --- |
@@ -35,14 +35,18 @@ loading states, plus the colour/status, typography, and spacing foundations.
 | Patient Enrollment (4-step) | `app/enroll.html` | §6.3 |
 | Patient Detail (5 tabs) | `app/patient.html` | §6.4 |
 | Approvals | `app/approvals.html` | §6.5 |
-| Reports | `app/reports.html` | §6.6 |
+| Billing reports | `app/reports.html` | §6.6 |
 | Revenue Calculator | `app/revenue.html` | §6.7 |
-| API Cost Dashboard | `app/api-costs.html` | §12 |
 | Plan Review & Approval | `app/plan-review.html` | §6.3 · §10.2 |
 | Patients (data table) | `app/patients.html` | §6.8 |
 | Org Admin | `app/org-admin.html` | §6.9 |
 | Settings | `app/settings.html` | §6.10 |
 | Dr. Brain (training) | `app/dr-brain.html` | §10.3–10.4 |
+
+> **S2 (14 Aug 2026):** the API Cost dashboard (§12) moved to the **Platform Admin**
+> console — it reports PAVE's vendor spend, not a practice's. "Reports" was renamed
+> **Billing reports** to distinguish it from Platform reports. See
+> [core_docs/gap-analysis.md](../core_docs/gap-analysis.md) §E.0.
 
 ## Structure
 
@@ -52,7 +56,7 @@ pro1/
 ├── css/  tokens · base · components
 ├── js/   app.js          (shell injection, panels, tabs, sort/filter,
 │                          steppers, confirm banners, toggle)
-└── app/  the 14 screens
+└── app/  the 13 screens
 ```
 
 The **sidebar + top bar are injected by `renderShell()`** in `app.js` from one

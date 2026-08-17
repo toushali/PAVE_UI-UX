@@ -31,48 +31,45 @@
         <section class="kpigrid rise rise-2">
           <div class="kpi kpi--accent"><div class="kpi__label">Production prompt</div><div class="kpi__num">v15</div><div class="kpi__delta">since Jul 16</div></div>
           <div class="kpi"><div class="kpi__label">Registered versions</div><div class="kpi__num">15</div><div class="kpi__delta">append-only</div></div>
-          <div class="kpi"><div class="kpi__label">Production model</div><div class="kpi__num" style="font-size:19px">sonnet-4-6</div><div class="kpi__delta">claude-sonnet-4-6</div></div>
+          <div class="kpi"><div class="kpi__label">Production model</div><div class="kpi__num kpi__num--sm">sonnet-4-6</div><div class="kpi__delta">claude-sonnet-4-6</div></div>
           <div class="kpi kpi--ready"><div class="kpi__label">Plans traceable</div><div class="kpi__num">100%</div><div class="kpi__delta"><span class="num">1,540</span> plans linked</div></div>
         </section>
 
         <!-- Immutable framing -->
-        <div class="alertbar rise rise-2" style="margin-top:var(--sp-4);background:var(--c-primary-soft);color:var(--c-primary-dark);border-color:var(--c-primary-soft)">
+        <div class="alertbar rise rise-2 mt-4 alertbar--info">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
           <span><strong>Append-only registry.</strong> Prompt versions cannot be edited or deleted. Each generated plan is permanently tagged with its prompt + model version.</span>
         </div>
 
         <!-- Plan-to-version lookup -->
-        <section class="card rise rise-3" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Plan-to-version lookup</span><span class="t-meta">traceability</span></div><div class="card__body">
-          <p class="t-sm t-muted" style="margin-bottom:var(--sp-4)">For any patient plan, retrieve the exact prompt and model that generated it.</p>
-          <div class="toolbar" style="margin-bottom:0">
-            <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="lookupInput" value="John Carter · #P-1043" placeholder="Patient name or ID…"></span>
-            <button class="btn btn--primary" id="lookupBtn">Look up</button>
-          </div>
-          <div id="lookupResult" class="qrow__panel is-open" style="margin-top:var(--sp-4)">
-            <h4>John Carter · #P-1043</h4>
-            <div class="claimsum">
-              <span>Plan generated: <b class="num">2026-06-27</b></span>
-              <span>Prompt version: <b>v14</b></span>
-              <span>Model: <b class="num">claude-sonnet-4-6</b></span>
-              <span>Prompt registry hash: <b class="num">a1f3…9c02</b></span>
-            </div>
-            <p class="t-sm t-muted" style="margin:var(--sp-3) 0 0">Generated under <strong>v14</strong> — production is now <strong>v15</strong>. This plan is <strong>not</strong> retroactively changed by model updates (existing plans are frozen).</p>
-          </div>
+        <section class="card rise rise-3 mt-4"><div class="card__head"><span class="card__title">Plan-to-version lookup</span><span class="t-meta">traceability</span></div><div class="card__body">
+          <p class="t-sm t-muted mb-4">For any patient plan, retrieve the exact prompt and model that generated it.</p>
+          <form class="toolbar mb-0" data-plan-lookup role="search">
+            <span class="search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+              <input id="lookupInput" type="search" placeholder="Patient name or ID&hellip;" aria-label="Look up a plan by patient name or ID" autocomplete="off">
+            </span>
+            <button class="btn btn--primary" type="submit">Look up</button>
+            <button class="btn btn--ghost" type="button" data-plan-clear hidden>Clear</button>
+          </form>
+          <div id="lookupResult" class="mt-4" aria-live="polite"></div>
         </div></section>
 
         <!-- Prompt version registry -->
-        <section class="card rise rise-4" style="margin-top:var(--sp-4)">
+        <section class="card rise rise-4 mt-4">
           <div class="card__head"><span class="card__title">Prompt version registry</span><span class="spacer"></span><span class="t-meta">newest first · append-only</span></div>
-          <table class="qtable">
+          <div class="tablewrap">
+            <table class="qtable">
             <thead><tr><th>Version</th><th>Effective</th><th>Model</th><th>Change description</th><th>Authorized by</th><th class="right"></th></tr></thead>
             <tbody>
-              <tr><td><span class="row"><span class="num" style="font-weight:var(--fw-bold)">v15</span><span class="badge badge--ready">Production</span></span></td><td class="num t-sm">2026-07-16</td><td class="num t-sm">claude-sonnet-4-6</td><td class="t-sm">Defer end-range extension in week 1 for lumbar radiculopathy</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v15">View prompt</button></td></tr>
-              <tr><td class="num" style="font-weight:var(--fw-bold)">v14</td><td class="num t-sm">2026-06-27</td><td class="num t-sm">claude-sonnet-4-6</td><td class="t-sm">Add breathing-modality guidance for pain down-regulation</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v14">View prompt</button></td></tr>
-              <tr><td class="num" style="font-weight:var(--fw-bold)">v13</td><td class="num t-sm">2026-06-02</td><td class="num t-sm">claude-sonnet-4-5</td><td class="t-sm">Low-load Pilates progressions tuned for ages 60–85</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v13">View prompt</button></td></tr>
-              <tr><td class="num" style="font-weight:var(--fw-bold)">v12</td><td class="num t-sm">2026-05-10</td><td class="num t-sm">claude-sonnet-4-5</td><td class="t-sm">Rotator-cuff conservative-care protocol added</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v12">View prompt</button></td></tr>
-              <tr><td class="num" style="font-weight:var(--fw-bold)">v11</td><td class="num t-sm">2026-04-18</td><td class="num t-sm">claude-sonnet-4-5</td><td class="t-sm">Initial MSK protocol set — Pilates, mobility, strengthening</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v11">View prompt</button></td></tr>
+              <tr><td><span class="row"><span class="num fw-bold">v15</span><span class="badge badge--ready">Production</span></span></td><td class="num t-sm">2026-07-16</td><td class="num t-sm">claude-sonnet-4-6</td><td class="t-sm">Defer end-range extension in week 1 for lumbar radiculopathy</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v15">View prompt</button></td></tr>
+              <tr><td class="num fw-bold">v14</td><td class="num t-sm">2026-06-27</td><td class="num t-sm">claude-sonnet-4-6</td><td class="t-sm">Add breathing-modality guidance for pain down-regulation</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v14">View prompt</button></td></tr>
+              <tr><td class="num fw-bold">v13</td><td class="num t-sm">2026-06-02</td><td class="num t-sm">claude-sonnet-4-5</td><td class="t-sm">Low-load Pilates progressions tuned for ages 60–85</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v13">View prompt</button></td></tr>
+              <tr><td class="num fw-bold">v12</td><td class="num t-sm">2026-05-10</td><td class="num t-sm">claude-sonnet-4-5</td><td class="t-sm">Rotator-cuff conservative-care protocol added</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v12">View prompt</button></td></tr>
+              <tr><td class="num fw-bold">v11</td><td class="num t-sm">2026-04-18</td><td class="num t-sm">claude-sonnet-4-5</td><td class="t-sm">Initial MSK protocol set — Pilates, mobility, strengthening</td><td class="t-sm">Dr. Stillman</td><td class="right"><button class="btn btn--ghost btn--sm" data-view="v11">View prompt</button></td></tr>
             </tbody>
           </table>
+          </div>
         </section>
 
       </div>
@@ -83,11 +80,11 @@
 <!-- Prompt view modal -->
 <div class="modal" id="promptModal">
   <div class="modal__backdrop"></div>
-  <div class="modal__panel" style="width:min(640px,calc(100vw - 32px))">
-    <div class="modal__head"><span class="modal__title">Prompt <span id="pmVer">v15</span></span><span class="modeltag" id="pmModel" style="margin-left:8px">claude-sonnet-4-6</span><button class="modal__x" data-modal-close aria-label="Close" style="margin-left:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="modal__panel modal__panel--lg">
+    <div class="modal__head"><span class="modal__title">Prompt <span id="pmVer">v15</span></span><span class="modeltag" id="pmModel" style="margin-left:8px">claude-sonnet-4-6</span><button class="modal__x ml-auto" data-modal-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="modal__body">
-      <p class="t-meta" style="margin:0 0 var(--sp-3)">Change: <span id="pmChange">Defer end-range extension in week 1 for lumbar radiculopathy</span> · Authorized by Dr. Stillman · <span class="num">read-only</span></p>
-      <pre style="margin:0;white-space:pre-wrap;font-family:var(--font-mono);font-size:12px;line-height:1.6;color:var(--c-ink-2);background:var(--c-bg);border:1px solid var(--c-line);border-radius:var(--radius-sm);padding:var(--sp-4);max-height:340px;overflow:auto">You are Dr. Brain, a physician-supervised rehabilitation planner.
+      <p class="t-meta m-0 mb-3">Change: <span id="pmChange">Defer end-range extension in week 1 for lumbar radiculopathy</span> · Authorized by Dr. Stillman · <span class="num">read-only</span></p>
+      <pre class="codeblock">You are Dr. Brain, a physician-supervised rehabilitation planner.
 Draw only on the curated clinical knowledge base (retrieved chunks).
 Do not make diagnostic or prescriptive medical claims — therapeutic guidance only.
 
@@ -110,9 +107,97 @@ OUTPUT: strict JSON matching PlanSchema (Structured Outputs).</pre>
 <script src="../js/app.js"></script>
 <script>
   (function () {
-    /* Lookup reveal (mock — fixed to John Carter). */
-    var btn = document.getElementById("lookupBtn"), res = document.getElementById("lookupResult");
-    btn.addEventListener("click", function () { res.classList.add("is-open"); res.scrollIntoView({ block: "center", behavior: "smooth" }); window.paveBanner("Traceability record retrieved · logged."); });
+    /* ============================================================
+       C10 — plan-to-version lookup. This previously revealed the same
+       John Carter record whatever you typed, with no not-found and no
+       multi-result state. It is the FDA-traceability tool (FSD §10.5),
+       so returning the wrong record is the one thing it must not do.
+       Same pattern as the Data Requests lookup.
+       ============================================================ */
+    var PLANS = [
+      { id: "P-1043", name: "John Carter",    generated: "2026-06-27", prompt: "v14", model: "claude-sonnet-4-6", hash: "a1f3\u20269c02", dx: "M54.5" },
+      { id: "P-1187", name: "Priya Nair",     generated: "2026-05-02", prompt: "v13", model: "claude-sonnet-4-5", hash: "77b1\u20264ae9", dx: "M54.16" },
+      { id: "P-1010", name: "Maria Alvarez",  generated: "2026-06-10", prompt: "v14", model: "claude-sonnet-4-6", hash: "a1f3\u20269c02", dx: "M17.11" },
+      { id: "P-1120", name: "David Nguyen",   generated: "2026-07-16", prompt: "v15", model: "claude-sonnet-4-6", hash: "c904\u2026e1d7", dx: "M25.561" },
+      { id: "P-1131", name: "Sofia Reyes",    generated: "2026-06-05", prompt: "v14", model: "claude-sonnet-4-6", hash: "a1f3\u20269c02", dx: "M54.5" },
+      { id: "P-1002", name: "Marcus Bell",    generated: "2026-05-12", prompt: "v12", model: "claude-sonnet-4-5", hash: "2e56\u2026b330", dx: "M75.100" },
+      { id: "P-0994", name: "Tom\u00e1s Vega",   generated: "2026-04-18", prompt: "v11", model: "claude-sonnet-4-5", hash: "8de0\u20261f45", dx: "M48.06" }
+    ];
+    var PRODUCTION = "v15";
+
+    var lkForm  = document.querySelector("[data-plan-lookup]");
+    var lkInput = document.getElementById("lookupInput");
+    var lkClear = document.querySelector("[data-plan-clear]");
+    var lkOut   = document.getElementById("lookupResult");
+
+    function lkEsc(t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
+
+    function lkIdle() {
+      lkOut.innerHTML = '<div class="emptystate">' +
+        '<div class="emptystate__title">Look up any generated plan</div>' +
+        '<p class="emptystate__body">Enter a patient name or record ID to retrieve the exact prompt version and model that produced their plan. Required for FDA audit and PCCP readiness.</p></div>';
+    }
+    function lkNone(q) {
+      lkOut.innerHTML = '<div class="emptystate">' +
+        '<div class="emptystate__title">No plan matches &ldquo;' + lkEsc(q) + '&rdquo;</div>' +
+        '<p class="emptystate__body">Check the spelling, or search by record ID (for example <span class="num">P-1043</span>). ' +
+        'Every generated plan is registered &mdash; no result means no plan has been generated for that patient.</p></div>';
+    }
+    function lkMany(list, q) {
+      lkOut.innerHTML = '<p class="t-sm t-muted mb-3">' + list.length + ' plans match &ldquo;' + lkEsc(q) + '&rdquo;. Choose one.</p>' +
+        '<div class="reslist">' + list.map(function (r) {
+          return '<button type="button" class="reslist__item" data-plan-pick="' + r.id + '">' +
+            '<span class="badge badge--enrolled">' + r.prompt + '</span>' +
+            '<span><strong>' + lkEsc(r.name) + '</strong><span class="t-sm t-muted"> &middot; ' + r.dx +
+            ' &middot; generated ' + r.generated + '</span></span>' +
+            '<span class="num t-sm">#' + r.id + '</span></button>';
+        }).join("") + '</div>';
+    }
+    function lkRecord(r) {
+      var current = r.prompt === PRODUCTION;
+      lkOut.innerHTML = '<div class="qrow__panel is-open">' +
+        '<h4>' + lkEsc(r.name) + ' &middot; <span class="num">#' + r.id + '</span></h4>' +
+        '<div class="claimsum">' +
+          '<span>Plan generated: <b class="num">' + r.generated + '</b></span>' +
+          '<span>Prompt version: <b>' + r.prompt + '</b></span>' +
+          '<span>Model: <b class="num">' + r.model + '</b></span>' +
+          '<span>Prompt registry hash: <b class="num">' + r.hash + '</b></span>' +
+        '</div>' +
+        '<p class="t-sm t-muted mt-3 m-0">' + (current
+          ? 'Generated under <strong>' + r.prompt + '</strong>, which is the current production prompt.'
+          : 'Generated under <strong>' + r.prompt + '</strong> &mdash; production is now <strong>' + PRODUCTION + '</strong>. This plan is <strong>not</strong> retroactively changed by model updates (existing plans are frozen).') +
+        '</p></div>';
+    }
+
+    function lkSearch(q) {
+      q = (q || "").trim();
+      lkClear.hidden = !q;
+      if (!q) { lkIdle(); return; }
+      var n = q.toLowerCase().replace(/^#/, "");
+      var hits = PLANS.filter(function (r) {
+        return r.name.toLowerCase().indexOf(n) > -1 || r.id.toLowerCase().indexOf(n) > -1;
+      });
+      if (!hits.length) { lkNone(q); window.paveAnnounce("No plans match " + q); return; }
+      if (hits.length === 1) {
+        lkRecord(hits[0]);
+        window.paveBanner("Traceability record retrieved for #" + hits[0].id + " \u00b7 logged.");
+        window.paveAnnounce(hits[0].name + " plan record retrieved.");
+        return;
+      }
+      lkMany(hits, q);
+      window.paveAnnounce(hits.length + " plans match " + q);
+    }
+
+    lkForm.addEventListener("submit", function (e) { e.preventDefault(); lkSearch(lkInput.value); });
+    lkInput.addEventListener("input", function () { if (!lkInput.value.trim()) lkIdle(); lkClear.hidden = !lkInput.value.trim(); });
+    lkClear.addEventListener("click", function () { lkInput.value = ""; lkIdle(); lkInput.focus(); });
+    lkOut.addEventListener("click", function (e) {
+      var pick = e.target.closest("[data-plan-pick]");
+      if (!pick) return;
+      var r = PLANS.filter(function (x) { return x.id === pick.getAttribute("data-plan-pick"); })[0];
+      if (r) { lkInput.value = r.name; lkRecord(r); }
+    });
+    lkIdle();
 
     /* Prompt view modal — set version/model/change from the row. */
     var META = {

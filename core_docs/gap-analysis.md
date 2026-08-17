@@ -1,141 +1,131 @@
-# PAVE — Design Gap Analysis (v1 patient · pro1 provider)
+# PAVE — Open Gaps & Client Decisions
 
-> **Sources reconciled:** FSD v5.0 · Delivery Planner · **milestone specs M1–M6**
-> ([M1](M1-Foundation-Auth-Design.md)…[M6](M6-QA-Hardening-Launch.md)) · [user-stories.md](user-stories.md).
-> **Scope:** UI/UX design coverage of screens & elements in the current build —
-> `v1/` (patient PWA) and `pro1/` (provider portal). Not backend logic.
->
-> **Legend:** ✅ Done · 🟡 Partial (screen exists, element missing/deviating) · ❌ Missing · ⬛ Not in current design scope (needs a new surface)
->
-> **Headline:** The **core 15 MVP screens (10 provider + 5 patient) are ~95% covered** at
-> the design level. Remaining work is: **1 missing operator screen** (API Cost Dashboard),
-> **a small punch-list of elements**, **one spec deviation** (On-Track badge colour), and a
-> whole **Platform-Admin surface** that M1–M6 reveal but the current design never scoped.
->
-> **▶ Build status (per [build.md](build.md)): ✅ COMPLETE.** Parts 1 (Provider), 2 (Patient),
-> and 3 (Platform-Admin) are all built and verified. Every punch-list item — Groups A, B, **and C** —
-> is done. The Platform-Admin surface now exists as [`admin/`](../admin/) on the 5-way toggle.
+> **15 Aug 2026.** Only what is still open. Resolved items (S1–S16) are in [build.md](build.md) and git history.
+> **3 portals** — Provider 16 screens · Admin 13 · Patient PWA 15. Verified: 44 pages, 0 markup/link/asset errors.
+> **Not verified: nothing has been opened in a browser.** QA matrix = 154 portal + 168 patient checks, never run.
 
 ---
 
-## 1 · Patient Portal — `v1/`  ·  FSD §5.2, §7, §8 · M1, M3
+## 1. Client decisions — these block work
 
-FSD/M3 core = **5 screens**; v1 ships those + home (`today`), help & offline.
-
-| # | Requirement (FSD / M-ref) | Story | Status | Action |
-|---|---|---|---|---|
-| 1 | Login / magic-link + expired-session (M1, M3) | P-1,P-5 | ✅ | `splash·login·session-expired` |
-| 2 | **Guided MFA setup** — pick SMS/email OTP, large-text step-by-step (M1 §98, M3) | P-2 | ✅ | `verify.html` rebuilt as guided 3-step MFA setup (channel → code → confirmation); mirrored to v2 |
-| 3 | Welcome + contact confirm + **notification channel (SMS/email/both)** (M3 §194, §9.4) | P-3 | ✅ | onboarding "How should we reach you?" step added (SMS/Email/Both); mirrored to v2 |
-| 4 | Add-to-home (PWA install) (M1) | P-4 | ✅ | `splash`+`help` |
-| 5 | Check-in: 0–10 pain slider · activities checkboxes · Better/Same/Worse · optional note (M3 §51-55) | P-6…P-9 | ✅ | all four present, 48px targets |
-| 6 | Check-in confirmation + **one-per-day duplicate message** (M3 §61) | P-10 | ✅ | confirmation + "already checked in / come back tomorrow" present |
-| 7 | Exercise plan by modality; per-exercise detail (text); completion marking (M3 §64-69) | P-11…P-13 | ✅ | 5 dedicated exercise pages |
-| 8 | Progress: streak · adherence % · pain this-week-vs-last · gamification summary (M3 §72-76) | P-14…P-16 | ✅ | `progress.html` |
-| 9 | Gamification: streak milestones (7/14/30/60/90) · badges w/ earn dates · points · celebrations (M3 §84-111) | P-17…P-20 | ✅ | `rewards` + milestone celebration |
-| 10 | Settings / notifications: opt out of engagement reminders (M3 §193-197) | P-21 | ✅ | Notifications card — per-type opt-out switches + Text/Email/Both + always-on note + "Saved"; mirrored to v2 |
-| 11 | Account / help / offline | P-22 | ✅ | present |
-
-**Patient gaps:** ✅ all closed (guided MFA setup, onboarding channel, settings opt-out) in **both v1 and v2**.
-
----
-
-## 2 · Provider Portal — `pro1/`  ·  FSD §6, §10, §16 · M2, M3, M5
-
-Core = **10 screens**; pro1 ships all 10 + Login + Dr. Brain.
-
-| # | Requirement (FSD / M-ref) | Story | Status | Action |
-|---|---|---|---|---|
-| 1 | Login — OAuth + mandatory MFA + 15-min timeout (M1) | PR-1,PR-2 | ✅ | present |
-| 2 | Dashboard — KPI strip · dismissible alert banner · Urgent+Optimization queues · 60s auto-refresh (M2 §82-111) | PR-3…PR-8 | ✅ | all present + status pulse + inline panels |
-| 3 | Work Queue — rows (all columns) + inline actions, one panel at a time, cross-fade/close-then-open (M2 §112-135) | PR-6,PR-7 | ✅ | `work-queue.html` |
-| 4 | Enrollment — 4-step: demographics **+ channel**, ICD-10, **medical-history flags**, **treatment goals**, modalities, review (M2 §136-165) | PR-9 | ✅ | all step-2 fields confirmed present |
-| 5 | Enrollment → **plan review & Approve Plan** before activation, then invite (M2 §160-165, M3 §135-140) | PR-10,PR-13 | ✅ | `plan-review.html` added — SaMD gate, plan+rationale, Approve→invite success; enroll routes here |
-| 6 | Patient Detail — 5 tabs: Activity(+gamification) · Generated Plan+rationale · Billing Timeline · Action Log · Outcomes (M3 §142-168) | PR-11,PR-12,PR-14,PR-15,PR-16 | ✅ | 5 tabs present |
-| 7 | Approval Queue — expandable evidence · individual + **batch** approve · claim lock (M4 §33-51) | PR-17…PR-19 | ✅ | present incl. Batch-Approve-All |
-| 8 | **5-tier status badges** (M2 §51-56) | PR-20 | ✅ | On Track = white outlined badge per §15.3 (both themes); all 5 tiers distinct |
-| 9 | Reports — CPT dist · revenue/period · **totals & avg-per-claim** · trend graphs · historical search/filter (incl. expired) · CSV (M4 §52-72) | PR-21…PR-23 | ✅ | line graphs + summary figures present |
-| 10 | Revenue Calculator (M4 §74-90) | PR-24 | ✅ | `revenue.html` |
-| 11 | Data Table — sortable/searchable/status-filter + 5-tier + quick actions (M4 §92-99) | PR-25 | ✅ | `patients.html` |
-| 12 | Dr. Brain — chat · upload · KB mgmt · sandbox test-enroll · promote/rollback · model-version tags (M5 §60-93) | PR-26…PR-28 | ✅ | `dr-brain.html` |
-| 13 | Settings — profile/OAuth · MFA reset · notification thresholds · org settings (M4 §126-142) | PR-29 | ✅ | present |
-| 14 | Settings → **Stripe payment method / plan change** (Stripe Elements card, upgrade/downgrade) (M5 §34-46, §13) | PR-29 | ✅ | payment-method card + Update-card modal (Stripe-Elements style) + Change-plan modal added |
-| 15 | **API Cost Dashboard** — spend total · per-service breakdown · token log · trend charts · budget alerts · CSV (M5 §119-137, §12) | PR-30 | ✅ | `api-costs.html` built + in nav — KPIs, trend, per-service, budgets, event log, CSV |
-
-**Provider gaps:** ✅ all closed (API Cost Dashboard, Plan-Review/Approval, On-Track white badge, Stripe card/plan-change).
-
----
-
-## 3 · Org Admin (elevated provider)  ·  FSD §6.9 · M4
-
-| # | Requirement (M4 §101-124) | Story | Status | Action |
-|---|---|---|---|---|
-| 1 | Aggregate dashboard (patients · pipeline · claims) | OA-1 | ✅ | KPIs |
-| 2 | Provider list (counts + claims) | OA-2 | ✅ | table |
-| 3 | Patient reassignment (logged) | OA-3 | ✅ | reassign control |
-| 4 | Org-level CSV export | OA-4 | ✅ | present |
-| 5 | Provider mgmt — invite · **deactivate · manage roles** | OA-5 | ✅ | Manage dropdown (Edit role · Reassign · Deactivate→dims row) + Invite modal captures role |
-| 6 | Org billing settings — subscription + invoice access | OA-6 | ✅ | in `settings.html` |
-
----
-
-## 4 · Surfaces revealed by M1–M6 but **never scoped in the current design** ⬛
-
-M1–M6 build UIs for a **Platform-Administrator** role (FSD §4) and other admin/ops screens
-that live *outside* the 15 client-facing screens. **✅ Now built as the [`admin/`](../admin/) surface** (5th prototype on the toggle).
-
-| Surface (M-ref) | What it is | Status |
-|---|---|---|
-| **API Cost Dashboard** (M5 §12) | Operator cost view — spend, tokens, trends, budget alerts, CSV | ✅ `pro1/app/api-costs.html` (provider portal) |
-| **Complaint Handling & MDR** admin UI (M2 §76-80, M4 §143-150, §15A) | Intake form, status (Open/Investigating/Resolved/Escalated), MDR escalation flag, 6-yr retention | ✅ `admin/app/complaints.html` |
-| **Prompt Version Registry / Model Traceability** (M5 §95-117, §10.5) | Append-only prompt-version lookup, model-version per plan, admin query view | ✅ `admin/app/ai-governance.html` |
-| **Backend Reports** (M5 §139-169, §14) | Provider-activity · patient-activity · AI/token-usage · **HIPAA audit** (PHI access, failed-auth, exports, admin actions, sessions) — all CSV | ✅ `admin/app/reports.html` + `hipaa-audit.html` |
-| **Data export / deletion** admin function (M1 §57, §3.4) | Export or permanently delete any patient's PHI | ✅ `admin/app/data-requests.html` (type-to-confirm) |
-
-> These were genuine MVP UI deliverables in M4–M5. **They are now designed** as the
-> `admin/` Platform-Admin console (7 screens incl. login), reachable from the 5-way toggle
-> and the root launcher — using the same green clinical design system.
-
----
-
-## 5 · Design-spec alignment (FSD §16 / M-files)
-
-| Item | Spec | Build | Verdict |
+| # | Decision | Why open | Recommendation |
 |---|---|---|---|
-| Provider: 1100px, light, monospace metrics, minimal borders | §16.1 | ✅ | matches |
-| Patient: mobile-first, 48px targets, warm/accessible (60–85) | §16.2 | ✅ | matches |
-| Provider interactions: panels, cross-fade, scale-pulse, top banner (4s), fade-rise, 60s refresh | §16.3, M2 | ✅ | all 12 behaviours present |
-| **On Track = white badge** | §15.3, M2 §53 | ✅ | now a white outlined badge in both themes (Session 4) |
+| 1 | **Responsive scope** | FSD §16.1 says desktop-only, 1100px. Build is now responsive. Spec and build disagree on paper | Amend §16.1: responsive to 768px, essential-actions subset below |
+| 2 | **Dark mode** | §17.2 says out of scope; it is shipped in both portals | Decide before QA — it doubles the matrix to 308 checks |
+| 3 | **Post-approval plan editing** | §17.2 and M3 §4 say plans are frozen after approval; `patient.html` makes them editable | Remove from `patient.html`, keep on `plan-review.html` |
+| 4 | **Org Admin record access** | §4 says Org Admins cannot see clinical records. No restricted view exists — they can open any patient | Design it. **Only decision with a compliance edge** |
+| 5 | **Brand name** | Docs say PAVE; code, logos, titles, storage keys and ~60 toast strings say Kivie | Pick one — blocks consolidating the copy |
+| 6 | **Cat art format** | Cat companion is PNG; everything else, including its own medallions, is SVG. Softens at 176px on tablet | Redraw 3 cat stages as SVG |
+| 7 | **`--st-ready` contrast** | Green status badge is 3.53:1, under AA. It is the §15.3 status colour, so a design call | `#14714D` passes at 5.2:1 |
+| 8 | **Reminders screen** | In no core doc; duplicates Settings' notification controls | Fold into Settings, or keep and de-duplicate |
+| 9 | **Dr. Brain training placement** | Training sits in Provider, governance of the same model in Admin. M5 assigns training to the admin engineer | Move training to Admin |
+| 10 | **Complaint intake channel** | See §2 | Decide the channel, or declare it off-system |
+| 11 | **Patient service worker** | Built in S16; the removed UI spec deferred it, FSD §17.1 + M1 §4 budget it | Keep |
+
+Decisions **2, 5, 7, 8** change work already done — clear those first.
 
 ---
 
-## 6 · Corrections vs. the first-pass gap analysis
-Re-checking against M1–M6 upgraded several items to ✅:
-- Provider **enrollment** already captures notification **channel**, **medical-history flags**, and **treatment goals** (was flagged partial).
-- Patient **check-in duplicate-day** message already exists (was flagged partial).
-- Reports **totals / avg-per-claim** figures already present.
+## 2. New finding — complaints have no way in 🟠
 
-New items **added** this pass (from M-files): Stripe card/plan-change UI (§13), Complaint/MDR admin (§15A), Prompt Version Registry (§10.5), Backend Reports incl. HIPAA audit (§14), Data export/deletion (§3.4).
+`admin/complaints.html` correctly restricts intake to the **Platform Administrator** (M4 §7). Reporters are patients, guardians and providers, but every record is entered by the admin.
+
+**The gap is upstream:** no designed way to *raise* one. The patient app offers only "Call the office"; the provider portal offers nothing; and complaints appear in **neither the FSD nor user-stories** — only M2/M4. So entry into a regulated 6-year MDR register is entirely off-system.
+
+Defensible as-is: a complaint can carry a regulatory clock, so admin-mediated intake keeps severity assessment with someone qualified to judge it. The decision is whether to design the inbound channel or state that it is deliberately off-system.
 
 ---
 
-## 7 · Prioritised punch-list — progress
+## 3. Open gaps
 
-**A · Demo-critical (client-facing screens) — ✅ DONE**
-1. ✅ **Provider · API Cost Dashboard** (PR-30) — build.md S1.
-2. ✅ **Provider · Plan Review & Approval** (PR-10, PR-13) — build.md S2.
-3. ✅ **Patient · Onboarding** — guided MFA setup + channel choice (P-2, P-3), v1 + v2 — build.md S5, S7.
+### Provider Portal
 
-**B · Element polish / spec alignment — ✅ DONE**
-4. ✅ **Provider · On-Track badge = white** per §15.3 (PR-20) — build.md S4.
-5. ✅ **Org Admin · deactivate + role** controls (OA-5) — build.md S3.
-6. ✅ **Provider · Settings** — Stripe card / plan-change UI (PR-29) — build.md S3.
-7. ✅ **Patient** — settings opt-out toggles (P-21), v1 + v2 — build.md S6, S7.
+| ID | Gap | Sev |
+|---|---|---|
+| B4.6 | Every patient link opens John Carter — 4 of 5 status tiers have no detail view | 🟠 |
+| B5.3 | Billing reports has no date range (§14.5, M4 §2). Admin has it; provider does not | 🟠 |
+| B7.2 | Card-entry modal shows a native card form; §13.1 says card data never touches PAVE | 🟠 |
+| B2.1 | Work-queue cards not dismissible (§6.1, M2 §2) | 🟡 |
+| B2.2 | Rows do not exit to Approvals on resolution (§16.3) | 🟡 |
+| B2.5 | Auto-refresh is a cosmetic ticker — nothing updates | 🟡 |
+| B2.7 | Log Contact has no note field (M2 §3) | 🟡 |
+| B3.2 | Treatment goals is free text; M2 §4 wants structured selection | 🟡 |
+| B3.4 | ICD-10 is a 5-option datalist — no multi-code, no async search or states | 🟡 |
+| B3.7 | No save-draft on enrollment against a 15-min timeout | 🟡 |
+| B4.3 | Billing calendar does not align to weekdays; no legend | 🟡 |
+| B4.4 | No projected-qualification state for an unqualified patient | 🟡 |
+| B4.5 | Activity history has no pagination or filtering | 🟡 |
+| B4.8 | Gamification summary lacks badge list with earn dates and broken-streak signal (§8.2, §8.5) | 🟡 |
+| B5.2 | Claim evidence inconsistent — one claim full, two summary-only (§6.5) | 🟡 |
+| B5.4 | Report status filter is substring matching; badges do not encode status | 🟡 |
+| B5.5 | CSV export has no field/date config, progress or failure state | 🟡 |
+| B5.6 | Patients table missing adherence column; date sort is string-based | 🟡 |
+| B7.1 | Settings dead links — login history (§14.4), invoices (§13.3) | 🟡 |
+| B7.3 | Settings has no role gating; no plain-physician view | 🟡 |
+| B7.4 | Reassignment is single-patient; menu action only toasts | 🟡 |
+| B7.5 | Org Admin has no per-provider drill-down or outcome metrics (§6.9) | 🟡 |
+| B7.8 | Dr. Brain training actions not logged in-portal (§10.3) | 🟡 |
+| B7.9 | Knowledge base has no upload progress, errors, empty state or pagination | 🟡 |
+| B7.11 | Dr. Brain chat has no streaming, typing, error or cost state | 🟡 |
+| B2.3 · B2.6 · B2.8 · B3.3 · B3.5 · B4.7 | Panel cross-fade · priority invisible · banner dismissal not per-session · history flags mismatch · no step-4 edit links · back-link not contextual | 🟢 |
 
-**C · New surface — ✅ DONE**
-8. ✅ **Platform-Admin portal** (`admin/`): Overview · Complaints/MDR · AI Governance (Prompt Version Registry) · Backend Reports · HIPAA Audit · Data export/deletion — build.md S8–S13.
+### Platform Admin
 
-> **Status: ✅ ALL COMPLETE.** Groups A, B, and C are done and verified across both provider
-> themes (Pro1/Pro2), both patient designs (v1/v2), and the new Platform-Admin console — all
-> reachable from the 5-way toggle and the root launcher. Every FSD/M1–M6 UI deliverable now
-> maps to a screen in the prototype.
+| ID | Gap | Sev |
+|---|---|---|
+| C8 | MDR has no per-report reference number, submission record or deadline tracker | 🟠 |
+| C5 | Audit log has no faceted filters (actor, action type) | 🟡 |
+| C7 | No incident, failed-job or SMS/email delivery-failure view (§9.2) | 🟡 |
+| C13 | Console reuses the provider design system despite being able to erase PHI | 🟡 |
+
+### Cross-cutting
+
+| ID | Gap | Sev |
+|---|---|---|
+| A8.5 | **QA matrix never run** — 322 checks | 🟠 |
+| D2.x | No screen-reader or keyboard verification of the S12 work | 🟠 |
+| D3.3 | No global patient search — the most frequent action has no affordance | 🟠 |
+| A3.5 | Pagination on 2 tables only | 🟡 |
+| A5.5 | Native date pickers undesigned — will break the 44px row rhythm | 🟡 |
+| D1 | Loading states exist as components, unused on real screens | 🟡 |
+| D2.10 | Dark-mode contrast only partly audited (depends on decision 2) | 🟡 |
+| D4.5 | ~60 inline toast strings block tone review and i18n (blocked on decision 5) | 🟡 |
+| A3.6 · A4.4 · A4.5 · D3.2 | Sticky headers opt-in · sparkline aspect distortion · no touch chart readout · no breadcrumbs | 🟢 |
+
+### Patient PWA
+
+| ID | Gap | Sev |
+|---|---|---|
+| — | PWA icons are placeholder — drawn from the design system's leaf, not a designer export | 🟠 |
+| PT-4 | Cat art is PNG (decision 6) | 🟠 |
+| PT-7 | Prototype frame chrome ships in CSS; gate behind a flag before build | 🟡 |
+
+**Noted, not a gap:** 18 selectors are unreferenced in both portals, but most are deliberate component-library entries (`.skeleton`, `.slider`, `.input--error`). Dead ≠ deletable — left in place by choice.
+
+---
+
+## 4. Next
+
+1. Clear §1 with the client — **2, 5, 7, 8 first**, they change delivered work.
+2. Run the QA matrix in a browser. Largest single risk: 17 sessions verified statically, none in a viewport.
+3. Work §3 — ordinary engineering, nothing blocked.
+
+---
+
+## Appendix — portal & screen inventory
+
+**3 portals, 40 feature screens.** The FSD specifies 2 portals and budgets 15 screens; it also defines a Platform Administrator (§4) with PHI export/delete powers (§3.4) and five report families (§14) — and allocates that role no screen. The admin console is the missing third of a four-role model, not scope creep. *Org Admin is a role inside the Provider Portal, not a portal.*
+
+| Portal | Role(s) | Screens | FSD |
+|---|---|---|---|
+| **Provider** `pro1/` | Physician · Org Admin (elevated) | **14** + 404, session-expired | §6 |
+| **Patient PWA** `v1/` | Patient (60–85) | **15** | §7, §8 |
+| **Platform Admin** `admin/` | Platform Administrator | **11** + sign-in, 404, session-expired | §4, §14, §12, §3.4 |
+
+**Provider (14):** Dashboard · Work Queue · Enrollment · Plan Review · Patient Detail · Approvals · Billing reports · Revenue Calculator · Patients · Org Admin · Settings · Dr. Brain · Sign in · Reminders*
+**Patient (15):** splash · login · verify · onboarding · session-expired · today · checkin · confirmation · exercises · progress · rewards · settings · help · offline · notifications
+**Admin (11):** Overview · Complaints & MDR · AI Governance · Platform reports · HIPAA Audit · Data Requests · API costs · Provider accounts · Organizations · Platform settings · Sign in
+
+\* Reminders is discretionary — decision 8.
+
+**Scope note:** the Delivery Planner budgets a designer for **15 screens**; the real surface is **40**. Not drift — five patient auth/support files sit under one FSD "screen", the admin console was never budgeted, and two FSD-mandated provider screens are absent from its own page count. Re-baseline before committing to M1's two-week design window.

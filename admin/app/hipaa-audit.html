@@ -27,13 +27,13 @@
           </div>
         </div>
 
-        <div class="alertbar rise rise-1" style="margin-top:0;background:var(--c-primary-soft);color:var(--c-primary-dark);border-color:var(--c-primary-soft)">
+        <div class="alertbar rise rise-1 mt-0 alertbar--info">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
           <span><strong>Immutable.</strong> Audit entries cannot be edited or deleted — including by platform administrators. Export events are themselves logged.</span>
         </div>
 
-        <div class="card rise rise-2" style="margin-top:var(--sp-4)" data-tabs data-filtergroup>
-          <div class="card__body" style="padding-bottom:0">
+        <div class="card rise rise-2 mt-4" data-tabs data-filtergroup>
+          <div class="card__body pb-0">
             <div class="tabbar2">
               <button class="tab2 is-active" data-tab="phi">PHI access</button>
               <button class="tab2" data-tab="auth">Failed auth</button>
@@ -41,17 +41,27 @@
               <button class="tab2" data-tab="adm">Admin actions</button>
               <button class="tab2" data-tab="ses">Sessions</button>
             </div>
-            <div class="toolbar" style="margin-top:var(--sp-4)">
+            <div class="toolbar mt-4">
               <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input data-filter placeholder="Search actor, record, IP…"></span>
-              <select class="select select--sm" data-filter style="width:auto"><option value="">All time</option><option>Today</option><option>Last 7 days</option><option>Last 30 days</option></select>
+              <span class="daterange">
+              <select class="select select--sm w-auto" data-daterange-preset>
+                <option>Last 30 days</option><option>Last 90 days</option><option>Year to date</option><option value="custom">Custom range&hellip;</option>
+              </select>
+              <span class="daterange__custom" hidden data-daterange-custom>
+                <input type="date" value="2026-06-16" aria-label="From date">
+                <span class="daterange__sep">to</span>
+                <input type="date" value="2026-07-16" aria-label="To date">
+              </span>
+            </span>
               <span class="spacer"></span><span class="t-meta"><span class="num" data-filtercount>21</span> entries</span>
             </div>
           </div>
 
           <!-- PHI access -->
           <div data-tabpanel="phi">
-            <table class="qtable">
-              <thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Record</th><th class="right">IP</th></tr></thead>
+            <div class="tablewrap tablewrap--tall">
+              <table class="qtable">
+              <thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Record</th><th class="right" data-priority="3">IP</th></tr></thead>
               <tbody>
                 <tr data-filterrow><td class="num t-sm">2026-07-16 10:02</td><td class="t-sm">Dr. Stillman</td><td class="t-sm">Viewed chart</td><td class="t-sm t-muted">Patient #P-1043</td><td class="right num t-sm">10.0.4.12</td></tr>
                 <tr data-filterrow><td class="num t-sm">2026-07-16 09:58</td><td class="t-sm">Dr. Haddad</td><td class="t-sm">Viewed billing timeline</td><td class="t-sm t-muted">Patient #P-1120</td><td class="right num t-sm">10.0.4.7</td></tr>
@@ -60,36 +70,53 @@
                 <tr data-filterrow><td class="num t-sm">2026-07-16 09:12</td><td class="t-sm">Dr. Stillman</td><td class="t-sm">Logged review time</td><td class="t-sm t-muted">Patient #P-1010</td><td class="right num t-sm">10.0.4.12</td></tr>
               </tbody>
             </table>
+            </div>
+            <div class="pager">
+              <span class="pager__info">Showing <span class="num">1&ndash;5</span> of <span class="num">2,481</span> entries</span>
+              <span class="pager__btns">
+                <button class="pager__btn" type="button" disabled aria-label="Previous page">&lsaquo;</button>
+                <button class="pager__btn is-current" type="button" aria-current="page">1</button>
+                <button class="pager__btn" type="button">2</button>
+                <button class="pager__btn" type="button">3</button>
+                <button class="pager__btn" type="button">497</button>
+                <button class="pager__btn" type="button" aria-label="Next page">&rsaquo;</button>
+              </span>
+            </div>
           </div>
 
           <!-- Failed auth -->
           <div data-tabpanel="auth" hidden>
-            <table class="qtable">
-              <thead><tr><th>Time</th><th>Attempted account</th><th>Reason</th><th class="center">Attempts</th><th class="right">IP</th></tr></thead>
+            <div class="tablewrap">
+              <table class="qtable">
+              <thead><tr><th>Time</th><th>Attempted account</th><th>Reason</th><th class="center">Attempts</th><th class="right" data-priority="3">IP</th></tr></thead>
               <tbody>
                 <tr data-filterrow><td class="num t-sm">2026-07-16 08:30</td><td class="t-sm">b.stillman@stillmanrehab.com</td><td class="t-sm"><span class="badge badge--attention">Wrong MFA code</span></td><td class="center num">3</td><td class="right num t-sm">73.11.8.201</td></tr>
                 <tr data-filterrow><td class="num t-sm">2026-07-15 22:14</td><td class="t-sm">unknown@mail.com</td><td class="t-sm">No such account</td><td class="center num">1</td><td class="right num t-sm">41.203.9.5</td></tr>
                 <tr data-filterrow><td class="num t-sm">2026-07-15 07:02</td><td class="t-sm">a.petrov@stillmanrehab.com</td><td class="t-sm">Expired session</td><td class="center num">1</td><td class="right num t-sm">10.0.4.9</td></tr>
               </tbody>
             </table>
+            </div>
           </div>
 
           <!-- Exports -->
           <div data-tabpanel="exp" hidden>
-            <table class="qtable">
-              <thead><tr><th>Time</th><th>Who</th><th>What</th><th class="center">Rows</th><th class="right">Purpose</th></tr></thead>
+            <div class="tablewrap">
+              <table class="qtable">
+              <thead><tr><th>Time</th><th>Who</th><th>What</th><th class="center">Rows</th><th class="right" data-priority="3">Purpose</th></tr></thead>
               <tbody>
                 <tr data-filterrow><td class="num t-sm">2026-07-16 10:02</td><td class="t-sm">Dr. Stillman</td><td class="t-sm">Claims CSV</td><td class="center num">5</td><td class="right t-sm t-muted">billing</td></tr>
                 <tr data-filterrow><td class="num t-sm">2026-07-14 16:20</td><td class="t-sm">A. Rivera</td><td class="t-sm">Complaints CSV</td><td class="center num">5</td><td class="right t-sm t-muted">compliance</td></tr>
                 <tr data-filterrow><td class="num t-sm">2026-07-01 09:00</td><td class="t-sm">Dr. Haddad</td><td class="t-sm">Claims CSV</td><td class="center num">11</td><td class="right t-sm t-muted">billing</td></tr>
               </tbody>
             </table>
+            </div>
           </div>
 
           <!-- Admin actions -->
           <div data-tabpanel="adm" hidden>
-            <table class="qtable">
-              <thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Target</th><th class="right">IP</th></tr></thead>
+            <div class="tablewrap">
+              <table class="qtable">
+              <thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Target</th><th class="right" data-priority="3">IP</th></tr></thead>
               <tbody>
                 <tr data-filterrow><td class="num t-sm">2026-07-16 09:20</td><td class="t-sm">A. Rivera</td><td class="t-sm">Promoted prompt v14→v15</td><td class="t-sm t-muted">Dr. Brain model</td><td class="right num t-sm">10.0.1.3</td></tr>
                 <tr data-filterrow><td class="num t-sm">2026-07-16 08:55</td><td class="t-sm">Org Admin · Petrov</td><td class="t-sm">Deactivated provider</td><td class="t-sm t-muted">Dr. Priya Raman</td><td class="right num t-sm">10.0.4.9</td></tr>
@@ -97,12 +124,14 @@
                 <tr data-filterrow><td class="num t-sm">2026-07-05 14:30</td><td class="t-sm">Org Admin</td><td class="t-sm">Changed role</td><td class="t-sm t-muted">Petrov → Org Admin</td><td class="right num t-sm">10.0.4.9</td></tr>
               </tbody>
             </table>
+            </div>
           </div>
 
           <!-- Sessions -->
           <div data-tabpanel="ses" hidden>
-            <table class="qtable">
-              <thead><tr><th>Time</th><th>User</th><th>Event</th><th class="center">Duration</th><th class="right">IP</th></tr></thead>
+            <div class="tablewrap">
+              <table class="qtable">
+              <thead><tr><th>Time</th><th>User</th><th>Event</th><th class="center">Duration</th><th class="right" data-priority="3">IP</th></tr></thead>
               <tbody>
                 <tr data-filterrow><td class="num t-sm">2026-07-16 10:15</td><td class="t-sm">Dr. Stillman</td><td class="t-sm">Session start</td><td class="center t-muted">—</td><td class="right num t-sm">10.0.4.12</td></tr>
                 <tr data-filterrow><td class="num t-sm">2026-07-16 09:45</td><td class="t-sm">Dr. Haddad</td><td class="t-sm"><span class="badge badge--enrolled">Idle timeout</span></td><td class="center num">42 min</td><td class="right num t-sm">10.0.4.7</td></tr>
@@ -110,6 +139,7 @@
                 <tr data-filterrow><td class="num t-sm">2026-07-15 18:30</td><td class="t-sm">Dr. Petrov</td><td class="t-sm">Sign out</td><td class="center num">1h 12m</td><td class="right num t-sm">10.0.4.9</td></tr>
               </tbody>
             </table>
+            </div>
           </div>
 
         </div>

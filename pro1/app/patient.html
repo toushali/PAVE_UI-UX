@@ -16,22 +16,22 @@
     <main class="content">
       <div class="content__inner">
 
-        <a class="t-sm" href="work-queue.html" style="display:inline-flex;align-items:center;gap:6px;margin-bottom:var(--sp-4)"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>Back to work queue</a>
+        <a class="t-sm mb-4" href="work-queue.html" style="display:inline-flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>Back to work queue</a>
 
         <!-- Header -->
         <div class="pheader rise rise-1">
           <span class="pavatar">JC</span>
-          <div style="min-width:0">
+          <div class="min-w-0">
             <div class="pname">John Carter</div>
             <div class="pmeta">M54.5 · Low back pain · DOB <span class="num">1958-11-02</span> · MRN <span class="num">Kivie-004821</span></div>
           </div>
-          <span class="badge badge--ready" style="align-self:center">Ready to bill</span>
+          <span class="badge badge--ready self-center">Ready to bill</span>
           <span class="spacer"></span>
           <div class="pactions">
             <button class="btn btn--ghost btn--sm" data-confirm="Review time logged for John Carter.">Log review</button>
             <button class="btn btn--ghost btn--sm" data-confirm="Contact call logged for John Carter.">Log contact</button>
-            <button class="btn btn--ghost btn--sm" data-confirm="Plan approved — patient invited by SMS.">Approve plan</button>
-            <button class="btn btn--primary btn--sm" data-row data-confirm="Claim approved for John Carter — locked &amp; moved to Reports." data-status="approved" data-status-label="Claim approved">Approve claim</button>
+            <button class="btn btn--ghost btn--sm" disabled title="Plan was approved on Jul 5, 2026 — approval is one-time" data-confirm="Plan approved — patient invited by SMS." data-cf-title="Approve this plan and invite the patient?" data-cf-body="This is the physician sign-off required for SaMD compliance. On approval the plan is locked as generated, the patient is invited on their preferred channel, and the approval is timestamped to the audit log." data-cf-cta="Approve plan">Approve plan</button>
+            <button class="btn btn--primary btn--sm" data-row data-confirm="Claim approved for John Carter — locked &amp; moved to Reports." data-status="approved" data-status-label="Claim approved" data-cf-title="Approve and lock this claim?" data-cf-body="Approval is one-way. The claim is locked, its qualifying events are frozen as evidence, and it moves to Billing reports. It cannot be un-approved or edited by anyone." data-cf-cta="Approve &amp; lock">Approve claim</button>
           </div>
         </div>
 
@@ -47,7 +47,7 @@
 
           <!-- Activity history -->
           <div data-tabpanel="activity">
-            <div class="tiles rise" style="margin-bottom:var(--sp-5)">
+            <div class="tiles rise mb-5">
               <div class="tile"><div class="tile__n">16</div><div class="tile__l">Day streak</div></div>
               <div class="tile"><div class="tile__n">5</div><div class="tile__l">Badges</div></div>
               <div class="tile"><div class="tile__n">480</div><div class="tile__l">Points</div></div>
@@ -55,10 +55,10 @@
             </div>
             <div class="card"><div class="card__body">
               <ul class="actlist">
-                <li class="actitem"><span class="actdot actdot--in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span><span class="actbody"><strong>Daily check-in</strong> · pain 3/10, all exercises done, feeling better<br><span class="t-meta">Earned "Two Weeks Strong" badge</span></span><span class="acttime">Jul 8 · 08:14</span></li>
-                <li class="actitem"><span class="actdot actdot--rev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></span><span class="actbody"><strong>Physician review</strong> · 12 min logged by Dr. Stillman</span><span class="acttime">Jul 7 · 16:40</span></li>
-                <li class="actitem"><span class="actdot actdot--con"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a12 12 0 0 0 5 5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C11.5 19.5 4.5 12.5 4.5 5.5a2 2 0 0 1 2-2Z"/></svg></span><span class="actbody"><strong>Contact call</strong> · check-in on progress, tolerating plan well</span><span class="acttime">Jul 5 · 11:05</span></li>
-                <li class="actitem"><span class="actdot actdot--in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span><span class="actbody"><strong>Daily check-in</strong> · pain 4/10, 3 of 4 exercises done</span><span class="acttime">Jul 4 · 09:22</span></li>
+                <li class="actitem"><span class="actdot actdot--in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span><span class="actbody"><strong>Daily check-in</strong> · pain 3/10, all exercises done, feeling better<br><span class="t-meta">Earned "Two Weeks Strong" badge</span></span><span class="acttime">Jul 16 · 08:14</span></li>
+                <li class="actitem"><span class="actdot actdot--rev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></span><span class="actbody"><strong>Physician review</strong> · 12 min logged by Dr. Stillman</span><span class="acttime">Jul 15 · 16:40</span></li>
+                <li class="actitem"><span class="actdot actdot--con"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a12 12 0 0 0 5 5l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C11.5 19.5 4.5 12.5 4.5 5.5a2 2 0 0 1 2-2Z"/></svg></span><span class="actbody"><strong>Contact call</strong> · check-in on progress, tolerating plan well</span><span class="acttime">Jul 13 · 11:05</span></li>
+                <li class="actitem"><span class="actdot actdot--in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span><span class="actbody"><strong>Daily check-in</strong> · pain 4/10, 3 of 4 exercises done</span><span class="acttime">Jul 12 · 09:22</span></li>
               </ul>
             </div></div>
           </div>
@@ -76,9 +76,9 @@
                 <div class="planex"><div><strong>Cat–cow stretch</strong><div class="t-sm t-muted">Keep the spine mobile.</div></div><span class="planex__freq">1× / day</span></div>
                 <div class="planex"><div><strong>Glute bridge</strong><div class="t-sm t-muted">Strengthen posterior chain support.</div></div><span class="planex__freq">2× / day</span></div>
               </div>
-              <div class="planmod" style="margin-bottom:0">
-                <div class="planmod__h">Medical rationale <span class="t-meta" style="text-transform:none;letter-spacing:0">(SaMD evidence basis)</span></div>
-                <div class="rationale">Directional-preference exercise + core stabilization is supported for mechanical low-back pain (M54.5) with favorable outcomes vs. general activity. Low-load Pilates progressions suit the patient's age and deconditioning. Plan avoids end-range loading given radicular history. <span class="t-meta">Dr. Brain v2.3 · approved by Dr. Stillman · Jun 27, 2026.</span></div>
+              <div class="planmod mb-0">
+                <div class="planmod__h">Medical rationale <span class="t-meta t-nocase">(SaMD evidence basis)</span></div>
+                <div class="rationale">Directional-preference exercise + core stabilization is supported for mechanical low-back pain (M54.5) with favorable outcomes vs. general activity. Low-load Pilates progressions suit the patient's age and deconditioning. Plan avoids end-range loading given radicular history. <span class="t-meta">Dr. Brain v2.3 · approved by Dr. Stillman · Jul 5, 2026.</span></div>
               </div>
             </div></div>
           </div>
@@ -86,40 +86,40 @@
           <!-- Billing timeline -->
           <div data-tabpanel="timeline" hidden>
             <div class="card"><div class="card__body">
-              <div class="row" style="margin-bottom:var(--sp-4)"><strong>30-day billing window</strong><span class="t-meta">Jun 8 – Jul 8, 2026</span><span class="spacer"></span><span class="badge badge--ready">Qualified Jul 6</span></div>
+              <div class="row mb-4"><strong>30-day billing window</strong><span class="t-meta">Jun 16 – Jul 16, 2026</span><span class="spacer"></span><span class="badge badge--ready">Qualified Jul 14</span></div>
               <div class="cal" aria-label="Check-in calendar">
                 <span class="calday in">8</span><span class="calday in">9</span><span class="calday in">10</span><span class="calday miss">11</span><span class="calday in">12</span><span class="calday in">13</span><span class="calday in">14</span><span class="calday in">15</span><span class="calday in">16</span><span class="calday in">17</span>
                 <span class="calday in">18</span><span class="calday in">19</span><span class="calday miss">20</span><span class="calday in">21</span><span class="calday in">22</span><span class="calday in">23</span><span class="calday in">24</span><span class="calday in">25</span><span class="calday in">26</span><span class="calday in">27</span>
                 <span class="calday in">28</span><span class="calday in">29</span><span class="calday in">30</span><span class="calday in">1</span><span class="calday in">2</span><span class="calday in">3</span><span class="calday in">4</span><span class="calday in">5</span><span class="calday in">6</span><span class="calday in today">7</span>
               </div>
-              <div style="margin-top:var(--sp-5)">
+              <div class="mt-5">
                 <div class="threshrow"><span class="t-sm">Check-in days</span><span class="pbar"><i style="width:100%"></i></span><span class="num t-sm">16 / 16 ✓</span></div>
                 <div class="threshrow"><span class="t-sm">Physician review</span><span class="pbar"><i style="width:100%"></i></span><span class="num t-sm">22 / 20 min ✓</span></div>
                 <div class="threshrow"><span class="t-sm">Contact call</span><span class="pbar"><i style="width:100%"></i></span><span class="num t-sm">1 / 1 ✓</span></div>
               </div>
-              <p class="t-meta" style="margin-top:var(--sp-4)">All thresholds met. Projected qualification: <span class="num">Jul 6</span> · claim available for approval. Timestamps are server-generated &amp; immutable.</p>
+              <p class="t-meta mt-4">All thresholds met. Projected qualification: <span class="num">Jul 14</span> · claim available for approval. Timestamps are server-generated &amp; immutable.</p>
             </div></div>
           </div>
 
           <!-- Action log -->
           <div data-tabpanel="log" hidden>
-            <div class="card"><table class="qtable">
+            <div class="card"><div class="tablewrap"><table class="qtable">
               <thead><tr><th>Timestamp</th><th>Action</th><th>By</th><th>Detail</th></tr></thead>
               <tbody>
-                <tr><td class="num t-sm">2026-06-27 09:02</td><td>Plan approved</td><td>Dr. Stillman</td><td class="t-muted">Dr. Brain v2.3 plan released to patient</td></tr>
-                <tr><td class="num t-sm">2026-07-05 11:05</td><td>Contact call logged</td><td>Dr. Stillman</td><td class="t-muted">Binary qualifying event · this period</td></tr>
-                <tr><td class="num t-sm">2026-07-07 16:40</td><td>Review time logged</td><td>Dr. Stillman</td><td class="t-muted"><span class="num">12 min</span> (period total <span class="num">22 min</span>)</td></tr>
-                <tr><td class="num t-sm">2026-07-08 08:14</td><td>Check-in received</td><td>Patient</td><td class="t-muted">Server-timestamped · cannot be altered</td></tr>
+                <tr><td class="num t-sm">2026-07-05 09:02</td><td>Plan approved</td><td>Dr. Stillman</td><td class="t-muted">Dr. Brain v2.3 plan released to patient</td></tr>
+                <tr><td class="num t-sm">2026-07-13 11:05</td><td>Contact call logged</td><td>Dr. Stillman</td><td class="t-muted">Binary qualifying event · this period</td></tr>
+                <tr><td class="num t-sm">2026-07-15 16:40</td><td>Review time logged</td><td>Dr. Stillman</td><td class="t-muted"><span class="num">12 min</span> (period total <span class="num">22 min</span>)</td></tr>
+                <tr><td class="num t-sm">2026-07-16 08:14</td><td>Check-in received</td><td>Patient</td><td class="t-muted">Server-timestamped · cannot be altered</td></tr>
               </tbody>
-            </table></div>
+            </table></div></div>
           </div>
 
           <!-- Outcomes -->
           <div data-tabpanel="outcomes" hidden>
             <div class="grid-2">
               <div class="card"><div class="card__body">
-                <div class="t-h2" style="margin-bottom:var(--sp-2)">Pain trend</div>
-                <p class="t-sm t-muted" style="margin-bottom:var(--sp-5)">Average pain is <strong style="color:var(--st-ready)">trending down</strong> — 5.4 → 3.2 over 3 weeks.</p>
+                <div class="t-h2 mb-2">Pain trend</div>
+                <p class="t-sm t-muted mb-5">Average pain is <strong class="t-ready">trending down</strong> — 5.4 → 3.2 over 3 weeks.</p>
                 <div class="trend">
                   <div class="trend__bar" style="height:72%"><span>5.4</span></div>
                   <div class="trend__bar" style="height:58%"><span>4.3</span></div>
@@ -128,10 +128,10 @@
                 <div class="trend__x"><span>Wk 1</span><span>Wk 2</span><span>Wk 3</span></div>
               </div></div>
               <div class="card"><div class="card__body">
-                <div class="t-h2" style="margin-bottom:var(--sp-2)">Adherence</div>
-                <p class="t-sm t-muted" style="margin-bottom:var(--sp-5)">Check-ins since enrollment.</p>
-                <div class="tile" style="border:none;padding:0"><div class="tile__n" style="font-size:44px;color:var(--st-ready)">100%</div><div class="tile__l">30 of 30 days</div></div>
-                <div class="pbar" style="margin-top:var(--sp-4)"><i style="width:100%"></i></div>
+                <div class="t-h2 mb-2">Adherence</div>
+                <p class="t-sm t-muted mb-5">Check-ins since enrollment.</p>
+                <div class="tile tile--bare"><div class="tile__n t-ready tile__n--xl">100%</div><div class="tile__l">30 of 30 days</div></div>
+                <div class="pbar mt-4"><i style="width:100%"></i></div>
               </div></div>
             </div>
           </div>

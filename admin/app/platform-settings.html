@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Platform settings &middot; Kivie Platform Admin</title>
+<script>(function(){var q=(location.search.match(/[?&]theme=(light|dark)/)||[])[1];var t=q;if(!t){try{t=localStorage.getItem("kivie-admin-theme");}catch(e){}}if(t!=="light"&&t!=="dark")t="light";try{localStorage.setItem("kivie-admin-theme",t);}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="platform-settings" data-title="Platform settings">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">Platform settings</div>
+              <div class="pagehead__sub">System-wide configuration. Changes here affect every organization and are written to the admin action log.</div>
+            </div>
+            <span class="spacer"></span>
+            <button class="btn btn--primary" data-confirm="Platform settings saved &middot; logged to the admin action log."
+              data-cf-title="Save platform settings?"
+              data-cf-body="These values apply across every organization on the platform. The change is recorded against your name in the immutable admin action log."
+              data-cf-cta="Save settings">Save changes</button>
+          </div>
+        </div>
+
+        <!-- ===== Budget thresholds (FSD §12.2) ===== -->
+        <section class="card rise rise-2">
+          <div class="card__head"><span class="card__title">Monthly budget thresholds</span><span class="spacer"></span><a href="api-costs.html" class="t-link">Open API costs &rarr;</a></div>
+          <div class="card__body">
+            <p class="t-sm t-muted mb-4">Alerts fire when spend approaches a limit. These are the ceilings the <a href="api-costs.html">API cost dashboard</a> measures against &mdash; the only place they can be set.</p>
+            <div class="form2">
+              <div class="formgroup"><label>Claude API</label><input class="input num" value="300.00" inputmode="decimal"><div class="hint">Currently at <span class="num">$215</span> &middot; 72%</div></div>
+              <div class="formgroup"><label>Twilio SMS</label><input class="input num is-invalid" value="80.00" inputmode="decimal"><div class="errmsg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg><span>At <span class="num">88%</span> of this limit &mdash; raise it or expect alerts.</span></div></div>
+              <div class="formgroup"><label>Supabase database</label><input class="input num" value="150.00" inputmode="decimal"><div class="hint">Currently at <span class="num">$89</span> &middot; 59%</div></div>
+              <div class="formgroup"><label>Stripe fees</label><input class="input num" value="150.00" inputmode="decimal"><div class="hint">Currently at <span class="num">$61</span> &middot; 41%</div></div>
+              <div class="formgroup"><label>SendGrid email</label><input class="input num" value="25.00" inputmode="decimal"><div class="hint">Currently at <span class="num">$4.34</span> &middot; 17%</div></div>
+              <div class="formgroup"><label>File storage</label><input class="input num" value="25.00" inputmode="decimal"><div class="hint">Currently at <span class="num">$0.74</span> &middot; 3%</div></div>
+            </div>
+            <div class="setrow"><span class="setrow__label"><strong>Alert me at</strong><span>Percentage of a limit that triggers a notification</span></span>
+              <select class="select select--sm w-auto"><option>80% of limit</option><option>90% of limit</option><option>Only when exceeded</option></select></div>
+            <div class="setrow bb-0"><span class="setrow__label"><strong>Send budget alerts to</strong><span>Platform administrators only &mdash; never to providers</span></span>
+              <span class="t-sm num">a.rivera@pave.health</span></div>
+          </div>
+        </section>
+
+        <!-- ===== Retention (FSD §14.4, §3.4) ===== -->
+        <section class="card rise rise-3 mt-4">
+          <div class="card__head"><span class="card__title">Retention &amp; audit policy</span><span class="modeltag modeltag--warn">Regulated</span></div>
+          <div class="card__body">
+            <div class="alertbar alertbar--info m-0 mb-4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              <span>Retention floors are set by HIPAA and FDA obligations. They can be <strong>raised</strong> but never lowered from this console &mdash; and audit entries can never be edited or deleted, including by platform administrators.</span>
+            </div>
+            <div class="kvrow"><span class="kvrow__k">Audit log retention</span><span class="kvrow__v"><span class="num fw-semi">6 years</span> <span class="t-meta">&mdash; HIPAA minimum, locked</span></span></div>
+            <div class="kvrow"><span class="kvrow__k">Complaint &amp; MDR records</span><span class="kvrow__v"><span class="num fw-semi">6 years</span> <span class="t-meta">&mdash; locked</span></span></div>
+            <div class="kvrow"><span class="kvrow__k">Prompt version registry</span><span class="kvrow__v"><span class="fw-semi">Indefinite</span> <span class="t-meta">&mdash; append-only, required for FDA traceability</span></span></div>
+            <div class="kvrow"><span class="kvrow__k">Suspended-org PHI</span><span class="kvrow__v"><select class="select select--sm w-auto"><option>6 years (minimum)</option><option>7 years</option><option>10 years</option></select></span></div>
+            <div class="kvrow"><span class="kvrow__k">Provider session timeout</span><span class="kvrow__v"><span class="num fw-semi">15 minutes</span> <span class="t-meta">&mdash; FSD &sect;5.1, locked</span></span></div>
+            <div class="kvrow"><span class="kvrow__k">Patient session persistence</span><span class="kvrow__v"><span class="num fw-semi">30 days</span> <span class="t-meta">&mdash; trusted device, FSD &sect;5.2</span></span></div>
+            <div class="kvrow"><span class="kvrow__k">Encrypted backups</span><span class="kvrow__v"><span class="fw-semi">Daily at <span class="num">03:00 UTC</span></span> <span class="t-meta">&mdash; restore last verified 2026-07-09</span></span></div>
+          </div>
+        </section>
+
+        <!-- ===== Regulatory contact (FSD §15A / MDR) ===== -->
+        <section class="card rise rise-3 mt-4">
+          <div class="card__head"><span class="card__title">Regulatory contact</span><span class="spacer"></span><a href="complaints.html" class="t-link">Open complaints &amp; MDR &rarr;</a></div>
+          <div class="card__body">
+            <p class="t-sm t-muted mb-4">Where Medical Device Reports are sent when a complaint is escalated. <strong>An MDR escalation cannot be sent without a named contact</strong> &mdash; this is the recipient of record.</p>
+            <div class="form2">
+              <div class="formgroup"><label>Contact name<span class="req">*</span></label><input class="input" value="Dr. Brandon Stillman" data-required="An MDR needs a named recipient of record."></div>
+              <div class="formgroup"><label>Role / title</label><input class="input" value="Chief Medical Officer"></div>
+              <div class="formgroup"><label>Email<span class="req">*</span></label><input class="input" type="email" inputmode="email" autocomplete="email" value="regulatory@pave.health" data-required="An email is required for MDR delivery."></div>
+              <div class="formgroup"><label>Phone</label><input class="input num" type="tel" inputmode="tel" value="(415) 555-0102"></div>
+            </div>
+            <div class="setrow bb-0"><span class="setrow__label"><strong>Reporting deadline</strong><span>Days from escalation to submission, tracked on each MDR</span></span>
+              <select class="select select--sm w-auto"><option>30 days</option><option>15 days</option><option>5 days (urgent)</option></select></div>
+          </div>
+        </section>
+
+        <!-- ===== Vendor / BAA register (FSD §3.4) ===== -->
+        <section class="card rise rise-4 mt-4">
+          <div class="card__head"><span class="card__title">Vendor &amp; BAA register</span><span class="spacer"></span><span class="t-meta">every PHI-handling vendor needs a signed BAA</span></div>
+          <div class="tablewrap">
+            <table class="qtable">
+              <thead><tr><th>Vendor</th><th>Handles</th><th>BAA</th><th data-priority="3">Signed</th><th class="right" data-priority="3">Review due</th></tr></thead>
+              <tbody>
+                <tr><td>Supabase</td><td class="t-sm t-muted">Database, auth, storage &mdash; PHI at rest</td><td><span class="badge badge--ready">Signed</span></td><td class="num t-sm">2026-03-28</td><td class="right num t-sm">2027-03-28</td></tr>
+                <tr><td>Twilio</td><td class="t-sm t-muted">SMS &mdash; magic links, OTP, reminders</td><td><span class="badge badge--ready">Signed</span></td><td class="num t-sm">2026-04-01</td><td class="right num t-sm">2027-04-01</td></tr>
+                <tr><td>Anthropic</td><td class="t-sm t-muted">Claude API &mdash; plan generation inputs</td><td><span class="badge badge--ready">Signed</span></td><td class="num t-sm">2026-04-04</td><td class="right num t-sm">2027-04-04</td></tr>
+                <tr><td>SendGrid</td><td class="t-sm t-muted">Transactional email</td><td><span class="badge badge--ready">Signed</span></td><td class="num t-sm">2026-04-04</td><td class="right num t-sm">2027-04-04</td></tr>
+                <tr><td>Stripe</td><td class="t-sm t-muted">Subscription billing &mdash; no PHI, no card data on our servers</td><td><span class="badge badge--enrolled">Not required</span></td><td class="num t-sm t-muted">&mdash;</td><td class="right num t-sm t-muted">&mdash;</td></tr>
+                <tr><td>AWS</td><td class="t-sm t-muted">Hosting &mdash; PHI in transit and at rest</td><td><span class="badge badge--attention">Review due</span></td><td class="num t-sm">2025-08-20</td><td class="right num t-sm under">2026-08-20</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

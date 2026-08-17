@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Organizations &middot; Kivie Platform Admin</title>
+<script>(function(){var q=(location.search.match(/[?&]theme=(light|dark)/)||[])[1];var t=q;if(!t){try{t=localStorage.getItem("kivie-admin-theme");}catch(e){}}if(t!=="light"&&t!=="dark")t="light";try{localStorage.setItem("kivie-admin-theme",t);}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="organizations" data-title="Organizations">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">Organizations</div>
+              <div class="pagehead__sub">Every group practice on the platform. An organization holds multiple provider accounts and is the tenant boundary for all patient data (FSD &sect;2.2).</div>
+            </div>
+            <span class="spacer"></span>
+            <button class="btn btn--ghost" data-confirm="Organization report exported &middot; logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export CSV</button>
+          </div>
+        </div>
+
+        <section class="kpigrid rise rise-2">
+          <div class="kpi"><div class="kpi__label">Organizations</div><div class="kpi__num">12</div><div class="kpi__delta"><span class="num t-ready">+1</span> this month</div></div>
+          <div class="kpi"><div class="kpi__label">Provider accounts</div><div class="kpi__num">48</div><div class="kpi__delta">avg <span class="num">4</span> per practice</div></div>
+          <div class="kpi"><div class="kpi__label">Enrolled patients</div><div class="kpi__num">1,540</div><div class="kpi__delta">across all tenants</div></div>
+          <div class="kpi kpi--accent"><div class="kpi__label">Subscription MRR</div><div class="kpi__num">$11,952</div><div class="kpi__delta">billed via Stripe</div></div>
+        </section>
+
+        <div class="alertbar alertbar--info rise rise-2 mt-4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span><strong>Tenant isolation.</strong> Providers reach only their own patients and Org Admins only their own practice &mdash; enforced at the database layer, not the UI. This console is the one place that sees across tenants, and every access is logged.</span>
+        </div>
+
+        <section class="card rise rise-3 mt-4" data-filtergroup>
+          <div class="card__head"><span class="card__title">All organizations</span><span class="spacer"></span><span class="t-meta"><span class="num" data-filtercount>6</span> of <span class="num">12</span> shown</span></div>
+          <div class="card__body pb-0">
+            <div class="toolbar">
+              <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input data-filter placeholder="Search organization&hellip;"></span>
+              <select class="select select--sm w-auto" data-filter>
+                <option value="">All plans</option>
+                <option value="Group">Group</option>
+                <option value="Individual">Individual</option>
+              </select>
+              <select class="select select--sm w-auto" data-filter>
+                <option value="">All statuses</option>
+                <option value="Active">Active</option>
+                <option value="Past due">Past due</option>
+                <option value="Suspended">Suspended</option>
+              </select>
+            </div>
+          </div>
+          <div class="tablewrap">
+            <table class="qtable" data-sort>
+              <thead><tr>
+                <th data-col>Organization</th>
+                <th data-col>Plan</th>
+                <th data-col class="center">Providers</th>
+                <th data-col class="center">Patients</th>
+                <th data-col>Status</th>
+                <th data-col data-priority="3">Customer since</th>
+                <th class="right">Manage</th>
+              </tr></thead>
+              <tbody>
+                <tr data-filterrow data-row>
+                  <td><strong>Stillman Rehabilitation Group</strong><div class="t-meta">Org #12 &middot; San Francisco, CA</div></td>
+                  <td class="t-sm">Group &middot; <span class="num">$996/mo</span></td>
+                  <td class="center num">4</td><td class="center num">154</td>
+                  <td><span class="badge badge--ready">Active</span></td>
+                  <td class="num t-sm">2026-04-02</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="og-1" data-panel-group="og">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="og-1"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Org Admins <b>Stillman, Petrov</b></span><span>Claims approved (30d) <b class="num">38</b></span><span>Revenue pipeline <b class="num">$12,150</b></span><span>Next invoice <b class="num">2026-08-01</b></span></div>
+                  <div class="row gap-3 flex-wrap">
+                    <a class="btn btn--ghost btn--sm" href="provider-accounts.html">View providers</a>
+                    <a class="btn btn--ghost btn--sm" href="reports.html">Activity reports</a>
+                    <span class="spacer"></span>
+                    <button class="btn btn--danger btn--sm" data-confirm="Organization suspended &middot; all provider access revoked &middot; logged."
+                      data-cf-title="Suspend this organization?"
+                      data-cf-body="Every provider in the practice loses access immediately. Patients keep their data and their billing windows keep running, but no one can review or approve claims until the suspension is lifted."
+                      data-cf-cta="Suspend organization" data-cf-tone="danger">Suspend</button>
+                  </div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><strong>Bay Area Ortho</strong><div class="t-meta">Org #14 &middot; Oakland, CA</div></td>
+                  <td class="t-sm">Group &middot; <span class="num">$747/mo</span></td>
+                  <td class="center num">3</td><td class="center num">96</td>
+                  <td><span class="badge badge--ready">Active</span></td>
+                  <td class="num t-sm">2026-05-19</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="og-2" data-panel-group="og">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="og-2"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Org Admin <b>Dr. Jordan Liu</b></span><span>Claims approved (30d) <b class="num">21</b></span><span>Next invoice <b class="num">2026-08-01</b></span></div>
+                  <div class="row gap-3 flex-wrap"><a class="btn btn--ghost btn--sm" href="provider-accounts.html">View providers</a><a class="btn btn--ghost btn--sm" href="reports.html">Activity reports</a></div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><strong>Cascade Physio</strong><div class="t-meta">Org #09 &middot; Portland, OR</div></td>
+                  <td class="t-sm">Group &middot; <span class="num">$498/mo</span></td>
+                  <td class="center num">2</td><td class="center num">61</td>
+                  <td><span class="badge badge--attention">Past due</span></td>
+                  <td class="num t-sm">2026-03-11</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="og-3" data-panel-group="og">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="og-3"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="alertbar alertbar--warn m-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg><span>Payment failed twice via Stripe. Access continues during the retry window &mdash; clinical care is never interrupted for a billing failure.</span></div>
+                  <div class="claimsum"><span>Amount due <b class="num">$498.00</b></span><span>First failure <b class="num">2026-07-02</b></span><span>Next retry <b class="num">2026-07-19</b></span></div>
+                  <div class="row gap-3 flex-wrap"><button class="btn btn--ghost btn--sm" data-confirm="Dunning email sent to the Org Admin &middot; logged.">Send payment reminder</button></div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><strong>Lakeside Sports Medicine</strong><div class="t-meta">Org #17 &middot; Chicago, IL</div></td>
+                  <td class="t-sm">Group &middot; <span class="num">$996/mo</span></td>
+                  <td class="center num">4</td><td class="center num">128</td>
+                  <td><span class="badge badge--ready">Active</span></td>
+                  <td class="num t-sm">2026-06-24</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="og-4" data-panel-group="og">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="og-4"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Org Admin <b>Dr. Renata Salas</b></span><span>Claims approved (30d) <b class="num">29</b></span><span>Next invoice <b class="num">2026-08-01</b></span></div>
+                  <div class="row gap-3 flex-wrap"><a class="btn btn--ghost btn--sm" href="provider-accounts.html">View providers</a></div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><strong>Dr. Elena Marsh, MD</strong><div class="t-meta">Org #21 &middot; solo practice &middot; Austin, TX</div></td>
+                  <td class="t-sm">Individual &middot; <span class="num">$299/mo</span></td>
+                  <td class="center num">1</td><td class="center num">34</td>
+                  <td><span class="badge badge--ready">Active</span></td>
+                  <td class="num t-sm">2026-07-01</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="og-5" data-panel-group="og">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="og-5"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Solo practice &mdash; provider is also the Org Admin</span><span>Claims approved (30d) <b class="num">9</b></span></div>
+                  <div class="row gap-3 flex-wrap"><a class="btn btn--ghost btn--sm" href="provider-accounts.html">View provider</a></div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><strong>Northgate Rehab</strong><div class="t-meta">Org #06 &middot; Seattle, WA</div></td>
+                  <td class="t-sm">Group &middot; <span class="num">&mdash;</span></td>
+                  <td class="center num">0</td><td class="center num">0</td>
+                  <td><span class="badge badge--approved">Suspended</span></td>
+                  <td class="num t-sm">2026-02-08</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="og-6" data-panel-group="og">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="og-6"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Suspended <b class="num">2026-06-30</b></span><span>By <b>A. Rivera</b></span><span>Reason <b>Contract ended</b></span><span>PHI retention <b class="num">6 years</b></span></div>
+                  <p class="t-sm t-muted m-0">Patient records are retained for the statutory period and remain reachable from <a href="data-requests.html">Data requests</a> for export or erasure. Provider access is revoked.</p>
+                </div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pager">
+            <span class="pager__info">Showing <span class="num">1&ndash;6</span> of <span class="num">12</span> organizations</span>
+            <span class="pager__btns">
+              <button class="pager__btn" type="button" disabled aria-label="Previous page">&lsaquo;</button>
+              <button class="pager__btn is-current" type="button" aria-current="page">1</button>
+              <button class="pager__btn" type="button">2</button>
+              <button class="pager__btn" type="button" aria-label="Next page">&rsaquo;</button>
+            </span>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/app.js"></script>
+</body>
+</html>

@@ -24,7 +24,7 @@
             </div>
             <span class="spacer"></span>
             <span class="modeltag">Production v2.3</span>
-            <span class="modeltag" style="background:var(--st-attention-bg);color:var(--st-attention)">Sandbox v2.4-draft</span>
+            <span class="modeltag t-attention alertbar--warn">Sandbox v2.4-draft</span>
           </div>
         </div>
 
@@ -44,10 +44,10 @@
           </div>
         </section>
 
-        <div class="grid-2 rise rise-3" style="margin-top:var(--sp-4)">
+        <div class="grid-2 rise rise-3 mt-4">
           <!-- Upload -->
           <section class="card"><div class="card__head"><span class="card__title">Add to knowledge base</span></div><div class="card__body">
-            <label class="dropzone" style="display:block;cursor:pointer">
+            <label class="dropzone">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
               <strong style="color:var(--c-ink)">Drop a clinical study or protocol</strong><br>
               <span class="t-sm">PDF or DOCX · indexed into Dr. Brain's corpus</span>
@@ -57,37 +57,39 @@
 
           <!-- KB management -->
           <section class="card"><div class="card__head"><span class="card__title">Knowledge base</span><span class="t-meta"><span class="num">4</span> sources</span></div>
-            <table class="qtable">
+            <div class="tablewrap">
+              <table class="qtable">
               <thead><tr><th>Source</th><th>Type</th><th>Status</th><th class="right"></th></tr></thead>
               <tbody>
                 <tr><td class="t-sm">McKenzie MDT protocols.pdf</td><td class="t-sm t-muted">Protocol</td><td><span class="badge badge--ready">Active</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Source flagged for review.">Flag</button></td></tr>
                 <tr><td class="t-sm">Lumbar RCT — Pilates vs activity (2024).pdf</td><td class="t-sm t-muted">Study</td><td><span class="badge badge--ready">Active</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Source flagged for review.">Flag</button></td></tr>
                 <tr><td class="t-sm">Rotator cuff conservative care.docx</td><td class="t-sm t-muted">Protocol</td><td><span class="badge badge--ready">Active</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Source flagged for review.">Flag</button></td></tr>
-                <tr><td class="t-sm">Cervical guideline (2016).pdf</td><td class="t-sm t-muted">Study</td><td><span class="badge badge--attention">Flagged</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Source removed from corpus · logged.">Remove</button></td></tr>
+                <tr><td class="t-sm">Cervical guideline (2016).pdf</td><td class="t-sm t-muted">Study</td><td><span class="badge badge--attention">Flagged</span></td><td class="right"><button class="btn btn--ghost btn--sm" data-confirm="Source removed from corpus · logged." data-cf-title="Remove this source from the corpus?" data-cf-body="Dr. Brain will stop drawing on it for new plans. Plans already generated keep their original evidence basis." data-cf-cta="Remove source" data-cf-tone="danger">Remove</button></td></tr>
               </tbody>
             </table>
+            </div>
           </section>
         </div>
 
         <!-- Sandbox -->
-        <section class="card rise rise-4" style="margin-top:var(--sp-4)"><div class="card__head"><span class="card__title">Sandbox &amp; deployment</span><span class="spacer"></span><span class="t-meta">Existing patient plans are never altered by updates</span></div><div class="card__body">
+        <section class="card rise rise-4 mt-4"><div class="card__head"><span class="card__title">Sandbox &amp; deployment</span><span class="spacer"></span><span class="t-meta">Existing patient plans are never altered by updates</span></div><div class="card__body">
           <div class="sandbox">
-            <div style="flex:1">
+            <div class="flex-1">
               <strong>Test enrollment in sandbox v2.4-draft</strong>
               <div class="t-sm t-muted">Run a mock enrollment to see what the updated model would generate before it reaches any patient.</div>
             </div>
             <button class="btn btn--ghost" data-panel-toggle="sbout">Run test enrollment</button>
           </div>
 
-          <div class="qrow__panel" id="sbout" style="margin-top:var(--sp-4)">
+          <div class="qrow__panel mt-4" id="sbout">
             <h4>Sandbox output — test patient (M54.5, radicular history)</h4>
-            <div class="claimsum" style="margin-bottom:var(--sp-2)"><span>Week 1: <b>flexion-biased, no end-range</b></span><span>Week 2: <b>staged extension</b></span><span>Modalities: <b>Pilates · PT</b></span></div>
+            <div class="claimsum mb-2"><span>Week 1: <b>flexion-biased, no end-range</b></span><span>Week 2: <b>staged extension</b></span><span>Modalities: <b>Pilates · PT</b></span></div>
             <p class="t-sm t-muted">Matches the correction from chat. Medical rationale generated and citable. Ready to promote.</p>
           </div>
 
-          <div class="row" style="margin-top:var(--sp-5);gap:var(--sp-3)">
-            <button class="btn btn--primary" data-confirm="Promoted sandbox v2.4 → production · Dr. Stillman signed off · logged.">Promote to production</button>
-            <button class="btn btn--ghost" data-confirm="Rolled back to production v2.2 · authorized by Dr. Stillman.">Roll back</button>
+          <div class="row mt-5 gap-3">
+            <button class="btn btn--primary" data-confirm="Promoted sandbox v2.4 → production · Dr. Stillman signed off · logged." data-cf-title="Promote sandbox v2.4 to production?" data-cf-body="Every plan generated from now on comes from this model. Existing approved plans are never altered. FSD §10.4 requires documented human sign-off — this action is recorded against your name." data-cf-cta="Promote to production">Promote to production</button>
+            <button class="btn btn--ghost" data-confirm="Rolled back to production v2.2 · authorized by Dr. Stillman." data-cf-title="Roll back to production v2.2?" data-cf-body="New enrollments revert to the previous model. Plans already approved are unaffected. Rollback requires your authorisation and is written to the audit log." data-cf-cta="Roll back" data-cf-tone="danger">Roll back</button>
             <span class="spacer"></span>
             <span class="t-meta">The version that generated each patient's plan is recorded on their chart.</span>
           </div>

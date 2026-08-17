@@ -11,6 +11,14 @@
   <link rel="stylesheet" href="../css/tokens.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
+  <script>(function(){var q=(location.search.match(/[?&]companion=(plant|cat)/)||[])[1];var c=q;if(!c){try{c=localStorage.getItem("kivie-companion");}catch(e){}}if(c!=="plant"&&c!=="cat")c="plant";try{localStorage.setItem("kivie-companion",c);}catch(e){}document.documentElement.setAttribute("data-companion",c);})();</script>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Kivie">
 </head>
 <body data-tab="rewards">
   <div class="app">
@@ -26,7 +34,7 @@
       <section class="garden rise rise-1" id="heroGrowing" aria-label="Your streak">
         <div class="garden__stage" style="--stage-prog:71;">
           <span class="garden__ring" aria-hidden="true"></span>
-          <img class="garden__plant" src="../assets/art/plant-1-young.svg" alt="Your plant, a young seedling" width="152" height="152">
+          <img class="garden__plant" src="../assets/art/plant-1-young.svg" data-companion-art="1" alt="Your plant, a young seedling" width="152" height="152">
         </div>
         <div class="garden__count">
           <span class="garden__num">12</span>
@@ -41,7 +49,7 @@
       <section class="garden rise rise-1" id="heroFresh" aria-label="A fresh start" hidden>
         <div class="garden__stage" style="--stage-prog:0;">
           <span class="garden__ring" aria-hidden="true"></span>
-          <img class="garden__plant" src="../assets/art/plant-1-young.svg" alt="A fresh sprout" width="152" height="152">
+          <img class="garden__plant" src="../assets/art/plant-1-young.svg" data-companion-art="1" alt="A fresh sprout" width="152" height="152">
         </div>
         <div class="garden__count">
           <span class="garden__num">0</span>
@@ -67,32 +75,32 @@
         <div class="collectbar" aria-hidden="true"><span class="collectbar__fill" data-fill="50" style="width:0;"></span></div>
         <div class="medalgrid">
           <div class="medal">
-            <img class="medal__art" src="../assets/art/badge-bronze.svg" alt="First Step — Bronze medallion" width="104" height="104">
+            <img class="medal__art" src="../assets/art/badge-bronze-plant.svg" data-companion-medal="bronze" alt="First Step — Bronze medallion" width="104" height="104">
             <span class="medal__tier medal__tier--bronze">Bronze</span>
             <span class="medal__meta">Earned Jun 27</span>
           </div>
           <div class="medal">
-            <img class="medal__art" src="../assets/art/badge-bronze.svg" alt="Morning Ritual — Bronze medallion" width="104" height="104">
+            <img class="medal__art" src="../assets/art/badge-bronze-plant.svg" data-companion-medal="bronze" alt="Morning Ritual — Bronze medallion" width="104" height="104">
             <span class="medal__tier medal__tier--bronze">Bronze</span>
             <span class="medal__meta">Earned Jul 3</span>
           </div>
           <div class="medal">
-            <img class="medal__art" src="../assets/art/badge-gold.svg" alt="Turning the Corner — Gold medallion" width="104" height="104">
+            <img class="medal__art" src="../assets/art/badge-gold-plant.svg" data-companion-medal="gold" alt="Turning the Corner — Gold medallion" width="104" height="104">
             <span class="medal__tier medal__tier--gold">Gold</span>
             <span class="medal__meta">Earned Jul 6</span>
           </div>
           <div class="medal is-locked is-next" style="--medal-prog:86;">
-            <img class="medal__art" src="../assets/art/badge-locked.svg" alt="Two Weeks Strong — Locked medallion" width="104" height="104">
+            <img class="medal__art" src="../assets/art/badge-locked-plant.svg" data-companion-medal="locked" alt="Two Weeks Strong — Locked medallion" width="104" height="104">
             <span class="medal__tier medal__tier--gold">Gold</span>
             <span class="medal__meta">2 days to go</span>
           </div>
           <div class="medal is-locked">
-            <img class="medal__art" src="../assets/art/badge-locked.svg" alt="Steady Hand · 30 Days — Locked medallion" width="104" height="104">
+            <img class="medal__art" src="../assets/art/badge-locked-plant.svg" data-companion-medal="locked" alt="Steady Hand · 30 Days — Locked medallion" width="104" height="104">
             <span class="medal__tier medal__tier--platinum">Platinum</span>
             <span class="medal__meta">Check in for 30 days</span>
           </div>
           <div class="medal is-locked">
-            <img class="medal__art" src="../assets/art/badge-locked.svg" alt="In Full Bloom · 60 Days — Locked medallion" width="104" height="104">
+            <img class="medal__art" src="../assets/art/badge-locked-plant.svg" data-companion-medal="locked" alt="In Full Bloom · 60 Days — Locked medallion" width="104" height="104">
             <span class="medal__tier medal__tier--platinum">Platinum</span>
             <span class="medal__meta">Reach a 60-day streak</span>
           </div>
@@ -198,5 +206,14 @@
       });
     })();
   </script>
+<script>
+  /* S16 — register the service worker so the app is genuinely installable
+     (FSD §5.2, M1 §4). Silently ignored on browsers without support. */
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("../sw.js", { scope: "../" }).catch(function () {});
+    });
+  }
+</script>
 </body>
 </html>

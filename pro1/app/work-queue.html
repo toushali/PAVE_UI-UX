@@ -30,16 +30,17 @@
         <!-- ===== Urgent ===== -->
         <section class="card rise rise-2">
           <div class="card__head">
-            <span class="badge badge--attention" style="height:20px">Urgent</span>
+            <span class="badge badge--attention badge--head">Urgent</span>
             <span class="card__title">At risk of missing billing window</span>
             <span class="spacer"></span>
             <span class="t-meta"><span class="num">3</span> patients</span>
           </div>
-          <table class="qtable" data-panel-group>
+          <div class="tablewrap">
+            <table class="qtable" data-panel-group>
             <thead>
               <tr>
-                <th>Patient</th><th>Diagnosis</th>
-                <th class="center">Check-ins</th><th class="center">Review</th><th class="center">Contact</th><th class="center">Days left</th>
+                <th>Patient</th><th data-priority="3">Diagnosis</th>
+                <th class="center">Check-ins</th><th class="center">Review</th><th class="center" data-priority="3">Contact</th><th class="center">Days left</th>
                 <th>Status</th><th class="right">Action</th>
               </tr>
             </thead>
@@ -60,7 +61,7 @@
                     <div class="wqfield"><span class="wqfield__label">Review time (min)</span>
                       <span class="stepper" data-stepper data-min="1"><button data-dir="down">−</button><span class="stepper__val">5</span><button data-dir="up">+</button></span></div>
                     <button class="btn btn--primary btn--sm" data-confirm="Review time logged for Maria Alvarez.">Log time</button>
-                    <div class="wqfield"><span class="wqfield__label">Contact call date</span><input class="field num" type="date" value="2026-07-08"></div>
+                    <div class="wqfield"><span class="wqfield__label">Contact call date</span><input class="field num" type="date" value="2026-07-16"></div>
                     <button class="btn btn--primary btn--sm" data-confirm="Contact call logged for Maria Alvarez.">Log contact</button>
                     <span class="spacer"></span>
                     <a class="btn btn--ghost btn--sm" href="patient.html">View patient</a>
@@ -106,7 +107,7 @@
                     <div class="wqfield"><span class="wqfield__label">Review time (min)</span>
                       <span class="stepper" data-stepper data-min="1"><button data-dir="down">−</button><span class="stepper__val">10</span><button data-dir="up">+</button></span></div>
                     <button class="btn btn--primary btn--sm" data-confirm="Review time logged for Sofia Reyes.">Log time</button>
-                    <div class="wqfield"><span class="wqfield__label">Contact call date</span><input class="field num" type="date" value="2026-07-08"></div>
+                    <div class="wqfield"><span class="wqfield__label">Contact call date</span><input class="field num" type="date" value="2026-07-16"></div>
                     <button class="btn btn--primary btn--sm" data-confirm="Contact call logged for Sofia Reyes.">Log contact</button>
                     <span class="spacer"></span>
                     <a class="btn btn--ghost btn--sm" href="patient.html">View patient</a>
@@ -115,21 +116,23 @@
               </tr>
             </tbody>
           </table>
+          </div>
         </section>
 
         <!-- ===== Optimization ===== -->
-        <section class="card rise rise-3" style="margin-top:var(--sp-4)">
+        <section class="card rise rise-3 mt-4">
           <div class="card__head">
-            <span class="badge badge--ready" style="height:20px">Optimize</span>
+            <span class="badge badge--ready badge--head">Optimize</span>
             <span class="card__title">One action unlocks billing</span>
             <span class="spacer"></span>
             <span class="t-meta"><span class="num">3</span> patients</span>
           </div>
-          <table class="qtable" data-panel-group>
+          <div class="tablewrap">
+            <table class="qtable" data-panel-group>
             <thead>
               <tr>
-                <th>Patient</th><th>Diagnosis</th>
-                <th class="center">Check-ins</th><th class="center">Review</th><th class="center">Contact</th><th class="center">Days left</th>
+                <th>Patient</th><th data-priority="3">Diagnosis</th>
+                <th class="center">Check-ins</th><th class="center">Review</th><th class="center" data-priority="3">Contact</th><th class="center">Days left</th>
                 <th>Status</th><th class="right">Action</th>
               </tr>
             </thead>
@@ -147,8 +150,8 @@
               <tr class="wqpanel" id="wq-john" data-row>
                 <td colspan="8">
                   <div class="panelclaim">
-                    <div class="panelclaim__sum">Period Jun 8 – Jul 8 · CPT <strong>98980</strong>, <strong>98981</strong> · Est. <strong>$395.00</strong> · <span class="t-meta">all qualifying events server-timestamped &amp; immutable</span></div>
-                    <button class="btn btn--primary btn--sm" data-confirm="Claim approved for John Carter — locked &amp; moved to Reports." data-status="approved" data-status-label="Claim approved">Approve &amp; lock claim</button>
+                    <div class="panelclaim__sum">Period Jun 16 – Jul 16 · CPT <strong>98980</strong>, <strong>98981</strong> · Est. <strong>$395.00</strong> · <span class="t-meta">all qualifying events server-timestamped &amp; immutable</span></div>
+                    <button class="btn btn--primary btn--sm" data-confirm="Claim approved for John Carter — locked &amp; moved to Reports." data-status="approved" data-status-label="Claim approved" data-cf-title="Approve and lock this claim?" data-cf-body="Approval is one-way. The claim is locked, its qualifying events are frozen as evidence, and it moves to Billing reports. It cannot be un-approved or edited by anyone." data-cf-cta="Approve &amp; lock">Approve &amp; lock claim</button>
                   </div>
                 </td>
               </tr>
@@ -166,7 +169,7 @@
               <tr class="wqpanel" id="wq-robert" data-row>
                 <td colspan="8">
                   <div class="wqpanel__inner">
-                    <div class="wqfield"><span class="wqfield__label">Contact call date (unlocks billing)</span><input class="field num" type="date" value="2026-07-08"></div>
+                    <div class="wqfield"><span class="wqfield__label">Contact call date (unlocks billing)</span><input class="field num" type="date" value="2026-07-16"></div>
                     <button class="btn btn--primary btn--sm" data-confirm="Contact call logged for Robert Kim — now Ready to bill." data-status="ready" data-status-label="Ready to bill">Log contact</button>
                     <span class="spacer"></span>
                     <a class="btn btn--ghost btn--sm" href="patient.html">View patient</a>
@@ -195,6 +198,7 @@
               </tr>
             </tbody>
           </table>
+          </div>
         </section>
 
       </div>

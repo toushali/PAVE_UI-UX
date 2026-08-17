@@ -22,7 +22,7 @@
           <div class="row">
             <div>
               <div class="pagehead__title">Good afternoon, Dr. Stillman</div>
-              <div class="pagehead__sub">Tuesday, July 8 · 48 active patients · Review your panel in ~12 min</div>
+              <div class="pagehead__sub">Thursday, July 16 · 48 active patients · Review your panel in ~12 min</div>
             </div>
             <span class="spacer"></span>
             <a class="btn btn--primary" href="enroll.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Enroll patient</a>
@@ -62,9 +62,9 @@
         </div>
 
         <!-- Urgent queue — patients at risk of missing their billing window -->
-        <section class="card queuecard rise rise-3" data-panel-group style="margin-top:var(--sp-5)">
+        <section class="card queuecard rise rise-3 mt-5" data-panel-group>
           <div class="queuecard__head">
-            <span class="badge badge--attention" style="height:20px">Urgent</span>
+            <span class="badge badge--attention badge--head">Urgent</span>
             <span class="queuecard__title">At risk of missing billing window</span>
             <span class="queuecard__count">2 patients</span>
             <span class="spacer"></span>
@@ -99,7 +99,7 @@
             <div class="qrow__panel" id="p-maria-con">
               <h4>Log patient contact — Maria Alvarez</h4>
               <div class="panelrow">
-                <input class="field num" type="date" value="2026-07-08">
+                <input class="field num" type="date" value="2026-07-16">
                 <span class="t-sm t-muted">date of contact call (one required per period)</span>
                 <span class="spacer"></span>
                 <button class="btn btn--primary btn--sm" data-confirm="Contact call logged for Maria Alvarez.">Log contact call</button>
@@ -137,7 +137,7 @@
         <!-- Optimization queue — one action unlocks additional billing -->
         <section class="card queuecard rise rise-4" data-panel-group>
           <div class="queuecard__head">
-            <span class="badge badge--ready" style="height:20px">Optimize</span>
+            <span class="badge badge--ready badge--head">Optimize</span>
             <span class="queuecard__title">One action unlocks billing</span>
             <span class="queuecard__count">2 patients</span>
           </div>
@@ -161,10 +161,10 @@
               <h4>Approve claim — John Carter</h4>
               <div class="panelclaim">
                 <div class="panelclaim__sum">
-                  Billing period Jun 8 – Jul 8 · CPT <strong>98980</strong>, <strong>98981</strong> · Est. reimbursement <strong>$395.00</strong><br>
+                  Billing period Jun 16 – Jul 16 · CPT <strong>98980</strong>, <strong>98981</strong> · Est. reimbursement <strong>$395.00</strong><br>
                   <span class="t-meta">Check-ins <span class="num">16/16</span> · Review <span class="num">22 min</span> · Contact call <span class="num">✓</span> · Server-timestamped, immutable.</span>
                 </div>
-                <button class="btn btn--primary btn--sm" data-confirm="Claim approved for John Carter — locked &amp; moved to Reports." data-status="approved" data-status-label="Claim approved">Approve &amp; lock claim</button>
+                <button class="btn btn--primary btn--sm" data-confirm="Claim approved for John Carter — locked &amp; moved to Reports." data-status="approved" data-status-label="Claim approved" data-cf-title="Approve and lock this claim?" data-cf-body="Approval is one-way. The claim is locked, its qualifying events are frozen as evidence, and it moves to Billing reports. It cannot be un-approved or edited by anyone." data-cf-cta="Approve &amp; lock">Approve &amp; lock claim</button>
               </div>
             </div>
           </div>
@@ -187,7 +187,7 @@
             <div class="qrow__panel" id="p-robert-con">
               <h4>Log patient contact — Robert Kim</h4>
               <div class="panelrow">
-                <input class="field num" type="date" value="2026-07-08">
+                <input class="field num" type="date" value="2026-07-16">
                 <span class="t-sm t-muted">this unlocks the billing claim for the period</span>
                 <span class="spacer"></span>
                 <button class="btn btn--primary btn--sm" data-confirm="Contact call logged for Robert Kim — now Ready to bill." data-status="ready" data-status-label="Ready to bill">Log contact call</button>

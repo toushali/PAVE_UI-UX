@@ -18,8 +18,18 @@
 (function () {
   "use strict";
 
-  var CURRENT_STAGE = "../assets/art/plant-2-mature.svg";     /* current companion */
-  var LATER_STAGE   = "../assets/art/plant-3-flowering.svg";  /* flowering stage   */
+  /* S13: these were pinned to the plant, so notification previews showed a
+     plant even for a patient who had chosen the cat. Read the choice. */
+  var COMPANION = (function () {
+    var c; try { c = localStorage.getItem("kivie-companion"); } catch (e) {}
+    return (c === "cat") ? "cat" : "plant";
+  })();
+  var STAGES = {
+    plant: ["../assets/art/plant-2-mature.svg", "../assets/art/plant-3-flowering.svg"],
+    cat:   ["../assets/art/cat-2-young.png",    "../assets/art/cat-3-wise.png"]
+  };
+  var CURRENT_STAGE = STAGES[COMPANION][0];   /* current companion */
+  var LATER_STAGE   = STAGES[COMPANION][1];   /* later growth stage */
 
   var NOTIFICATIONS = [
     {

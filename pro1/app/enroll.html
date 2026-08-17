@@ -24,6 +24,13 @@
         <section class="card rise rise-2" data-wizard>
           <div class="card__body">
 
+            <!-- S7: mobile substitute for the 4-step rail, which does not
+                 fit below 640px (gap-analysis A5.1) -->
+            <div class="wizprogress" aria-hidden="true">
+              <span class="wizprogress__track"><span class="wizprogress__fill" data-wizfill style="width:25%"></span></span>
+              <span class="wizprogress__label"><span data-wizstepname>Demographics</span><span data-wizstepnum>Step 1 of 4</span></span>
+            </div>
+
             <div class="wizsteps">
               <span class="wizstep is-active" data-wizhead="1"><span class="wizstep__n">1</span>Demographics</span>
               <span class="wizline"></span>
@@ -37,14 +44,14 @@
             <!-- Step 1 -->
             <div class="wizpanel is-active form" data-wizpanel="1">
               <div class="form2">
-                <div class="formgroup"><label>First name</label><input class="input" value="Evelyn"></div>
-                <div class="formgroup"><label>Last name</label><input class="input" value="Ross"></div>
+                <div class="formgroup"><label>First name<span class="req">*</span></label><input class="input" value="Evelyn" autocomplete="given-name" data-required="Enter the patient's first name."></div>
+                <div class="formgroup"><label>Last name<span class="req">*</span></label><input class="input" value="Ross" autocomplete="family-name" data-required="Enter the patient's last name."></div>
               </div>
               <div class="form2">
-                <div class="formgroup"><label>Date of birth</label><input class="input num" type="date" value="1949-03-14"></div>
-                <div class="formgroup"><label>Phone</label><input class="input num" value="(415) 555-0148"></div>
+                <div class="formgroup"><label>Date of birth<span class="req">*</span></label><input class="input num" type="date" value="1949-03-14" data-required="Date of birth is required — it sets the billing record."></div>
+                <div class="formgroup"><label>Phone<span class="req">*</span></label><input class="input num" value="(415) 555-0148" type="tel" inputmode="tel" autocomplete="tel" data-required="A phone number is required for SMS invites and reminders."></div>
               </div>
-              <div class="formgroup"><label>Email</label><input class="input" type="email" value="e.ross@email.com"></div>
+              <div class="formgroup"><label>Email<span class="req">*</span></label><input class="input" type="email" value="e.ross@email.com" inputmode="email" autocomplete="email" data-required="An email is required as the fallback delivery channel."></div>
               <div class="formgroup">
                 <label>Preferred notification channel</label>
                 <div class="chips" data-single>
@@ -57,8 +64,8 @@
 
             <!-- Step 2 -->
             <div class="wizpanel form" data-wizpanel="2">
-              <div class="formgroup"><label>Diagnosis (ICD-10)</label>
-                <input class="input" value="M54.16 · Radiculopathy, lumbar region" list="icd">
+              <div class="formgroup"><label>Diagnosis (ICD-10)<span class="req">*</span></label>
+                <input class="input" value="M54.16 · Radiculopathy, lumbar region" list="icd" data-required="Select an ICD-10 diagnosis — Dr. Brain cannot generate a plan without one.">
                 <datalist id="icd">
                   <option value="M54.5 · Low back pain">
                   <option value="M54.16 · Radiculopathy, lumbar region">
@@ -79,8 +86,8 @@
               <div class="formgroup"><label>Treatment goals</label>
                 <textarea class="input">Reduce lumbar pain, restore safe mobility for daily activities, avoid recurrence.</textarea>
               </div>
-              <div class="formgroup"><label>Modalities</label>
-                <div class="chips">
+              <div class="formgroup"><label>Modalities<span class="req">*</span></label>
+                <div class="chips" data-required="Choose at least one modality.">
                   <button type="button" class="chipopt is-on">Pilates</button>
                   <button type="button" class="chipopt is-on">Physical therapy</button>
                   <button type="button" class="chipopt">Occupational therapy</button>
@@ -100,28 +107,28 @@
                 <div class="hint">Org Admins can reassign patients later from Org Admin.</div>
               </div>
               <div class="formgroup"><label>Billing start</label>
-                <input class="input num" type="date" value="2026-07-08">
+                <input class="input num" type="date" value="2026-07-16">
                 <div class="hint">The rolling 30-day RTM window begins on the enrollment date.</div>
               </div>
             </div>
 
             <!-- Step 4 -->
             <div class="wizpanel form" data-wizpanel="4">
-              <h3 class="t-h2" style="margin-bottom:var(--sp-3)">Review before submission</h3>
-              <dl style="margin:0">
+              <h3 class="t-h2 mb-3">Review before submission</h3>
+              <dl class="m-0">
                 <div class="sumrow"><dt>Patient</dt><dd>Evelyn Ross · DOB <span class="num">1949-03-14</span></dd></div>
                 <div class="sumrow"><dt>Contact</dt><dd class="num">(415) 555-0148 · e.ross@email.com · SMS</dd></div>
                 <div class="sumrow"><dt>Diagnosis</dt><dd>M54.16 · Radiculopathy, lumbar region</dd></div>
                 <div class="sumrow"><dt>Modalities</dt><dd>Pilates · Physical therapy</dd></div>
                 <div class="sumrow"><dt>Provider</dt><dd>Dr. Brandon Stillman, MD</dd></div>
-                <div class="sumrow"><dt>Billing window</dt><dd class="num">Jul 8 – Aug 7, 2026</dd></div>
+                <div class="sumrow"><dt>Billing window</dt><dd class="num">Jul 16 – Aug 15, 2026</dd></div>
               </dl>
-              <div class="authnote" style="margin-top:var(--sp-4)">
+              <div class="authnote mt-4">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>
                 <span>On submit, Dr. Brain generates a plan + medical rationale. The patient is invited only after you approve the plan.</span>
               </div>
               <!-- generating state (mock) -->
-              <div id="genState" hidden style="margin-top:var(--sp-4);display:flex;align-items:center;gap:12px;color:var(--c-primary);font-weight:var(--fw-semi)">
+              <div id="genState" hidden class="mt-4 fw-semi genstate">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a3.5 3.5 0 0 0-3.5 3.5A3 3 0 0 0 6 13a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0-2.5-5.5A3.5 3.5 0 0 0 12 4z"/></svg>
                 Dr. Brain is generating the plan…
               </div>
@@ -152,6 +159,9 @@
     var panels = wiz.querySelectorAll("[data-wizpanel]");
     var back = wiz.querySelector("[data-wizback]"), next = wiz.querySelector("[data-wiznext]");
     var submit = document.getElementById("wizSubmit"), count = wiz.querySelector("[data-wizcount]");
+    var fill = wiz.querySelector("[data-wizfill]");
+    var stepName = wiz.querySelector("[data-wizstepname]"), stepNum = wiz.querySelector("[data-wizstepnum]");
+    var NAMES = ["Demographics", "Clinical", "Provider", "Review"];
     function show(n) {
       cur = n;
       panels.forEach(function (p) { p.classList.toggle("is-active", +p.getAttribute("data-wizpanel") === n); });
@@ -160,15 +170,58 @@
       next.hidden = n === total;
       submit.hidden = n !== total;
       count.textContent = "Step " + n + " of " + total;
+      /* S7: keep the mobile progress bar in step with the rail */
+      if (fill) fill.style.width = Math.round((n / total) * 100) + "%";
+      if (stepName) stepName.textContent = NAMES[n - 1];
+      if (stepNum) stepNum.textContent = "Step " + n + " of " + total;
       wiz.scrollIntoView({ block: "start", behavior: "smooth" });
     }
-    next.addEventListener("click", function () { if (cur < total) show(cur + 1); });
+    next.addEventListener("click", function () {
+      /* S9 · M2 §4 — each step validates before advancing */
+      var panel = wiz.querySelector('[data-wizpanel="' + cur + '"]');
+      if (!window.paveValidate(panel)) return;
+      if (cur < total) show(cur + 1);
+    });
     back.addEventListener("click", function () { if (cur > 1) show(cur - 1); });
-    submit.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.getElementById("genState").hidden = false;
+    /* S9: staged generation. Append ?gen=fail to the URL to demo the
+       failure path — the real trigger is an API error or timeout. */
+    var gen = document.getElementById("genState");
+    var steps = gen.querySelectorAll("[data-gen-steps] li");
+    var timers = [];
+    function runGeneration() {
+      var willFail = /[?&]gen=fail/.test(location.search);
+      gen.hidden = false;
+      gen.classList.remove("asyncstate--error");
+      gen.querySelector("[data-gen-spin]").hidden = false;
+      gen.querySelector("[data-gen-actions]").hidden = true;
+      gen.querySelector("[data-gen-title]").textContent = "Dr. Brain is generating the plan…";
+      gen.querySelector("[data-gen-sub]").textContent = "This usually takes 10–20 seconds. Leaving this page will cancel it.";
+      steps.forEach(function (li) { li.setAttribute("data-done", "0"); });
       submit.textContent = "Generating…";
-      setTimeout(function () { location.href = "plan-review.html"; }, 1400);
+      submit.classList.add("is-loading");
+      timers.forEach(clearTimeout); timers = [];
+      [0, 1, 2].forEach(function (i) {
+        timers.push(setTimeout(function () { steps[i].setAttribute("data-done", "1"); }, 500 + i * 700));
+      });
+      timers.push(setTimeout(function () {
+        if (willFail) {
+          gen.classList.add("asyncstate--error");
+          gen.querySelector("[data-gen-spin]").hidden = true;
+          gen.querySelector("[data-gen-title]").textContent = "Plan generation failed";
+          gen.querySelector("[data-gen-sub]").textContent =
+            "Dr. Brain did not return a plan. The patient record is saved — nothing was lost, and no invitation has been sent.";
+          gen.querySelector("[data-gen-actions]").hidden = false;
+          submit.textContent = "Create patient & generate plan";
+          submit.classList.remove("is-loading");
+        } else {
+          location.href = "plan-review.html";
+        }
+      }, 2600));
+    }
+    submit.addEventListener("click", function (e) { e.preventDefault(); runGeneration(); });
+    gen.querySelector("[data-gen-retry]").addEventListener("click", function () {
+      history.replaceState(null, "", location.pathname);
+      runGeneration();
     });
     /* single-select chip groups */
     wiz.querySelectorAll("[data-single]").forEach(function (g) {

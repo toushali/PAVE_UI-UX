@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Provider accounts &middot; Kivie Platform Admin</title>
+<script>(function(){var q=(location.search.match(/[?&]theme=(light|dark)/)||[])[1];var t=q;if(!t){try{t=localStorage.getItem("kivie-admin-theme");}catch(e){}}if(t!=="light"&&t!=="dark")t="light";try{localStorage.setItem("kivie-admin-theme",t);}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-page="provider-accounts" data-title="Provider accounts">
+<div class="app" data-shell>
+  <div class="main">
+    <header class="topbar" data-topbar></header>
+    <main class="content">
+      <div class="content__inner">
+
+        <div class="pagehead rise rise-1">
+          <div class="row">
+            <div>
+              <div class="pagehead__title">Provider accounts</div>
+              <div class="pagehead__sub">Every provider across all organizations. Platform-level account control &mdash; distinct from an Org Admin managing their own practice.</div>
+            </div>
+            <span class="spacer"></span>
+            <button class="btn btn--ghost" data-confirm="Provider account export queued &middot; logged."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Export CSV</button>
+            <button class="btn btn--primary" data-modal-open="newProviderModal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Create account</button>
+          </div>
+        </div>
+
+        <section class="kpigrid rise rise-2">
+          <div class="kpi"><div class="kpi__label">Provider accounts</div><div class="kpi__num">48</div><div class="kpi__delta">across <span class="num">12</span> organizations</div></div>
+          <div class="kpi kpi--ready"><div class="kpi__label">Active in 7 days</div><div class="kpi__num">44</div><div class="kpi__delta"><span class="num">92%</span> of accounts</div></div>
+          <div class="kpi kpi--attention"><div class="kpi__label">Dormant 30+ days</div><div class="kpi__num">3</div><div class="kpi__delta">candidates for review</div></div>
+          <div class="kpi"><div class="kpi__label">Pending invites</div><div class="kpi__num">2</div><div class="kpi__delta">MFA not yet enrolled</div></div>
+        </section>
+
+        <div class="alertbar alertbar--info rise rise-2 mt-4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span>MFA is mandatory and <strong>cannot be disabled</strong> on any account (FSD &sect;5.1). Resetting an authenticator forces re-enrolment at next sign-in; it never removes the requirement.</span>
+        </div>
+
+        <section class="card rise rise-3 mt-4" data-filtergroup>
+          <div class="card__head"><span class="card__title">All providers</span><span class="spacer"></span><span class="t-meta"><span class="num" data-filtercount>8</span> of <span class="num">48</span> shown</span></div>
+          <div class="card__body pb-0">
+            <div class="toolbar">
+              <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input data-filter placeholder="Search name, email or organization&hellip;"></span>
+              <select class="select select--sm w-auto" data-filter>
+                <option value="">All organizations</option>
+                <option>Stillman Rehabilitation Group</option>
+                <option>Bay Area Ortho</option>
+                <option>Cascade Physio</option>
+              </select>
+              <select class="select select--sm w-auto" data-filter>
+                <option value="">All statuses</option>
+                <option value="Active">Active</option>
+                <option value="Dormant">Dormant</option>
+                <option value="Suspended">Suspended</option>
+                <option value="Invited">Invited</option>
+              </select>
+            </div>
+          </div>
+          <div class="tablewrap">
+            <table class="qtable" data-sort>
+              <thead><tr>
+                <th data-col>Provider</th>
+                <th data-col data-priority="3">Organization</th>
+                <th data-col>Role</th>
+                <th data-col>Status</th>
+                <th data-col class="center">MFA</th>
+                <th data-col data-priority="3">Last sign-in</th>
+                <th class="right">Manage</th>
+              </tr></thead>
+              <tbody>
+                <tr data-filterrow data-row>
+                  <td><span class="row"><span class="avatar avatar--sm">BS</span>Dr. Brandon Stillman, MD</span><div class="t-meta">b.stillman@stillmanrehab.com</div></td>
+                  <td class="t-sm t-muted">Stillman Rehabilitation Group</td>
+                  <td class="t-sm">Physician &middot; <span class="t-primary fw-semi">Org admin</span></td>
+                  <td><span class="badge badge--ready">Active</span></td>
+                  <td class="center"><span class="conn">Enrolled</span></td>
+                  <td class="num t-sm">2026-07-16 10:02</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="pa-1" data-panel-group="pa">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="pa-1"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Account created <b class="num">2026-04-02</b></span><span>Sign-ins (30d) <b class="num">22</b></span><span>Patients <b class="num">48</b></span><span>Authenticator added <b class="num">2026-06-01</b></span></div>
+                  <div class="row gap-3 flex-wrap">
+                    <button class="btn btn--ghost btn--sm" data-confirm="Authenticator reset &middot; provider must re-enrol at next sign-in &middot; logged."
+                      data-cf-title="Reset this provider&rsquo;s authenticator?"
+                      data-cf-body="Their current authenticator stops working immediately and they must enrol a new one at next sign-in. MFA itself stays mandatory. Use this when a device is lost or replaced."
+                      data-cf-cta="Reset authenticator">Reset MFA</button>
+                    <a class="btn btn--ghost btn--sm" href="hipaa-audit.html">View sign-in history</a>
+                    <span class="spacer"></span>
+                    <button class="btn btn--danger btn--sm" data-confirm="Provider suspended &middot; all sessions ended &middot; logged."
+                      data-cf-title="Suspend this provider account?"
+                      data-cf-body="Access is revoked immediately and any open session ends. Their patients stay enrolled and their billing windows keep running &mdash; reassign the panel before windows close or claims will expire."
+                      data-cf-cta="Suspend account" data-cf-tone="danger">Suspend</button>
+                  </div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><span class="row"><span class="avatar avatar--sm">NH</span>Dr. Nadia Haddad, MD</span><div class="t-meta">n.haddad@stillmanrehab.com</div></td>
+                  <td class="t-sm t-muted">Stillman Rehabilitation Group</td>
+                  <td class="t-sm">Physician</td>
+                  <td><span class="badge badge--ready">Active</span></td>
+                  <td class="center"><span class="conn">Enrolled</span></td>
+                  <td class="num t-sm">2026-07-16 09:58</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="pa-2" data-panel-group="pa">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="pa-2"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Account created <b class="num">2026-07-10</b></span><span>Sign-ins (30d) <b class="num">20</b></span><span>Patients <b class="num">41</b></span><span>Authenticator added <b class="num">2026-07-10</b></span></div>
+                  <div class="row gap-3 flex-wrap">
+                    <button class="btn btn--ghost btn--sm" data-confirm="Authenticator reset &middot; logged."
+                      data-cf-title="Reset this provider&rsquo;s authenticator?" data-cf-body="They must enrol a new authenticator at next sign-in. MFA stays mandatory." data-cf-cta="Reset authenticator">Reset MFA</button>
+                    <a class="btn btn--ghost btn--sm" href="hipaa-audit.html">View sign-in history</a>
+                    <span class="spacer"></span>
+                    <button class="btn btn--danger btn--sm" data-confirm="Provider suspended &middot; logged."
+                      data-cf-title="Suspend this provider account?" data-cf-body="Access is revoked immediately. Reassign their panel before billing windows close." data-cf-cta="Suspend account" data-cf-tone="danger">Suspend</button>
+                  </div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><span class="row"><span class="avatar avatar--sm">AP</span>Dr. Alan Petrov, DO</span><div class="t-meta">a.petrov@stillmanrehab.com</div></td>
+                  <td class="t-sm t-muted">Stillman Rehabilitation Group</td>
+                  <td class="t-sm">Physician &middot; <span class="t-primary fw-semi">Org admin</span></td>
+                  <td><span class="badge badge--ready">Active</span></td>
+                  <td class="center"><span class="conn">Enrolled</span></td>
+                  <td class="num t-sm">2026-07-15 18:30</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="pa-3" data-panel-group="pa">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="pa-3"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Account created <b class="num">2026-04-02</b></span><span>Sign-ins (30d) <b class="num">18</b></span><span>Patients <b class="num">36</b></span><span>Authenticator added <b class="num">2026-04-02</b></span></div>
+                  <div class="row gap-3 flex-wrap">
+                    <button class="btn btn--ghost btn--sm" data-confirm="Authenticator reset &middot; logged."
+                      data-cf-title="Reset this provider&rsquo;s authenticator?" data-cf-body="They must enrol a new authenticator at next sign-in." data-cf-cta="Reset authenticator">Reset MFA</button>
+                    <a class="btn btn--ghost btn--sm" href="hipaa-audit.html">View sign-in history</a>
+                  </div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><span class="row"><span class="avatar avatar--sm">PR</span>Dr. Priya Raman, MD</span><div class="t-meta">p.raman@stillmanrehab.com</div></td>
+                  <td class="t-sm t-muted">Stillman Rehabilitation Group</td>
+                  <td class="t-sm">Physician</td>
+                  <td><span class="badge badge--attention">Dormant</span></td>
+                  <td class="center"><span class="conn">Enrolled</span></td>
+                  <td class="num t-sm under">2026-06-14 08:11</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="pa-4" data-panel-group="pa">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="pa-4"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="alertbar alertbar--warn m-0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg><span>No sign-in for <strong>32 days</strong> while holding <strong>29 patients</strong>. Their billing windows are still running &mdash; claims may be expiring unreviewed.</span></div>
+                  <div class="claimsum"><span>Sign-ins (30d) <b class="num under">0</b></span><span>Patients <b class="num">29</b></span><span>Avg review <b class="num under">12 min</b></span><span>Claim approval <b class="num">74%</b></span></div>
+                  <div class="row gap-3 flex-wrap">
+                    <a class="btn btn--ghost btn--sm" href="reports.html">Open provider activity</a>
+                    <span class="spacer"></span>
+                    <button class="btn btn--danger btn--sm" data-confirm="Provider suspended &middot; logged."
+                      data-cf-title="Suspend this provider account?" data-cf-body="Access is revoked immediately. 29 patients need reassigning before their windows close." data-cf-cta="Suspend account" data-cf-tone="danger">Suspend</button>
+                  </div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><span class="row"><span class="avatar avatar--sm">JL</span>Dr. Jordan Liu, MD</span><div class="t-meta">j.liu@bayareaortho.com</div></td>
+                  <td class="t-sm t-muted">Bay Area Ortho</td>
+                  <td class="t-sm">Physician &middot; <span class="t-primary fw-semi">Org admin</span></td>
+                  <td><span class="badge badge--ready">Active</span></td>
+                  <td class="center"><span class="conn">Enrolled</span></td>
+                  <td class="num t-sm">2026-07-16 08:44</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="pa-5" data-panel-group="pa">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="pa-5"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Account created <b class="num">2026-05-19</b></span><span>Sign-ins (30d) <b class="num">26</b></span><span>Patients <b class="num">33</b></span></div>
+                  <div class="row gap-3 flex-wrap"><a class="btn btn--ghost btn--sm" href="hipaa-audit.html">View sign-in history</a></div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><span class="row"><span class="avatar avatar--sm">MO</span>Dr. Maya Okonkwo, DO</span><div class="t-meta">m.okonkwo@bayareaortho.com</div></td>
+                  <td class="t-sm t-muted">Bay Area Ortho</td>
+                  <td class="t-sm">Physician</td>
+                  <td><span class="badge badge--enrolled">Invited</span></td>
+                  <td class="center"><span class="t-attention fw-semi">Not enrolled</span></td>
+                  <td class="num t-sm t-muted">&mdash;</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="pa-6" data-panel-group="pa">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="pa-6"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Invited <b class="num">2026-07-14</b></span><span>Expires <b class="num">2026-07-21</b></span><span>Status <b>Awaiting OAuth + MFA</b></span></div>
+                  <div class="row gap-3 flex-wrap">
+                    <button class="btn btn--ghost btn--sm" data-confirm="Invitation resent &middot; expires in 7 days &middot; logged.">Resend invite</button>
+                    <span class="spacer"></span>
+                    <button class="btn btn--danger btn--sm" data-confirm="Invitation revoked &middot; logged."
+                      data-cf-title="Revoke this invitation?" data-cf-body="The invite link stops working immediately. They will need a fresh invitation to join." data-cf-cta="Revoke invite" data-cf-tone="danger">Revoke invite</button>
+                  </div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><span class="row"><span class="avatar avatar--sm">TC</span>Dr. Tomas Cordero, MD</span><div class="t-meta">t.cordero@cascadephysio.com</div></td>
+                  <td class="t-sm t-muted">Cascade Physio</td>
+                  <td class="t-sm">Physician</td>
+                  <td><span class="badge badge--ready">Active</span></td>
+                  <td class="center"><span class="conn">Enrolled</span></td>
+                  <td class="num t-sm">2026-07-16 07:20</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="pa-7" data-panel-group="pa">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="pa-7"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Account created <b class="num">2026-06-08</b></span><span>Sign-ins (30d) <b class="num">19</b></span><span>Patients <b class="num">27</b></span></div>
+                  <div class="row gap-3 flex-wrap"><a class="btn btn--ghost btn--sm" href="hipaa-audit.html">View sign-in history</a></div>
+                </div></td></tr>
+
+                <tr data-filterrow data-row>
+                  <td><span class="row"><span class="avatar avatar--sm">HW</span>Dr. Helen Ward, MD</span><div class="t-meta">h.ward@cascadephysio.com</div></td>
+                  <td class="t-sm t-muted">Cascade Physio</td>
+                  <td class="t-sm">Physician</td>
+                  <td><span class="badge badge--approved">Suspended</span></td>
+                  <td class="center"><span class="t-muted">Revoked</span></td>
+                  <td class="num t-sm t-muted">2026-05-30 16:02</td>
+                  <td class="right"><button class="btn btn--ghost btn--sm" data-panel-toggle="pa-8" data-panel-group="pa">Manage</button></td>
+                </tr>
+                <tr class="wqpanel" id="pa-8"><td colspan="7"><div class="wqpanel__inner stackfields">
+                  <div class="claimsum"><span>Suspended <b class="num">2026-06-02</b></span><span>By <b>A. Rivera</b></span><span>Reason <b>Left the practice</b></span><span>Patients reassigned <b class="num">18 / 18</b></span></div>
+                  <div class="row gap-3 flex-wrap">
+                    <button class="btn btn--ghost btn--sm" data-confirm="Account reinstated &middot; MFA re-enrolment required &middot; logged."
+                      data-cf-title="Reinstate this account?" data-cf-body="Access is restored and they must enrol a new authenticator at next sign-in. Their previous patient panel is not returned automatically." data-cf-cta="Reinstate">Reinstate</button>
+                  </div>
+                </div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pager">
+            <span class="pager__info">Showing <span class="num">1&ndash;8</span> of <span class="num">48</span> accounts</span>
+            <span class="pager__btns">
+              <button class="pager__btn" type="button" disabled aria-label="Previous page">&lsaquo;</button>
+              <button class="pager__btn is-current" type="button" aria-current="page">1</button>
+              <button class="pager__btn" type="button">2</button>
+              <button class="pager__btn" type="button">3</button>
+              <button class="pager__btn" type="button">6</button>
+              <button class="pager__btn" type="button" aria-label="Next page">&rsaquo;</button>
+            </span>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="modal" id="newProviderModal">
+  <div class="modal__backdrop"></div>
+  <div class="modal__panel modal__panel--md">
+    <div class="modal__head"><span class="modal__title">Create a provider account</span><button class="modal__x" data-modal-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="modal__body">
+      <div class="form2">
+        <div class="formgroup"><label>Full name<span class="req">*</span></label><input class="input" placeholder="Dr. Jane Okafor, MD" data-required="Enter the provider's full name and credentials."></div>
+        <div class="formgroup"><label>Work email<span class="req">*</span></label><input class="input" type="email" inputmode="email" autocomplete="email" placeholder="name@practice.com" data-required="A work email is required — the invitation is sent there."></div>
+      </div>
+      <div class="formgroup"><label>Organization<span class="req">*</span></label>
+        <select class="select" data-required="Assign the account to an organization.">
+          <option value="">Select an organization&hellip;</option>
+          <option>Stillman Rehabilitation Group</option>
+          <option>Bay Area Ortho</option>
+          <option>Cascade Physio</option>
+        </select>
+      </div>
+      <div class="formgroup mb-0"><label>Role</label>
+        <div class="chips" data-single><button type="button" class="chipopt is-on">Physician</button><button type="button" class="chipopt">Org Admin</button></div>
+      </div>
+      <div class="authnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg><span>They receive an email invitation and must complete OAuth plus mandatory MFA enrolment before any patient data is reachable.</span></div>
+    </div>
+    <div class="modal__foot"><button class="btn btn--ghost" data-modal-close>Cancel</button><button class="btn btn--primary" data-create-provider>Send invitation</button></div>
+  </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script>
+  document.querySelectorAll('.chips[data-single]').forEach(function (g) {
+    var opts = g.querySelectorAll('.chipopt');
+    opts.forEach(function (o) { o.addEventListener('click', function () { opts.forEach(function (x) { x.classList.remove('is-on'); }); o.classList.add('is-on'); }); });
+  });
+  document.querySelector("[data-create-provider]").addEventListener("click", function () {
+    var body = document.querySelector("#newProviderModal .modal__body");
+    if (!window.paveValidate(body)) return;
+    document.getElementById("newProviderModal").classList.remove("is-open");
+    window.paveBanner("Invitation sent · OAuth + MFA required before access · logged.");
+  });
+</script>
+</body>
+</html>
