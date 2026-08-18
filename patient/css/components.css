@@ -141,17 +141,6 @@
 .topbar--brand .topbar__title { font-size: var(--fs-h1); }
 .topbar--brand .iconbtn:active { background: rgba(255,255,255,0.18); }
 /* decorative sprig, top-right, subtle */
-.topbar__motif {
-  position: absolute;
-  top: -10px;
-  right: -6px;
-  width: 96px;
-  height: 96px;
-  color: #fff;
-  opacity: 0.16;
-  pointer-events: none;
-}
-.topbar__motif svg { width: 100%; height: 100%; }
 
 /* ============================================================
    Card
@@ -1407,14 +1396,15 @@
 .faq__a { padding: 0 0 var(--sp-4); font-size: var(--fs-body); color: var(--c-ink-2); }
 
 /* ============================================================
-   GARDEN — Rewards screen ("Your garden")
-   Uses the hand-authored plant + medallion art (assets/art/).
-   The 5-stage plant is the shared metaphor across Today,
-   Rewards, and the celebration overlay.
+   STREAK HERO — Rewards screen
+   Uses the hand-authored companion + medallion art (assets/art/).
+   The companion is the shared metaphor across Today, Rewards and
+   the celebration overlay. Plant and cat share every rule here —
+   only the art and the copy differ.
    ============================================================ */
 
 /* Hero: the current plant stage + streak */
-.garden {
+.streakhero {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1427,26 +1417,26 @@
   /* light card so the plant reads clearly */
   background: var(--c-primary-soft);
 }
-.garden__plant { width: 152px; height: 152px; }
-.garden__count { display: flex; align-items: baseline; gap: var(--sp-2); }
-.garden__num {
+.streakhero__art { width: 152px; height: 152px; }
+.streakhero__count { display: flex; align-items: baseline; gap: var(--sp-2); }
+.streakhero__num {
   font-family: var(--font-serif);
   font-size: 56px;
   line-height: 1;
   font-weight: var(--fw-bold);
   color: var(--c-primary-dark);
 }
-.garden__unit { font-size: var(--fs-body-lg); color: var(--c-ink-2); font-weight: var(--fw-medium); }
-.garden__line { font-size: var(--fs-body-lg); color: var(--c-ink); max-width: 22ch; }
+.streakhero__unit { font-size: var(--fs-body-lg); color: var(--c-ink-2); font-weight: var(--fw-medium); }
+.streakhero__line { font-size: var(--fs-body-lg); color: var(--c-ink); max-width: 22ch; }
 
 /* Points — quietly well-typeset, counts up on load */
-.gardenpoints {
+.pointsblock {
   display: flex;
   align-items: baseline;
   justify-content: center;
   gap: var(--sp-2);
 }
-.gardenpoints__num {
+.pointsblock__num {
   font-family: var(--font-sans);
   font-size: var(--fs-display);
   font-weight: var(--fw-bold);
@@ -1454,7 +1444,7 @@
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
 }
-.gardenpoints__label { font-size: var(--fs-body); color: var(--c-ink-2); }
+.pointsblock__label { font-size: var(--fs-body); color: var(--c-ink-2); }
 
 /* Medallion collection — hexagon badges (earned = color, locked = grey) */
 .medalgrid {
@@ -1640,14 +1630,14 @@
 }
 
 /* Ensure the hidden attribute always wins over component display rules
-   (e.g. .garden / .celebrate set display:flex, which would otherwise
+   (e.g. .streakhero / .celebrate set display:flex, which would otherwise
    override the UA [hidden] { display:none } and leak both states). */
 [hidden] { display: none !important; }
 
 /* ============================================================
    Session 3 — Elevation pass
    Living plant scenes, growth-progress ring, medallion glow,
-   cross-tab garden chip. Everything here is calm + reduced-motion safe.
+   cross-tab streak chip. Everything here is calm + reduced-motion safe.
    ============================================================ */
 
 /* ---- Gentle sway: the plant is alive, breathing slowly ---- */
@@ -1660,9 +1650,9 @@
   50%      { transform: translateY(-2px) scale(1.015); }
 }
 
-/* ---- Garden hero stage: sky glow + ground + growth-progress ring ----
-   Set --stage-prog (0..100) on .garden__stage = progress to next stage. */
-.garden__stage {
+/* ---- Streak hero stage: glow + ground + growth-progress ring ----
+   Set --stage-prog (0..100) on .streakhero__stage = progress to next stage. */
+.streakhero__stage {
   position: relative;
   display: grid;
   place-items: center;
@@ -1671,7 +1661,7 @@
   margin: 0 auto var(--sp-3);
 }
 /* soft ground shadow the plant sits on */
-.garden__stage::after {
+.streakhero__stage::after {
   content: "";
   position: absolute;
   bottom: 26px;
@@ -1681,7 +1671,7 @@
   background: radial-gradient(ellipse at center, rgba(14,74,68,0.18), rgba(14,74,68,0));
 }
 /* thin conic progress ring — how close to the next growth stage */
-.garden__ring {
+.streakhero__ring {
   position: absolute;
   inset: 0;
   border-radius: 50%;
@@ -1696,7 +1686,7 @@
     radial-gradient(closest-side, transparent 79%, #000 80%);
   mask-composite: intersect;
 }
-.garden__ring::before {   /* track — --ink @10% on the light card */
+.streakhero__ring::before {   /* track — --ink @10% on the light card */
   content: "";
   position: absolute;
   inset: 0;
@@ -1706,14 +1696,14 @@
           mask: radial-gradient(closest-side, transparent 79%, #000 80%);
   z-index: -1;
 }
-.garden__stage .garden__plant {
+.streakhero__stage .streakhero__art {
   position: relative;
   z-index: 1;
   transform-origin: 50% 88%;
   animation: plant-sway 6s ease-in-out infinite;
 }
 /* small "days to grow" helper under the streak */
-.garden__grow-note {
+.streakhero__note {
   display: inline-block;
   margin-top: var(--sp-1);
   font-size: var(--fs-caption);
@@ -1741,8 +1731,8 @@
 .medal { position: relative; }
 .medal:active { transform: scale(0.99); }
 
-/* ---- Cross-tab garden chip (Progress top) — carries the metaphor ---- */
-.gardenchip {
+/* ---- Cross-tab streak chip (Progress top) — carries the companion ---- */
+.streakchip {
   display: flex;
   align-items: center;
   gap: var(--sp-4);
@@ -1751,22 +1741,22 @@
   background: var(--paper);
   border: 1px solid var(--c-line);
 }
-.gardenchip__plant {
+.streakchip__art {
   flex: 0 0 auto;
   width: 64px;
   height: 64px;
   transform-origin: 50% 90%;
   animation: plant-sway 6s ease-in-out infinite;
 }
-.gardenchip__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-.gardenchip__num {
+.streakchip__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.streakchip__num {
   font-family: var(--font-serif);
   font-size: var(--fs-h1);
   font-weight: var(--fw-bold);
   line-height: 1;
   color: var(--c-primary-dark);
 }
-.gardenchip__label { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.streakchip__label { font-size: var(--fs-caption); color: var(--c-ink-2); }
 
 /* ---- Calm daily confirmation: seat the plant in a soft scene ---- */
 .plantscene {
@@ -1800,20 +1790,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .garden__stage .garden__plant,
+  .streakhero__stage .streakhero__art,
   .streakcard__plant,
-  .gardenchip__plant,
+  .streakchip__art,
   .plantscene > img { animation: none; }
 }
 
 /* ============================================================
-   Today — unified "garden home" hero (Session 3)
+   Today — unified streak-home hero (Session 3)
    Plant scene + growth ring + streak + the day's check-in action,
    composed as ONE moment instead of a green circle competing with a
    separate streak card. The plant is the emotional anchor; the button
    is the crisp, accessible action.
    ============================================================ */
-.gardenhome {
+.streakhome {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1826,29 +1816,29 @@
   /* light card so the plant reads clearly — Today and Rewards share it */
   background: var(--c-primary-soft);
 }
-.gardenhome .garden__stage { margin-bottom: 0; }
-.gardenhome__streak { display: flex; align-items: baseline; gap: var(--sp-2); }
-.gardenhome__num {
+.streakhome .streakhero__stage { margin-bottom: 0; }
+.streakhome__streak { display: flex; align-items: baseline; gap: var(--sp-2); }
+.streakhome__num {
   font-family: var(--font-serif);
   font-size: 52px;
   line-height: 1;
   font-weight: var(--fw-bold);
   color: var(--c-primary-dark);
 }
-.gardenhome__unit {
+.streakhome__unit {
   font-size: var(--fs-body-lg);
   font-weight: var(--fw-medium);
   color: var(--c-ink-2);
 }
-.gardenhome__cta {
+.streakhome__cta {
   width: 100%;
   max-width: 320px;
   margin-top: var(--sp-3);
 }
-.gardenhome__sub { font-size: var(--fs-caption); color: var(--c-ink-2); }
+.streakhome__sub { font-size: var(--fs-caption); color: var(--c-ink-2); }
 
 /* checked-in state: the action rests as a soft outlined check. */
-.gardenhome.is-done .gardenhome__cta {
+.streakhome.is-done .streakhome__cta {
   background: var(--c-surface);
   color: var(--c-primary-dark);
   border: 1.5px solid var(--c-primary);
@@ -1925,7 +1915,7 @@
 }
 
 /* ============================================================
-   Splash — living brand mark: a translucent "garden bubble" with the
+   Splash — living brand mark: a translucent bubble with the
    plant cycling seedling -> young -> mature -> flowering, softly swaying.
    ============================================================ */
 .brandplant {
@@ -1936,7 +1926,7 @@
   height: 168px;
   margin: 0 auto;
 }
-/* translucent frosted garden bubble behind the plant — alive with a
+/* translucent frosted bubble behind the companion — alive with a
    slow light sweep and drifting sunlit motes */
 /* flat soft disc — no glass gloss, sheen, or glint */
 .brandplant__bubble {
@@ -2566,7 +2556,7 @@
 .celebrate .plant    { width: clamp(96px,  28vw, 120px); height: clamp(105px, 31vw, 132px); }
 .brandplant__img     { width: clamp(96px,  30vw, 132px); height: auto; }
 .celebrate__smallplant { width: clamp(72px, 22vw, 96px); height: auto; }
-.gardenchip__plant   { width: clamp(52px,  16vw, 64px);  height: auto; }
+.streakchip__art   { width: clamp(52px,  16vw, 64px);  height: auto; }
 .plantcard__plant    { width: clamp(64px,  20vw, 80px);  height: auto; }
 
 /* medallions */
@@ -2578,7 +2568,7 @@
 
 /* ---- short viewports (landscape phone): give the fold back to content ---- */
 @media (max-height: 600px) {
-  .garden__plant     { width: clamp(88px,  20vh, 112px); height: clamp(88px, 20vh, 112px); }
+  .streakhero__art     { width: clamp(88px,  20vh, 112px); height: clamp(88px, 20vh, 112px); }
   .celebrate .plant  { width: 84px; height: 92px; }
   .medalreveal       { width: 96px; height: 96px; }
   .medal__art        { width: 72px; height: 72px; }
@@ -2625,7 +2615,7 @@
   .growthhero       { padding: var(--sp-5) var(--sp-6); }
 
   /* illustrations get the extra room */
-  .garden__plant  { width: 176px; height: 176px; }
+  .streakhero__art  { width: 176px; height: 176px; }
   .medal__art     { width: 120px; height: 120px; }
 }
 

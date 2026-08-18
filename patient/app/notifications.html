@@ -69,7 +69,13 @@
     /* Render the design preview from the shared data array. Static only. */
     (function () {
       var data = window.KIVIE_NOTIFICATIONS || [];
-      var app  = window.KIVIE_APP || { name: "Kivie", icon: "../assets/art/plant-2-mature.svg", logo: "../assets/logo.svg" };
+      /* Fallback only if notifications.js failed to load. Even here, do not
+         hardcode a plant — read the same choice notifications.js reads. */
+      var fallbackArt = (function () {
+        var c; try { c = localStorage.getItem("kivie-companion"); } catch (e) {}
+        return c === "cat" ? "../assets/art/cat-2-young.svg" : "../assets/art/plant-2-mature.svg";
+      })();
+      var app  = window.KIVIE_APP || { name: "Kivie", icon: fallbackArt, logo: "../assets/logo.svg" };
 
       function el(tag, cls, text) {
         var e = document.createElement(tag);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your garden · Kivie</title>
+  <title>Rewards · Kivie</title>
   <meta name="theme-color" content="#F4F7F3">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,45 +24,46 @@
   <div class="app">
 
     <header class="topbar">
-      <span class="topbar__title">Your garden</span>
+      <span class="topbar__title">Rewards</span>
     </header>
 
     <main class="content">
 
-      <!-- 1) Garden hero — current plant stage by streak length.
-           12-day streak -> seedling (plant-2). -->
-      <section class="garden rise rise-1" id="heroGrowing" aria-label="Your streak">
-        <div class="garden__stage" style="--stage-prog:71;">
-          <span class="garden__ring" aria-hidden="true"></span>
-          <img class="garden__plant" src="../assets/art/plant-1-young.svg" data-companion-art="1" alt="Your plant, a young seedling" width="152" height="152">
+      <!-- 1) Streak hero — the companion's current stage, by streak length.
+           12-day streak -> stage 1. Art, alt text and copy all follow the
+           chosen motif; nothing here may assume a plant. -->
+      <section class="streakhero rise rise-1" id="heroGrowing" aria-label="Your streak">
+        <div class="streakhero__stage" style="--stage-prog:71;">
+          <span class="streakhero__ring" aria-hidden="true"></span>
+          <img class="streakhero__art" src="../assets/art/plant-1-young.svg" data-companion-art="1" alt="Your plant, a young seedling" width="152" height="152">
         </div>
-        <div class="garden__count">
-          <span class="garden__num">12</span>
-          <span class="garden__unit">day streak</span>
+        <div class="streakhero__count">
+          <span class="streakhero__num">12</span>
+          <span class="streakhero__unit">day streak</span>
         </div>
-        <span class="garden__grow-note">2 days until your plant grows taller 🌱</span>
-        <p class="garden__line">Your plant is growing. A little care each day and it keeps getting stronger.</p>
+        <span class="streakhero__note" data-companion-copy="growNote">2 days until your plant grows taller</span>
+        <p class="streakhero__line" data-companion-copy="growing">Your plant is growing. A little care each day and it keeps getting stronger.</p>
       </section>
 
       <!-- Broken-streak: graceful fresh start (prototype toggle). No red,
-           no "you lost it", just a new seed to plant. -->
-      <section class="garden rise rise-1" id="heroFresh" aria-label="A fresh start" hidden>
-        <div class="garden__stage" style="--stage-prog:0;">
-          <span class="garden__ring" aria-hidden="true"></span>
-          <img class="garden__plant" src="../assets/art/plant-1-young.svg" data-companion-art="1" alt="A fresh sprout" width="152" height="152">
+           no "you lost it" — the streak simply begins again. -->
+      <section class="streakhero rise rise-1" id="heroFresh" aria-label="A fresh start" hidden>
+        <div class="streakhero__stage" style="--stage-prog:0;">
+          <span class="streakhero__ring" aria-hidden="true"></span>
+          <img class="streakhero__art" src="../assets/art/plant-1-young.svg" data-companion-art="1" alt="Your plant, a young seedling" width="152" height="152">
         </div>
-        <div class="garden__count">
-          <span class="garden__num">0</span>
-          <span class="garden__unit">day streak</span>
+        <div class="streakhero__count">
+          <span class="streakhero__num">0</span>
+          <span class="streakhero__unit">day streak</span>
         </div>
-        <p class="garden__line">A fresh start. Check in today to plant a new seed. Every gardener starts here.</p>
+        <p class="streakhero__line" data-companion-copy="fresh">A fresh start. Check in today and your plant begins again &mdash; everyone starts here.</p>
       </section>
 
       <!-- 2) Progress points — counts up on load -->
       <section class="card rise rise-2" aria-label="Progress points">
-        <div class="gardenpoints">
-          <span class="gardenpoints__num" data-count-to="480">0</span>
-          <span class="gardenpoints__label">progress points</span>
+        <div class="pointsblock">
+          <span class="pointsblock__num" data-count-to="480">0</span>
+          <span class="pointsblock__label">progress points</span>
         </div>
       </section>
 
@@ -115,7 +116,7 @@
             <span class="gstep__rail"><span class="gstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span></span>
             <span class="gstep__body">
               <span class="gstep__title">First check-in</span>
-              <span class="gstep__meta">Your seed was planted · Jun 27</span>
+              <span class="gstep__meta"><span data-companion-copy="j1">Your seed was planted</span> · Jun 27</span>
             </span>
           </li>
           <li class="gstep is-done">
@@ -129,22 +130,22 @@
             <span class="gstep__rail"><span class="gstep__dot">14</span></span>
             <span class="gstep__body">
               <span class="gstep__title">Two weeks</span>
-              <span class="gstep__meta">Your seedling becomes a young plant.</span>
-              <span class="gstep__soon">Just 2 days away. Your plant grows taller 🌱</span>
+              <span class="gstep__meta" data-companion-copy="j14">Your seedling becomes a young plant.</span>
+              <span class="gstep__soon" data-companion-copy="j14soon">Just 2 days away. Your plant grows taller 🌱</span>
             </span>
           </li>
           <li class="gstep">
             <span class="gstep__rail"><span class="gstep__dot">30</span></span>
             <span class="gstep__body">
               <span class="gstep__title">One month</span>
-              <span class="gstep__meta">Steady Hand. Your plant begins to bud.</span>
+              <span class="gstep__meta" data-companion-copy="j30">Steady Hand. Your plant begins to bud.</span>
             </span>
           </li>
           <li class="gstep">
             <span class="gstep__rail"><span class="gstep__dot">60</span></span>
             <span class="gstep__body">
-              <span class="gstep__title">Sixty days in full bloom</span>
-              <span class="gstep__meta">Your plant flowers.</span>
+              <span class="gstep__title">Sixty days</span>
+              <span class="gstep__meta" data-companion-copy="j60">Your plant flowers.</span>
             </span>
           </li>
         </ol>
@@ -201,7 +202,7 @@
         var showFresh = growing.hidden === false;
         growing.hidden = showFresh;
         fresh.hidden = !showFresh;
-        btn.textContent = showFresh ? "Back to my garden" : "Preview a fresh start";
+        btn.textContent = showFresh ? "Back to my streak" : "Preview a fresh start";
         window.scrollTo(0, 0);
       });
     })();

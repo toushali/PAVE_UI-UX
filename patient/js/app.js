@@ -530,7 +530,19 @@
       alt: { "1": "Your plant, a young seedling", "2": "Your plant, growing well", "3": "Your plant, in flower" },
       /* medallions carry the motif too — leaf emblem */
       medal: { bronze: "badge-bronze-plant.svg", gold: "badge-gold-plant.svg",
-               locked: "badge-locked-plant.svg", platinum: "badge-platinum-plant.svg" }
+               locked: "badge-locked-plant.svg", platinum: "badge-platinum-plant.svg" },
+      copy: {
+        growNote: "2 days until your plant grows taller",
+        growing:  "Your plant is growing. A little care each day and it keeps getting stronger.",
+        fresh:    "A fresh start. Check in today and your plant begins again \u2014 everyone starts here.",
+        chip:     "Your plant is growing \u2014 see your rewards \u2192",
+        /* the journey track \u2014 one line per milestone */
+        j1:       "Your seed was planted",
+        j14:      "Your seedling becomes a young plant.",
+        j14soon:  "Just 2 days away. Your plant grows taller \ud83c\udf31",
+        j30:      "Steady Hand. Your plant begins to bud.",
+        j60:      "Your plant flowers."
+      }
     },
     cat: {
       label: "cat",
@@ -538,7 +550,19 @@
       alt: { "1": "Your cat, a small kitten", "2": "Your cat, a playful young cat", "3": "Your cat, wise and content" },
       /* paw emblem — the designed cat medallions */
       medal: { bronze: "badge-bronze-cat.svg", gold: "badge-gold-cat.svg",
-               locked: "badge-locked-cat.svg", platinum: "badge-platinum-cat.svg" }
+               locked: "badge-locked-cat.svg", platinum: "badge-platinum-cat.svg" },
+      copy: {
+        growNote: "2 days until your cat grows up",
+        growing:  "Your cat is growing. A little care each day and it keeps getting stronger.",
+        fresh:    "A fresh start. Check in today and your cat begins again \u2014 everyone starts here.",
+        chip:     "Your cat is growing \u2014 see your rewards \u2192",
+        /* the journey track \u2014 one line per milestone */
+        j1:       "Your kitten came home",
+        j14:      "Your kitten becomes a young cat.",
+        j14soon:  "Just 2 days away. Your cat grows up \ud83d\udc3e",
+        j30:      "Steady Hand. Your cat grows surer of itself.",
+        j60:      "Your cat, wise and content."
+      }
     }
   };
 
@@ -567,6 +591,11 @@
     });
     /* any copy that names the companion */
     $$("[data-companion-word]").forEach(function (el) { el.textContent = c.label; });
+    /* whole sentences that only make sense for one motif */
+    $$("[data-companion-copy]").forEach(function (el) {
+      var key = el.getAttribute("data-companion-copy");
+      if (c.copy && c.copy[key]) el.textContent = c.copy[key];
+    });
     /* keep every chooser in sync */
     $$("[data-companion-pick]").forEach(function (btn) {
       var on = btn.getAttribute("data-companion-pick") === name;

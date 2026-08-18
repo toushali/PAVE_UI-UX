@@ -322,7 +322,7 @@ should survive intact.
 
 | Hook | Contract |
 |---|---|
-| `data-companion`, `data-companion-art`, `data-companion-medal`, `data-companion-word` | Plant/cat motif. One choice swaps art, medallions and copy everywhere |
+| `data-companion`, `data-companion-art`, `data-companion-medal`, `data-companion-word`, `data-companion-copy` | Plant/cat motif. One choice swaps **art, medallions, alt text and copy** everywhere. `-word` substitutes the noun; `-copy="key"` substitutes a whole sentence from the motif's `copy` block — the growth notes and the nine-step journey track read differently for a plant and a cat. **Both motifs must define the same keys**, or one silently inherits the other's wording |
 | `data-painscale`, `data-pain`, `data-pain-face`, `data-pain-word` | 0–4 pain scale: emoji face **above** its label, never beside |
 | `data-pillgroup` / `data-pill` | ARIA radiogroup — better/same/worse |
 | `data-submit-checkin` | Stamps `localStorage["kivie-checkin-day"]`, then goes to exercises |
