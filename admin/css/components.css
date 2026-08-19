@@ -624,7 +624,11 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 .t-nocase    { text-transform: none; letter-spacing: 0; }
 .t-link      { font-size: var(--fs-sm); font-weight: var(--fw-semi); }
 /* readable measure for centred prose */
-.measure     { max-width: 44ch; margin-left: auto; margin-right: auto; }
+/* A line-length cap, NOT a centring utility. Centre with .mx-auto
+   where that is actually wanted — otherwise body copy floats away
+   from the rows it introduces. */
+.measure     { max-width: 44ch; }
+.mx-auto     { margin-left: auto; margin-right: auto; }
 
 /* ---- Layout ---- */
 .w-auto    { width: auto; }

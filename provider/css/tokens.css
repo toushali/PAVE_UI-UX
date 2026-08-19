@@ -84,6 +84,10 @@
      Never hardcode 236px / 60px / 1100px / 28px anywhere else. */
   --sidebar-w:   236px;   /* expanded sidebar (≥1024px) */
   --topbar-h:    60px;
+
+  /* dashboard queue rows — fixed so all rows share one grid */
+  --qrow-status: 132px;   /* status badge column */
+  --qrow-acts:   272px;   /* action buttons, right-aligned */
   --content-max: 1100px;  /* FSD §16.1 desktop cap */
   --page-pad:    var(--sp-6);  /* .content left/right padding */
 

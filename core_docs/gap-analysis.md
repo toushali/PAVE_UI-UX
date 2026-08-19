@@ -54,6 +54,16 @@ MFA code `123456` throughout. All four are listed on the sign-in screen and at t
 
 ---
 
+## 2c. Onboarding was shortened past the spec 🟠
+
+**19 Aug, at the client's request:** patient onboarding is now **confirm identity → choose a companion → in**. The welcome carousel, text-size step, notification-channel step and reminder-time step were removed.
+
+**FSD §9.4 says the notification channel is chosen *at onboarding*.** The control is unchanged and still in Settings, along with text size and reminder time — so nothing is unreachable, only the timing differs from the spec. Two ways to close this: amend §9.4, or prompt for the channel on first check-in instead.
+
+**Also removed:** the prototype's portal-jump toolbar, patient portal only. Provider and admin keep theirs.
+
+---
+
 ## 3. Open gaps
 
 ### Provider Portal
@@ -113,7 +123,7 @@ MFA code `123456` throughout. All four are listed on the sign-in screen and at t
 
 | ID | Gap | Sev |
 |---|---|---|
-| — | PWA icons are placeholder — drawn from the design system's leaf, not a designer export | 🟠 |
+| — | **PWA/app icons still placeholder** — the tab favicon is now the real Kivie mark (SVG, all 3 portals), but `favicon-32.png`, `icon-192/512.png`, `apple-touch-icon.png` and the maskable pair are still the old leaf. Install prompts and home-screen icons use those, not the SVG | 🟠 |
 | PT-8 | Companion art is traced SVG: 200–400 paths per file, ~3.4 MB across the art directory. Correct, but unoptimised — run SVGO | 🟡 |
 | PT-7 | Prototype frame chrome ships in CSS; gate behind a flag before build | 🟡 |
 

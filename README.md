@@ -167,7 +167,7 @@ closest thing to a design rationale document.
 | Splash | `auth/splash.html` | Companion art, brand |
 | Login | `auth/login.html` | Magic link — no password, per FSD §5.1 |
 | Verify | `auth/verify.html` | Link-landed state |
-| Onboarding | `auth/onboarding.html` | **Confirm identity first**, then reveal preferences |
+| Onboarding | `auth/onboarding.html` | **Confirm identity, choose a companion, done.** Shortened past FSD §9.4 — see gap-analysis |
 | Session expired | `auth/session-expired.html` | |
 | Today | `app/today.html` | Home. Companion, points, the day's CTA |
 | Check-in | `app/checkin.html` | Pain scale, better/same/worse, optional note. **The RTM qualifying event** |
@@ -425,8 +425,17 @@ with a portal version; bump it whenever `PRECACHE` or a strategy changes.
   correct and scalable, but it is not hand-drawn vector. **Run SVGO over it and
   consider `loading="lazy"` on the off-screen stages**; the numbers respond well
   to path simplification.
-- **PWA icons** are placeholders drawn from the design system's leaf, not a
-  designer export. Replace before launch.
+- **The favicon** (`assets/icons/favicon.svg`) is the Kivie mark lifted verbatim
+  from `logo.svg` — the same three paths, the same two brand colours, wordmark
+  and Illustrator shading dropped because neither survives 16px. It is declared
+  before the PNG on every page in all three portals, so modern browsers take
+  the vector.
+- **The PWA icons are still placeholders** — `favicon-32.png`,
+  `icon-192/512.png`, `apple-touch-icon.png` and the maskable pair are all the
+  old leaf, drawn from the design system rather than exported by a designer.
+  **They need real exports at each size** (install prompts, home-screen icons
+  and older browsers use these, not the SVG); this prototype has no rasteriser
+  to generate them from the mark.
 
 > **A trap if you add art later.** The three cat SVGs arrived with `width` and
 > `height` but **no `viewBox`**. An `<img>` sized to 44 px then renders the

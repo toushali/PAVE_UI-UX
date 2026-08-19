@@ -262,15 +262,25 @@ html[data-theme="dark"] .themetoggle__thumb { left: 28px; }
 
 .qrow { padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--c-line-2); }
 .qrow:last-child { border-bottom: none; }
-.qrow__main { display: grid; grid-template-columns: 2fr 1.4fr auto; gap: var(--sp-4); align-items: center; }
+/* Four fixed tracks so every row lines up: who · what is needed · status ·
+   actions. The last two must NOT be `auto` — rows carry different numbers
+   of buttons, and an auto track sizes to its own row, which pushed the
+   text columns to a different x on every line. */
+.qrow__main {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr) var(--qrow-status) var(--qrow-acts);
+  gap: var(--sp-4);
+  align-items: center;
+}
 .qrow__who { min-width: 0; }
 .qrow__name { font-weight: var(--fw-semi); color: var(--c-ink); }
 .qrow__name:hover { color: var(--c-primary); }
 .qrow__dx { font-size: var(--fs-sm); color: var(--c-ink-2); }
 .qrow__need { font-size: var(--fs-sm); color: var(--c-ink-2); }
 .qrow__need .num { color: var(--c-ink); font-weight: var(--fw-medium); }
-.qrow__right { display: flex; align-items: center; gap: var(--sp-3); justify-content: flex-end; }
-.qrow__acts { display: flex; gap: var(--sp-2); }
+.qrow__right { display: contents; }        /* its children ARE the last two grid cells */
+.qrow__right > .badge { justify-self: start; }
+.qrow__acts { display: flex; gap: var(--sp-2); justify-content: flex-end; }
 
 .qrow__panel { display: none; margin-top: var(--sp-4); padding: var(--sp-4); background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--radius-sm); }
 .qrow__panel.is-open { display: block; animation: panel-in var(--motion-base) var(--ease); }
@@ -642,7 +652,11 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 .t-nocase    { text-transform: none; letter-spacing: 0; }
 .t-link      { font-size: var(--fs-sm); font-weight: var(--fw-semi); }
 /* readable measure for centred prose */
-.measure     { max-width: 44ch; margin-left: auto; margin-right: auto; }
+/* A line-length cap, NOT a centring utility. Centre with .mx-auto
+   where that is actually wanted — otherwise body copy floats away
+   from the rows it introduces. */
+.measure     { max-width: 44ch; }
+.mx-auto     { margin-left: auto; margin-right: auto; }
 
 /* ---- Layout ---- */
 .w-auto    { width: auto; }
@@ -827,6 +841,9 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
    1024px ↓ — icon rail (68px). Labels stay in the DOM for AT.
    ============================================================ */
 @media (max-width: 1023px) {
+  /* tablet: the sidebar is a rail, so the row has less width to give */
+  :root { --qrow-status: 118px; --qrow-acts: 236px; }
+
   /* --sidebar-w flips to the rail width in tokens.css */
   .sidebar__brand { justify-content: center; padding: 0; }
   .sidebar__logoimg, .sidebar__sub { display: none; }
@@ -1036,8 +1053,11 @@ textarea.input { height: auto; min-height: 76px; padding: 10px 12px; resize: ver
 @media (max-width: 767px) {
   /* work-queue / dashboard rows stack instead of squeezing 3 columns */
   .qrow__main { grid-template-columns: 1fr; gap: var(--sp-3); }
-  .qrow__right { justify-content: flex-start; flex-wrap: wrap; }
-  .qrow__acts { flex-wrap: wrap; }
+  /* stacked: the status and the actions belong together again, so the
+     wrapper stops being `display: contents` and becomes a real row */
+  .qrow__right { display: flex; align-items: center; gap: var(--sp-3);
+                 justify-content: flex-start; flex-wrap: wrap; }
+  .qrow__acts { flex-wrap: wrap; justify-content: flex-start; }
 
   /* page headers: title above actions */
   .pagehead .row { flex-wrap: wrap; }

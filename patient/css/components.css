@@ -1250,37 +1250,6 @@
 }
 .trustcard__photo svg { display: block; width: 72px; height: 72px; }
 
-/* welcome carousel: horizontal scroll-snap of cards + dots */
-.welcome {
-  display: flex;
-  gap: var(--sp-4);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: var(--sp-2);
-}
-.welcome__card {
-  flex: 0 0 100%;
-  scroll-snap-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--sp-3);
-  text-align: center;
-  background: var(--c-surface);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  padding: var(--sp-6) var(--sp-5);
-}
-.welcome__icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 72px; height: 72px; border-radius: var(--radius-pill);
-  background: var(--c-primary-soft); color: var(--c-primary);
-}
-.welcome__icon svg { width: 40px; height: 40px; }
-.dots { display: flex; gap: var(--sp-2); justify-content: center; }
-.dots span { width: 10px; height: 10px; border-radius: var(--radius-pill); background: var(--c-line); }
-.dots span.is-active { background: var(--c-primary); width: 26px; }
 
 /* ============================================================
    Settings — rows + toggle switch + big time control
@@ -1907,8 +1876,6 @@
   border: 2.5px solid var(--c-surface);
 }
 .trustcard__verified svg { width: 15px; height: 15px; }
-/* plant preview inside a welcome card icon */
-.welcome__icon img { width: 52px; height: 52px; }
 
 @media (prefers-reduced-motion: reduce) {
   .logo { animation: none; }
@@ -2660,10 +2627,6 @@
 }
 .confirmed__body strong { font-size: var(--fs-body); }
 
-/* Welcome card 3 — two companion bubbles, since the choice comes later */
-.welcome__pair { display: inline-flex; gap: var(--sp-2); }
-.welcome__icon--sm { width: 56px; height: 56px; }
-.welcome__icon--sm img { width: 40px; height: 40px; object-fit: contain; }
 
 /* ============================================================
    R3 — the daily loop: check in, then exercise.

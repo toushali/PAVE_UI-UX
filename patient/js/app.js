@@ -424,87 +424,6 @@
     if ($("#milestoneView") && /[?&]milestone=/.test(window.location.search)) showMilestone();
   }
 
-  /* ------------------------------------------------------------
-     Portal jump — move between the three prototypes (client demo).
-     Patient · Provider · Platform Admin. Prototype scaffolding: delete
-     this control when the portals become separate deployments.
-     Self-styled inline so it looks identical in every app.
-     ------------------------------------------------------------ */
-  function initDesignToggle() {
-    if (document.getElementById("paveDesignToggle")) return;
-    var path = location.pathname;
-    var isProvider = path.indexOf("/provider/") > -1;
-    var isAdmin = path.indexOf("/admin/") > -1;
-    /* base = everything before the portal segment (patient / provider / admin) */
-    var seg = null, base = "";
-    ["patient", "provider", "admin"].forEach(function (sg) {
-      var i = path.indexOf("/" + sg + "/"); if (i > -1) { seg = sg; base = path.slice(0, i); }
-    });
-    /* Provider portal design toggle. */
-    var provTarget = isProvider ? path : base + "/provider/app/dashboard.html";
-
-    var ITEMS = [
-      { label: "Patient",          href: base + "/patient/app/today.html",   cur: seg === "patient" },
-      { label: "Provider",         href: provTarget,                        cur: isProvider },
-      { label: "Platform · Admin", href: base + "/admin/app/overview.html",  cur: isAdmin }
-    ];
-    var curItem = ITEMS.filter(function (i) { return i.cur; })[0] || ITEMS[0];
-    var curLabel = curItem.label;
-
-    /* accent follows the live theme so the control matches the page */
-    var cs = getComputedStyle(document.documentElement);
-    var accent = (cs.getPropertyValue("--c-primary") || "").trim() || "#147D64";
-    var accentSoft = (cs.getPropertyValue("--c-primary-soft") || "").trim() || "#E4F2ED";
-
-    var wrap = document.createElement("div");
-    wrap.id = "paveDesignToggle";
-    var s = wrap.style;
-    s.position = "fixed"; s.left = "14px"; var _tb = document.querySelector(".tabbar"); s.bottom = _tb ? ((_tb.offsetHeight || 64) + 14) + "px" : "14px"; s.zIndex = "2147483000";
-    s.font = "600 13px/1 Inter, system-ui, sans-serif";
-
-    var menu = document.createElement("div");
-    var ms = menu.style;
-    ms.position = "absolute"; ms.left = "0"; ms.bottom = "46px"; ms.minWidth = "188px";
-    ms.background = "#fff"; ms.border = "1px solid rgba(20,40,70,.12)"; ms.borderRadius = "10px";
-    ms.boxShadow = "0 10px 30px rgba(20,40,70,.18)"; ms.padding = "6px"; ms.display = "none";
-    ITEMS.forEach(function (it) {
-      var a = document.createElement("a");
-      a.href = it.href;
-      a.textContent = it.label;
-      var as = a.style;
-      as.display = "block"; as.padding = "9px 12px"; as.borderRadius = "7px";
-      as.color = it.cur ? accent : "#1A2230";
-      as.background = it.cur ? accentSoft : "transparent";
-      as.textDecoration = "none"; as.fontWeight = it.cur ? "700" : "600";
-      a.addEventListener("mouseenter", function () { if (!it.cur) a.style.background = "#F3F5F4"; });
-      a.addEventListener("mouseleave", function () { if (!it.cur) a.style.background = "transparent"; });
-      menu.appendChild(a);
-    });
-
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.setAttribute("aria-label", "Switch prototype — viewing " + curLabel);
-    btn.innerHTML =
-      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="' + accent + '" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2.4" fill="' + accent + '" stroke="none"/><circle cx="15" cy="12" r="2.4" fill="' + accent + '" stroke="none"/><circle cx="8" cy="17" r="2.4" fill="' + accent + '" stroke="none"/></svg>' +
-      '<span style="white-space:nowrap">' + curLabel + '</span>' +
-      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8993A2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
-    var bs = btn.style;
-    bs.display = "inline-flex"; bs.alignItems = "center"; bs.gap = "8px";
-    bs.minHeight = "38px"; bs.padding = "0 12px";
-    bs.borderRadius = "999px"; bs.border = "1px solid rgba(20,40,70,.12)";
-    bs.background = "#fff"; bs.color = "#1A2230";
-    bs.boxShadow = "0 4px 14px rgba(20,40,70,.16)"; bs.cursor = "pointer";
-
-    var open = false;
-    btn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      open = !open; menu.style.display = open ? "block" : "none";
-    });
-    document.addEventListener("click", function () { if (open) { open = false; menu.style.display = "none"; } });
-
-    wrap.appendChild(menu); wrap.appendChild(btn);
-    document.body.appendChild(wrap);
-  }
 
 
   /* ============================================================
@@ -633,7 +552,6 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     initCompanion();
-    initDesignToggle();
     initTabs();
     initToggles();
     initDoneToggles();

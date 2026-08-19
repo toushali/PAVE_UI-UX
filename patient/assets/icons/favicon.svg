@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kivie mark, lifted verbatim from assets/logo.svg (the "K" glyph, x 0–196.6
+     of that file's 742.71-wide artboard) and centred on a square canvas.
+
+     The wordmark is dropped: at 16px it is an unreadable smear. The logo's
+     three grey→white gradient overlays are dropped too — they are Illustrator
+     shading that contributes nothing below about 64px and muddies the mark at
+     favicon sizes. What is left is the flat brand mark in its two brand
+     colours, which is what reads in a tab. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-29.7 -14.3 256 256"
+     width="256" height="256" role="img" aria-label="Kivie">
+  <title>Kivie</title>
+  <path fill="#00798B" d="M72.91,20.78C72.91,9.3,63.6,0,52.13,0H0v0v130.31v35.32v40.99c0,11.48,9.3,20.78,20.78,20.78
+    h52.13v-50.32V99.97v0V20.78z"/>
+  <path fill="#51E0DB" d="M167.92,3.66c-7.06,0-13.87,2.61-19.13,7.33L91,62.89v98.56l88.99-79.5
+    c10.53-9.41,16.56-22.87,16.56-36.99V32.28C196.55,16.47,183.73,3.66,167.92,3.66z"/>
+  <path fill="#00798B" d="M191.12,193.41c0-4.96-0.63-9.92-2.04-14.68c-1.81-6.09-4.4-10.71-9.64-15.15l0,0
+    c-20.22-17.13-53.43-15.88-71.77,2.71L91,183.19l12.03,13.03c0,0,8.9,9.67,16.86,18.26c7.56,8.16,19.12,12.92,31.36,12.92h0
+    h39.87L191.12,193.41z"/>
+</svg>
